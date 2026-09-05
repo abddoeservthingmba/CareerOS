@@ -11,11 +11,11 @@ Requirement → track → acceptance criterion → test → status.
 | `AI-01` | R1 | P0 | `AC-AI-01.3` | `T-AI-01.3` | `tests/spec/test_layer_leaks.py` | test not written |
 | `AI-01` | R1 | P0 | `AC-AI-01.4` | `T-AI-01.4` | `tests/ai/test_adapter_error_mapping.py` | test not written |
 | `AI-01` | R1 | P0 | `AC-AI-01.5` | `T-AI-01.5` | `tests/ai/test_complete_json_contract.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.1` | `T-AI-02.1` | `tests/ai/test_registry_routing.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.2` | `T-AI-02.2` | `tests/spec/test_no_model_literals.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.3` | `T-AI-02.3` | `tests/ai/test_provider_contract.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.4` | `T-AI-02.4` | `tests/ai/test_embedding_migration_guard.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.5` | `T-AI-02.5` | `tests/ai/test_registry_startup_validation.py` | test not written |
+| `AI-02` | R1 | P0 | `AC-AI-02.1` | `T-AI-02.1` | `tests/ai/test_registry_routing.py` | test present |
+| `AI-02` | R1 | P0 | `AC-AI-02.2` | `T-AI-02.2` | `tests/spec/test_no_model_literals.py` | test present |
+| `AI-02` | R1 | P0 | `AC-AI-02.3` | `T-AI-02.3` | `tests/ai/test_provider_contract.py` | test present |
+| `AI-02` | R1 | P0 | `AC-AI-02.4` | `T-AI-02.4` | `tests/ai/test_embedding_migration_guard.py` | test present |
+| `AI-02` | R1 | P0 | `AC-AI-02.5` | `T-AI-02.5` | `tests/ai/test_registry_startup_validation.py` | test present |
 | `AI-03` | R1 | P0 | `AC-AI-03.1` | `T-AI-03.1` | `tests/ai/test_degradation.py` | test not written |
 | `AI-03` | R1 | P0 | `AC-AI-03.2` | `T-AI-03.2` | `tests/ai/test_precall_budget_check.py` | test not written |
 | `AI-03` | R1 | P0 | `AC-AI-03.3` | `T-AI-03.3` | `tests/ai/test_cost_accounting.py` | test not written |

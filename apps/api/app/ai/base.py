@@ -25,7 +25,7 @@ from __future__ import annotations
 from collections.abc import AsyncIterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from enum import StrEnum
-from typing import Literal, Protocol
+from typing import Literal, Protocol, runtime_checkable
 
 from pydantic import BaseModel
 
@@ -178,6 +178,11 @@ class AIBudgetExceeded(AIError):
 # -- the protocols ----------------------------------------------------------
 
 
+# `runtime_checkable` so the adapter contract suite (`AC-AI-02.3`) can assert
+# conformance structurally. It checks method presence only; the signatures are
+# asserted separately, which is what keeps the protocol from drifting into
+# being Gemini-shaped.
+@runtime_checkable
 class LLMProvider(Protocol):
     name: str
 
@@ -190,6 +195,7 @@ class LLMProvider(Protocol):
     def stream(self, req: LLMRequest) -> AsyncIterator[str]: ...
 
 
+@runtime_checkable
 class EmbeddingProvider(Protocol):
     name: str
     model: str
