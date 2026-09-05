@@ -5,6 +5,7 @@ description = "JobPilot API and worker — one image, two entrypoints (ADR-002).
 requires-python = "==3.12.*"
 dependencies = [
     "pydantic>=2.9",
+    "pydantic-settings>=2.6",
 ]
 
 # Product dependencies are added by the requirement that needs them, never

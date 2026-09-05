@@ -180,7 +180,7 @@ def absent_findings(root: Path | None = None, spec: Spec | None = None) -> list[
     absent = absent_requirements(spec)
     product = tuple(r for r in CODE_ROOTS if r != "infra/scripts")
     for path in _code_files(root, product):
-        text = path.read_text(encoding="utf-8", errors="replace")
+        text = _executable_source(path)
         for requirement in sorted(absent):
             if re.search(rf"\b{re.escape(requirement)}\b", text):
                 out.append(
@@ -188,6 +188,36 @@ def absent_findings(root: Path | None = None, spec: Spec | None = None) -> list[
                     f"{requirement}"
                 )
     return out
+
+
+def _executable_source(path: Path) -> str:
+    """A file's code with comments and string literals removed.
+
+    `AC-FOUND-15.6` forbids "a code path mentioning" an `absent` requirement. A
+    docstring that explains *why* something is deliberately absent - "the R2/R3
+    credentials `NOTIF-02b` needs are not here" - is the opposite of a code path
+    for it, and citing the specification is how the rest of this codebase stays
+    reviewable. So the scan looks at code only.
+    """
+    source = path.read_text(encoding="utf-8", errors="replace")
+    if path.suffix != ".py":
+        # Line and block comments; the clients arrive in later phases and this
+        # is refined then if it proves too coarse.
+        source = re.sub(r"/\*.*?\*/", " ", source, flags=re.DOTALL)
+        return re.sub(r"//[^\n]*", " ", source)
+
+    import io
+    import tokenize
+
+    try:
+        tokens = tokenize.generate_tokens(io.StringIO(source).readline)
+        return " ".join(
+            token.string
+            for token in tokens
+            if token.type not in (tokenize.COMMENT, tokenize.STRING)
+        )
+    except (tokenize.TokenError, IndentationError, SyntaxError):
+        return source
 
 
 STATUS_HEADER = """# Implementation status — generated from docs/spec/

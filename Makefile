@@ -52,8 +52,13 @@ spec-metadata:  ## Regenerate docs/spec/SPEC-METADATA.json
 check-spec:  ## Run every spec gate and print a per-check report
 	@$(SPECGATE) check
 
+.PHONY: error-codes
+error-codes:  ## Regenerate docs/error-codes.md from the ErrorCode enum
+	@cd apps/api && py -m uv run python -c "from app.core.errors import render_error_codes; open('../../docs/error-codes.md','w',encoding='utf-8',newline='').write(render_error_codes())"
+	@echo "wrote docs/error-codes.md"
+
 .PHONY: generate
-generate: build-order status spec-trace spec-metadata  ## Regenerate every committed artifact
+generate: build-order status spec-trace spec-metadata error-codes  ## Regenerate every committed artifact
 
 # --- the gate ---------------------------------------------------------------
 

@@ -125,11 +125,11 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.3` | `T-FOUND-01.3` | `tests/spec/test_layer_leaks.py` | test not written |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.4` | `T-FOUND-01.4` | `tests/spec/test_layer_leaks.py` | test not written |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.5` | `T-FOUND-01.5` | `.github/workflows/contracts.yml` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.1` | `T-FOUND-02.1` | `tests/unit/test_config_failfast.py` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.2` | `T-FOUND-02.2` | `tests/unit/test_config_secrets.py` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.3` | `T-FOUND-02.3` | `tests/spec/test_env_example_parity.py` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.4` | `T-FOUND-02.4` | `tests/spec/test_no_hardcoded_product_name.py` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.5` | `T-FOUND-02.5` | `tests/integration/test_feature_flags.py` | test not written |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.1` | `T-FOUND-02.1` | `tests/unit/test_config_failfast.py` | test present |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.2` | `T-FOUND-02.2` | `tests/unit/test_config_secrets.py` | test present |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.3` | `T-FOUND-02.3` | `tests/spec/test_env_example_parity.py` | test present |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.4` | `T-FOUND-02.4` | `tests/spec/test_no_hardcoded_product_name.py` | test present |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.5` | `T-FOUND-02.5` | `tests/integration/test_feature_flags.py` | test present |
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.1` | `T-FOUND-03.1` | `tests/spec/test_no_direct_clock.py` | test present |
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.2` | `T-FOUND-03.2` | `tests/unit/test_time_utc.py` | test present |
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.3` | `T-FOUND-03.3` | `tests/contract/test_no_objectid_in_responses.py` | test not written |
@@ -178,8 +178,8 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.1` | `T-FOUND-12.1` | `tests/contract/test_problem_json.py` | test not written |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.2` | `T-FOUND-12.2` | `tests/integration/test_unhandled_exception.py` | test not written |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.3` | `T-FOUND-12.3` | `tests/integration/test_request_id_propagation.py` | test not written |
-| `FOUND-12` | R1 | P0 | `AC-FOUND-12.4` | `T-FOUND-12.4` | `tests/spec/test_error_code_registry.py` | test not written |
-| `FOUND-12` | R1 | P0 | `AC-FOUND-12.5` | `T-FOUND-12.5` | `tests/spec/test_error_code_registry.py` | test not written |
+| `FOUND-12` | R1 | P0 | `AC-FOUND-12.4` | `T-FOUND-12.4` | `tests/spec/test_error_code_registry.py` | test present |
+| `FOUND-12` | R1 | P0 | `AC-FOUND-12.5` | `T-FOUND-12.5` | `tests/spec/test_error_code_registry.py` | test present |
 | `FOUND-13` | R1 | P0 | `AC-FOUND-13.1` | `T-FOUND-13.1` | `tests/contract/test_route_metadata.py` | test not written |
 | `FOUND-13` | R1 | P0 | `AC-FOUND-13.2` | `T-FOUND-13.2` | `.github/workflows/contracts.yml` | test not written |
 | `FOUND-13` | R1 | P0 | `AC-FOUND-13.3` | `T-FOUND-13.3` | `.github/workflows/contracts.yml` | test not written |
@@ -237,7 +237,7 @@ Requirement → track → acceptance criterion → test → status.
 | `OPS-04` | R1 | P0 | `AC-OPS-04.3` | `T-OPS-04.3` | `tests/integration/test_tracing.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.4` | `T-OPS-04.4` | `tests/integration/test_alert_conditions.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.5` | `T-OPS-04.5` | `tests/spec/test_runbooks_present.py` | test not written |
-| `OPS-05` | R1 | P0 | `AC-OPS-05.1` | `T-OPS-05.1` | `tests/spec/test_env_example_parity.py` | test not written |
+| `OPS-05` | R1 | P0 | `AC-OPS-05.1` | `T-OPS-05.1` | `tests/spec/test_env_example_parity.py` | test present |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.2` | `T-OPS-05.2` | `tests/spec/test_env_example_no_secrets.py` | test not written |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.3` | `T-OPS-05.3` | `tests/ai/test_gemini_startup_guards.py` | test not written |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.4` | `T-OPS-05.4` | `.github/workflows/api-ci.yml` | test not written |
@@ -540,7 +540,7 @@ Requirement → track → acceptance criterion → test → status.
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.6` | `T-ADMIN-02.6` | `tests/integration/test_usage_rollup.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.7` | `T-ADMIN-02.7` | `apps/web/.../ai-usage.test.tsx` | test not written |
 | `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.1` | `T-ADMIN-03.1` | `tests/integration/test_admin_flags.py` | test not written |
-| `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.2` | `T-ADMIN-03.2` | `tests/integration/test_feature_flags.py` | test not written |
+| `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.2` | `T-ADMIN-03.2` | `tests/integration/test_feature_flags.py` | test present |
 | `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.3` | `T-ADMIN-03.3` | `tests/integration/test_unknown_flag.py` | test not written |
 | `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.4` | `T-ADMIN-03.4` | `tests/integration/test_admin_audit.py` | test not written |
 | `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.5` | `T-ADMIN-03.5` | `tests/integration/test_ingestion_kill_switch.py` | test not written |
