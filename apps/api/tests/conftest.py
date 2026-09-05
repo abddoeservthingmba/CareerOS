@@ -1,7 +1,8 @@
-"""Fixtures for the specification gates.
+"""Fixtures shared by every suite.
 
-The gates read `docs/spec/` and the repository tree; they import no product
-code, so they run from the first commit onward with no application environment.
+The spec gates read `docs/spec/` and the repository tree, and several unit tests
+assert a code artifact against the specification that requires it, so `repo` and
+the parsed specification live here rather than under `tests/spec/`.
 """
 
 from __future__ import annotations
@@ -11,7 +12,7 @@ from pathlib import Path
 
 import pytest
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "infra" / "scripts"))
 
 from specgate import manifest as manifest_mod  # noqa: E402

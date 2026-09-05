@@ -6,8 +6,8 @@ Requirement → track → acceptance criterion → test → status.
 
 | Requirement | Track | Phase | AC | Test | Path | Status |
 |---|---|---|---|---|---|---|
-| `AI-01` | R1 | P0 | `AC-AI-01.1` | `T-AI-01.1` | `tests/spec/test_ai_base_purity.py` | test not written |
-| `AI-01` | R1 | P0 | `AC-AI-01.2` | `T-AI-01.2` | `tests/unit/test_llm_request.py` | test not written |
+| `AI-01` | R1 | P0 | `AC-AI-01.1` | `T-AI-01.1` | `tests/spec/test_ai_base_purity.py` | test present |
+| `AI-01` | R1 | P0 | `AC-AI-01.2` | `T-AI-01.2` | `tests/unit/test_llm_request.py` | test present |
 | `AI-01` | R1 | P0 | `AC-AI-01.3` | `T-AI-01.3` | `tests/spec/test_layer_leaks.py` | test not written |
 | `AI-01` | R1 | P0 | `AC-AI-01.4` | `T-AI-01.4` | `tests/ai/test_adapter_error_mapping.py` | test not written |
 | `AI-01` | R1 | P0 | `AC-AI-01.5` | `T-AI-01.5` | `tests/ai/test_complete_json_contract.py` | test not written |
@@ -44,9 +44,9 @@ Requirement → track → acceptance criterion → test → status.
 | `AI-06` | R1 | P0 | `AC-AI-06.1` | `T-AI-06.1` | `tests/spec/test_untrusted_rendering.py` | test not written |
 | `AI-06` | R1 | P0 | `AC-AI-06.2` | `T-AI-06.2` | `tests/ai/test_injection_corpus.py` | test not written |
 | `AI-06` | R1 | P0 | `AC-AI-06.3` | `T-AI-06.3` | `tests/spec/test_no_output_driven_control_flow.py` | test not written |
-| `AI-06` | R1 | P0 | `AC-AI-06.4` | `T-AI-06.4` | `tests/unit/test_delimiter_nonce.py` | test not written |
+| `AI-06` | R1 | P0 | `AC-AI-06.4` | `T-AI-06.4` | `tests/unit/test_delimiter_nonce.py` | test present |
 | `AI-06` | R1 | P0 | `AC-AI-06.5` | `T-AI-06.5` | `apps/web/src/features/**/__tests__/ai-content.test.tsx`, `apps/mobile/test/ai_content_test.dart` | test not written |
-| `AI-06` | R1 | P0 | `AC-AI-06.6` | `T-AI-06.6` | `tests/unit/test_content_caps.py` | test not written |
+| `AI-06` | R1 | P0 | `AC-AI-06.6` | `T-AI-06.6` | `tests/unit/test_content_caps.py` | test present |
 | `AI-07` | R1 | P0 | `AC-AI-07.1` | `T-AI-07.1` | `tests/ai/test_prompt_loader.py` | test not written |
 | `AI-07` | R1 | P0 | `AC-AI-07.2` | `T-AI-07.2` | `.github/workflows/api-ci.yml` | test not written |
 | `AI-07` | R1 | P0 | `AC-AI-07.3` | `T-AI-07.3` | `tests/ai/test_golden_fake.py` | test not written |
@@ -399,7 +399,7 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-03` | R1 | P2 | `AC-RES-03.6` | `T-RES-03.6` | `tests/ai/test_injection_corpus.py` | test not written |
 | `RES-03` | R1 | P2 | `AC-RES-03.7` | `T-RES-03.7` | `tests/unit/test_extraction_chunking.py` | test not written |
 | `RES-03` | R1 | P2 | `AC-RES-03.8` | `T-RES-03.8` | `tests/spec/test_collection_ownership.py` | test not written |
-| `RES-05` | R1 | P2 | `AC-RES-05.1` | `T-RES-05.1` | `tests/unit/test_llm_request.py` | test not written |
+| `RES-05` | R1 | P2 | `AC-RES-05.1` | `T-RES-05.1` | `tests/unit/test_llm_request.py` | test present |
 | `RES-05` | R1 | P2 | `AC-RES-05.2` | `T-RES-05.2` | `tests/integration/test_no_file_to_provider.py` | test not written |
 | `RES-05` | R1 | P2 | `AC-RES-05.3` | `T-RES-05.3` | `tests/integration/test_no_file_to_provider.py` | test not written |
 | `RES-05` | R1 | P2 | `AC-RES-05.4` | `T-RES-05.4` | `tests/integration/test_presigned_urls.py` | test not written |

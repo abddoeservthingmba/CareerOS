@@ -159,7 +159,10 @@ def main(argv: list[str]) -> int:
         return 0 if argv else 2
     target = argv[0]
     if target not in TARGETS:
-        print(f"unknown target {target!r}; try: {', '.join(sorted(TARGETS))}", file=sys.stderr)
+        print(
+            f"unknown target {target!r}; try: {', '.join(sorted(TARGETS))}",
+            file=sys.stderr,
+        )
         return 2
     return TARGETS[target](argv[1:])
 

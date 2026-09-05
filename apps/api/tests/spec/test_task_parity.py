@@ -32,8 +32,7 @@ def test_the_two_entry_points_offer_the_same_targets(repo: Path):
     make = make_targets(repo) - {"help"}  # `help` lists the Makefile's own targets
     tasks = task_targets(repo)
     assert make == tasks, (
-        f"only in Makefile: {sorted(make - tasks)}\n"
-        f"only in tasks.py: {sorted(tasks - make)}"
+        f"only in Makefile: {sorted(make - tasks)}\nonly in tasks.py: {sorted(tasks - make)}"
     )
 
 
