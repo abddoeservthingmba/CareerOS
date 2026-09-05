@@ -1,0 +1,7 @@
+# `AC-DEP-04.4` requires the generated `BUILD-ORDER.md` to be byte-identical to
+# the committed copy, and the generators write LF. Without this, a clone on
+# Windows checks the file out with CRLF and the check fails on a clean tree.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary

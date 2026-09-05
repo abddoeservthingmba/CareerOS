@@ -1,0 +1,38 @@
+[project]
+name = "jobpilot-api"
+version = "0.1.0"
+description = "JobPilot API and worker — one image, two entrypoints (ADR-002)."
+requires-python = "==3.12.*"
+dependencies = []
+
+# Product dependencies are added by the requirement that needs them, never
+# speculatively (`01-foundations.md` §1). The spec gates in `tests/spec/` import
+# no product code and no third-party library beyond pytest, so they run before
+# any of it exists.
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.8",
+    "mypy>=1.13",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["app", "../../infra/scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "../../infra/scripts"
+files = ["tests", "../../infra/scripts/specgate"]
+
+# A pytest test function's signature is fixtures in, nothing out, and annotating
+# every one adds noise without adding a check. Everything else stays strict.
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
