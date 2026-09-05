@@ -78,7 +78,7 @@ Requirement → track → acceptance criterion → test → status.
 | `DATA-05` | R1 | P0 | `AC-DATA-05.3` | `T-DATA-05.3` | `tests/integration/test_account_purge.py` | test not written |
 | `DATA-05` | R1 | P0 | `AC-DATA-05.4` | `T-DATA-05.4` | `tests/spec/test_retention_coverage.py` | test not written |
 | `DATA-05` | R1 | P0 | `AC-DATA-05.5` | `T-DATA-05.5` | `tests/integration/test_purge_isolation.py` | test not written |
-| `DATA-06` | R1 | P0 | `AC-DATA-06.1` | `T-DATA-06.1` | `tests/unit/test_embedding_quantization.py` | test not written |
+| `DATA-06` | R1 | P0 | `AC-DATA-06.1` | `T-DATA-06.1` | `tests/unit/test_embedding_quantization.py` | test present |
 | `DATA-06` | R1 | P0 | `AC-DATA-06.2` | `T-DATA-06.2` | `tests/integration/test_description_truncation.py` | test not written |
 | `DATA-06` | R1 | P0 | `AC-DATA-06.3` | `T-DATA-06.3` | `tests/integration/test_staleness_pressure.py` | test not written |
 | `DATA-06` | R1 | P0 | `AC-DATA-06.4` | `T-DATA-06.4` | `tests/integration/test_capacity_report.py` | test not written |
@@ -112,7 +112,7 @@ Requirement → track → acceptance criterion → test → status.
 | `DEP-05` | R1 | P0 | `AC-DEP-05.1` | `T-DEP-05.1` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.2` | `T-DEP-05.2` | `tests/spec/test_email_ownership.py` | test not written |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.3` | `T-DEP-05.3` | `tests/spec/test_phase_closure.py` | test present |
-| `DEP-05` | R1 | P0 | `AC-DEP-05.4` | `T-DEP-05.4` | `tests/unit/test_embedding_quantization.py` | test not written |
+| `DEP-05` | R1 | P0 | `AC-DEP-05.4` | `T-DEP-05.4` | `tests/unit/test_embedding_quantization.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.5` | `T-DEP-05.5` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.6` | `T-DEP-05.6` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.7` | `T-DEP-05.7` | `tests/spec/test_consistency_report.py` | test not written |
@@ -130,12 +130,12 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-02` | R1 | P0 | `AC-FOUND-02.3` | `T-FOUND-02.3` | `tests/spec/test_env_example_parity.py` | test not written |
 | `FOUND-02` | R1 | P0 | `AC-FOUND-02.4` | `T-FOUND-02.4` | `tests/spec/test_no_hardcoded_product_name.py` | test not written |
 | `FOUND-02` | R1 | P0 | `AC-FOUND-02.5` | `T-FOUND-02.5` | `tests/integration/test_feature_flags.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.1` | `T-FOUND-03.1` | `tests/spec/test_no_direct_clock.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.2` | `T-FOUND-03.2` | `tests/unit/test_time_utc.py` | test not written |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.1` | `T-FOUND-03.1` | `tests/spec/test_no_direct_clock.py` | test present |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.2` | `T-FOUND-03.2` | `tests/unit/test_time_utc.py` | test present |
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.3` | `T-FOUND-03.3` | `tests/contract/test_no_objectid_in_responses.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.4` | `T-FOUND-03.4` | `tests/unit/test_money.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.5` | `T-FOUND-03.5` | `tests/unit/test_fx.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.6` | `T-FOUND-03.6` | `tests/unit/test_ulid.py` | test not written |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.4` | `T-FOUND-03.4` | `tests/unit/test_money.py` | test present |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.5` | `T-FOUND-03.5` | `tests/unit/test_fx.py` | test present |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.6` | `T-FOUND-03.6` | `tests/unit/test_ulid.py` | test present |
 | `FOUND-04` | R1 | P0 | `AC-FOUND-04.1` | `T-FOUND-04.1` | `.github/workflows/api-ci.yml` | test not written |
 | `FOUND-04` | R1 | P0 | `AC-FOUND-04.2` | `T-FOUND-04.2` | `tests/spec/test_module_anatomy.py` | test not written |
 | `FOUND-04` | R1 | P0 | `AC-FOUND-04.3` | `T-FOUND-04.3` | `tests/spec/test_import_linter_catches_violation.py` | test not written |
@@ -694,7 +694,7 @@ Requirement → track → acceptance criterion → test → status.
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.4` | `T-NOTIF-01.4` | `tests/integration/test_reminder_cancellation.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.5` | `T-NOTIF-01.5` | `tests/unit/test_terminal_no_reminders.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.6` | `T-NOTIF-01.6` | `tests/integration/test_reminder_payload.py` | test not written |
-| `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.7` | `T-NOTIF-01.7` | `tests/unit/test_time_utc.py` | test not written |
+| `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.7` | `T-NOTIF-01.7` | `tests/unit/test_time_utc.py` | test present |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.8` | `T-NOTIF-01.8` | `tests/unit/test_dst_scheduling.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.9` | `T-NOTIF-01.9` | `tests/integration/test_tz_change_reconcile.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.10` | `T-NOTIF-01.10` | `tests/integration/test_reconciliation.py` | test not written |
@@ -729,7 +729,7 @@ Requirement → track → acceptance criterion → test → status.
 | `TRACK-03` | R1 | P6 | `AC-TRACK-03.5` | `T-TRACK-03.5` | `tests/integration/test_interview_reminders.py` | test not written |
 | `TRACK-03` | R1 | P6 | `AC-TRACK-03.6` | `T-TRACK-03.6` | `tests/unit/test_interview_rounds.py` | test not written |
 | `TRACK-03` | R1 | P6 | `AC-TRACK-03.7` | `T-TRACK-03.7` | `tests/integration/test_salary_log_append_only.py` | test not written |
-| `TRACK-03` | R1 | P6 | `AC-TRACK-03.8` | `T-TRACK-03.8` | `tests/unit/test_money.py` | test not written |
+| `TRACK-03` | R1 | P6 | `AC-TRACK-03.8` | `T-TRACK-03.8` | `tests/unit/test_money.py` | test present |
 | `TRACK-03` | R1 | P6 | `AC-TRACK-03.9` | `T-TRACK-03.9` | `tests/integration/test_last_activity.py` | test not written |
 | `TRACK-04` | R1 | P6 | `AC-TRACK-04.1` | `T-TRACK-04.1` | `tests/integration/test_timeline_journey.py` | test not written |
 | `TRACK-04` | R1 | P6 | `AC-TRACK-04.2` | `T-TRACK-04.2` | `tests/integration/test_timeline_backing.py` | test not written |

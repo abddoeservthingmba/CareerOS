@@ -29,8 +29,7 @@ def test_the_absent_set_is_the_r2_and_r3_work(spec, manifest):
         if requirement not in manifest:
             continue
         assert manifest[requirement].track in ("R2", "R3"), (
-            f"{requirement} is derived `absent` but tracked "
-            f"{manifest[requirement].track}"
+            f"{requirement} is derived `absent` but tracked {manifest[requirement].track}"
         )
 
 

@@ -21,7 +21,9 @@ def repo_root(start: Path | None = None) -> Path:
     for candidate in (here, *here.parents):
         if (candidate / "docs" / "spec" / "README.md").is_file():
             return candidate
-    raise RuntimeError(f"repository root (containing docs/spec/) not found above {here}")
+    raise RuntimeError(
+        f"repository root (containing docs/spec/) not found above {here}"
+    )
 
 
 def spec_dir(start: Path | None = None) -> Path:

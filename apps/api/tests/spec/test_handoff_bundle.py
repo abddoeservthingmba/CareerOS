@@ -45,8 +45,7 @@ def test_no_r1_bundle_exceeds_five_files(manifest, spec):
 def test_every_anchor_resolves_to_a_heading(manifest, spec):
     """AC-DEP-06.3 - every file exists and every anchor is a real heading."""
     headings = {
-        name: {section.heading for section in sf.sections}
-        for name, sf in spec.files.items()
+        name: {section.heading for section in sf.sections} for name, sf in spec.files.items()
     }
     for entry in manifest:
         b = bundle_mod.bundle_for(entry.id, manifest, spec)

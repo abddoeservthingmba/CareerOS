@@ -28,8 +28,15 @@ def test_every_criterion_has_a_test_that_names_a_file(spec, manifest, repo):
 
     # The four roots `AC-FOUND-06.1` names, plus `infra/` for the shell checks
     # the specification places there.
-    roots = ("tests/", "apps/api/tests/", "apps/web/", "apps/mobile/",
-             "apps/extension/", ".github/workflows/", "infra/")
+    roots = (
+        "tests/",
+        "apps/api/tests/",
+        "apps/web/",
+        "apps/mobile/",
+        "apps/extension/",
+        ".github/workflows/",
+        "infra/",
+    )
     stray = sorted(
         f"{tid}: {path}"
         for tid, paths in report.resolved_paths.items()
@@ -81,7 +88,7 @@ def test_named_test_files_exist(spec, manifest, repo):
 
 # Lowered by each commit that lands a test file; reaches 0 at the R1 gate.
 # Update this number downward in the same commit that writes the tests.
-EXPECTED_OUTSTANDING_TESTS = 806
+EXPECTED_OUTSTANDING_TESTS = 782
 
 
 def test_the_range_and_list_notation_expands(spec):
@@ -91,19 +98,24 @@ def test_the_range_and_list_notation_expands(spec):
     expansion being right.
     """
     assert defined_test_ids("- `T-AUTH-05.1`–`.5` `tests/integration/test_password_reset.py`.") == [
-        "T-AUTH-05.1", "T-AUTH-05.2", "T-AUTH-05.3", "T-AUTH-05.4", "T-AUTH-05.5",
+        "T-AUTH-05.1",
+        "T-AUTH-05.2",
+        "T-AUTH-05.3",
+        "T-AUTH-05.4",
+        "T-AUTH-05.5",
     ]
     assert defined_test_ids("- `T-AUTH-01.2`/`.3` `tests/integration/test_breach_check.py`.") == [
-        "T-AUTH-01.2", "T-AUTH-01.3",
+        "T-AUTH-01.2",
+        "T-AUTH-01.3",
     ]
     # A trailing "shared with" is a reference, not a second definition, even
     # when it names the same requirement.
     assert defined_test_ids(
         "- `T-CONN-02.8` `tests/spec/test_connector_addition_drill.py` (shared with `T-CONN-02.3`)."
     ) == ["T-CONN-02.8"]
-    assert defined_criteria_ids(
-        "- `AC-DATA-07.6` Adding a field ... fails `AC-DATA-07.1`."
-    ) == ["AC-DATA-07.6"]
+    assert defined_criteria_ids("- `AC-DATA-07.6` Adding a field ... fails `AC-DATA-07.1`.") == [
+        "AC-DATA-07.6"
+    ]
     # A control table in `16-security-and-compliance.md` §2 references criteria.
     table_row = "| 1 | Passwords | Argon2id | R1 | `AC-AUTH-01.2`, `AC-AUTH-01.6` |"
     assert defined_criteria_ids(table_row) == []

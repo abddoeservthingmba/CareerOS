@@ -130,7 +130,9 @@ def _code_files(root: Path, roots: tuple[str, ...] = CODE_ROOTS) -> list[Path]:
         base = root / relative
         if not base.is_dir():
             continue
-        out.extend(p for p in base.rglob("*") if p.suffix in CODE_SUFFIXES and p.is_file())
+        out.extend(
+            p for p in base.rglob("*") if p.suffix in CODE_SUFFIXES and p.is_file()
+        )
     return out
 
 
@@ -151,7 +153,9 @@ def placeholder_findings(root: Path | None = None) -> list[str]:
         ):
             for marker in PLACEHOLDER_MARKERS:
                 if marker in line:
-                    out.append(f"{path.relative_to(root).as_posix()}:{number}: {marker}")
+                    out.append(
+                        f"{path.relative_to(root).as_posix()}:{number}: {marker}"
+                    )
     return out
 
 

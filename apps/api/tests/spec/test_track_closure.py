@@ -26,9 +26,7 @@ def test_match_02b_is_the_only_straddle(manifest):
     assert entry.track == "R1"
     assert entry.enabled_in == "R2"
     assert entry.phase == "P4"
-    off_track = sorted(
-        d for d in manifest.closure("MATCH-02b") if manifest[d].track != "R1"
-    )
+    off_track = sorted(d for d in manifest.closure("MATCH-02b") if manifest[d].track != "R1")
     assert off_track == [], f"MATCH-02b depends on non-R1 work: {off_track}"
 
 

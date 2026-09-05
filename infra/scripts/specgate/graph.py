@@ -42,25 +42,73 @@ MODULE_EDGES: dict[str, frozenset[str]] = {
     "profile": frozenset({"ai", "resume"}),
     "jobs": frozenset({"connectors", "ai", "profile"}),
     "matching": frozenset({"profile", "jobs", "ai"}),
-    "apply": frozenset({"profile", "matching", "ai", "tracker", "connectors", "resume"}),
+    "apply": frozenset(
+        {"profile", "matching", "ai", "tracker", "connectors", "resume"}
+    ),
     "tracker": frozenset({"jobs", "apply", "auth", "notifications"}),
     "notifications": frozenset({"tracker", "auth", "matching", "jobs"}),
     "admin": frozenset(
-        {"auth", "profile", "resume", "jobs", "matching", "apply", "tracker",
-         "notifications", "ai", "connectors", "web", "mobile"}
+        {
+            "auth",
+            "profile",
+            "resume",
+            "jobs",
+            "matching",
+            "apply",
+            "tracker",
+            "notifications",
+            "ai",
+            "connectors",
+            "web",
+            "mobile",
+        }
     ),
     # The clients and the build/ops surface consume contracts, not modules.
     "web": frozenset(
-        {"auth", "profile", "resume", "jobs", "matching", "apply", "tracker",
-         "notifications", "admin", "ai", "mobile"}
+        {
+            "auth",
+            "profile",
+            "resume",
+            "jobs",
+            "matching",
+            "apply",
+            "tracker",
+            "notifications",
+            "admin",
+            "ai",
+            "mobile",
+        }
     ),
     "mobile": frozenset(
-        {"auth", "profile", "resume", "jobs", "matching", "apply", "tracker",
-         "notifications", "ai", "web"}
+        {
+            "auth",
+            "profile",
+            "resume",
+            "jobs",
+            "matching",
+            "apply",
+            "tracker",
+            "notifications",
+            "ai",
+            "web",
+        }
     ),
     "infra": frozenset(
-        {"auth", "profile", "resume", "jobs", "matching", "apply", "tracker",
-         "notifications", "admin", "ai", "connectors", "web", "mobile"}
+        {
+            "auth",
+            "profile",
+            "resume",
+            "jobs",
+            "matching",
+            "apply",
+            "tracker",
+            "notifications",
+            "admin",
+            "ai",
+            "connectors",
+            "web",
+            "mobile",
+        }
     ),
 }
 

@@ -39,7 +39,12 @@ def build(spec: Spec | None = None, m: Manifest | None = None) -> dict[str, Any]
         }
         if entry.enabled_in:
             row["enabled_in"] = entry.enabled_in
-        for key in ("consumes_events", "publishes_events", "reads_collections", "writes_collections"):
+        for key in (
+            "consumes_events",
+            "publishes_events",
+            "reads_collections",
+            "writes_collections",
+        ):
             value = getattr(entry, key)
             if value:
                 row[key] = list(value)
@@ -52,7 +57,9 @@ def build(spec: Spec | None = None, m: Manifest | None = None) -> dict[str, Any]
         files.append(
             {
                 "file": name,
-                "title": next((l[2:].strip() for l in sf.lines if l.startswith("# ")), name),
+                "title": next(
+                    (l[2:].strip() for l in sf.lines if l.startswith("# ")), name
+                ),
                 "track": _field(sf.text, "Track"),
                 "module": _field(sf.text, "Module"),
                 "requirements": _field(sf.text, "Requirements"),
@@ -82,8 +89,12 @@ def build(spec: Spec | None = None, m: Manifest | None = None) -> dict[str, Any]
         "generated_from": "docs/spec/*.md",
         "note": "Regenerate with `make spec-metadata` (infra/scripts/specgate).",
         "section_contract": [
-            "Objective", "Constraints", "Inputs", "Outputs",
-            "Acceptance criteria", "Tests",
+            "Objective",
+            "Constraints",
+            "Inputs",
+            "Outputs",
+            "Acceptance criteria",
+            "Tests",
         ],
         "implementation_states": ["built", "built-off", "stub-501", "absent"],
         "dependencies": dependencies,

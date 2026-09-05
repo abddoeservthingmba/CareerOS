@@ -33,9 +33,7 @@ def test_status_follows_default_by_track(spec):
 
 def test_match_02b_is_the_only_built_off_section(spec):
     """§15 - "The only `built-off` in R1 is `MATCH-02b`"."""
-    built_off = [
-        f"{e.file} §{e.section}" for e in status.entries(spec) if e.status == "built-off"
-    ]
+    built_off = [f"{e.file} §{e.section}" for e in status.entries(spec) if e.status == "built-off"]
     assert len(built_off) == 1, f"expected one built-off section, found {built_off}"
     entry = next(e for e in status.entries(spec) if e.status == "built-off")
     assert "MATCH-02b" in entry.requirements

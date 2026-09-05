@@ -1,10 +1,10 @@
 """Command line for the spec gates and generators.
 
-    python -m specgate bundle MATCH-05     DEP-06
-    python -m specgate build-order [--write]   DEP-04
-    python -m specgate trace [--write] [--strict]  FOUND-06
-    python -m specgate status [--write]    FOUND-15
-    python -m specgate check               everything, as `make check-spec` runs it
+python -m specgate bundle MATCH-05     DEP-06
+python -m specgate build-order [--write]   DEP-04
+python -m specgate trace [--write] [--strict]  FOUND-06
+python -m specgate status [--write]    FOUND-15
+python -m specgate check               everything, as `make check-spec` runs it
 """
 
 from __future__ import annotations
@@ -75,12 +75,24 @@ def cmd_trace(args: argparse.Namespace) -> int:
         print(f"wrote {target}")
     print(f"{report.criteria} acceptance criteria, {report.tests} tests named")
     ok = True
-    ok &= _report("every AC has a matching T in the same file", [str(f) for f in report.unmatched_criteria])
-    ok &= _report("every T names a test location", [str(f) for f in report.unlocatable_tests])
-    ok &= _report("every R1 requirement has criteria", [str(f) for f in report.requirements_without_criteria])
-    ok &= _report("no identifier defined twice", [str(f) for f in report.duplicate_definitions])
+    ok &= _report(
+        "every AC has a matching T in the same file",
+        [str(f) for f in report.unmatched_criteria],
+    )
+    ok &= _report(
+        "every T names a test location", [str(f) for f in report.unlocatable_tests]
+    )
+    ok &= _report(
+        "every R1 requirement has criteria",
+        [str(f) for f in report.requirements_without_criteria],
+    )
+    ok &= _report(
+        "no identifier defined twice", [str(f) for f in report.duplicate_definitions]
+    )
     if args.strict:
-        ok &= _report("every named test file exists", [str(f) for f in report.missing_paths])
+        ok &= _report(
+            "every named test file exists", [str(f) for f in report.missing_paths]
+        )
     return 0 if ok else 1
 
 
@@ -90,30 +102,50 @@ def cmd_check(args: argparse.Namespace) -> int:
     ok = True
 
     print("DEP-01  manifest")
-    ok &= _report("no dangling requires", [
-        f"{e.id} requires unknown {r}" for e in m for r in e.requires if r not in m
-    ])
+    ok &= _report(
+        "no dangling requires",
+        [f"{e.id} requires unknown {r}" for e in m for r in e.requires if r not in m],
+    )
     ok &= _report("acyclic", [" -> ".join(c) for c in m.cycles()])
 
     print("DEP-02  module graph")
-    ok &= _report("edges project onto the module graph", [str(v) for v in graph.module_edge_violations(m)])
-    ok &= _report("ai and connectors are leaves", [str(v) for v in graph.leaf_violations(m)])
+    ok &= _report(
+        "edges project onto the module graph",
+        [str(v) for v in graph.module_edge_violations(m)],
+    )
+    ok &= _report(
+        "ai and connectors are leaves", [str(v) for v in graph.leaf_violations(m)]
+    )
     ok &= _report("no cross-module collection writes", graph.read_write_conflicts(m))
     ok &= _report("admin can be removed", graph.satisfied_without("admin", m))
 
     print("DEP-03  track closure")
-    ok &= _report("R1 closure contains only R1", [str(v) for v in graph.track_closure_violations(m)])
+    ok &= _report(
+        "R1 closure contains only R1",
+        [str(v) for v in graph.track_closure_violations(m)],
+    )
 
     print("DEP-04  phase closure")
-    ok &= _report("dependencies sit in an earlier or equal phase", [str(v) for v in graph.phase_closure_violations(m)])
-    committed = (repo_root() / "docs" / "spec" / "BUILD-ORDER.md").read_text(encoding="utf-8")
-    ok &= _report("BUILD-ORDER.md matches the graph",
-                  [] if graph.render_build_order(m) == committed else ["regenerate with `make build-order`"])
+    ok &= _report(
+        "dependencies sit in an earlier or equal phase",
+        [str(v) for v in graph.phase_closure_violations(m)],
+    )
+    committed = (repo_root() / "docs" / "spec" / "BUILD-ORDER.md").read_text(
+        encoding="utf-8"
+    )
+    ok &= _report(
+        "BUILD-ORDER.md matches the graph",
+        []
+        if graph.render_build_order(m) == committed
+        else ["regenerate with `make build-order`"],
+    )
 
     print("DEP-06  handoff bundle")
     oversized = bundle_mod.oversized(m, spec)
-    ok &= _report(f"no R1 bundle exceeds {bundle_mod.MAX_FILES} files",
-                  [f"{r}: {n} files" for r, n in oversized.items()])
+    ok &= _report(
+        f"no R1 bundle exceeds {bundle_mod.MAX_FILES} files",
+        [f"{r}: {n} files" for r, n in oversized.items()],
+    )
 
     print("FOUND-06  traceability")
     ok &= cmd_trace(argparse.Namespace(strict=False, write=False)) == 0
@@ -125,11 +157,15 @@ def cmd_check(args: argparse.Namespace) -> int:
         # yet, so the registry derives each state from the Track annotation. The
         # count is asserted by tests/spec/test_status_declared.py against the
         # ledger, so it cannot drift unnoticed. Reported, not failed.
-        print(f"  open  {len(undeclared)} sections carry no Status line "
-              "(AC-FOUND-15.1; state derived from Track)")
+        print(
+            f"  open  {len(undeclared)} sections carry no Status line "
+            "(AC-FOUND-15.1; state derived from Track)"
+        )
     else:
         ok &= _report("every section declares a status", [])
-    ok &= _report("status follows default-by-track", status.default_by_track_violations(spec))
+    ok &= _report(
+        "status follows default-by-track", status.default_by_track_violations(spec)
+    )
     ok &= _report("no placeholder on an R1 path", status.placeholder_findings())
     ok &= _report("absent sections have no code", status.absent_findings(spec=spec))
     return 0 if ok else 1

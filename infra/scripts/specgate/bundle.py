@@ -65,7 +65,9 @@ def owning_file(requirement: str, spec: Spec | None = None) -> str:
     return FAMILY_FILE[family]
 
 
-def anchors_for(requirement: str, file: str, spec: Spec | None = None) -> tuple[str, ...]:
+def anchors_for(
+    requirement: str, file: str, spec: Spec | None = None
+) -> tuple[str, ...]:
     """Section headings inside `file` that name `requirement`."""
     spec = spec or parse_spec()
     sf = spec.files.get(file)
@@ -148,7 +150,9 @@ def oversized(m: Manifest | None = None, spec: Spec | None = None) -> dict[str, 
     return dict(sorted(out.items(), key=lambda kv: (-kv[1], kv[0])))
 
 
-def render(requirement: str, m: Manifest | None = None, spec: Spec | None = None) -> str:
+def render(
+    requirement: str, m: Manifest | None = None, spec: Spec | None = None
+) -> str:
     b = bundle_for(requirement, m, spec)
     entry = (m or manifest())[requirement]
     lines = [

@@ -53,7 +53,9 @@ class Finding:
 
     def __str__(self) -> str:
         where = f"{self.file}:{self.line}" if self.file else ""
-        return f"[{self.kind}] {self.subject} - {self.detail}" + (f"  ({where})" if where else "")
+        return f"[{self.kind}] {self.subject} - {self.detail}" + (
+            f"  ({where})" if where else ""
+        )
 
 
 @dataclass
@@ -247,7 +249,11 @@ def run(
         prefix = f"AC-{base}."
         if not any(ac.startswith(prefix) for ac in spec.criteria):
             report.requirements_without_criteria.append(
-                Finding("r1-without-criteria", entry.id, "no AC- identifier anywhere in the spec")
+                Finding(
+                    "r1-without-criteria",
+                    entry.id,
+                    "no AC- identifier anywhere in the spec",
+                )
             )
 
     # AC-FOUND-06.3 - no identifier defined twice with different text.
@@ -282,7 +288,9 @@ Requirement → track → acceptance criterion → test → status.
 """
 
 
-def render(spec: Spec | None = None, m: Manifest | None = None, root: Path | None = None) -> str:
+def render(
+    spec: Spec | None = None, m: Manifest | None = None, root: Path | None = None
+) -> str:
     """`AC-FOUND-06.4` - the published `TRACEABILITY.md` artifact."""
     spec = spec or parse_spec()
     m = m or manifest()

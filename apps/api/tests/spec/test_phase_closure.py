@@ -27,11 +27,11 @@ def test_phase_assignment_matches_the_phase_table(manifest):
     # The deliverables column names these explicitly; they are the ones a
     # mis-phased manifest would most likely get wrong.
     expected = {
-        "FOUND-16": "P0",   # §4 P0: "FOUND-16 email transport"
-        "DATA-06": "P0",    # §4 P0: "the DATA-06 embedding quantization codec"
-        "FOUND-15": "P0",   # §4 P0: "FOUND-15 status registry"
-        "MATCH-09": "P4",   # §2.11: "MATCH-09 ... phase P4"
-        "APPLY-09": "P6",   # §4 P6: "APPLY-09 ... moved from P5"
+        "FOUND-16": "P0",  # §4 P0: "FOUND-16 email transport"
+        "DATA-06": "P0",  # §4 P0: "the DATA-06 embedding quantization codec"
+        "FOUND-15": "P0",  # §4 P0: "FOUND-15 status registry"
+        "MATCH-09": "P4",  # §2.11: "MATCH-09 ... phase P4"
+        "APPLY-09": "P6",  # §4 P6: "APPLY-09 ... moved from P5"
         "TRACK-03": "P6",
         "AUTH-01": "P1",
         "RES-03": "P2",
@@ -57,6 +57,7 @@ def test_the_first_ten_entries_are_early_phases(manifest):
 
 
 # --- DEP-05: the four v2.0 violations, asserted fixed ------------------------
+
 
 def test_email_transport_is_foundations_not_notifications(manifest):
     """AC-DEP-05.1 (V1) - auth depends on FOUND-16, never on a NOTIF requirement."""

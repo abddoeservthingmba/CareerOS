@@ -25,13 +25,30 @@ LIST_VALUE = re.compile(r"^\[(.*)\]$")
 
 SCALAR_KEYS = frozenset({"track", "phase", "module", "enabled_in"})
 LIST_KEYS = frozenset(
-    {"requires", "consumes_events", "publishes_events", "reads_collections", "writes_collections"}
+    {
+        "requires",
+        "consumes_events",
+        "publishes_events",
+        "reads_collections",
+        "writes_collections",
+    }
 )
 
 # `00-scope-and-phases.md` §4 and §4.1. `None` is the unphased R3 backlog.
 PHASE_ORDER: tuple[str | None, ...] = (
-    "P0", "P1", "P2", "P3", "P4", "P5", "P6", "P7",
-    "S1", "S2", "S3", "S4", "S5",
+    "P0",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
     None,
 )
 
@@ -41,9 +58,21 @@ TRACKS = frozenset({"R1", "R2", "R3"})
 # of the non-module homes a requirement can belong to.
 MODULES = frozenset(
     {
-        "core", "ai", "connectors", "infra", "web", "mobile",
-        "auth", "profile", "resume", "jobs", "matching", "apply",
-        "tracker", "notifications", "admin",
+        "core",
+        "ai",
+        "connectors",
+        "infra",
+        "web",
+        "mobile",
+        "auth",
+        "profile",
+        "resume",
+        "jobs",
+        "matching",
+        "apply",
+        "tracker",
+        "notifications",
+        "admin",
     }
 )
 
@@ -149,7 +178,9 @@ class Manifest:
 def _parse_list(raw: str, key: str, entry_id: str, line: int) -> tuple[str, ...]:
     m = LIST_VALUE.fullmatch(raw)
     if not m:
-        raise ManifestError(f"{entry_id}.{key} (line {line}): expected [a, b], got {raw!r}")
+        raise ManifestError(
+            f"{entry_id}.{key} (line {line}): expected [a, b], got {raw!r}"
+        )
     inner = m.group(1).strip()
     if not inner:
         return ()
@@ -168,11 +199,15 @@ def load(path: Path | None = None) -> Manifest:
             return
         missing = {"track", "phase", "module"} - current.keys()
         if missing:
-            raise ManifestError(f"{current_id}: missing required key(s) {sorted(missing)}")
+            raise ManifestError(
+                f"{current_id}: missing required key(s) {sorted(missing)}"
+            )
         manifest.entries[current_id] = Entry(id=current_id, **current)
         current, current_id = None, None
 
-    for number, raw_line in enumerate(target.read_text(encoding="utf-8").split("\n"), start=1):
+    for number, raw_line in enumerate(
+        target.read_text(encoding="utf-8").split("\n"), start=1
+    ):
         line = raw_line.rstrip()
         if not line.strip() or line.lstrip().startswith("#"):
             continue

@@ -89,6 +89,7 @@ def defined_test_ids(line: str) -> list[str]:
         return []
     return _expand_test_ids(line)
 
+
 # A code span that looks like a path to a file the repository could hold.
 # `apps/web/.../job-card.test.tsx` is written with an elided middle in the spec
 # and is treated as a glob.
@@ -275,7 +276,9 @@ def _paths_on(line: str) -> tuple[str, ...]:
     return tuple(seen)
 
 
-def _track_of(body: str, heading: str, file_name: str, requirements: tuple[str, ...]) -> str:
+def _track_of(
+    body: str, heading: str, file_name: str, requirements: tuple[str, ...]
+) -> str:
     """The section's track.
 
     `dependencies.yaml` is the authority - `AC-DEP-01.2` requires its `track` to
@@ -297,9 +300,7 @@ def _track_of(body: str, heading: str, file_name: str, requirements: tuple[str, 
         # the prose annotation rather than failing the parse.
         entries = None
     if entries is not None:
-        tracks = {
-            entries[r].effective_track for r in requirements if r in entries
-        }
+        tracks = {entries[r].effective_track for r in requirements if r in entries}
         if len(tracks) == 1:
             return tracks.pop()
 
@@ -325,7 +326,11 @@ def _parse_file(path: Path) -> SpecFile:
             heading_positions.append((i, len(m.group(1)), m.group(2)))
 
     for n, (start, level, heading) in enumerate(heading_positions):
-        end = heading_positions[n + 1][0] if n + 1 < len(heading_positions) else len(lines)
+        end = (
+            heading_positions[n + 1][0]
+            if n + 1 < len(heading_positions)
+            else len(lines)
+        )
         body = "\n".join(lines[start + 1 : end])
         num_match = SECTION_NUMBER.match(heading)
         number = num_match.group(1) if num_match else ""

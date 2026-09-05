@@ -3,7 +3,9 @@ name = "jobpilot-api"
 version = "0.1.0"
 description = "JobPilot API and worker — one image, two entrypoints (ADR-002)."
 requires-python = "==3.12.*"
-dependencies = []
+dependencies = [
+    "pydantic>=2.9",
+]
 
 # Product dependencies are added by the requirement that needs them, never
 # speculatively (`01-foundations.md` §1). The spec gates in `tests/spec/` import
@@ -12,6 +14,7 @@ dependencies = []
 [dependency-groups]
 dev = [
     "pytest>=8.3",
+    "hypothesis>=6.112",
     "ruff>=0.8",
     "mypy>=1.13",
 ]
@@ -24,11 +27,14 @@ src = ["app", "../../infra/scripts"]
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["app", "specgate", "tests"]
+
 [tool.mypy]
 python_version = "3.12"
 strict = true
 mypy_path = "../../infra/scripts"
-files = ["tests", "../../infra/scripts/specgate"]
+files = ["app", "tests", "../../infra/scripts/specgate"]
 
 # A pytest test function's signature is fixtures in, nothing out, and annotating
 # every one adds noise without adding a check. Everything else stays strict.
