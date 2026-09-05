@@ -1,0 +1,23 @@
+# Secrets never enter the repo (CLAUDE.md).
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Flutter, for the phases that add them
+node_modules/
+dist/
+build/
+.dart_tool/
+
+# Editors and OS
+.DS_Store
+.idea/
+*.swp

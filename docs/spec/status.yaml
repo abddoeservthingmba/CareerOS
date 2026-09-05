@@ -1,0 +1,1159 @@
+# Implementation status — generated from docs/spec/
+#
+# Do not edit. Regenerate with `make status`.
+# Four states, no fifth: built | built-off | stub-501 | absent (01-foundations.md §15).
+# `declared: false` means the section carries no **Status:** line and the state
+# below is derived from its Track annotation (see AC-FOUND-15.1).
+
+01-foundations.md:
+  - section: '1'
+    heading: '1. Repository layout — `FOUND-01`'
+    requirements: [FOUND-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Configuration — `FOUND-02`'
+    requirements: [FOUND-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Primitives: time, IDs, money, location, skills — `FOUND-03`'
+    requirements: [FOUND-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Module boundaries and import contracts — `FOUND-04`'
+    requirements: [FOUND-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Module anatomy — `FOUND-05`'
+    requirements: [FOUND-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Specification traceability gate — `FOUND-06`'
+    requirements: [FOUND-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '7'
+    heading: '7. Pagination — `FOUND-07`'
+    requirements: [FOUND-07]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '8'
+    heading: '8. Idempotency — `FOUND-08`'
+    requirements: [FOUND-08]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '9'
+    heading: '9. Domain events — `FOUND-09`'
+    requirements: [FOUND-09]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '10'
+    heading: '10. Background tasks — `FOUND-10`'
+    requirements: [FOUND-10]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '11'
+    heading: '11. Long operations and streaming — `FOUND-11`'
+    requirements: [FOUND-11]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '12'
+    heading: '12. Errors — `FOUND-12`'
+    requirements: [FOUND-12]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '13'
+    heading: '13. API versioning and contract export — `FOUND-13`'
+    requirements: [FOUND-13]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '14'
+    heading: '14. Logging and observability hooks — `FOUND-14`'
+    requirements: [FOUND-14]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '15'
+    heading: '15. Implementation status — `FOUND-15` — **added in v2.1**'
+    requirements: [FOUND-15]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '16'
+    heading: '16. Transactional email transport — `FOUND-16` — **added in v2.1**'
+    requirements: [FOUND-16]
+    track: 'R1'
+    status: built
+    declared: false
+02-auth-and-account.md:
+  - section: '1'
+    heading: '1. Registration and password policy — `AUTH-01`'
+    requirements: [AUTH-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Google sign-in — `AUTH-02`'
+    requirements: [AUTH-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Email verification — `AUTH-03`'
+    requirements: [AUTH-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Sessions and token lifecycle — `AUTH-04`'
+    requirements: [AUTH-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4.1'
+    heading: '4.1 Session list and global sign-out — `AUTH-06` — **Track: R2**'
+    requirements: [AUTH-06]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '5'
+    heading: '5. Password reset — `AUTH-05`'
+    requirements: [AUTH-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Authorization model — `AUTH-10` (shared with `ADMIN-06`)'
+    requirements: [AUTH-10, ADMIN-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '7'
+    heading: '7. Account deletion — `AUTH-07`'
+    requirements: [AUTH-07]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '8'
+    heading: '8. Data export — `AUTH-08` — **Track: R2**'
+    requirements: [AUTH-08]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '9'
+    heading: '9. Rate limiting — `AUTH-09`'
+    requirements: [AUTH-09]
+    track: 'R1'
+    status: built
+    declared: false
+03-profile.md:
+  - section: '1'
+    heading: '1. Profile document and versioning — `PROF-01`'
+    requirements: [PROF-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Provenance: source, confidence, confirmed — `PROF-03`'
+    requirements: [PROF-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Preferences — `PROF-02`'
+    requirements: [PROF-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Skill canonicalization — `PROF-06`'
+    requirements: [PROF-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Completeness score — `PROF-05` — **Track: R2**'
+    requirements: [PROF-05]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '6'
+    heading: '6. Field audit history — `PROF-07` — **Track: R2**'
+    requirements: [PROF-07]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '7'
+    heading: '7. Multiple resume versions — `PROF-04` — **Track: R3**'
+    requirements: [PROF-04]
+    track: 'R3'
+    status: absent
+    declared: false
+04-resume-pipeline.md:
+  - section: '1'
+    heading: '1. Upload and validation — `RES-01`'
+    requirements: [RES-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. The stage machine and progress reporting — `RES-06`'
+    requirements: [RES-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Text extraction — `RES-02`'
+    requirements: [RES-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3.1'
+    heading: '3.1 OCR fallback — **Track: R2**'
+    requirements: []
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '4'
+    heading: '4. Structured extraction — `RES-03`'
+    requirements: [RES-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4.1'
+    heading: '4.1 `ProfileExtraction` schema'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Storage and the AI boundary — `RES-05`'
+    requirements: [RES-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Quality feedback — `RES-04` — **Track: R2**'
+    requirements: [RES-04]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '7'
+    heading: '7. Re-analysis and the diff view — `RES-07` — **Track: R2**'
+    requirements: [RES-07]
+    track: 'R2'
+    status: absent
+    declared: false
+05-ai-layer.md:
+  - section: '1'
+    heading: '1. The contract — `AI-01`'
+    requirements: [AI-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Selection and the registry — `AI-02`'
+    requirements: [AI-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Budgets, caching and degradation — `AI-03`'
+    requirements: [AI-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3.1'
+    heading: '3.1 Budget state, and the order the checks run'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3.2'
+    heading: '3.2 The degradation matrix'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3.3'
+    heading: '3.3 Caching'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Usage accounting and provenance — `AI-04`'
+    requirements: [AI-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. The Gemini adapter, and isolation from Google AI Pro — `AI-05`'
+    requirements: [AI-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.1'
+    heading: '5.1 What the isolation actually is'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.2'
+    heading: '5.2 Constraints'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.3'
+    heading: '5.3 Inputs / Outputs'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.4'
+    heading: '5.4 The free-vs-paid tier decision (D5)'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.5'
+    heading: '5.5 Acceptance criteria'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.6'
+    heading: '5.6 Tests'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Untrusted content and prompt injection — `AI-06`'
+    requirements: [AI-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '7'
+    heading: '7. Prompt management and golden tests — `AI-07`'
+    requirements: [AI-07]
+    track: 'R1'
+    status: built
+    declared: false
+06-connectors.md:
+  - section: '1'
+    heading: '1. The connector contract — `CONN-01`'
+    requirements: [CONN-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Isolation, and the sources that are excluded — `CONN-02`, HR-2'
+    requirements: [CONN-02, HR-2]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Reliability: limits, retries, circuit breaker — `CONN-03`'
+    requirements: [CONN-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Compliance record and attribution — `CONN-04`, `CONN-05`, `CONN-07`'
+    requirements: [CONN-04, CONN-05, CONN-07]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. The connector set — `CONN-06`'
+    requirements: [CONN-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.1'
+    heading: '5.1 R1 — three connectors'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.2'
+    heading: '5.2 R2 — six more — **Track: R2**'
+    requirements: []
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '5.3'
+    heading: '5.3 Constraints'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Adding a connector, and the one-hour drill — `CONN-02` (proof)'
+    requirements: [CONN-02]
+    track: 'R1'
+    status: built
+    declared: false
+07-ingestion-and-jobs.md:
+  - section: '1'
+    heading: '1. The canonical job — `JOB-01`'
+    requirements: [JOB-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Scheduling and query fan-out — `JOB-02`'
+    requirements: [JOB-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Deduplication — `JOB-03`'
+    requirements: [JOB-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Normalization — `JOB-04`'
+    requirements: [JOB-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Skill extraction and enrichment — `JOB-05`'
+    requirements: [JOB-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Staleness and expiry — `JOB-08`'
+    requirements: [JOB-08]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '7'
+    heading: '7. Search, filters and feed controls — `JOB-06`, `JOB-09`'
+    requirements: [JOB-06, JOB-09]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '7.1'
+    heading: '7.1 Saved searches — `JOB-07` — **Track: R2**'
+    requirements: [JOB-07]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '7.2'
+    heading: '7.2 Reporting a listing — `JOB-10` — **Track: R2**'
+    requirements: [JOB-10]
+    track: 'R2'
+    status: absent
+    declared: false
+08-matching.md:
+  - section: '1'
+    heading: '1. Design commitments — `MATCH-03`'
+    requirements: [MATCH-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Score composition, weights `w1` — `MATCH-01`'
+    requirements: [MATCH-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. The explainability contract — `MATCH-02a`'
+    requirements: [MATCH-02a]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. The LLM rationale — `MATCH-02b` — **code R1, enabled R2**'
+    requirements: [MATCH-02b]
+    track: 'R1 code, R2 on'
+    status: built-off
+    declared: false
+  - section: '5'
+    heading: '5. Candidate selection, incremental scoring and the feed — `MATCH-04`, `MATCH-05`, `MATCH-07`'
+    requirements: [MATCH-04, MATCH-05, MATCH-07]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Feedback loop — `MATCH-06` — **Track: R2**'
+    requirements: [MATCH-06]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '7'
+    heading: '7. Gap analysis — `MATCH-08` — **Track: R3**'
+    requirements: [MATCH-08]
+    track: 'R3'
+    status: absent
+    declared: false
+  - section: '8'
+    heading: '8. The feed sufficiency invariant — `MATCH-09` — **added in v2.1**'
+    requirements: [MATCH-09]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '8.1'
+    heading: '8.1 Three different claims, separated'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '8.2'
+    heading: '8.2 The gate invariant'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '8.3'
+    heading: '8.3 Scoring freshness — the invariant that makes the feed honest'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '8.4'
+    heading: '8.4 What the product does when fifty do not exist'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '8.5'
+    heading: '8.5 What this invariant is not'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+09-apply.md:
+  - section: '1'
+    heading: '1. Answer Bank — `APPLY-01`'
+    requirements: [APPLY-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Pack generation — `APPLY-02`'
+    requirements: [APPLY-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.1'
+    heading: '2.1 `ApplicationPack` schema'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Editing, approval and immutability — `APPLY-03`'
+    requirements: [APPLY-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Anti-fabrication — `APPLY-04`, HR-4'
+    requirements: [APPLY-04, HR-4]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Assisted apply — `APPLY-05`, HR-1'
+    requirements: [APPLY-05, HR-1]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Audit — `APPLY-07`'
+    requirements: [APPLY-07]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6.1'
+    heading: '6.1 Follow-up draft'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '7'
+    heading: '7. Browser extension — `APPLY-06` — **Track: R3**'
+    requirements: [APPLY-06]
+    track: 'R3'
+    status: absent
+    declared: false
+  - section: '8'
+    heading: '8. Tailored resume export — `APPLY-08` — **Track: R3**'
+    requirements: [APPLY-08]
+    track: 'R3'
+    status: absent
+    declared: false
+10-tracker.md:
+  - section: '1'
+    heading: '1. The application entity — `TRACK-01`, `TRACK-05`'
+    requirements: [TRACK-01, TRACK-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. The status state machine — `TRACK-01`'
+    requirements: [TRACK-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Views — `TRACK-02`'
+    requirements: [TRACK-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3.1'
+    heading: '3.1 Calendar view — `TRACK-02b` — **Track: R2**'
+    requirements: [TRACK-02b]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '4'
+    heading: '4. Application detail: notes, contacts, documents, interviews, salary — `TRACK-03`'
+    requirements: [TRACK-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Timeline — `TRACK-04`'
+    requirements: [TRACK-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Ghosted suggestion — `TRACK-06` — **Track: R2**'
+    requirements: [TRACK-06]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '7'
+    heading: '7. Statistics — `TRACK-07` — **Track: R2**'
+    requirements: [TRACK-07]
+    track: 'R2'
+    status: absent
+    declared: false
+11-notifications.md:
+  - section: '1'
+    heading: '1. Reminder types — `NOTIF-01`'
+    requirements: [NOTIF-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Scheduling, reconciliation and local time — `NOTIF-01`, HR-10'
+    requirements: [NOTIF-01, HR-10]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Dispatch and idempotency — `NOTIF-05`'
+    requirements: [NOTIF-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Channels — `NOTIF-02`'
+    requirements: [NOTIF-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4.1'
+    heading: '4.1 In-app inbox and email — **R1**'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4.2'
+    heading: '4.2 Mobile push (FCM) — `NOTIF-02b` — **Track: R2**'
+    requirements: [NOTIF-02b]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '4.3'
+    heading: '4.3 Web push (VAPID) — `NOTIF-02c` — **Track: R3**'
+    requirements: []
+    track: 'R3'
+    status: absent
+    declared: false
+  - section: '5'
+    heading: '5. Quiet hours and the digest — `NOTIF-03`, `NOTIF-04` — **Track: R2**'
+    requirements: [NOTIF-03, NOTIF-04]
+    track: 'R2'
+    status: absent
+    declared: false
+12-admin.md:
+  - section: '1'
+    heading: '1. Connector dashboard — `ADMIN-01`'
+    requirements: [ADMIN-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. AI usage dashboard — `ADMIN-02`'
+    requirements: [ADMIN-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Feature flags — `ADMIN-03`'
+    requirements: [ADMIN-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Skill alias and taxonomy management — `ADMIN-04` — **Track: R2**'
+    requirements: [ADMIN-04]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '5'
+    heading: '5. Flagged listings queue — `ADMIN-05` — **Track: R2**'
+    requirements: [ADMIN-05]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '6'
+    heading: '6. Role gating and the admin surface — `ADMIN-06`'
+    requirements: [ADMIN-06]
+    track: 'R1'
+    status: built
+    declared: false
+13-web-client.md:
+  - section: '1'
+    heading: '1. Stack and structure — `WEB-01`'
+    requirements: [WEB-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Auth handling — `WEB-02`'
+    requirements: [WEB-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Screens — `WEB-03`'
+    requirements: [WEB-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. AI labelling and untrusted content — `WEB-04`, HR-9, HR-11'
+    requirements: [WEB-04, HR-9, HR-11]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Performance — `WEB-05`'
+    requirements: [WEB-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Error handling and observability — `WEB-06`'
+    requirements: [WEB-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '7'
+    heading: '7. Accessibility — `WEB-07` — **build to it in R1, audit in R2**'
+    requirements: [WEB-07]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '8'
+    heading: '8. End-to-end coverage — `WEB-08`'
+    requirements: [WEB-08]
+    track: 'R1'
+    status: built
+    declared: false
+14-mobile-client.md:
+  - section: '1'
+    heading: '1. Stack and structure — `MOB-01`'
+    requirements: [MOB-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Auth and session — `MOB-02`'
+    requirements: [MOB-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Screens — `MOB-03`'
+    requirements: [MOB-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Files and permissions — `MOB-04`'
+    requirements: [MOB-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Notifications — `MOB-05`'
+    requirements: [MOB-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.1'
+    heading: '5.1 Local notifications — **R1**'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.2'
+    heading: '5.2 Push (FCM) — `NOTIF-02b` — **Track: R2**'
+    requirements: [NOTIF-02b]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '6'
+    heading: '6. Performance and quality on real devices — `MOB-06`'
+    requirements: [MOB-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '7'
+    heading: '7. Offline cache — `MOB-07` — **Track: R2**'
+    requirements: [MOB-07]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '8'
+    heading: '8. Release — `MOB-08`'
+    requirements: [MOB-08]
+    track: 'R1'
+    status: built
+    declared: false
+15-infra-and-ops.md:
+  - section: '1'
+    heading: '1. Docker and the single image — `OPS-01`'
+    requirements: [OPS-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Environments — `OPS-02`'
+    requirements: [OPS-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. CI/CD — `OPS-03`'
+    requirements: [OPS-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Observability — `OPS-04`'
+    requirements: [OPS-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4.1'
+    heading: '4.1 Logs, traces, metrics'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4.2'
+    heading: '4.2 The required metrics'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4.3'
+    heading: '4.3 Alerts — **Track: R2** (thresholds defined in R1, delivery in R2)'
+    requirements: []
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '5'
+    heading: '5. Configuration and environment variables — `OPS-05`'
+    requirements: [OPS-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Backups and disaster recovery — `OPS-06`'
+    requirements: [OPS-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6.1'
+    heading: '6.1 Backups — **R1**'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6.2'
+    heading: '6.2 Restore drill — **Track: R2**'
+    requirements: []
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '7'
+    heading: '7. Runbooks — `OPS-07` — **Track: R2**'
+    requirements: [OPS-07]
+    track: 'R2'
+    status: absent
+    declared: false
+  - section: '8'
+    heading: '8. Cost ceiling — `OPS-08`'
+    requirements: [OPS-08]
+    track: 'R1'
+    status: built
+    declared: false
+16-security-and-compliance.md:
+  - section: '1'
+    heading: '1. Threat model — `SEC-01`'
+    requirements: [SEC-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Controls — `SEC-02`'
+    requirements: [SEC-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. AI-specific privacy — `SEC-03`'
+    requirements: [SEC-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Consent, privacy notice and data rights — `SEC-04`'
+    requirements: [SEC-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Connector compliance process — `SEC-05`'
+    requirements: [SEC-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Application-assistance ethics — `SEC-06`'
+    requirements: [SEC-06]
+    track: 'R1'
+    status: built
+    declared: false
+17-data-model.md:
+  - section: '1'
+    heading: '1. Global conventions — `DATA-01`'
+    requirements: [DATA-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. Collections — `DATA-02`'
+    requirements: [DATA-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.1'
+    heading: '2.1 `users`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.2'
+    heading: '2.2 `refresh_tokens`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.3'
+    heading: '2.3 `email_tokens`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.4'
+    heading: '2.4 `resumes`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.5'
+    heading: '2.5 `profiles`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.5'
+    heading: '2.5.1 `profile_audit` [R2] and `skill_aliases`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.6'
+    heading: '2.6 `jobs` — the canonical listing'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.7'
+    heading: '2.7 `raw_listings`, `connector_runs`, `user_job_actions`, `saved_searches`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.8'
+    heading: '2.8 `match_scores`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.9'
+    heading: '2.9 `answer_bank`, `application_packs`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.10'
+    heading: '2.10 `applications`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.11'
+    heading: '2.11 `reminders`, `notifications`, `devices`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2.12'
+    heading: '2.12 `audit_log`, `ai_usage`, `feature_flags`, `failed_tasks`'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Indexes — `DATA-03`'
+    requirements: [DATA-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Storage layout (R2 object store) — `DATA-04`'
+    requirements: [DATA-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. Retention — `DATA-05`'
+    requirements: [DATA-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. Capacity budget — `DATA-06`'
+    requirements: [DATA-06]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '7'
+    heading: '7. The field and enum registry — `DATA-07` — **added in v2.1**'
+    requirements: [DATA-07]
+    track: 'R1'
+    status: built
+    declared: false
+18-dependency-closure.md:
+  - section: '1'
+    heading: '1. The manifest — `DEP-01`'
+    requirements: [DEP-01]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '2'
+    heading: '2. The module graph — `DEP-02`'
+    requirements: [DEP-02]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '3'
+    heading: '3. Track closure — `DEP-03`'
+    requirements: [DEP-03]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '4'
+    heading: '4. Phase closure, and the build order — `DEP-04`'
+    requirements: [DEP-04]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5'
+    heading: '5. The four phase-closure violations found in v2.0, and their fixes — `DEP-05`'
+    requirements: [DEP-05]
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.1'
+    heading: '5.1 Violation 1 — email transport was owned by a phase that runs last'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.2'
+    heading: '5.2 Violation 2 — the embedding codec was needed two phases before it was scheduled'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.3'
+    heading: '5.3 Violation 3 — saved searches depended on the digest, in the wrong direction'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.4'
+    heading: '5.4 Violation 4 — the follow-up draft needed interview history that did not exist yet'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '5.5'
+    heading: '5.5 What the check did not find'
+    requirements: []
+    track: 'R1'
+    status: built
+    declared: false
+  - section: '6'
+    heading: '6. The agent handoff bundle — `DEP-06`'
+    requirements: [DEP-06]
+    track: 'R1'
+    status: built
+    declared: false

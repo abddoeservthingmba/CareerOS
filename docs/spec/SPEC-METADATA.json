@@ -1,0 +1,5018 @@
+{
+  "spec": "JobPilot Agent Build Specification",
+  "spec_version": "2.1",
+  "generated_from": "docs/spec/*.md",
+  "note": "Regenerate with `make spec-metadata` (infra/scripts/specgate).",
+  "section_contract": [
+    "Objective",
+    "Constraints",
+    "Inputs",
+    "Outputs",
+    "Acceptance criteria",
+    "Tests"
+  ],
+  "implementation_states": [
+    "built",
+    "built-off",
+    "stub-501",
+    "absent"
+  ],
+  "dependencies": {
+    "AI-01": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "ai",
+      "requires": [
+        "FOUND-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "AI-02": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "ai",
+      "requires": [
+        "AI-01",
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "AI-03": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "ai",
+      "requires": [
+        "AI-02",
+        "FOUND-10",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "AI-04": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "ai",
+      "requires": [
+        "AI-02",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "AI-05": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "ai",
+      "requires": [
+        "AI-02",
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "AI-06": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "ai",
+      "requires": [
+        "AI-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "AI-07": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "ai",
+      "requires": [
+        "AI-01",
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "DATA-01": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "DATA-02": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "DATA-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "DATA-03": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "DATA-04": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "DATA-05": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "DATA-02",
+        "FOUND-10"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "DATA-06": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "DATA-07": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "DEP-01": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/18-dependency-closure.md"
+      ]
+    },
+    "DEP-02": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/18-dependency-closure.md"
+      ]
+    },
+    "DEP-03": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/18-dependency-closure.md"
+      ]
+    },
+    "DEP-04": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/18-dependency-closure.md"
+      ]
+    },
+    "DEP-05": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/18-dependency-closure.md"
+      ]
+    },
+    "DEP-06": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/18-dependency-closure.md"
+      ]
+    },
+    "FOUND-01": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-02": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-03": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-04": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-05": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-06": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-07": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-03",
+        "DATA-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-08": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-02",
+        "FOUND-12"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-09": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-05"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-10": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-02",
+        "FOUND-09"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-11": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-10",
+        "FOUND-12"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-12": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-13": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-05",
+        "FOUND-12"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-14": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-15": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-02",
+        "FOUND-13"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "FOUND-16": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-02",
+        "FOUND-12"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md"
+      ]
+    },
+    "MOB-01": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "mobile",
+      "requires": [
+        "FOUND-13"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "OPS-01": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "infra",
+      "requires": [
+        "FOUND-01",
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/15-infra-and-ops.md"
+      ]
+    },
+    "OPS-02": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "infra",
+      "requires": [
+        "OPS-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/15-infra-and-ops.md"
+      ]
+    },
+    "OPS-03": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "infra",
+      "requires": [
+        "OPS-01",
+        "FOUND-06",
+        "DEP-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/15-infra-and-ops.md",
+        "docs/spec/18-dependency-closure.md"
+      ]
+    },
+    "OPS-04": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "infra",
+      "requires": [
+        "FOUND-14",
+        "OPS-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/15-infra-and-ops.md"
+      ]
+    },
+    "OPS-05": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "infra",
+      "requires": [
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/15-infra-and-ops.md"
+      ]
+    },
+    "OPS-06": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "infra",
+      "requires": [
+        "OPS-01",
+        "DATA-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/15-infra-and-ops.md"
+      ]
+    },
+    "SEC-01": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "core",
+      "requires": [
+        "FOUND-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/16-security-and-compliance.md"
+      ]
+    },
+    "WEB-01": {
+      "track": "R1",
+      "phase": "P0",
+      "module": "web",
+      "requires": [
+        "FOUND-13"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/13-web-client.md"
+      ]
+    },
+    "ADMIN-06": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "admin",
+      "requires": [
+        "AUTH-10",
+        "WEB-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/12-admin.md",
+        "docs/spec/02-auth-and-account.md",
+        "docs/spec/13-web-client.md"
+      ]
+    },
+    "AUTH-01": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "auth",
+      "requires": [
+        "FOUND-02",
+        "FOUND-12",
+        "FOUND-16",
+        "DATA-02",
+        "AUTH-09"
+      ],
+      "writes_collections": [
+        "users",
+        "email_tokens"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "AUTH-02": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "auth",
+      "requires": [
+        "AUTH-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "AUTH-03": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "auth",
+      "requires": [
+        "AUTH-01",
+        "FOUND-16"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "AUTH-04": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "auth",
+      "requires": [
+        "AUTH-01",
+        "FOUND-03"
+      ],
+      "writes_collections": [
+        "refresh_tokens"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "AUTH-05": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "auth",
+      "requires": [
+        "AUTH-01",
+        "FOUND-16"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "AUTH-07": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "auth",
+      "requires": [
+        "AUTH-01",
+        "DATA-04",
+        "DATA-05",
+        "FOUND-10",
+        "FOUND-16"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "AUTH-09": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "auth",
+      "requires": [
+        "FOUND-02",
+        "FOUND-10"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "AUTH-10": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "auth",
+      "requires": [
+        "AUTH-04",
+        "DATA-01",
+        "FOUND-13"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "MOB-02": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "mobile",
+      "requires": [
+        "MOB-01",
+        "AUTH-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/14-mobile-client.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "SEC-02": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "core",
+      "requires": [
+        "AUTH-04",
+        "AUTH-09",
+        "AUTH-10",
+        "FOUND-14"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/16-security-and-compliance.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "SEC-04": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "core",
+      "requires": [
+        "AUTH-01",
+        "AUTH-07",
+        "DATA-05"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/16-security-and-compliance.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "WEB-02": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "web",
+      "requires": [
+        "WEB-01",
+        "AUTH-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/13-web-client.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "WEB-06": {
+      "track": "R1",
+      "phase": "P1",
+      "module": "web",
+      "requires": [
+        "WEB-01",
+        "FOUND-12"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/13-web-client.md"
+      ]
+    },
+    "MOB-03": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "mobile",
+      "requires": [
+        "MOB-01",
+        "MOB-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "MOB-04": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "mobile",
+      "requires": [
+        "MOB-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "PROF-01": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "profile",
+      "requires": [
+        "DATA-02",
+        "FOUND-09",
+        "DATA-06"
+      ],
+      "publishes_events": [
+        "ProfileUpdated",
+        "ProfileConfirmed"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "PROF-02": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "profile",
+      "requires": [
+        "PROF-01",
+        "FOUND-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "PROF-03": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "profile",
+      "requires": [
+        "PROF-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "PROF-06": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "profile",
+      "requires": [
+        "PROF-01",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "RES-01": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "resume",
+      "requires": [
+        "AUTH-03",
+        "DATA-04",
+        "FOUND-08"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/04-resume-pipeline.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "RES-02a": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "resume",
+      "requires": [
+        "RES-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/04-resume-pipeline.md"
+      ]
+    },
+    "RES-03": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "resume",
+      "requires": [
+        "RES-02a",
+        "AI-01",
+        "AI-06",
+        "AI-07",
+        "PROF-06"
+      ],
+      "publishes_events": [
+        "ResumeExtracted"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/04-resume-pipeline.md",
+        "docs/spec/05-ai-layer.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "RES-05": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "resume",
+      "requires": [
+        "RES-01",
+        "DATA-04",
+        "AI-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/04-resume-pipeline.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "RES-06": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "resume",
+      "requires": [
+        "RES-01",
+        "FOUND-10",
+        "FOUND-11"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/04-resume-pipeline.md"
+      ]
+    },
+    "SEC-03": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "core",
+      "requires": [
+        "AI-05",
+        "AI-06",
+        "RES-05"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/16-security-and-compliance.md",
+        "docs/spec/05-ai-layer.md",
+        "docs/spec/04-resume-pipeline.md"
+      ]
+    },
+    "WEB-03": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "web",
+      "requires": [
+        "WEB-01",
+        "WEB-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/13-web-client.md"
+      ]
+    },
+    "WEB-04": {
+      "track": "R1",
+      "phase": "P2",
+      "module": "web",
+      "requires": [
+        "WEB-03",
+        "AI-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/13-web-client.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "ADMIN-01": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "admin",
+      "requires": [
+        "CONN-03",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/12-admin.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "CONN-01": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "connectors",
+      "requires": [
+        "FOUND-03",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "CONN-02": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "connectors",
+      "requires": [
+        "CONN-01",
+        "FOUND-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "CONN-03": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "connectors",
+      "requires": [
+        "CONN-01",
+        "FOUND-10",
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "CONN-04": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "connectors",
+      "requires": [
+        "CONN-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "CONN-05": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "connectors",
+      "requires": [
+        "CONN-01",
+        "DATA-05"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "CONN-06a": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "connectors",
+      "requires": [
+        "CONN-01",
+        "CONN-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "CONN-07": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "connectors",
+      "requires": [
+        "CONN-04",
+        "WEB-03",
+        "MOB-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/06-connectors.md",
+        "docs/spec/13-web-client.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "JOB-01": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "jobs",
+      "requires": [
+        "DATA-02",
+        "CONN-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "JOB-02": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "jobs",
+      "requires": [
+        "JOB-01",
+        "CONN-03",
+        "FOUND-10",
+        "PROF-02"
+      ],
+      "publishes_events": [
+        "JobsIngested"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md",
+        "docs/spec/06-connectors.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "JOB-03": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "jobs",
+      "requires": [
+        "JOB-01",
+        "DATA-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "JOB-04": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "jobs",
+      "requires": [
+        "JOB-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "JOB-05": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "jobs",
+      "requires": [
+        "JOB-04",
+        "PROF-06",
+        "AI-03",
+        "DATA-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md",
+        "docs/spec/03-profile.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "JOB-06": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "jobs",
+      "requires": [
+        "JOB-04",
+        "DATA-03",
+        "FOUND-07"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "JOB-08": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "jobs",
+      "requires": [
+        "JOB-02",
+        "DATA-05"
+      ],
+      "publishes_events": [
+        "JobExpired"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "JOB-09": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "jobs",
+      "requires": [
+        "JOB-06",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "SEC-05": {
+      "track": "R1",
+      "phase": "P3",
+      "module": "core",
+      "requires": [
+        "CONN-04",
+        "CONN-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/16-security-and-compliance.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "ADMIN-02": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "admin",
+      "requires": [
+        "AI-04",
+        "DATA-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/12-admin.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "ADMIN-03": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "admin",
+      "requires": [
+        "FOUND-02",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/12-admin.md"
+      ]
+    },
+    "MATCH-01": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "matching",
+      "requires": [
+        "PROF-02",
+        "PROF-06",
+        "JOB-04",
+        "JOB-05",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md",
+        "docs/spec/03-profile.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "MATCH-02a": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "matching",
+      "requires": [
+        "MATCH-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md"
+      ]
+    },
+    "MATCH-02b": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "matching",
+      "requires": [
+        "MATCH-02a",
+        "AI-03",
+        "AI-07",
+        "ADMIN-03"
+      ],
+      "enabled_in": "R2",
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md",
+        "docs/spec/05-ai-layer.md",
+        "docs/spec/12-admin.md"
+      ]
+    },
+    "MATCH-03": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "matching",
+      "requires": [
+        "MATCH-01",
+        "FOUND-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md"
+      ]
+    },
+    "MATCH-04": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "matching",
+      "requires": [
+        "AI-02",
+        "DATA-06",
+        "PROF-01",
+        "JOB-05"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md",
+        "docs/spec/05-ai-layer.md",
+        "docs/spec/03-profile.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "MATCH-05": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "matching",
+      "requires": [
+        "MATCH-01",
+        "MATCH-04",
+        "FOUND-09",
+        "FOUND-10",
+        "DATA-03"
+      ],
+      "consumes_events": [
+        "JobsIngested",
+        "ProfileUpdated"
+      ],
+      "writes_collections": [
+        "match_scores"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md"
+      ]
+    },
+    "MATCH-07": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "matching",
+      "requires": [
+        "MATCH-05",
+        "FOUND-07"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md"
+      ]
+    },
+    "MATCH-09": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "matching",
+      "requires": [
+        "MATCH-05",
+        "MATCH-07",
+        "JOB-06",
+        "WEB-03",
+        "MOB-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md",
+        "docs/spec/07-ingestion-and-jobs.md",
+        "docs/spec/13-web-client.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "WEB-05": {
+      "track": "R1",
+      "phase": "P4",
+      "module": "web",
+      "requires": [
+        "WEB-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/13-web-client.md"
+      ]
+    },
+    "APPLY-01": {
+      "track": "R1",
+      "phase": "P5",
+      "module": "apply",
+      "requires": [
+        "PROF-03",
+        "AI-02",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/09-apply.md",
+        "docs/spec/03-profile.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "APPLY-02": {
+      "track": "R1",
+      "phase": "P5",
+      "module": "apply",
+      "requires": [
+        "APPLY-01",
+        "PROF-03",
+        "MATCH-02a",
+        "AI-03",
+        "AI-06",
+        "AI-07",
+        "FOUND-08",
+        "FOUND-11"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/09-apply.md",
+        "docs/spec/03-profile.md",
+        "docs/spec/08-matching.md",
+        "docs/spec/05-ai-layer.md"
+      ]
+    },
+    "APPLY-03": {
+      "track": "R1",
+      "phase": "P5",
+      "module": "apply",
+      "requires": [
+        "APPLY-02",
+        "APPLY-04"
+      ],
+      "publishes_events": [
+        "PackApproved"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/09-apply.md"
+      ]
+    },
+    "APPLY-04": {
+      "track": "R1",
+      "phase": "P5",
+      "module": "apply",
+      "requires": [
+        "APPLY-02",
+        "PROF-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/09-apply.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "APPLY-05": {
+      "track": "R1",
+      "phase": "P5",
+      "module": "apply",
+      "requires": [
+        "APPLY-03",
+        "TRACK-01",
+        "CONN-07"
+      ],
+      "publishes_events": [
+        "AppliedConfirmed"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/09-apply.md",
+        "docs/spec/10-tracker.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "APPLY-07": {
+      "track": "R1",
+      "phase": "P5",
+      "module": "apply",
+      "requires": [
+        "DATA-02",
+        "FOUND-14"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/09-apply.md"
+      ]
+    },
+    "MOB-05": {
+      "track": "R1",
+      "phase": "P5",
+      "module": "mobile",
+      "requires": [
+        "MOB-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "SEC-06": {
+      "track": "R1",
+      "phase": "P5",
+      "module": "core",
+      "requires": [
+        "APPLY-04",
+        "APPLY-05",
+        "APPLY-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/16-security-and-compliance.md",
+        "docs/spec/09-apply.md"
+      ]
+    },
+    "TRACK-01": {
+      "track": "R1",
+      "phase": "P5",
+      "module": "tracker",
+      "requires": [
+        "JOB-01",
+        "DATA-02",
+        "FOUND-09"
+      ],
+      "consumes_events": [
+        "AppliedConfirmed",
+        "JobExpired",
+        "PackApproved"
+      ],
+      "publishes_events": [
+        "ApplicationStatusChanged"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/10-tracker.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "APPLY-09": {
+      "track": "R1",
+      "phase": "P6",
+      "module": "apply",
+      "requires": [
+        "APPLY-04",
+        "AI-03",
+        "TRACK-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/09-apply.md",
+        "docs/spec/05-ai-layer.md",
+        "docs/spec/10-tracker.md"
+      ]
+    },
+    "NOTIF-01": {
+      "track": "R1",
+      "phase": "P6",
+      "module": "notifications",
+      "requires": [
+        "TRACK-01",
+        "TRACK-03",
+        "FOUND-03",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/11-notifications.md",
+        "docs/spec/10-tracker.md"
+      ]
+    },
+    "NOTIF-02a": {
+      "track": "R1",
+      "phase": "P6",
+      "module": "notifications",
+      "requires": [
+        "NOTIF-01",
+        "FOUND-16",
+        "FOUND-11"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/11-notifications.md"
+      ]
+    },
+    "NOTIF-05": {
+      "track": "R1",
+      "phase": "P6",
+      "module": "notifications",
+      "requires": [
+        "NOTIF-01",
+        "FOUND-10",
+        "DATA-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/11-notifications.md"
+      ]
+    },
+    "TRACK-02a": {
+      "track": "R1",
+      "phase": "P6",
+      "module": "tracker",
+      "requires": [
+        "TRACK-01",
+        "FOUND-07",
+        "DATA-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/10-tracker.md"
+      ]
+    },
+    "TRACK-03": {
+      "track": "R1",
+      "phase": "P6",
+      "module": "tracker",
+      "requires": [
+        "TRACK-01",
+        "DATA-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/10-tracker.md"
+      ]
+    },
+    "TRACK-04": {
+      "track": "R1",
+      "phase": "P6",
+      "module": "tracker",
+      "requires": [
+        "TRACK-01",
+        "APPLY-07",
+        "NOTIF-05"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/10-tracker.md",
+        "docs/spec/09-apply.md",
+        "docs/spec/11-notifications.md"
+      ]
+    },
+    "TRACK-05": {
+      "track": "R1",
+      "phase": "P6",
+      "module": "tracker",
+      "requires": [
+        "TRACK-01",
+        "SEC-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/10-tracker.md",
+        "docs/spec/16-security-and-compliance.md"
+      ]
+    },
+    "MOB-06": {
+      "track": "R1",
+      "phase": "P7",
+      "module": "mobile",
+      "requires": [
+        "MOB-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "MOB-08": {
+      "track": "R1",
+      "phase": "P7",
+      "module": "mobile",
+      "requires": [
+        "MOB-03",
+        "MOB-04",
+        "MOB-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "OPS-08": {
+      "track": "R1",
+      "phase": "P7",
+      "module": "infra",
+      "requires": [
+        "AI-03",
+        "OPS-04",
+        "ADMIN-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/15-infra-and-ops.md",
+        "docs/spec/05-ai-layer.md",
+        "docs/spec/12-admin.md"
+      ]
+    },
+    "WEB-08": {
+      "track": "R1",
+      "phase": "P7",
+      "module": "web",
+      "requires": [
+        "WEB-03",
+        "WEB-04",
+        "AUTH-10"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/13-web-client.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "ADMIN-04": {
+      "track": "R2",
+      "phase": "S2",
+      "module": "admin",
+      "requires": [
+        "PROF-06",
+        "JOB-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/12-admin.md",
+        "docs/spec/03-profile.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "ADMIN-05": {
+      "track": "R2",
+      "phase": "S2",
+      "module": "admin",
+      "requires": [
+        "JOB-10"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/12-admin.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "CONN-06b": {
+      "track": "R2",
+      "phase": "S2",
+      "module": "connectors",
+      "requires": [
+        "CONN-06a"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/06-connectors.md"
+      ]
+    },
+    "JOB-07": {
+      "track": "R2",
+      "phase": "S2",
+      "module": "jobs",
+      "requires": [
+        "JOB-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "JOB-10": {
+      "track": "R2",
+      "phase": "S2",
+      "module": "jobs",
+      "requires": [
+        "JOB-09",
+        "ADMIN-05"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/07-ingestion-and-jobs.md",
+        "docs/spec/12-admin.md"
+      ]
+    },
+    "AUTH-06": {
+      "track": "R2",
+      "phase": "S3",
+      "module": "auth",
+      "requires": [
+        "AUTH-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "AUTH-08": {
+      "track": "R2",
+      "phase": "S3",
+      "module": "auth",
+      "requires": [
+        "AUTH-07",
+        "DATA-04",
+        "FOUND-08"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/02-auth-and-account.md"
+      ]
+    },
+    "MATCH-06": {
+      "track": "R2",
+      "phase": "S3",
+      "module": "matching",
+      "requires": [
+        "MATCH-05",
+        "JOB-09"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "PROF-05": {
+      "track": "R2",
+      "phase": "S3",
+      "module": "profile",
+      "requires": [
+        "PROF-01",
+        "PROF-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "PROF-07": {
+      "track": "R2",
+      "phase": "S3",
+      "module": "profile",
+      "requires": [
+        "PROF-01",
+        "DATA-02"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "RES-02b": {
+      "track": "R2",
+      "phase": "S3",
+      "module": "resume",
+      "requires": [
+        "RES-02a"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/04-resume-pipeline.md"
+      ]
+    },
+    "RES-04": {
+      "track": "R2",
+      "phase": "S3",
+      "module": "resume",
+      "requires": [
+        "RES-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/04-resume-pipeline.md"
+      ]
+    },
+    "RES-07": {
+      "track": "R2",
+      "phase": "S3",
+      "module": "resume",
+      "requires": [
+        "RES-03",
+        "PROF-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/04-resume-pipeline.md",
+        "docs/spec/03-profile.md"
+      ]
+    },
+    "MOB-07": {
+      "track": "R2",
+      "phase": "S4",
+      "module": "mobile",
+      "requires": [
+        "MOB-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "NOTIF-02b": {
+      "track": "R2",
+      "phase": "S4",
+      "module": "notifications",
+      "requires": [
+        "NOTIF-02a",
+        "MOB-05"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/11-notifications.md",
+        "docs/spec/14-mobile-client.md"
+      ]
+    },
+    "NOTIF-03": {
+      "track": "R2",
+      "phase": "S4",
+      "module": "notifications",
+      "requires": [
+        "NOTIF-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/11-notifications.md"
+      ]
+    },
+    "NOTIF-04": {
+      "track": "R2",
+      "phase": "S4",
+      "module": "notifications",
+      "requires": [
+        "NOTIF-02a",
+        "MATCH-05",
+        "JOB-07"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/11-notifications.md",
+        "docs/spec/08-matching.md",
+        "docs/spec/07-ingestion-and-jobs.md"
+      ]
+    },
+    "TRACK-02b": {
+      "track": "R2",
+      "phase": "S4",
+      "module": "tracker",
+      "requires": [
+        "TRACK-02a",
+        "TRACK-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/10-tracker.md"
+      ]
+    },
+    "TRACK-06": {
+      "track": "R2",
+      "phase": "S4",
+      "module": "tracker",
+      "requires": [
+        "TRACK-01",
+        "NOTIF-04"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/10-tracker.md",
+        "docs/spec/11-notifications.md"
+      ]
+    },
+    "TRACK-07": {
+      "track": "R2",
+      "phase": "S4",
+      "module": "tracker",
+      "requires": [
+        "TRACK-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/10-tracker.md"
+      ]
+    },
+    "OPS-07": {
+      "track": "R2",
+      "phase": "S5",
+      "module": "infra",
+      "requires": [
+        "OPS-04",
+        "OPS-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/15-infra-and-ops.md"
+      ]
+    },
+    "WEB-07": {
+      "track": "R2",
+      "phase": "S5",
+      "module": "web",
+      "requires": [
+        "WEB-03"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/13-web-client.md"
+      ]
+    },
+    "APPLY-06": {
+      "track": "R3",
+      "phase": null,
+      "module": "apply",
+      "requires": [
+        "APPLY-05"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/09-apply.md"
+      ]
+    },
+    "APPLY-08": {
+      "track": "R3",
+      "phase": null,
+      "module": "apply",
+      "requires": [
+        "PROF-03",
+        "RES-02a"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/09-apply.md",
+        "docs/spec/03-profile.md",
+        "docs/spec/04-resume-pipeline.md"
+      ]
+    },
+    "MATCH-08": {
+      "track": "R3",
+      "phase": null,
+      "module": "matching",
+      "requires": [
+        "MATCH-02a",
+        "MATCH-06"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/08-matching.md"
+      ]
+    },
+    "NOTIF-02c": {
+      "track": "R3",
+      "phase": null,
+      "module": "notifications",
+      "requires": [
+        "NOTIF-02a"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/11-notifications.md"
+      ]
+    },
+    "PROF-04": {
+      "track": "R3",
+      "phase": null,
+      "module": "profile",
+      "requires": [
+        "PROF-01",
+        "RES-01"
+      ],
+      "bundle": [
+        "docs/spec/README.md",
+        "docs/spec/01-foundations.md",
+        "docs/spec/17-data-model.md",
+        "docs/spec/03-profile.md",
+        "docs/spec/04-resume-pipeline.md"
+      ]
+    }
+  },
+  "totals": {
+    "files": 20,
+    "sections": 231,
+    "requirements": 149,
+    "acceptance_criteria": 826,
+    "tests_named": 826
+  },
+  "files": [
+    {
+      "file": "00-scope-and-phases.md",
+      "title": "00 \u2014 Scope Split, Phases and Gates",
+      "track": null,
+      "module": null,
+      "requirements": null,
+      "depends": "`README.md`",
+      "lines": 319,
+      "words": 4883,
+      "ac": 0,
+      "tests": 0,
+      "sections": [
+        {
+          "n": "1",
+          "title": "The three tracks",
+          "heading": "1. The three tracks",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "1.1",
+          "title": "Definitions",
+          "heading": "1.1 Definitions",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "1.2",
+          "title": "The R1 exit sentence",
+          "heading": "1.2 The R1 exit sentence",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "1.3",
+          "title": "What R1 deliberately is not",
+          "heading": "1.3 What R1 deliberately is not",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2",
+          "title": "Track assignment for every requirement",
+          "heading": "2. Track assignment for every requirement",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.1",
+          "title": "Authentication & Account",
+          "heading": "2.1 Authentication & Account",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.2",
+          "title": "Candidate Profile",
+          "heading": "2.2 Candidate Profile",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.3",
+          "title": "Resume Analysis",
+          "heading": "2.3 Resume Analysis",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.4",
+          "title": "Job Search & Normalization",
+          "heading": "2.4 Job Search & Normalization",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.5",
+          "title": "Connectors",
+          "heading": "2.5 Connectors",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.6",
+          "title": "Matching",
+          "heading": "2.6 Matching",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.7",
+          "title": "Application Assistance",
+          "heading": "2.7 Application Assistance",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.8",
+          "title": "Tracker",
+          "heading": "2.8 Tracker",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.9",
+          "title": "Notifications",
+          "heading": "2.9 Notifications",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.10",
+          "title": "Operator Admin",
+          "heading": "2.10 Operator Admin",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.11",
+          "title": "Cross-cutting requirement families",
+          "heading": "2.11 Cross-cutting requirement families \u2014 **added in v2.1**",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2.12",
+          "title": "Cross-cutting items not in BRD \u00a75",
+          "heading": "2.12 Cross-cutting items not in BRD \u00a75",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "3",
+          "title": "Gates",
+          "heading": "3. Gates",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "3.1",
+          "title": "R1 gate",
+          "heading": "3.1 R1 gate",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "3.2",
+          "title": "R2 gate",
+          "heading": "3.2 R2 gate",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "3.3",
+          "title": "Track discipline rule",
+          "heading": "3.3 Track discipline rule",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "4",
+          "title": "Phase order inside R1",
+          "heading": "4. Phase order inside R1",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "4.1",
+          "title": "Phase order inside R2",
+          "heading": "4.1 Phase order inside R2",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "5",
+          "title": "Open decisions",
+          "heading": "5. Open decisions",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "6",
+          "title": "Traceability",
+          "heading": "6. Traceability",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        }
+      ]
+    },
+    {
+      "file": "01-foundations.md",
+      "title": "01 \u2014 Foundations",
+      "track": "R1 (all sections)",
+      "module": "`apps/api/app/core`, `apps/api/app/shared`, repo root",
+      "requirements": "`FOUND-01` \u2026 `FOUND-14`",
+      "depends": "nothing",
+      "lines": 644,
+      "words": 6721,
+      "ac": 88,
+      "tests": 88,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Repository layout",
+          "heading": "1. Repository layout \u2014 `FOUND-01`",
+          "level": 2,
+          "requirements": [
+            "FOUND-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Configuration",
+          "heading": "2. Configuration \u2014 `FOUND-02`",
+          "level": 2,
+          "requirements": [
+            "FOUND-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Primitives: time, IDs, money, location, skills",
+          "heading": "3. Primitives: time, IDs, money, location, skills \u2014 `FOUND-03`",
+          "level": 2,
+          "requirements": [
+            "FOUND-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Module boundaries and import contracts",
+          "heading": "4. Module boundaries and import contracts \u2014 `FOUND-04`",
+          "level": 2,
+          "requirements": [
+            "FOUND-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Module anatomy",
+          "heading": "5. Module anatomy \u2014 `FOUND-05`",
+          "level": 2,
+          "requirements": [
+            "FOUND-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Specification traceability gate",
+          "heading": "6. Specification traceability gate \u2014 `FOUND-06`",
+          "level": 2,
+          "requirements": [
+            "FOUND-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "7",
+          "title": "Pagination",
+          "heading": "7. Pagination \u2014 `FOUND-07`",
+          "level": 2,
+          "requirements": [
+            "FOUND-07"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "8",
+          "title": "Idempotency",
+          "heading": "8. Idempotency \u2014 `FOUND-08`",
+          "level": 2,
+          "requirements": [
+            "FOUND-08"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "9",
+          "title": "Domain events",
+          "heading": "9. Domain events \u2014 `FOUND-09`",
+          "level": 2,
+          "requirements": [
+            "FOUND-09"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "10",
+          "title": "Background tasks",
+          "heading": "10. Background tasks \u2014 `FOUND-10`",
+          "level": 2,
+          "requirements": [
+            "FOUND-10"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "11",
+          "title": "Long operations and streaming",
+          "heading": "11. Long operations and streaming \u2014 `FOUND-11`",
+          "level": 2,
+          "requirements": [
+            "FOUND-11"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "12",
+          "title": "Errors",
+          "heading": "12. Errors \u2014 `FOUND-12`",
+          "level": 2,
+          "requirements": [
+            "FOUND-12"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "13",
+          "title": "API versioning and contract export",
+          "heading": "13. API versioning and contract export \u2014 `FOUND-13`",
+          "level": 2,
+          "requirements": [
+            "FOUND-13"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "14",
+          "title": "Logging and observability hooks",
+          "heading": "14. Logging and observability hooks \u2014 `FOUND-14`",
+          "level": 2,
+          "requirements": [
+            "FOUND-14"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "15",
+          "title": "Implementation status",
+          "heading": "15. Implementation status \u2014 `FOUND-15` \u2014 **added in v2.1**",
+          "level": 2,
+          "requirements": [
+            "FOUND-15"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "16",
+          "title": "Transactional email transport",
+          "heading": "16. Transactional email transport \u2014 `FOUND-16` \u2014 **added in v2.1**",
+          "level": 2,
+          "requirements": [
+            "FOUND-16"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "02-auth-and-account.md",
+      "title": "02 \u2014 Authentication & Account",
+      "track": "R1 except \u00a74 and \u00a78 (R2)",
+      "module": "`apps/api/app/modules/auth`",
+      "requirements": "`AUTH-01` \u2026 `AUTH-10`",
+      "depends": "`01-foundations.md`, `17-data-model.md` \u00a72.1\u20132.3",
+      "lines": 279,
+      "words": 2976,
+      "ac": 57,
+      "tests": 57,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Registration and password policy",
+          "heading": "1. Registration and password policy \u2014 `AUTH-01`",
+          "level": 2,
+          "requirements": [
+            "AUTH-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Google sign-in",
+          "heading": "2. Google sign-in \u2014 `AUTH-02`",
+          "level": 2,
+          "requirements": [
+            "AUTH-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Email verification",
+          "heading": "3. Email verification \u2014 `AUTH-03`",
+          "level": 2,
+          "requirements": [
+            "AUTH-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Sessions and token lifecycle",
+          "heading": "4. Sessions and token lifecycle \u2014 `AUTH-04`",
+          "level": 2,
+          "requirements": [
+            "AUTH-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4.1",
+          "title": "Session list and global sign-out",
+          "heading": "4.1 Session list and global sign-out \u2014 `AUTH-06` \u2014 **Track: R2**",
+          "level": 3,
+          "requirements": [
+            "AUTH-06"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "5",
+          "title": "Password reset",
+          "heading": "5. Password reset \u2014 `AUTH-05`",
+          "level": 2,
+          "requirements": [
+            "AUTH-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Authorization model",
+          "heading": "6. Authorization model \u2014 `AUTH-10` (shared with `ADMIN-06`)",
+          "level": 2,
+          "requirements": [
+            "AUTH-10",
+            "ADMIN-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "7",
+          "title": "Account deletion",
+          "heading": "7. Account deletion \u2014 `AUTH-07`",
+          "level": 2,
+          "requirements": [
+            "AUTH-07"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "8",
+          "title": "Data export",
+          "heading": "8. Data export \u2014 `AUTH-08` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "AUTH-08"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "9",
+          "title": "Rate limiting",
+          "heading": "9. Rate limiting \u2014 `AUTH-09`",
+          "level": 2,
+          "requirements": [
+            "AUTH-09"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "03-profile.md",
+      "title": "03 \u2014 Candidate Profile",
+      "track": "R1 except \u00a75 (R2), \u00a76 (R2), \u00a77 (R3)",
+      "module": "`apps/api/app/modules/profile`",
+      "requirements": "`PROF-01` \u2026 `PROF-07`",
+      "depends": "`01-foundations.md`, `17-data-model.md` \u00a72.5, `05-ai-layer.md` (embeddings)",
+      "lines": 187,
+      "words": 1984,
+      "ac": 36,
+      "tests": 36,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Profile document and versioning",
+          "heading": "1. Profile document and versioning \u2014 `PROF-01`",
+          "level": 2,
+          "requirements": [
+            "PROF-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Provenance: source, confidence, confirmed",
+          "heading": "2. Provenance: source, confidence, confirmed \u2014 `PROF-03`",
+          "level": 2,
+          "requirements": [
+            "PROF-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Preferences",
+          "heading": "3. Preferences \u2014 `PROF-02`",
+          "level": 2,
+          "requirements": [
+            "PROF-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Skill canonicalization",
+          "heading": "4. Skill canonicalization \u2014 `PROF-06`",
+          "level": 2,
+          "requirements": [
+            "PROF-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Completeness score",
+          "heading": "5. Completeness score \u2014 `PROF-05` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "PROF-05"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "6",
+          "title": "Field audit history",
+          "heading": "6. Field audit history \u2014 `PROF-07` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "PROF-07"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "7",
+          "title": "Multiple resume versions",
+          "heading": "7. Multiple resume versions \u2014 `PROF-04` \u2014 **Track: R3**",
+          "level": 2,
+          "requirements": [
+            "PROF-04"
+          ],
+          "track": "R3",
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "file": "04-resume-pipeline.md",
+      "title": "04 \u2014 Resume Pipeline",
+      "track": "R1 except \u00a73.1 (R2), \u00a76 (R2), \u00a77 (R2)",
+      "module": "`apps/api/app/modules/resume`",
+      "requirements": "`RES-01` \u2026 `RES-07`",
+      "depends": "`01-foundations.md` \u00a710\u201311, `05-ai-layer.md`, `17-data-model.md` \u00a72.4, `03-profile.md` \u00a72",
+      "lines": 242,
+      "words": 2492,
+      "ac": 43,
+      "tests": 43,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Upload and validation",
+          "heading": "1. Upload and validation \u2014 `RES-01`",
+          "level": 2,
+          "requirements": [
+            "RES-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "The stage machine and progress reporting",
+          "heading": "2. The stage machine and progress reporting \u2014 `RES-06`",
+          "level": 2,
+          "requirements": [
+            "RES-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Text extraction",
+          "heading": "3. Text extraction \u2014 `RES-02`",
+          "level": 2,
+          "requirements": [
+            "RES-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3.1",
+          "title": "OCR fallback",
+          "heading": "3.1 OCR fallback \u2014 **Track: R2**",
+          "level": 3,
+          "requirements": [],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "4",
+          "title": "Structured extraction",
+          "heading": "4. Structured extraction \u2014 `RES-03`",
+          "level": 2,
+          "requirements": [
+            "RES-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4.1",
+          "title": "`ProfileExtraction` schema",
+          "heading": "4.1 `ProfileExtraction` schema",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Storage and the AI boundary",
+          "heading": "5. Storage and the AI boundary \u2014 `RES-05`",
+          "level": 2,
+          "requirements": [
+            "RES-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Quality feedback",
+          "heading": "6. Quality feedback \u2014 `RES-04` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "RES-04"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "7",
+          "title": "Re-analysis and the diff view",
+          "heading": "7. Re-analysis and the diff view \u2014 `RES-07` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "RES-07"
+          ],
+          "track": "R2",
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "file": "05-ai-layer.md",
+      "title": "05 \u2014 AI Layer (Provider-Agnostic, Gemini First)",
+      "track": "R1 (all sections)",
+      "module": "`apps/api/app/ai`",
+      "requirements": "`AI-01` \u2026 `AI-07`",
+      "depends": "`01-foundations.md` \u00a72, \u00a74, \u00a710, \u00a714",
+      "lines": 385,
+      "words": 4736,
+      "ac": 47,
+      "tests": 47,
+      "sections": [
+        {
+          "n": "1",
+          "title": "The contract",
+          "heading": "1. The contract \u2014 `AI-01`",
+          "level": 2,
+          "requirements": [
+            "AI-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Selection and the registry",
+          "heading": "2. Selection and the registry \u2014 `AI-02`",
+          "level": 2,
+          "requirements": [
+            "AI-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Budgets, caching and degradation",
+          "heading": "3. Budgets, caching and degradation \u2014 `AI-03`",
+          "level": 2,
+          "requirements": [
+            "AI-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3.1",
+          "title": "Budget state, and the order the checks run",
+          "heading": "3.1 Budget state, and the order the checks run",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3.2",
+          "title": "The degradation matrix",
+          "heading": "3.2 The degradation matrix",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3.3",
+          "title": "Caching",
+          "heading": "3.3 Caching",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Usage accounting and provenance",
+          "heading": "4. Usage accounting and provenance \u2014 `AI-04`",
+          "level": 2,
+          "requirements": [
+            "AI-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "The Gemini adapter, and isolation from Google AI Pro",
+          "heading": "5. The Gemini adapter, and isolation from Google AI Pro \u2014 `AI-05`",
+          "level": 2,
+          "requirements": [
+            "AI-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.1",
+          "title": "What the isolation actually is",
+          "heading": "5.1 What the isolation actually is",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.2",
+          "title": "Constraints",
+          "heading": "5.2 Constraints",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.3",
+          "title": "Inputs / Outputs",
+          "heading": "5.3 Inputs / Outputs",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.4",
+          "title": "The free-vs-paid tier decision (D5)",
+          "heading": "5.4 The free-vs-paid tier decision (D5)",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.5",
+          "title": "Acceptance criteria",
+          "heading": "5.5 Acceptance criteria",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.6",
+          "title": "Tests",
+          "heading": "5.6 Tests",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Untrusted content and prompt injection",
+          "heading": "6. Untrusted content and prompt injection \u2014 `AI-06`",
+          "level": 2,
+          "requirements": [
+            "AI-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "7",
+          "title": "Prompt management and golden tests",
+          "heading": "7. Prompt management and golden tests \u2014 `AI-07`",
+          "level": 2,
+          "requirements": [
+            "AI-07"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "06-connectors.md",
+      "title": "06 \u2014 Connector Framework",
+      "track": "R1 except \u00a75 (the six additional connectors, R2)",
+      "module": "`apps/api/app/connectors`",
+      "requirements": "`CONN-01` \u2026 `CONN-07`",
+      "depends": "`01-foundations.md` \u00a74, \u00a710; `17-data-model.md` \u00a72.6\u20132.7",
+      "lines": 250,
+      "words": 2670,
+      "ac": 36,
+      "tests": 36,
+      "sections": [
+        {
+          "n": "1",
+          "title": "The connector contract",
+          "heading": "1. The connector contract \u2014 `CONN-01`",
+          "level": 2,
+          "requirements": [
+            "CONN-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Isolation, and the sources that are excluded",
+          "heading": "2. Isolation, and the sources that are excluded \u2014 `CONN-02`, HR-2",
+          "level": 2,
+          "requirements": [
+            "CONN-02",
+            "HR-2"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Reliability: limits, retries, circuit breaker",
+          "heading": "3. Reliability: limits, retries, circuit breaker \u2014 `CONN-03`",
+          "level": 2,
+          "requirements": [
+            "CONN-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Compliance record and attribution",
+          "heading": "4. Compliance record and attribution \u2014 `CONN-04`, `CONN-05`, `CONN-07`",
+          "level": 2,
+          "requirements": [
+            "CONN-04",
+            "CONN-05",
+            "CONN-07"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "The connector set",
+          "heading": "5. The connector set \u2014 `CONN-06`",
+          "level": 2,
+          "requirements": [
+            "CONN-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.1",
+          "title": "R1",
+          "heading": "5.1 R1 \u2014 three connectors",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.2",
+          "title": "R2",
+          "heading": "5.2 R2 \u2014 six more \u2014 **Track: R2**",
+          "level": 3,
+          "requirements": [],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "5.3",
+          "title": "Constraints",
+          "heading": "5.3 Constraints",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Adding a connector, and the one-hour drill",
+          "heading": "6. Adding a connector, and the one-hour drill \u2014 `CONN-02` (proof)",
+          "level": 2,
+          "requirements": [
+            "CONN-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "07-ingestion-and-jobs.md",
+      "title": "07 \u2014 Ingestion, Normalization and Job Search",
+      "track": "R1 except \u00a77.1 (`JOB-07`, R2) and \u00a77.2 (`JOB-10`, R2)",
+      "module": "`apps/api/app/modules/jobs`",
+      "requirements": "`JOB-01` \u2026 `JOB-10`",
+      "depends": "`06-connectors.md`, `03-profile.md` \u00a74 (canonicalize), `05-ai-layer.md`, `17-data-model.md` \u00a72.6\u20132.7",
+      "lines": 282,
+      "words": 3585,
+      "ac": 60,
+      "tests": 60,
+      "sections": [
+        {
+          "n": "1",
+          "title": "The canonical job",
+          "heading": "1. The canonical job \u2014 `JOB-01`",
+          "level": 2,
+          "requirements": [
+            "JOB-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Scheduling and query fan-out",
+          "heading": "2. Scheduling and query fan-out \u2014 `JOB-02`",
+          "level": 2,
+          "requirements": [
+            "JOB-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Deduplication",
+          "heading": "3. Deduplication \u2014 `JOB-03`",
+          "level": 2,
+          "requirements": [
+            "JOB-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Normalization",
+          "heading": "4. Normalization \u2014 `JOB-04`",
+          "level": 2,
+          "requirements": [
+            "JOB-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Skill extraction and enrichment",
+          "heading": "5. Skill extraction and enrichment \u2014 `JOB-05`",
+          "level": 2,
+          "requirements": [
+            "JOB-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Staleness and expiry",
+          "heading": "6. Staleness and expiry \u2014 `JOB-08`",
+          "level": 2,
+          "requirements": [
+            "JOB-08"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "7",
+          "title": "Search, filters and feed controls",
+          "heading": "7. Search, filters and feed controls \u2014 `JOB-06`, `JOB-09`",
+          "level": 2,
+          "requirements": [
+            "JOB-06",
+            "JOB-09"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "7.1",
+          "title": "Saved searches",
+          "heading": "7.1 Saved searches \u2014 `JOB-07` \u2014 **Track: R2**",
+          "level": 3,
+          "requirements": [
+            "JOB-07"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "7.2",
+          "title": "Reporting a listing",
+          "heading": "7.2 Reporting a listing \u2014 `JOB-10` \u2014 **Track: R2**",
+          "level": 3,
+          "requirements": [
+            "JOB-10"
+          ],
+          "track": "R2",
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "file": "08-matching.md",
+      "title": "08 \u2014 Matching Engine",
+      "track": "R1 except \u00a76 (`MATCH-06`, R2), \u00a77 (`MATCH-08`, R3), and the *enablement* of \u00a74 (`MATCH-02b`, R2)",
+      "module": "`apps/api/app/modules/matching`",
+      "requirements": "`MATCH-01` \u2026 `MATCH-08`",
+      "depends": "`03-profile.md`, `07-ingestion-and-jobs.md`, `05-ai-layer.md`, `17-data-model.md` \u00a72.8",
+      "lines": 336,
+      "words": 4404,
+      "ac": 58,
+      "tests": 58,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Design commitments",
+          "heading": "1. Design commitments \u2014 `MATCH-03`",
+          "level": 2,
+          "requirements": [
+            "MATCH-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Score composition, weights `w1`",
+          "heading": "2. Score composition, weights `w1` \u2014 `MATCH-01`",
+          "level": 2,
+          "requirements": [
+            "MATCH-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "The explainability contract",
+          "heading": "3. The explainability contract \u2014 `MATCH-02a`",
+          "level": 2,
+          "requirements": [
+            "MATCH-02a"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "The LLM rationale",
+          "heading": "4. The LLM rationale \u2014 `MATCH-02b` \u2014 **code R1, enabled R2**",
+          "level": 2,
+          "requirements": [
+            "MATCH-02b"
+          ],
+          "track": "R1 code, R2 on",
+          "status": "built-off"
+        },
+        {
+          "n": "5",
+          "title": "Candidate selection, incremental scoring and the feed",
+          "heading": "5. Candidate selection, incremental scoring and the feed \u2014 `MATCH-04`, `MATCH-05`, `MATCH-07`",
+          "level": 2,
+          "requirements": [
+            "MATCH-04",
+            "MATCH-05",
+            "MATCH-07"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Feedback loop",
+          "heading": "6. Feedback loop \u2014 `MATCH-06` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "MATCH-06"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "7",
+          "title": "Gap analysis",
+          "heading": "7. Gap analysis \u2014 `MATCH-08` \u2014 **Track: R3**",
+          "level": 2,
+          "requirements": [
+            "MATCH-08"
+          ],
+          "track": "R3",
+          "status": "absent"
+        },
+        {
+          "n": "8",
+          "title": "The feed sufficiency invariant",
+          "heading": "8. The feed sufficiency invariant \u2014 `MATCH-09` \u2014 **added in v2.1**",
+          "level": 2,
+          "requirements": [
+            "MATCH-09"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "8.1",
+          "title": "Three different claims, separated",
+          "heading": "8.1 Three different claims, separated",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "8.2",
+          "title": "The gate invariant",
+          "heading": "8.2 The gate invariant",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "8.3",
+          "title": "Scoring freshness",
+          "heading": "8.3 Scoring freshness \u2014 the invariant that makes the feed honest",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "8.4",
+          "title": "What the product does when fifty do not exist",
+          "heading": "8.4 What the product does when fifty do not exist",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "8.5",
+          "title": "What this invariant is not",
+          "heading": "8.5 What this invariant is not",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "09-apply.md",
+      "title": "09 \u2014 Application Engine",
+      "track": "R1 except \u00a77 (`APPLY-06`, R3) and \u00a78 (`APPLY-08`, R3)",
+      "module": "`apps/api/app/modules/apply`",
+      "requirements": "`APPLY-01` \u2026 `APPLY-08`",
+      "depends": "`03-profile.md` \u00a72, `08-matching.md` \u00a73, `05-ai-layer.md`, `17-data-model.md` \u00a72.9, \u00a72.12",
+      "lines": 300,
+      "words": 3449,
+      "ac": 56,
+      "tests": 56,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Answer Bank",
+          "heading": "1. Answer Bank \u2014 `APPLY-01`",
+          "level": 2,
+          "requirements": [
+            "APPLY-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Pack generation",
+          "heading": "2. Pack generation \u2014 `APPLY-02`",
+          "level": 2,
+          "requirements": [
+            "APPLY-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.1",
+          "title": "`ApplicationPack` schema",
+          "heading": "2.1 `ApplicationPack` schema",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Editing, approval and immutability",
+          "heading": "3. Editing, approval and immutability \u2014 `APPLY-03`",
+          "level": 2,
+          "requirements": [
+            "APPLY-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Anti-fabrication",
+          "heading": "4. Anti-fabrication \u2014 `APPLY-04`, HR-4",
+          "level": 2,
+          "requirements": [
+            "APPLY-04",
+            "HR-4"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Assisted apply",
+          "heading": "5. Assisted apply \u2014 `APPLY-05`, HR-1",
+          "level": 2,
+          "requirements": [
+            "APPLY-05",
+            "HR-1"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Audit",
+          "heading": "6. Audit \u2014 `APPLY-07`",
+          "level": 2,
+          "requirements": [
+            "APPLY-07"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6.1",
+          "title": "Follow-up draft",
+          "heading": "6.1 Follow-up draft",
+          "level": 2,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "7",
+          "title": "Browser extension",
+          "heading": "7. Browser extension \u2014 `APPLY-06` \u2014 **Track: R3**",
+          "level": 2,
+          "requirements": [
+            "APPLY-06"
+          ],
+          "track": "R3",
+          "status": "absent"
+        },
+        {
+          "n": "8",
+          "title": "Tailored resume export",
+          "heading": "8. Tailored resume export \u2014 `APPLY-08` \u2014 **Track: R3**",
+          "level": 2,
+          "requirements": [
+            "APPLY-08"
+          ],
+          "track": "R3",
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "file": "10-tracker.md",
+      "title": "10 \u2014 Application Tracker",
+      "track": "R1 except \u00a73.1 (`TRACK-02b`, R2), \u00a76 (`TRACK-06`, R2), \u00a77 (`TRACK-07`, R2)",
+      "module": "`apps/api/app/modules/tracker`",
+      "requirements": "`TRACK-01` \u2026 `TRACK-07`",
+      "depends": "`07-ingestion-and-jobs.md`, `09-apply.md`, `17-data-model.md` \u00a72.10",
+      "lines": 235,
+      "words": 2522,
+      "ac": 48,
+      "tests": 48,
+      "sections": [
+        {
+          "n": "1",
+          "title": "The application entity",
+          "heading": "1. The application entity \u2014 `TRACK-01`, `TRACK-05`",
+          "level": 2,
+          "requirements": [
+            "TRACK-01",
+            "TRACK-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "The status state machine",
+          "heading": "2. The status state machine \u2014 `TRACK-01`",
+          "level": 2,
+          "requirements": [
+            "TRACK-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Views",
+          "heading": "3. Views \u2014 `TRACK-02`",
+          "level": 2,
+          "requirements": [
+            "TRACK-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3.1",
+          "title": "Calendar view",
+          "heading": "3.1 Calendar view \u2014 `TRACK-02b` \u2014 **Track: R2**",
+          "level": 3,
+          "requirements": [
+            "TRACK-02b"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "4",
+          "title": "Application detail: notes, contacts, documents, interviews, salary",
+          "heading": "4. Application detail: notes, contacts, documents, interviews, salary \u2014 `TRACK-03`",
+          "level": 2,
+          "requirements": [
+            "TRACK-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Timeline",
+          "heading": "5. Timeline \u2014 `TRACK-04`",
+          "level": 2,
+          "requirements": [
+            "TRACK-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Ghosted suggestion",
+          "heading": "6. Ghosted suggestion \u2014 `TRACK-06` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "TRACK-06"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "7",
+          "title": "Statistics",
+          "heading": "7. Statistics \u2014 `TRACK-07` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "TRACK-07"
+          ],
+          "track": "R2",
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "file": "11-notifications.md",
+      "title": "11 \u2014 Reminders & Notifications",
+      "track": "R1 except \u00a74.2 (`NOTIF-02b`, R2), \u00a74.3 (`NOTIF-02c`, R3), \u00a75 (`NOTIF-03`/`NOTIF-04`, R2)",
+      "module": "`apps/api/app/modules/notifications`",
+      "requirements": "`NOTIF-01` \u2026 `NOTIF-05`",
+      "depends": "`10-tracker.md`, `01-foundations.md` \u00a73 (time), \u00a710 (tasks), `17-data-model.md` \u00a72.11",
+      "lines": 184,
+      "words": 2040,
+      "ac": 33,
+      "tests": 33,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Reminder types",
+          "heading": "1. Reminder types \u2014 `NOTIF-01`",
+          "level": 2,
+          "requirements": [
+            "NOTIF-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Scheduling, reconciliation and local time",
+          "heading": "2. Scheduling, reconciliation and local time \u2014 `NOTIF-01`, HR-10",
+          "level": 2,
+          "requirements": [
+            "NOTIF-01",
+            "HR-10"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Dispatch and idempotency",
+          "heading": "3. Dispatch and idempotency \u2014 `NOTIF-05`",
+          "level": 2,
+          "requirements": [
+            "NOTIF-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Channels",
+          "heading": "4. Channels \u2014 `NOTIF-02`",
+          "level": 2,
+          "requirements": [
+            "NOTIF-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4.1",
+          "title": "In-app inbox and email",
+          "heading": "4.1 In-app inbox and email \u2014 **R1**",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4.2",
+          "title": "Mobile push (FCM)",
+          "heading": "4.2 Mobile push (FCM) \u2014 `NOTIF-02b` \u2014 **Track: R2**",
+          "level": 3,
+          "requirements": [
+            "NOTIF-02b"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "4.3",
+          "title": "Web push (VAPID)",
+          "heading": "4.3 Web push (VAPID) \u2014 `NOTIF-02c` \u2014 **Track: R3**",
+          "level": 3,
+          "requirements": [],
+          "track": "R3",
+          "status": "absent"
+        },
+        {
+          "n": "5",
+          "title": "Quiet hours and the digest",
+          "heading": "5. Quiet hours and the digest \u2014 `NOTIF-03`, `NOTIF-04` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "NOTIF-03",
+            "NOTIF-04"
+          ],
+          "track": "R2",
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "file": "12-admin.md",
+      "title": "12 \u2014 Operator Admin",
+      "track": "R1 except \u00a74 (`ADMIN-04`, R2) and \u00a75 (`ADMIN-05`, R2)",
+      "module": "`apps/api/app/modules/admin`",
+      "requirements": "`ADMIN-01` \u2026 `ADMIN-06`",
+      "depends": "every other module's public API (read-only, plus explicit control actions)",
+      "lines": 185,
+      "words": 2048,
+      "ac": 39,
+      "tests": 39,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Connector dashboard",
+          "heading": "1. Connector dashboard \u2014 `ADMIN-01`",
+          "level": 2,
+          "requirements": [
+            "ADMIN-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "AI usage dashboard",
+          "heading": "2. AI usage dashboard \u2014 `ADMIN-02`",
+          "level": 2,
+          "requirements": [
+            "ADMIN-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Feature flags",
+          "heading": "3. Feature flags \u2014 `ADMIN-03`",
+          "level": 2,
+          "requirements": [
+            "ADMIN-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Skill alias and taxonomy management",
+          "heading": "4. Skill alias and taxonomy management \u2014 `ADMIN-04` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "ADMIN-04"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "5",
+          "title": "Flagged listings queue",
+          "heading": "5. Flagged listings queue \u2014 `ADMIN-05` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "ADMIN-05"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "6",
+          "title": "Role gating and the admin surface",
+          "heading": "6. Role gating and the admin surface \u2014 `ADMIN-06`",
+          "level": 2,
+          "requirements": [
+            "ADMIN-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "13-web-client.md",
+      "title": "13 \u2014 Web Client (React + TypeScript)",
+      "track": "R1 except \u00a77 (the accessibility audit, R2) and features marked R2/R3 elsewhere",
+      "module": "`apps/web`",
+      "requirements": "`WEB-01` \u2026 `WEB-08`",
+      "depends": "`packages/contracts/ts` (generated), every API module's contract",
+      "lines": 257,
+      "words": 2708,
+      "ac": 45,
+      "tests": 45,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Stack and structure",
+          "heading": "1. Stack and structure \u2014 `WEB-01`",
+          "level": 2,
+          "requirements": [
+            "WEB-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Auth handling",
+          "heading": "2. Auth handling \u2014 `WEB-02`",
+          "level": 2,
+          "requirements": [
+            "WEB-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Screens",
+          "heading": "3. Screens \u2014 `WEB-03`",
+          "level": 2,
+          "requirements": [
+            "WEB-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "AI labelling and untrusted content",
+          "heading": "4. AI labelling and untrusted content \u2014 `WEB-04`, HR-9, HR-11",
+          "level": 2,
+          "requirements": [
+            "WEB-04",
+            "HR-9",
+            "HR-11"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Performance",
+          "heading": "5. Performance \u2014 `WEB-05`",
+          "level": 2,
+          "requirements": [
+            "WEB-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Error handling and observability",
+          "heading": "6. Error handling and observability \u2014 `WEB-06`",
+          "level": 2,
+          "requirements": [
+            "WEB-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "7",
+          "title": "Accessibility",
+          "heading": "7. Accessibility \u2014 `WEB-07` \u2014 **build to it in R1, audit in R2**",
+          "level": 2,
+          "requirements": [
+            "WEB-07"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "8",
+          "title": "End-to-end coverage",
+          "heading": "8. End-to-end coverage \u2014 `WEB-08`",
+          "level": 2,
+          "requirements": [
+            "WEB-08"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "14-mobile-client.md",
+      "title": "14 \u2014 Mobile Client (Flutter)",
+      "track": "R1 (Android) except \u00a75.2 (push, R2), \u00a77 (offline, R2), \u00a78 (iOS, R3)",
+      "module": "`apps/mobile`",
+      "requirements": "`MOB-01` \u2026 `MOB-08`",
+      "depends": "`packages/contracts/dart` (generated)",
+      "lines": 235,
+      "words": 2327,
+      "ac": 41,
+      "tests": 41,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Stack and structure",
+          "heading": "1. Stack and structure \u2014 `MOB-01`",
+          "level": 2,
+          "requirements": [
+            "MOB-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Auth and session",
+          "heading": "2. Auth and session \u2014 `MOB-02`",
+          "level": 2,
+          "requirements": [
+            "MOB-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Screens",
+          "heading": "3. Screens \u2014 `MOB-03`",
+          "level": 2,
+          "requirements": [
+            "MOB-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Files and permissions",
+          "heading": "4. Files and permissions \u2014 `MOB-04`",
+          "level": 2,
+          "requirements": [
+            "MOB-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Notifications",
+          "heading": "5. Notifications \u2014 `MOB-05`",
+          "level": 2,
+          "requirements": [
+            "MOB-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.1",
+          "title": "Local notifications",
+          "heading": "5.1 Local notifications \u2014 **R1**",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.2",
+          "title": "Push (FCM)",
+          "heading": "5.2 Push (FCM) \u2014 `NOTIF-02b` \u2014 **Track: R2**",
+          "level": 3,
+          "requirements": [
+            "NOTIF-02b"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "6",
+          "title": "Performance and quality on real devices",
+          "heading": "6. Performance and quality on real devices \u2014 `MOB-06`",
+          "level": 2,
+          "requirements": [
+            "MOB-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "7",
+          "title": "Offline cache",
+          "heading": "7. Offline cache \u2014 `MOB-07` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "MOB-07"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "8",
+          "title": "Release",
+          "heading": "8. Release \u2014 `MOB-08`",
+          "level": 2,
+          "requirements": [
+            "MOB-08"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "15-infra-and-ops.md",
+      "title": "15 \u2014 Infrastructure, Deployment and Operations",
+      "track": "R1 except \u00a76.2 (restore drill), \u00a77 (runbooks), \u00a74.3 (alert delivery) \u2014 all R2",
+      "module": "`infra/`, `.github/workflows/`, `apps/api/Dockerfile`",
+      "requirements": "`OPS-01` \u2026 `OPS-08`",
+      "depends": null,
+      "lines": 311,
+      "words": 2954,
+      "ac": 40,
+      "tests": 40,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Docker and the single image",
+          "heading": "1. Docker and the single image \u2014 `OPS-01`",
+          "level": 2,
+          "requirements": [
+            "OPS-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Environments",
+          "heading": "2. Environments \u2014 `OPS-02`",
+          "level": 2,
+          "requirements": [
+            "OPS-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "CI/CD",
+          "heading": "3. CI/CD \u2014 `OPS-03`",
+          "level": 2,
+          "requirements": [
+            "OPS-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Observability",
+          "heading": "4. Observability \u2014 `OPS-04`",
+          "level": 2,
+          "requirements": [
+            "OPS-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4.1",
+          "title": "Logs, traces, metrics",
+          "heading": "4.1 Logs, traces, metrics",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4.2",
+          "title": "The required metrics",
+          "heading": "4.2 The required metrics",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4.3",
+          "title": "Alerts",
+          "heading": "4.3 Alerts \u2014 **Track: R2** (thresholds defined in R1, delivery in R2)",
+          "level": 3,
+          "requirements": [],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "5",
+          "title": "Configuration and environment variables",
+          "heading": "5. Configuration and environment variables \u2014 `OPS-05`",
+          "level": 2,
+          "requirements": [
+            "OPS-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Backups and disaster recovery",
+          "heading": "6. Backups and disaster recovery \u2014 `OPS-06`",
+          "level": 2,
+          "requirements": [
+            "OPS-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6.1",
+          "title": "Backups",
+          "heading": "6.1 Backups \u2014 **R1**",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6.2",
+          "title": "Restore drill",
+          "heading": "6.2 Restore drill \u2014 **Track: R2**",
+          "level": 3,
+          "requirements": [],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "7",
+          "title": "Runbooks",
+          "heading": "7. Runbooks \u2014 `OPS-07` \u2014 **Track: R2**",
+          "level": 2,
+          "requirements": [
+            "OPS-07"
+          ],
+          "track": "R2",
+          "status": "absent"
+        },
+        {
+          "n": "8",
+          "title": "Cost ceiling",
+          "heading": "8. Cost ceiling \u2014 `OPS-08`",
+          "level": 2,
+          "requirements": [
+            "OPS-08"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "16-security-and-compliance.md",
+      "title": "16 \u2014 Security, Privacy and Compliance",
+      "track": "R1 except items marked R2 in \u00a72",
+      "module": "cross-cutting; `apps/api/app/core/security`, `docs/compliance/`",
+      "requirements": "`SEC-01` \u2026 `SEC-06`",
+      "depends": null,
+      "lines": 215,
+      "words": 2944,
+      "ac": 32,
+      "tests": 32,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Threat model",
+          "heading": "1. Threat model \u2014 `SEC-01`",
+          "level": 2,
+          "requirements": [
+            "SEC-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Controls",
+          "heading": "2. Controls \u2014 `SEC-02`",
+          "level": 2,
+          "requirements": [
+            "SEC-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "AI-specific privacy",
+          "heading": "3. AI-specific privacy \u2014 `SEC-03`",
+          "level": 2,
+          "requirements": [
+            "SEC-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Consent, privacy notice and data rights",
+          "heading": "4. Consent, privacy notice and data rights \u2014 `SEC-04`",
+          "level": 2,
+          "requirements": [
+            "SEC-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Connector compliance process",
+          "heading": "5. Connector compliance process \u2014 `SEC-05`",
+          "level": 2,
+          "requirements": [
+            "SEC-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Application-assistance ethics",
+          "heading": "6. Application-assistance ethics \u2014 `SEC-06`",
+          "level": 2,
+          "requirements": [
+            "SEC-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "17-data-model.md",
+      "title": "17 \u2014 Data Model",
+      "track": "R1 (fields marked `[R2]` / `[R3]` are added in that track)",
+      "module": "`apps/api/app/modules/*/models.py`, `17` is the shared contract between them",
+      "requirements": "`DATA-01` \u2026 `DATA-06`",
+      "depends": "`01-foundations.md` \u00a73 (primitives)",
+      "lines": 662,
+      "words": 5964,
+      "ac": 37,
+      "tests": 37,
+      "sections": [
+        {
+          "n": "1",
+          "title": "Global conventions",
+          "heading": "1. Global conventions \u2014 `DATA-01`",
+          "level": 2,
+          "requirements": [
+            "DATA-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "Collections",
+          "heading": "2. Collections \u2014 `DATA-02`",
+          "level": 2,
+          "requirements": [
+            "DATA-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.1",
+          "title": "`users`",
+          "heading": "2.1 `users`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.2",
+          "title": "`refresh_tokens`",
+          "heading": "2.2 `refresh_tokens`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.3",
+          "title": "`email_tokens`",
+          "heading": "2.3 `email_tokens`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.4",
+          "title": "`resumes`",
+          "heading": "2.4 `resumes`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.5",
+          "title": "`profiles`",
+          "heading": "2.5 `profiles`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.5",
+          "title": "1 `profile_audit` [R2] and `skill_aliases`",
+          "heading": "2.5.1 `profile_audit` [R2] and `skill_aliases`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.6",
+          "title": "`jobs`",
+          "heading": "2.6 `jobs` \u2014 the canonical listing",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.7",
+          "title": "`raw_listings`, `connector_runs`, `user_job_actions`, `saved_searches`",
+          "heading": "2.7 `raw_listings`, `connector_runs`, `user_job_actions`, `saved_searches`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.8",
+          "title": "`match_scores`",
+          "heading": "2.8 `match_scores`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.9",
+          "title": "`answer_bank`, `application_packs`",
+          "heading": "2.9 `answer_bank`, `application_packs`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.10",
+          "title": "`applications`",
+          "heading": "2.10 `applications`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.11",
+          "title": "`reminders`, `notifications`, `devices`",
+          "heading": "2.11 `reminders`, `notifications`, `devices`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2.12",
+          "title": "`audit_log`, `ai_usage`, `feature_flags`, `failed_tasks`",
+          "heading": "2.12 `audit_log`, `ai_usage`, `feature_flags`, `failed_tasks`",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Indexes",
+          "heading": "3. Indexes \u2014 `DATA-03`",
+          "level": 2,
+          "requirements": [
+            "DATA-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Storage layout (R2 object store)",
+          "heading": "4. Storage layout (R2 object store) \u2014 `DATA-04`",
+          "level": 2,
+          "requirements": [
+            "DATA-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "Retention",
+          "heading": "5. Retention \u2014 `DATA-05`",
+          "level": 2,
+          "requirements": [
+            "DATA-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "Capacity budget",
+          "heading": "6. Capacity budget \u2014 `DATA-06`",
+          "level": 2,
+          "requirements": [
+            "DATA-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "7",
+          "title": "The field and enum registry",
+          "heading": "7. The field and enum registry \u2014 `DATA-07` \u2014 **added in v2.1**",
+          "level": 2,
+          "requirements": [
+            "DATA-07"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "18-dependency-closure.md",
+      "title": "18 \u2014 Dependency Closure and Build Order",
+      "track": "R1",
+      "module": "`docs/spec/dependencies.yaml`, `apps/api/tests/spec/`",
+      "requirements": "`DEP-01` \u2026 `DEP-05`",
+      "depends": "`00-scope-and-phases.md` \u00a72 and \u00a74, `01-foundations.md` \u00a74",
+      "lines": 241,
+      "words": 2563,
+      "ac": 30,
+      "tests": 30,
+      "sections": [
+        {
+          "n": "1",
+          "title": "The manifest",
+          "heading": "1. The manifest \u2014 `DEP-01`",
+          "level": 2,
+          "requirements": [
+            "DEP-01"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "2",
+          "title": "The module graph",
+          "heading": "2. The module graph \u2014 `DEP-02`",
+          "level": 2,
+          "requirements": [
+            "DEP-02"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "3",
+          "title": "Track closure",
+          "heading": "3. Track closure \u2014 `DEP-03`",
+          "level": 2,
+          "requirements": [
+            "DEP-03"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "4",
+          "title": "Phase closure, and the build order",
+          "heading": "4. Phase closure, and the build order \u2014 `DEP-04`",
+          "level": 2,
+          "requirements": [
+            "DEP-04"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5",
+          "title": "The four phase-closure violations found in v2.0, and their fixes",
+          "heading": "5. The four phase-closure violations found in v2.0, and their fixes \u2014 `DEP-05`",
+          "level": 2,
+          "requirements": [
+            "DEP-05"
+          ],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.1",
+          "title": "Violation 1",
+          "heading": "5.1 Violation 1 \u2014 email transport was owned by a phase that runs last",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.2",
+          "title": "Violation 2",
+          "heading": "5.2 Violation 2 \u2014 the embedding codec was needed two phases before it was scheduled",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.3",
+          "title": "Violation 3",
+          "heading": "5.3 Violation 3 \u2014 saved searches depended on the digest, in the wrong direction",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.4",
+          "title": "Violation 4",
+          "heading": "5.4 Violation 4 \u2014 the follow-up draft needed interview history that did not exist yet",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "5.5",
+          "title": "What the check did not find",
+          "heading": "5.5 What the check did not find",
+          "level": 3,
+          "requirements": [],
+          "track": "R1",
+          "status": "built"
+        },
+        {
+          "n": "6",
+          "title": "The agent handoff bundle",
+          "heading": "6. The agent handoff bundle \u2014 `DEP-06`",
+          "level": 2,
+          "requirements": [
+            "DEP-06"
+          ],
+          "track": "R1",
+          "status": "built"
+        }
+      ]
+    },
+    {
+      "file": "README.md",
+      "title": "JobPilot \u2014 Agent Build Specification",
+      "track": null,
+      "module": null,
+      "requirements": null,
+      "depends": null,
+      "lines": 182,
+      "words": 3137,
+      "ac": 0,
+      "tests": 0,
+      "sections": [
+        {
+          "n": "0",
+          "title": "What this is",
+          "heading": "0. What this is",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "",
+          "title": "How to use this with an agent",
+          "heading": "How to use this with an agent",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "",
+          "title": "ID conventions",
+          "heading": "ID conventions",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "1",
+          "title": "Two calls I made, flagged for your review",
+          "heading": "1. Two calls I made, flagged for your review",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "",
+          "title": "Call 1",
+          "heading": "Call 1 \u2014 What is in the core release",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "",
+          "title": "Call 2",
+          "heading": "Call 2 \u2014 Where the AI provider boundary sits, and how billing is kept separate",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "2",
+          "title": "Hard rules",
+          "heading": "2. Hard rules",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "3",
+          "title": "File index",
+          "heading": "3. File index",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "4",
+          "title": "What did not change from v1.0",
+          "heading": "4. What did not change from v1.0",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "5",
+          "title": "What the name is not",
+          "heading": "5. What the name is not",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "6",
+          "title": "What changed in v2.1",
+          "heading": "6. What changed in v2.1",
+          "level": 2,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "6.1",
+          "title": "R1 dependency closure",
+          "heading": "6.1 R1 dependency closure \u2014 new file `18-dependency-closure.md`",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "6.2",
+          "title": "The AI budget and degradation matrix",
+          "heading": "6.2 The AI budget and degradation matrix \u2014 `05-ai-layer.md` \u00a73, rewritten",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "6.3",
+          "title": "The \"50 scored jobs\" invariant",
+          "heading": "6.3 The \"50 scored jobs\" invariant \u2014 `08-matching.md` \u00a78, new",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "6.4",
+          "title": "The cross-document data-model check",
+          "heading": "6.4 The cross-document data-model check \u2014 `17-data-model.md` \u00a77, new",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "6.5",
+          "title": "Implemented-disabled vs not-implemented",
+          "heading": "6.5 Implemented-disabled vs not-implemented \u2014 `01-foundations.md` \u00a715, new",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        },
+        {
+          "n": "6.6",
+          "title": "What this did not change",
+          "heading": "6.6 What this did not change",
+          "level": 3,
+          "requirements": [],
+          "track": "meta",
+          "status": "n/a"
+        }
+      ]
+    }
+  ]
+}

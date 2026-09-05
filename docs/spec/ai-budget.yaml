@@ -1,0 +1,104 @@
+# JobPilot AI budget & degradation matrix — spec v2.1
+# Normative. Parametrizes tests/ai/test_degradation.py. See docs/spec/05-ai-layer.md §3.2.
+# One row per member of the Feature enum; a member without a row fails T-AI-03.12.
+
+caps:
+  global:  { env: AI_DAILY_COST_CAP_USD, scope: day_utc, counter: "ai:spend:global:{date}" }
+  feature: { env: "AI_FEATURE_CAP_USD__<FEATURE>", scope: day_utc, counter: "ai:spend:feature:{feature}:{date}", optional: true }
+  user:    { env: AI_USER_DAILY_CALLS, scope: day_utc, counter: "ai:calls:user:{user_id}:{date}" }
+
+deny_precedence: [user, feature, global]   # first failure wins; recorded as ai_usage.deny_reason
+
+states:
+  ok:   { upto_pct: 80 }
+  soft: { upto_pct: 100, alert: once_per_day_per_feature }
+  hard: { raises: AIBudgetExceeded, checked: before_provider_call }
+
+cache:
+  key: "sha256(provider|model|prompt_version|canonicalized_input)"
+  ttl_days_env: AI_CACHE_TTL_DAYS
+  checked_before_budget: true          # a cache hit is served even in hard state
+  records: { outcome: cache_hit, est_cost_usd: 0 }
+
+features:
+  resume_extract:
+    tier: fast
+    degradation: retry_with_backoff
+    retry_window_hours: 24
+    user_visible: "resume stays in `structuring` with 'we're finishing this shortly'; never `failed`"
+    surfaces_error: false
+    recovery: automatic_on_retry_or_reset
+  resume_quality:
+    tier: fast
+    degradation: skip
+    user_visible: "deterministic checks only; no gap in the UI"
+    surfaces_error: false
+    recovery: next_reanalysis
+  job_enrich:
+    tier: fast
+    degradation: fallback_dictionary
+    sets: { skills_source: dictionary }
+    user_visible: none
+    surfaces_error: false
+    recovery: backfill_task
+    backfill_task: jobs.backfill_enrichment
+  match_rationale:
+    tier: fast
+    degradation: omit_field
+    sets: { rationale: null }
+    user_visible: "full deterministic breakdown, no empty placeholder"
+    surfaces_error: false
+    recovery: next_topn_selection
+    backfilled: false
+    backfill_reason: "a rationale for a job the user has moved past is worth nothing"
+  pack_generate:
+    tier: quality
+    degradation: refuse
+    http_status: 503
+    error_code: ai_budget_exceeded
+    retry_after: seconds_until_utc_reset
+    user_visible: "explicit 'can't draft this right now, try after HH:MM'; all user edits preserved"
+    surfaces_error: true
+    preserves_user_edits: true
+    recovery: user_retry_after_reset
+  followup_draft:
+    tier: fast
+    degradation: template_fallback
+    user_visible: "editable template with placeholders, labelled as a template not as AI-written"
+    surfaces_error: false
+    recovery: next_request
+  answer_suggest:
+    tier: fast
+    degradation: skip
+    user_visible: "suggest button reports unavailable today; user types the answer"
+    surfaces_error: false
+    recovery: next_day
+  embed_profile:
+    tier: embedding
+    degradation: store_without_embedding
+    user_visible: none
+    surfaces_error: false
+    recovery: backfill_task
+    backfill_task: ai.backfill_embeddings
+  embed_job:
+    tier: embedding
+    degradation: store_without_embedding
+    user_visible: "none; scoring uses the dictionary skills path"
+    surfaces_error: false
+    recovery: backfill_task
+    backfill_task: ai.backfill_embeddings
+  embed_question:
+    tier: embedding
+    degradation: fallback_fuzzy_only
+    user_visible: "answer-bank matching falls back to rapidfuzz; `needs_user` more often"
+    surfaces_error: false
+    recovery: backfill_task
+    backfill_task: ai.backfill_embeddings
+
+invariants:
+  - id: no_silent_success
+    rule: "every degraded path writes ai_usage with outcome=budget_denied and a deny_reason"
+  - id: no_data_loss
+    rule: "only pack_generate refuses outright, and it preserves every user edit"
+  - id: no_permanent_degradation
+    rule: "every feature names a recovery; the two that do not backfill state why"

@@ -1,0 +1,153 @@
+# Build order — generated from dependencies.yaml
+
+Do not edit. Regenerate with `make build-order`.
+
+  1. `FOUND-01` — P0 · R1 · core
+  2. `FOUND-02` — P0 · R1 · core
+  3. `FOUND-03` — P0 · R1 · core
+  4. `FOUND-04` — P0 · R1 · core
+  5. `FOUND-06` — P0 · R1 · core
+  6. `AI-01` — P0 · R1 · ai
+  7. `DATA-01` — P0 · R1 · core
+  8. `DATA-04` — P0 · R1 · core
+  9. `DATA-06` — P0 · R1 · core
+ 10. `DEP-01` — P0 · R1 · core
+ 11. `DEP-02` — P0 · R1 · core
+ 12. `DEP-03` — P0 · R1 · core
+ 13. `DEP-04` — P0 · R1 · core
+ 14. `DEP-05` — P0 · R1 · core
+ 15. `DEP-06` — P0 · R1 · core
+ 16. `FOUND-05` — P0 · R1 · core
+ 17. `FOUND-12` — P0 · R1 · core
+ 18. `FOUND-14` — P0 · R1 · core
+ 19. `OPS-01` — P0 · R1 · infra
+ 20. `OPS-05` — P0 · R1 · infra
+ 21. `SEC-01` — P0 · R1 · core
+ 22. `AI-02` — P0 · R1 · ai
+ 23. `AI-06` — P0 · R1 · ai
+ 24. `AI-07` — P0 · R1 · ai
+ 25. `DATA-02` — P0 · R1 · core
+ 26. `FOUND-08` — P0 · R1 · core
+ 27. `FOUND-09` — P0 · R1 · core
+ 28. `FOUND-13` — P0 · R1 · core
+ 29. `FOUND-16` — P0 · R1 · core
+ 30. `OPS-02` — P0 · R1 · infra
+ 31. `OPS-03` — P0 · R1 · infra
+ 32. `OPS-04` — P0 · R1 · infra
+ 33. `OPS-06` — P0 · R1 · infra
+ 34. `AI-04` — P0 · R1 · ai
+ 35. `AI-05` — P0 · R1 · ai
+ 36. `DATA-03` — P0 · R1 · core
+ 37. `DATA-07` — P0 · R1 · core
+ 38. `FOUND-10` — P0 · R1 · core
+ 39. `FOUND-15` — P0 · R1 · core
+ 40. `MOB-01` — P0 · R1 · mobile
+ 41. `WEB-01` — P0 · R1 · web
+ 42. `AI-03` — P0 · R1 · ai
+ 43. `DATA-05` — P0 · R1 · core
+ 44. `FOUND-07` — P0 · R1 · core
+ 45. `FOUND-11` — P0 · R1 · core
+ 46. `AUTH-09` — P1 · R1 · auth
+ 47. `WEB-06` — P1 · R1 · web
+ 48. `AUTH-01` — P1 · R1 · auth
+ 49. `AUTH-02` — P1 · R1 · auth
+ 50. `AUTH-03` — P1 · R1 · auth
+ 51. `AUTH-04` — P1 · R1 · auth
+ 52. `AUTH-05` — P1 · R1 · auth
+ 53. `AUTH-07` — P1 · R1 · auth
+ 54. `AUTH-10` — P1 · R1 · auth
+ 55. `MOB-02` — P1 · R1 · mobile
+ 56. `SEC-04` — P1 · R1 · core
+ 57. `WEB-02` — P1 · R1 · web
+ 58. `ADMIN-06` — P1 · R1 · admin
+ 59. `SEC-02` — P1 · R1 · core
+ 60. `MOB-03` — P2 · R1 · mobile
+ 61. `PROF-01` — P2 · R1 · profile
+ 62. `RES-01` — P2 · R1 · resume
+ 63. `WEB-03` — P2 · R1 · web
+ 64. `MOB-04` — P2 · R1 · mobile
+ 65. `PROF-02` — P2 · R1 · profile
+ 66. `PROF-03` — P2 · R1 · profile
+ 67. `PROF-06` — P2 · R1 · profile
+ 68. `RES-02a` — P2 · R1 · resume
+ 69. `RES-05` — P2 · R1 · resume
+ 70. `RES-06` — P2 · R1 · resume
+ 71. `WEB-04` — P2 · R1 · web
+ 72. `RES-03` — P2 · R1 · resume
+ 73. `SEC-03` — P2 · R1 · core
+ 74. `CONN-01` — P3 · R1 · connectors
+ 75. `CONN-02` — P3 · R1 · connectors
+ 76. `CONN-03` — P3 · R1 · connectors
+ 77. `CONN-04` — P3 · R1 · connectors
+ 78. `CONN-05` — P3 · R1 · connectors
+ 79. `JOB-01` — P3 · R1 · jobs
+ 80. `ADMIN-01` — P3 · R1 · admin
+ 81. `CONN-06a` — P3 · R1 · connectors
+ 82. `CONN-07` — P3 · R1 · connectors
+ 83. `JOB-02` — P3 · R1 · jobs
+ 84. `JOB-03` — P3 · R1 · jobs
+ 85. `JOB-04` — P3 · R1 · jobs
+ 86. `SEC-05` — P3 · R1 · core
+ 87. `JOB-05` — P3 · R1 · jobs
+ 88. `JOB-06` — P3 · R1 · jobs
+ 89. `JOB-08` — P3 · R1 · jobs
+ 90. `JOB-09` — P3 · R1 · jobs
+ 91. `ADMIN-02` — P4 · R1 · admin
+ 92. `ADMIN-03` — P4 · R1 · admin
+ 93. `MATCH-01` — P4 · R1 · matching
+ 94. `MATCH-04` — P4 · R1 · matching
+ 95. `WEB-05` — P4 · R1 · web
+ 96. `MATCH-02a` — P4 · R1 · matching
+ 97. `MATCH-03` — P4 · R1 · matching
+ 98. `MATCH-05` — P4 · R1 · matching
+ 99. `MATCH-02b` — P4 · R1 · matching
+100. `MATCH-07` — P4 · R1 · matching
+101. `MATCH-09` — P4 · R1 · matching
+102. `APPLY-01` — P5 · R1 · apply
+103. `APPLY-07` — P5 · R1 · apply
+104. `MOB-05` — P5 · R1 · mobile
+105. `TRACK-01` — P5 · R1 · tracker
+106. `APPLY-02` — P5 · R1 · apply
+107. `APPLY-04` — P5 · R1 · apply
+108. `APPLY-03` — P5 · R1 · apply
+109. `APPLY-05` — P5 · R1 · apply
+110. `SEC-06` — P5 · R1 · core
+111. `TRACK-02a` — P6 · R1 · tracker
+112. `TRACK-03` — P6 · R1 · tracker
+113. `TRACK-05` — P6 · R1 · tracker
+114. `APPLY-09` — P6 · R1 · apply
+115. `NOTIF-01` — P6 · R1 · notifications
+116. `NOTIF-02a` — P6 · R1 · notifications
+117. `NOTIF-05` — P6 · R1 · notifications
+118. `TRACK-04` — P6 · R1 · tracker
+119. `MOB-06` — P7 · R1 · mobile
+120. `OPS-08` — P7 · R1 · infra
+121. `WEB-08` — P7 · R1 · web
+122. `MOB-08` — P7 · R1 · mobile
+123. `ADMIN-04` — S2 · R2 · admin
+124. `CONN-06b` — S2 · R2 · connectors
+125. `JOB-07` — S2 · R2 · jobs
+126. `ADMIN-05` — S2 · R2 · admin
+127. `JOB-10` — S2 · R2 · jobs
+128. `AUTH-06` — S3 · R2 · auth
+129. `AUTH-08` — S3 · R2 · auth
+130. `MATCH-06` — S3 · R2 · matching
+131. `PROF-05` — S3 · R2 · profile
+132. `PROF-07` — S3 · R2 · profile
+133. `RES-02b` — S3 · R2 · resume
+134. `RES-04` — S3 · R2 · resume
+135. `RES-07` — S3 · R2 · resume
+136. `MOB-07` — S4 · R2 · mobile
+137. `NOTIF-02b` — S4 · R2 · notifications
+138. `NOTIF-03` — S4 · R2 · notifications
+139. `NOTIF-04` — S4 · R2 · notifications
+140. `TRACK-02b` — S4 · R2 · tracker
+141. `TRACK-07` — S4 · R2 · tracker
+142. `TRACK-06` — S4 · R2 · tracker
+143. `OPS-07` — S5 · R2 · infra
+144. `WEB-07` — S5 · R2 · web
+145. `APPLY-06` — unphased · R3 · apply
+146. `APPLY-08` — unphased · R3 · apply
+147. `MATCH-08` — unphased · R3 · matching
+148. `NOTIF-02c` — unphased · R3 · notifications
+149. `PROF-04` — unphased · R3 · profile

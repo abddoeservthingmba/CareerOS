@@ -1,0 +1,909 @@
+# JobPilot dependency manifest — spec v2.1
+# Authority for build order and closure checks. See docs/spec/18-dependency-closure.md.
+
+AI-01:
+  track: R1
+  phase: P0
+  module: ai
+  requires: [FOUND-03]
+
+AI-02:
+  track: R1
+  phase: P0
+  module: ai
+  requires: [AI-01, FOUND-02]
+
+AI-03:
+  track: R1
+  phase: P0
+  module: ai
+  requires: [AI-02, FOUND-10, DATA-02]
+
+AI-04:
+  track: R1
+  phase: P0
+  module: ai
+  requires: [AI-02, DATA-02]
+
+AI-05:
+  track: R1
+  phase: P0
+  module: ai
+  requires: [AI-02, FOUND-02]
+
+AI-06:
+  track: R1
+  phase: P0
+  module: ai
+  requires: [AI-01]
+
+AI-07:
+  track: R1
+  phase: P0
+  module: ai
+  requires: [AI-01, FOUND-02]
+
+DATA-01:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-03]
+
+DATA-02:
+  track: R1
+  phase: P0
+  module: core
+  requires: [DATA-01]
+
+DATA-03:
+  track: R1
+  phase: P0
+  module: core
+  requires: [DATA-02]
+
+DATA-04:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-02]
+
+DATA-05:
+  track: R1
+  phase: P0
+  module: core
+  requires: [DATA-02, FOUND-10]
+
+DATA-06:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-03]
+
+DATA-07:
+  track: R1
+  phase: P0
+  module: core
+  requires: [DATA-02]
+
+DEP-01:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-06]
+
+DEP-02:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-06]
+
+DEP-03:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-06]
+
+DEP-04:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-06]
+
+DEP-05:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-06]
+
+DEP-06:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-06]
+
+FOUND-01:
+  track: R1
+  phase: P0
+  module: core
+  requires: []
+
+FOUND-02:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-01]
+
+FOUND-03:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-01]
+
+FOUND-04:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-01]
+
+FOUND-05:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-04]
+
+FOUND-06:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-01]
+
+FOUND-07:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-03, DATA-03]
+
+FOUND-08:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-02, FOUND-12]
+
+FOUND-09:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-05]
+
+FOUND-10:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-02, FOUND-09]
+
+FOUND-11:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-10, FOUND-12]
+
+FOUND-12:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-02]
+
+FOUND-13:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-05, FOUND-12]
+
+FOUND-14:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-02]
+
+FOUND-15:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-02, FOUND-13]
+
+FOUND-16:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-02, FOUND-12]
+
+MOB-01:
+  track: R1
+  phase: P0
+  module: mobile
+  requires: [FOUND-13]
+
+OPS-01:
+  track: R1
+  phase: P0
+  module: infra
+  requires: [FOUND-01, FOUND-02]
+
+OPS-02:
+  track: R1
+  phase: P0
+  module: infra
+  requires: [OPS-01]
+
+OPS-03:
+  track: R1
+  phase: P0
+  module: infra
+  requires: [OPS-01, FOUND-06, DEP-04]
+
+OPS-04:
+  track: R1
+  phase: P0
+  module: infra
+  requires: [FOUND-14, OPS-01]
+
+OPS-05:
+  track: R1
+  phase: P0
+  module: infra
+  requires: [FOUND-02]
+
+OPS-06:
+  track: R1
+  phase: P0
+  module: infra
+  requires: [OPS-01, DATA-04]
+
+SEC-01:
+  track: R1
+  phase: P0
+  module: core
+  requires: [FOUND-04]
+
+WEB-01:
+  track: R1
+  phase: P0
+  module: web
+  requires: [FOUND-13]
+
+ADMIN-06:
+  track: R1
+  phase: P1
+  module: admin
+  requires: [AUTH-10, WEB-01]
+
+AUTH-01:
+  track: R1
+  phase: P1
+  module: auth
+  requires: [FOUND-02, FOUND-12, FOUND-16, DATA-02, AUTH-09]
+  writes_collections: [users, email_tokens]
+
+AUTH-02:
+  track: R1
+  phase: P1
+  module: auth
+  requires: [AUTH-01]
+
+AUTH-03:
+  track: R1
+  phase: P1
+  module: auth
+  requires: [AUTH-01, FOUND-16]
+
+AUTH-04:
+  track: R1
+  phase: P1
+  module: auth
+  requires: [AUTH-01, FOUND-03]
+  writes_collections: [refresh_tokens]
+
+AUTH-05:
+  track: R1
+  phase: P1
+  module: auth
+  requires: [AUTH-01, FOUND-16]
+
+AUTH-07:
+  track: R1
+  phase: P1
+  module: auth
+  requires: [AUTH-01, DATA-04, DATA-05, FOUND-10, FOUND-16]
+
+AUTH-09:
+  track: R1
+  phase: P1
+  module: auth
+  requires: [FOUND-02, FOUND-10]
+
+AUTH-10:
+  track: R1
+  phase: P1
+  module: auth
+  requires: [AUTH-04, DATA-01, FOUND-13]
+
+MOB-02:
+  track: R1
+  phase: P1
+  module: mobile
+  requires: [MOB-01, AUTH-04]
+
+SEC-02:
+  track: R1
+  phase: P1
+  module: core
+  requires: [AUTH-04, AUTH-09, AUTH-10, FOUND-14]
+
+SEC-04:
+  track: R1
+  phase: P1
+  module: core
+  requires: [AUTH-01, AUTH-07, DATA-05]
+
+WEB-02:
+  track: R1
+  phase: P1
+  module: web
+  requires: [WEB-01, AUTH-04]
+
+WEB-06:
+  track: R1
+  phase: P1
+  module: web
+  requires: [WEB-01, FOUND-12]
+
+MOB-03:
+  track: R1
+  phase: P2
+  module: mobile
+  requires: [MOB-01, MOB-02]
+
+MOB-04:
+  track: R1
+  phase: P2
+  module: mobile
+  requires: [MOB-03]
+
+PROF-01:
+  track: R1
+  phase: P2
+  module: profile
+  requires: [DATA-02, FOUND-09, DATA-06]
+  publishes_events: [ProfileUpdated, ProfileConfirmed]
+
+PROF-02:
+  track: R1
+  phase: P2
+  module: profile
+  requires: [PROF-01, FOUND-03]
+
+PROF-03:
+  track: R1
+  phase: P2
+  module: profile
+  requires: [PROF-01]
+
+PROF-06:
+  track: R1
+  phase: P2
+  module: profile
+  requires: [PROF-01, DATA-02]
+
+RES-01:
+  track: R1
+  phase: P2
+  module: resume
+  requires: [AUTH-03, DATA-04, FOUND-08]
+
+RES-02a:
+  track: R1
+  phase: P2
+  module: resume
+  requires: [RES-01]
+
+RES-03:
+  track: R1
+  phase: P2
+  module: resume
+  requires: [RES-02a, AI-01, AI-06, AI-07, PROF-06]
+  publishes_events: [ResumeExtracted]
+
+RES-05:
+  track: R1
+  phase: P2
+  module: resume
+  requires: [RES-01, DATA-04, AI-01]
+
+RES-06:
+  track: R1
+  phase: P2
+  module: resume
+  requires: [RES-01, FOUND-10, FOUND-11]
+
+SEC-03:
+  track: R1
+  phase: P2
+  module: core
+  requires: [AI-05, AI-06, RES-05]
+
+WEB-03:
+  track: R1
+  phase: P2
+  module: web
+  requires: [WEB-01, WEB-02]
+
+WEB-04:
+  track: R1
+  phase: P2
+  module: web
+  requires: [WEB-03, AI-06]
+
+ADMIN-01:
+  track: R1
+  phase: P3
+  module: admin
+  requires: [CONN-03, DATA-02]
+
+CONN-01:
+  track: R1
+  phase: P3
+  module: connectors
+  requires: [FOUND-03, DATA-02]
+
+CONN-02:
+  track: R1
+  phase: P3
+  module: connectors
+  requires: [CONN-01, FOUND-04]
+
+CONN-03:
+  track: R1
+  phase: P3
+  module: connectors
+  requires: [CONN-01, FOUND-10, FOUND-02]
+
+CONN-04:
+  track: R1
+  phase: P3
+  module: connectors
+  requires: [CONN-01]
+
+CONN-05:
+  track: R1
+  phase: P3
+  module: connectors
+  requires: [CONN-01, DATA-05]
+
+CONN-06a:
+  track: R1
+  phase: P3
+  module: connectors
+  requires: [CONN-01, CONN-04]
+
+CONN-07:
+  track: R1
+  phase: P3
+  module: connectors
+  requires: [CONN-04, WEB-03, MOB-03]
+
+JOB-01:
+  track: R1
+  phase: P3
+  module: jobs
+  requires: [DATA-02, CONN-01]
+
+JOB-02:
+  track: R1
+  phase: P3
+  module: jobs
+  requires: [JOB-01, CONN-03, FOUND-10, PROF-02]
+  publishes_events: [JobsIngested]
+
+JOB-03:
+  track: R1
+  phase: P3
+  module: jobs
+  requires: [JOB-01, DATA-03]
+
+JOB-04:
+  track: R1
+  phase: P3
+  module: jobs
+  requires: [JOB-01]
+
+JOB-05:
+  track: R1
+  phase: P3
+  module: jobs
+  requires: [JOB-04, PROF-06, AI-03, DATA-06]
+
+JOB-06:
+  track: R1
+  phase: P3
+  module: jobs
+  requires: [JOB-04, DATA-03, FOUND-07]
+
+JOB-08:
+  track: R1
+  phase: P3
+  module: jobs
+  requires: [JOB-02, DATA-05]
+  publishes_events: [JobExpired]
+
+JOB-09:
+  track: R1
+  phase: P3
+  module: jobs
+  requires: [JOB-06, DATA-02]
+
+SEC-05:
+  track: R1
+  phase: P3
+  module: core
+  requires: [CONN-04, CONN-02]
+
+ADMIN-02:
+  track: R1
+  phase: P4
+  module: admin
+  requires: [AI-04, DATA-03]
+
+ADMIN-03:
+  track: R1
+  phase: P4
+  module: admin
+  requires: [FOUND-02, DATA-02]
+
+MATCH-01:
+  track: R1
+  phase: P4
+  module: matching
+  requires: [PROF-02, PROF-06, JOB-04, JOB-05, DATA-02]
+
+MATCH-02a:
+  track: R1
+  phase: P4
+  module: matching
+  requires: [MATCH-01]
+
+MATCH-02b:
+  track: R1
+  phase: P4
+  module: matching
+  enabled_in: R2
+  requires: [MATCH-02a, AI-03, AI-07, ADMIN-03]
+
+MATCH-03:
+  track: R1
+  phase: P4
+  module: matching
+  requires: [MATCH-01, FOUND-02]
+
+MATCH-04:
+  track: R1
+  phase: P4
+  module: matching
+  requires: [AI-02, DATA-06, PROF-01, JOB-05]
+
+MATCH-05:
+  track: R1
+  phase: P4
+  module: matching
+  requires: [MATCH-01, MATCH-04, FOUND-09, FOUND-10, DATA-03]
+  consumes_events: [JobsIngested, ProfileUpdated]
+  writes_collections: [match_scores]
+
+MATCH-07:
+  track: R1
+  phase: P4
+  module: matching
+  requires: [MATCH-05, FOUND-07]
+
+MATCH-09:
+  track: R1
+  phase: P4
+  module: matching
+  requires: [MATCH-05, MATCH-07, JOB-06, WEB-03, MOB-03]
+
+WEB-05:
+  track: R1
+  phase: P4
+  module: web
+  requires: [WEB-03]
+
+APPLY-01:
+  track: R1
+  phase: P5
+  module: apply
+  requires: [PROF-03, AI-02, DATA-02]
+
+APPLY-02:
+  track: R1
+  phase: P5
+  module: apply
+  requires: [APPLY-01, PROF-03, MATCH-02a, AI-03, AI-06, AI-07, FOUND-08, FOUND-11]
+
+APPLY-03:
+  track: R1
+  phase: P5
+  module: apply
+  requires: [APPLY-02, APPLY-04]
+  publishes_events: [PackApproved]
+
+APPLY-04:
+  track: R1
+  phase: P5
+  module: apply
+  requires: [APPLY-02, PROF-06]
+
+APPLY-05:
+  track: R1
+  phase: P5
+  module: apply
+  requires: [APPLY-03, TRACK-01, CONN-07]
+  publishes_events: [AppliedConfirmed]
+
+APPLY-07:
+  track: R1
+  phase: P5
+  module: apply
+  requires: [DATA-02, FOUND-14]
+
+MOB-05:
+  track: R1
+  phase: P5
+  module: mobile
+  requires: [MOB-03]
+
+SEC-06:
+  track: R1
+  phase: P5
+  module: core
+  requires: [APPLY-04, APPLY-05, APPLY-03]
+
+TRACK-01:
+  track: R1
+  phase: P5
+  module: tracker
+  requires: [JOB-01, DATA-02, FOUND-09]
+  consumes_events: [AppliedConfirmed, JobExpired, PackApproved]
+  publishes_events: [ApplicationStatusChanged]
+
+APPLY-09:
+  track: R1
+  phase: P6
+  module: apply
+  requires: [APPLY-04, AI-03, TRACK-03]
+
+NOTIF-01:
+  track: R1
+  phase: P6
+  module: notifications
+  requires: [TRACK-01, TRACK-03, FOUND-03, DATA-02]
+
+NOTIF-02a:
+  track: R1
+  phase: P6
+  module: notifications
+  requires: [NOTIF-01, FOUND-16, FOUND-11]
+
+NOTIF-05:
+  track: R1
+  phase: P6
+  module: notifications
+  requires: [NOTIF-01, FOUND-10, DATA-03]
+
+TRACK-02a:
+  track: R1
+  phase: P6
+  module: tracker
+  requires: [TRACK-01, FOUND-07, DATA-03]
+
+TRACK-03:
+  track: R1
+  phase: P6
+  module: tracker
+  requires: [TRACK-01, DATA-04]
+
+TRACK-04:
+  track: R1
+  phase: P6
+  module: tracker
+  requires: [TRACK-01, APPLY-07, NOTIF-05]
+
+TRACK-05:
+  track: R1
+  phase: P6
+  module: tracker
+  requires: [TRACK-01, SEC-02]
+
+MOB-06:
+  track: R1
+  phase: P7
+  module: mobile
+  requires: [MOB-03]
+
+MOB-08:
+  track: R1
+  phase: P7
+  module: mobile
+  requires: [MOB-03, MOB-04, MOB-06]
+
+OPS-08:
+  track: R1
+  phase: P7
+  module: infra
+  requires: [AI-03, OPS-04, ADMIN-03]
+
+WEB-08:
+  track: R1
+  phase: P7
+  module: web
+  requires: [WEB-03, WEB-04, AUTH-10]
+
+ADMIN-04:
+  track: R2
+  phase: S2
+  module: admin
+  requires: [PROF-06, JOB-04]
+
+ADMIN-05:
+  track: R2
+  phase: S2
+  module: admin
+  requires: [JOB-10]
+
+CONN-06b:
+  track: R2
+  phase: S2
+  module: connectors
+  requires: [CONN-06a]
+
+JOB-07:
+  track: R2
+  phase: S2
+  module: jobs
+  requires: [JOB-06]
+
+JOB-10:
+  track: R2
+  phase: S2
+  module: jobs
+  requires: [JOB-09, ADMIN-05]
+
+AUTH-06:
+  track: R2
+  phase: S3
+  module: auth
+  requires: [AUTH-04]
+
+AUTH-08:
+  track: R2
+  phase: S3
+  module: auth
+  requires: [AUTH-07, DATA-04, FOUND-08]
+
+MATCH-06:
+  track: R2
+  phase: S3
+  module: matching
+  requires: [MATCH-05, JOB-09]
+
+PROF-05:
+  track: R2
+  phase: S3
+  module: profile
+  requires: [PROF-01, PROF-02]
+
+PROF-07:
+  track: R2
+  phase: S3
+  module: profile
+  requires: [PROF-01, DATA-02]
+
+RES-02b:
+  track: R2
+  phase: S3
+  module: resume
+  requires: [RES-02a]
+
+RES-04:
+  track: R2
+  phase: S3
+  module: resume
+  requires: [RES-03]
+
+RES-07:
+  track: R2
+  phase: S3
+  module: resume
+  requires: [RES-03, PROF-03]
+
+MOB-07:
+  track: R2
+  phase: S4
+  module: mobile
+  requires: [MOB-03]
+
+NOTIF-02b:
+  track: R2
+  phase: S4
+  module: notifications
+  requires: [NOTIF-02a, MOB-05]
+
+NOTIF-03:
+  track: R2
+  phase: S4
+  module: notifications
+  requires: [NOTIF-01]
+
+NOTIF-04:
+  track: R2
+  phase: S4
+  module: notifications
+  requires: [NOTIF-02a, MATCH-05, JOB-07]
+
+TRACK-02b:
+  track: R2
+  phase: S4
+  module: tracker
+  requires: [TRACK-02a, TRACK-03]
+
+TRACK-06:
+  track: R2
+  phase: S4
+  module: tracker
+  requires: [TRACK-01, NOTIF-04]
+
+TRACK-07:
+  track: R2
+  phase: S4
+  module: tracker
+  requires: [TRACK-01]
+
+OPS-07:
+  track: R2
+  phase: S5
+  module: infra
+  requires: [OPS-04, OPS-06]
+
+WEB-07:
+  track: R2
+  phase: S5
+  module: web
+  requires: [WEB-03]
+
+APPLY-06:
+  track: R3
+  phase: null
+  module: apply
+  requires: [APPLY-05]
+
+APPLY-08:
+  track: R3
+  phase: null
+  module: apply
+  requires: [PROF-03, RES-02a]
+
+MATCH-08:
+  track: R3
+  phase: null
+  module: matching
+  requires: [MATCH-02a, MATCH-06]
+
+NOTIF-02c:
+  track: R3
+  phase: null
+  module: notifications
+  requires: [NOTIF-02a]
+
+PROF-04:
+  track: R3
+  phase: null
+  module: profile
+  requires: [PROF-01, RES-01]
