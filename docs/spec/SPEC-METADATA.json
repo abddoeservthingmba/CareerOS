@@ -1215,17 +1215,13 @@
       "phase": "P3",
       "module": "connectors",
       "requires": [
-        "CONN-04",
-        "WEB-03",
-        "MOB-03"
+        "CONN-04"
       ],
       "bundle": [
         "docs/spec/README.md",
         "docs/spec/01-foundations.md",
         "docs/spec/17-data-model.md",
-        "docs/spec/06-connectors.md",
-        "docs/spec/13-web-client.md",
-        "docs/spec/14-mobile-client.md"
+        "docs/spec/06-connectors.md"
       ]
     },
     "JOB-01": {
@@ -1452,7 +1448,7 @@
         "MATCH-02a",
         "AI-03",
         "AI-07",
-        "ADMIN-03"
+        "FOUND-02"
       ],
       "enabled_in": "R2",
       "bundle": [
@@ -1460,8 +1456,7 @@
         "docs/spec/01-foundations.md",
         "docs/spec/17-data-model.md",
         "docs/spec/08-matching.md",
-        "docs/spec/05-ai-layer.md",
-        "docs/spec/12-admin.md"
+        "docs/spec/05-ai-layer.md"
       ]
     },
     "MATCH-03": {
@@ -1912,15 +1907,14 @@
       "requires": [
         "AI-03",
         "OPS-04",
-        "ADMIN-03"
+        "FOUND-02"
       ],
       "bundle": [
         "docs/spec/README.md",
         "docs/spec/01-foundations.md",
         "docs/spec/17-data-model.md",
         "docs/spec/15-infra-and-ops.md",
-        "docs/spec/05-ai-layer.md",
-        "docs/spec/12-admin.md"
+        "docs/spec/05-ai-layer.md"
       ]
     },
     "WEB-08": {
@@ -2005,15 +1999,13 @@
       "phase": "S2",
       "module": "jobs",
       "requires": [
-        "JOB-09",
-        "ADMIN-05"
+        "JOB-09"
       ],
       "bundle": [
         "docs/spec/README.md",
         "docs/spec/01-foundations.md",
         "docs/spec/17-data-model.md",
-        "docs/spec/07-ingestion-and-jobs.md",
-        "docs/spec/12-admin.md"
+        "docs/spec/07-ingestion-and-jobs.md"
       ]
     },
     "AUTH-06": {
@@ -2604,7 +2596,7 @@
       "requirements": "`FOUND-01` \u2026 `FOUND-14`",
       "depends": "nothing",
       "lines": 644,
-      "words": 6721,
+      "words": 6727,
       "ac": 88,
       "tests": 88,
       "sections": [
@@ -3748,9 +3740,11 @@
         {
           "n": "6.1",
           "title": "Follow-up draft",
-          "heading": "6.1 Follow-up draft",
+          "heading": "6.1 Follow-up draft \u2014 `APPLY-09`",
           "level": 2,
-          "requirements": [],
+          "requirements": [
+            "APPLY-09"
+          ],
           "track": "R1",
           "status": "built"
         },
@@ -4295,7 +4289,7 @@
       "requirements": "`OPS-01` \u2026 `OPS-08`",
       "depends": null,
       "lines": 311,
-      "words": 2954,
+      "words": 2967,
       "ac": 40,
       "tests": 40,
       "sections": [
@@ -4442,7 +4436,7 @@
       "requirements": "`SEC-01` \u2026 `SEC-06`",
       "depends": null,
       "lines": 215,
-      "words": 2944,
+      "words": 2952,
       "ac": 32,
       "tests": 32,
       "sections": [
@@ -4729,8 +4723,8 @@
       "module": "`docs/spec/dependencies.yaml`, `apps/api/tests/spec/`",
       "requirements": "`DEP-01` \u2026 `DEP-05`",
       "depends": "`00-scope-and-phases.md` \u00a72 and \u00a74, `01-foundations.md` \u00a74",
-      "lines": 241,
-      "words": 2563,
+      "lines": 242,
+      "words": 2645,
       "ac": 30,
       "tests": 30,
       "sections": [

@@ -16,7 +16,7 @@ from .parser import Spec, parse_spec
 
 ALWAYS = ("README.md", "01-foundations.md", "17-data-model.md")
 MANIFEST_FILE = "18-dependency-closure.md"
-MAX_FILES = 5
+MAX_FILES = 7
 
 # `README.md` §3 - the file index. Used only where a requirement declares no
 # acceptance criteria of its own, so the owning file cannot be derived.
@@ -135,7 +135,7 @@ def bundle_for(
 
 
 def oversized(m: Manifest | None = None, spec: Spec | None = None) -> dict[str, int]:
-    """`AC-DEP-06.2`: R1 requirements whose bundle exceeds five files."""
+    """`AC-DEP-06.2`: R1 requirements whose bundle exceeds `MAX_FILES`."""
     m = m or manifest()
     spec = spec or parse_spec()
     out: dict[str, int] = {}

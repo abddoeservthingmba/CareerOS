@@ -152,7 +152,7 @@ Explicitly **not** defended against in R1, recorded so the choice is deliberate:
 - `T-SEC-04.5` `tests/integration/test_consent_gating.py`.
 - `T-SEC-04.6` `tests/spec/test_retention_coverage.py` (shared).
 - `T-SEC-04.7` `apps/web/e2e/data-rights.spec.ts`, `apps/mobile/integration_test/data_rights_test.dart`.
-- `T-SEC-04.8` component tests (shared).
+- `T-SEC-04.8` `apps/web/.../ai-label.test.tsx`, `apps/mobile/test/ai_label_test.dart` (shared).
 
 ---
 
@@ -209,6 +209,6 @@ Explicitly **not** defended against in R1, recorded so the choice is deliberate:
 - `AC-SEC-06.6` The store listing and the marketing copy in the repository contain no prohibited automation claim (`AC-MOB-08.3` shared).
 
 **Tests.**
-- `T-SEC-06.1`–`.4` shared, as named.
+- `T-SEC-06.1` `tests/spec/test_no_submission_capability.py` (shared); `T-SEC-06.2` `tests/spec/test_no_autoapply_flag.py` (shared); `T-SEC-06.3` `tests/unit/test_fabrication_recall.py` (shared); `T-SEC-06.4` `tests/integration/test_pack_prompt_excludes_unconfirmed.py` (shared).
 - `T-SEC-06.5` `tests/spec/test_ethics_doc.py`.
 - `T-SEC-06.6` `tests/spec/test_store_listing_claims.py` (shared).

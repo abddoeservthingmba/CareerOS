@@ -7,8 +7,6 @@ import pytest
 from specgate import graph
 from specgate.manifest import MODULES, TRACKS, ManifestError, load
 
-from . import spec_defects
-
 
 def test_every_requirement_has_exactly_one_entry(manifest, spec):
     """AC-DEP-01.1 - and every entry names an id that exists in `00` §2."""
@@ -48,25 +46,19 @@ def test_no_dangling_requires(manifest):
 
 
 def test_graph_is_acyclic(manifest):
-    """AC-DEP-01.4 - a cycle fails with the cycle printed.
-
-    Currently false. See `spec_defects.MANIFEST_CYCLES`.
-    """
-    found = [list(cycle) for cycle in manifest.cycles()]
-    assert found == spec_defects.MANIFEST_CYCLES, (
-        "manifest cycles changed; update docs/spec/dependencies.yaml or the ledger.\n"
-        f"found: {found}\nledger: {spec_defects.MANIFEST_CYCLES}"
-    )
+    """AC-DEP-01.4 - a cycle fails with the cycle printed."""
+    found = [" -> ".join(cycle) for cycle in manifest.cycles()]
+    assert found == [], "\n".join(found)
 
 
 def test_cross_module_edges_are_permitted(manifest):
     """AC-DEP-01.5 - a cross-module edge matches a permitted import or event.
 
-    Shares its subject with `AC-DEP-02.1`; asserted there against the module
-    graph, and here against the ledger so a new edge fails in both places.
+    Shares its subject with `AC-DEP-02.1`, asserted there against the module
+    graph, so a new edge fails in both places.
     """
-    found = [(v.requirement, v.dependency) for v in graph.module_edge_violations(manifest)]
-    assert found == spec_defects.MODULE_EDGE_VIOLATIONS
+    violations = graph.module_edge_violations(manifest)
+    assert violations == [], "\n".join(str(v) for v in violations)
 
 
 def test_no_write_outside_the_owning_module(manifest):

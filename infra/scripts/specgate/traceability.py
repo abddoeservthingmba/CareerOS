@@ -90,17 +90,19 @@ def _existing(path: str, root: Path) -> bool:
     return False
 
 
-# Roots a test may live under. `AC-FOUND-06.1` names the first four; `infra/`
-# and `docs/` are added because the specification places a handful of checks
-# there (`infra/scripts/check_origin_lockdown.sh`, and two R2 runbooks).
+# Roots a test may live under. `AC-FOUND-06.1` names the first four; `infra/` is
+# added because the specification places a few shell checks there, and
+# `apps/extension/` because `APPLY-06` (R3) is a separate artifact. `docs/` is
+# deliberately absent: a **Tests** line may cite a runbook as the thing being
+# asserted, and that citation is a reference, not a test location.
 TEST_ROOTS = (
     "tests/",
     "apps/api/tests/",
     "apps/web/",
     "apps/mobile/",
+    "apps/extension/",  # the R3 browser extension, a separate artifact
     ".github/workflows/",
     "infra/",
-    "docs/",
 )
 
 

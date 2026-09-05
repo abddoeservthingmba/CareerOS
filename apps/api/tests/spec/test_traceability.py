@@ -8,16 +8,13 @@ from __future__ import annotations
 from specgate import traceability
 from specgate.parser import defined_criteria_ids, defined_test_ids
 
-from . import spec_defects
-
 
 def test_every_criterion_has_a_test_that_names_a_file(spec, manifest, repo):
     """AC-FOUND-06.1.
 
-    Two halves. Every `AC-` has a matching `T-` in the same file - true as
-    shipped. Every `T-` names a file under `apps/api/tests/`, `apps/web/`,
-    `apps/mobile/` or `.github/workflows/` - eleven identifiers name a mechanism
-    instead, listed in `spec_defects.TESTS_WITHOUT_A_PATH`.
+    Two halves. Every `AC-` has a matching `T-` in the same file, and every
+    `T-` names a location. Thirteen identifiers named a mechanism or a document
+    rather than a test file until v2.1.1 gave each one a path.
 
     Whether the named file *exists* is asserted separately, by
     `test_named_test_files_exist`, because it becomes true only as the build
@@ -27,25 +24,19 @@ def test_every_criterion_has_a_test_that_names_a_file(spec, manifest, repo):
 
     assert [str(f) for f in report.unmatched_criteria] == []
 
-    unlocatable = sorted(f.subject for f in report.unlocatable_tests)
-    assert unlocatable == sorted(spec_defects.TESTS_WITHOUT_A_PATH), (
-        "tests that name no file changed:\n"
-        + "\n".join(str(f) for f in report.unlocatable_tests)
-    )
+    assert [str(f) for f in report.unlocatable_tests] == []
 
     # The four roots `AC-FOUND-06.1` names, plus `infra/` for the shell checks
     # the specification places there.
     roots = ("tests/", "apps/api/tests/", "apps/web/", "apps/mobile/",
-             ".github/workflows/", "infra/")
+             "apps/extension/", ".github/workflows/", "infra/")
     stray = sorted(
         f"{tid}: {path}"
         for tid, paths in report.resolved_paths.items()
         for path in paths
         if not path.startswith(roots)
     )
-    assert stray == spec_defects.TESTS_OUTSIDE_THE_PERMITTED_ROOTS, (
-        f"test paths outside the permitted roots: {stray}"
-    )
+    assert stray == [], f"test paths outside the permitted roots: {stray}"
 
 
 def test_every_r1_requirement_has_a_criterion(spec, manifest, repo):

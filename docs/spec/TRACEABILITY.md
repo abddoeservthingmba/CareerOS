@@ -142,9 +142,9 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-04` | R1 | P0 | `AC-FOUND-04.4` | `T-FOUND-04.4` | `tests/spec/test_module_readmes.py` | test not written |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.1` | `T-FOUND-05.1` | `tests/spec/test_new_module_scaffold.py` | test not written |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.2` | `T-FOUND-05.2` | `.github/workflows/api-ci.yml` | test not written |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.3` | `T-FOUND-05.3` | — | no test path |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.3` | `T-FOUND-05.3` | `tests/spec/test_import_contracts.py` | test not written |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.4` | `T-FOUND-05.4` | `tests/contract/test_response_models.py` | test not written |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.5` | `T-FOUND-05.5` | — | no test path |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.5` | `T-FOUND-05.5` | `tests/spec/test_import_contracts.py` | test not written |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.1` | `T-FOUND-06.1` | `tests/spec/test_traceability.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.2` | `T-FOUND-06.2` | `tests/spec/test_traceability.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.3` | `T-FOUND-06.3` | `tests/spec/test_traceability.py` | test present |
@@ -236,7 +236,7 @@ Requirement → track → acceptance criterion → test → status.
 | `OPS-04` | R1 | P0 | `AC-OPS-04.2` | `T-OPS-04.2` | `tests/integration/test_log_privacy.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.3` | `T-OPS-04.3` | `tests/integration/test_tracing.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.4` | `T-OPS-04.4` | `tests/integration/test_alert_conditions.py` | test not written |
-| `OPS-04` | R1 | P0 | `AC-OPS-04.5` | `T-OPS-04.5` | `docs/runbooks/alerting.md` | test not written |
+| `OPS-04` | R1 | P0 | `AC-OPS-04.5` | `T-OPS-04.5` | `tests/spec/test_runbooks_present.py` | test not written |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.1` | `T-OPS-05.1` | `tests/spec/test_env_example_parity.py` | test not written |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.2` | `T-OPS-05.2` | `tests/spec/test_env_example_no_secrets.py` | test not written |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.3` | `T-OPS-05.3` | `tests/ai/test_gemini_startup_guards.py` | test not written |
@@ -245,7 +245,7 @@ Requirement → track → acceptance criterion → test → status.
 | `OPS-06` | R1 | P0 | `AC-OPS-06.2` | `T-OPS-06.2` | `tests/integration/test_backup_verification.py` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.3` | `T-OPS-06.3` | `infra/scripts/check_backup_retention.sh` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.4` | `T-OPS-06.4` | `tests/integration/test_r2_versioning.py` | test not written |
-| `OPS-06` | R1 | P0 | `AC-OPS-06.5` | `T-OPS-06.5` | `docs/runbooks/restore.md` | test not written |
+| `OPS-06` | R1 | P0 | `AC-OPS-06.5` | `T-OPS-06.5` | `tests/spec/test_runbooks_present.py` | test not written |
 | `SEC-01` | R1 | P0 | `AC-SEC-01.1` | `T-SEC-01.1` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
 | `SEC-01` | R1 | P0 | `AC-SEC-01.2` | `T-SEC-01.2` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
 | `SEC-01` | R1 | P0 | `AC-SEC-01.3` | `T-SEC-01.3` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
@@ -327,7 +327,7 @@ Requirement → track → acceptance criterion → test → status.
 | `SEC-04` | R1 | P1 | `AC-SEC-04.5` | `T-SEC-04.5` | `tests/integration/test_consent_gating.py` | test not written |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.6` | `T-SEC-04.6` | `tests/spec/test_retention_coverage.py` | test not written |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.7` | `T-SEC-04.7` | `apps/web/e2e/data-rights.spec.ts`, `apps/mobile/integration_test/data_rights_test.dart` | test not written |
-| `SEC-04` | R1 | P1 | `AC-SEC-04.8` | `T-SEC-04.8` | — | no test path |
+| `SEC-04` | R1 | P1 | `AC-SEC-04.8` | `T-SEC-04.8` | `apps/web/.../ai-label.test.tsx`, `apps/mobile/test/ai_label_test.dart` | test not written |
 | `WEB-02` | R1 | P1 | `AC-WEB-02.1` | `T-WEB-02.1` | `apps/web/e2e/auth-storage.spec.ts` | test not written |
 | `WEB-02` | R1 | P1 | `AC-WEB-02.2` | `T-WEB-02.2` | `apps/web/src/lib/__tests__/refresh-single-flight.test.ts` | test not written |
 | `WEB-02` | R1 | P1 | `AC-WEB-02.3` | `T-WEB-02.3` | `apps/web/e2e/auth-redirect.spec.ts` | test not written |
@@ -663,10 +663,10 @@ Requirement → track → acceptance criterion → test → status.
 | `MOB-05` | R1 | P5 | `AC-MOB-05.2` | `T-MOB-05.2` | `apps/mobile/integration_test/local_notifications_test.dart` | test not written |
 | `MOB-05` | R1 | P5 | `AC-MOB-05.3` | `T-MOB-05.3` | `apps/mobile/integration_test/push_routing_test.dart` | test not written |
 | `MOB-05` | R1 | P5 | `AC-MOB-05.4` | `T-MOB-05.4` | `tests/integration/test_fcm_token_lifecycle.py` | test not written |
-| `SEC-06` | R1 | P5 | `AC-SEC-06.1` | `T-SEC-06.1` | — | no test path |
-| `SEC-06` | R1 | P5 | `AC-SEC-06.2` | `T-SEC-06.2` | — | no test path |
-| `SEC-06` | R1 | P5 | `AC-SEC-06.3` | `T-SEC-06.3` | — | no test path |
-| `SEC-06` | R1 | P5 | `AC-SEC-06.4` | `T-SEC-06.4` | — | no test path |
+| `SEC-06` | R1 | P5 | `AC-SEC-06.1` | `T-SEC-06.1` | `tests/spec/test_no_submission_capability.py`, `tests/spec/test_no_autoapply_flag.py`, `tests/unit/test_fabrication_recall.py`, `tests/integration/test_pack_prompt_excludes_unconfirmed.py` | test not written |
+| `SEC-06` | R1 | P5 | `AC-SEC-06.2` | `T-SEC-06.2` | `tests/spec/test_no_submission_capability.py`, `tests/spec/test_no_autoapply_flag.py`, `tests/unit/test_fabrication_recall.py`, `tests/integration/test_pack_prompt_excludes_unconfirmed.py` | test not written |
+| `SEC-06` | R1 | P5 | `AC-SEC-06.3` | `T-SEC-06.3` | `tests/spec/test_no_submission_capability.py`, `tests/spec/test_no_autoapply_flag.py`, `tests/unit/test_fabrication_recall.py`, `tests/integration/test_pack_prompt_excludes_unconfirmed.py` | test not written |
+| `SEC-06` | R1 | P5 | `AC-SEC-06.4` | `T-SEC-06.4` | `tests/spec/test_no_submission_capability.py`, `tests/spec/test_no_autoapply_flag.py`, `tests/unit/test_fabrication_recall.py`, `tests/integration/test_pack_prompt_excludes_unconfirmed.py` | test not written |
 | `SEC-06` | R1 | P5 | `AC-SEC-06.5` | `T-SEC-06.5` | `tests/spec/test_ethics_doc.py` | test not written |
 | `SEC-06` | R1 | P5 | `AC-SEC-06.6` | `T-SEC-06.6` | `tests/spec/test_store_listing_claims.py` | test not written |
 | `TRACK-01` | R1 | P5 | `AC-TRACK-01.1` | `T-TRACK-01.1` | `tests/integration/test_application_job_xor.py` | test not written |
@@ -862,10 +862,10 @@ Requirement → track → acceptance criterion → test → status.
 | `WEB-07` | R2 | S5 | `AC-WEB-07.4` | `T-WEB-07.4` | `apps/web/.../non-color-indicators.test.tsx` | test not written |
 | `WEB-07` | R2 | S5 | `AC-WEB-07.5` | `T-WEB-07.5` | `apps/web/.../live-region.test.tsx` | test not written |
 | `WEB-07` | R2 | S5 | `AC-WEB-07.6` | `T-WEB-07.6` | `tests/spec/test_a11y_audit_doc.py` | test not written |
-| `APPLY-06` | R3 | — | `AC-APPLY-06.1` | `T-APPLY-06.1` | — | no test path |
-| `APPLY-06` | R3 | — | `AC-APPLY-06.2` | `T-APPLY-06.2` | — | no test path |
-| `APPLY-06` | R3 | — | `AC-APPLY-06.3` | `T-APPLY-06.3` | — | no test path |
-| `APPLY-06` | R3 | — | `AC-APPLY-06.4` | `T-APPLY-06.4` | — | no test path |
+| `APPLY-06` | R3 | — | `AC-APPLY-06.1` | `T-APPLY-06.1` | `apps/extension/test/extension.test.ts` | test not written |
+| `APPLY-06` | R3 | — | `AC-APPLY-06.2` | `T-APPLY-06.2` | `apps/extension/test/extension.test.ts` | test not written |
+| `APPLY-06` | R3 | — | `AC-APPLY-06.3` | `T-APPLY-06.3` | `apps/extension/test/extension.test.ts` | test not written |
+| `APPLY-06` | R3 | — | `AC-APPLY-06.4` | `T-APPLY-06.4` | `apps/extension/test/extension.test.ts` | test not written |
 | `APPLY-08` | R3 | — | `AC-APPLY-08.1` | `T-APPLY-08.1` | `tests/integration/test_resume_export.py` | test not written |
 | `APPLY-08` | R3 | — | `AC-APPLY-08.2` | `T-APPLY-08.2` | `tests/integration/test_resume_export.py` | test not written |
 | `APPLY-08` | R3 | — | `AC-APPLY-08.3` | `T-APPLY-08.3` | `tests/integration/test_resume_export.py` | test not written |

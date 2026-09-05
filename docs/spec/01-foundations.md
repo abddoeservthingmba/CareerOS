@@ -223,7 +223,7 @@ modules/<name>/
 **Tests.**
 - `T-FOUND-05.1` `tests/spec/test_new_module_scaffold.py` (runs the generator into a temp dir).
 - `T-FOUND-05.2` `ruff` custom rule or `flake8-cognitive-complexity` config in `api-ci`.
-- `T-FOUND-05.3` / `T-FOUND-05.5` covered by `lint-imports` contracts `no-http-in-domain` and a `pure-logic` contract.
+- `T-FOUND-05.3` / `T-FOUND-05.5` `tests/spec/test_import_contracts.py` — runs `lint-imports` and asserts the `no-http-in-domain` and `pure-logic` contracts are active and passing.
 - `T-FOUND-05.4` `tests/contract/test_response_models.py` — introspects every route's `response_model`.
 
 ---

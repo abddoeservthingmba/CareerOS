@@ -124,9 +124,9 @@ def default_by_track_violations(spec: Spec | None = None) -> list[str]:
     return out
 
 
-def _code_files(root: Path) -> list[Path]:
+def _code_files(root: Path, roots: tuple[str, ...] = CODE_ROOTS) -> list[Path]:
     out: list[Path] = []
-    for relative in CODE_ROOTS:
+    for relative in roots:
         base = root / relative
         if not base.is_dir():
             continue
@@ -165,11 +165,17 @@ def absent_requirements(spec: Spec | None = None) -> set[str]:
 
 
 def absent_findings(root: Path | None = None, spec: Spec | None = None) -> list[str]:
-    """`AC-FOUND-15.6`: an `absent` section has no module file and no code path."""
+    """`AC-FOUND-15.6`: an `absent` section has no module file and no code path.
+
+    Scoped to product code. The spec tooling under `infra/scripts/` names every
+    requirement by design - it parses them - so scanning it would report the
+    gate's own vocabulary as an implementation of the feature it is checking.
+    """
     root = root or repo_root()
     out: list[str] = []
     absent = absent_requirements(spec)
-    for path in _code_files(root):
+    product = tuple(r for r in CODE_ROOTS if r != "infra/scripts")
+    for path in _code_files(root, product):
         text = path.read_text(encoding="utf-8", errors="replace")
         for requirement in sorted(absent):
             if re.search(rf"\b{re.escape(requirement)}\b", text):

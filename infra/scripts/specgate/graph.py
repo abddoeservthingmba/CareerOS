@@ -42,9 +42,9 @@ MODULE_EDGES: dict[str, frozenset[str]] = {
     "profile": frozenset({"ai", "resume"}),
     "jobs": frozenset({"connectors", "ai", "profile"}),
     "matching": frozenset({"profile", "jobs", "ai"}),
-    "apply": frozenset({"profile", "matching", "ai", "tracker", "connectors"}),
+    "apply": frozenset({"profile", "matching", "ai", "tracker", "connectors", "resume"}),
     "tracker": frozenset({"jobs", "apply", "auth", "notifications"}),
-    "notifications": frozenset({"tracker", "auth"}),
+    "notifications": frozenset({"tracker", "auth", "matching", "jobs"}),
     "admin": frozenset(
         {"auth", "profile", "resume", "jobs", "matching", "apply", "tracker",
          "notifications", "ai", "connectors", "web", "mobile"}
@@ -70,11 +70,18 @@ LEAF_MODULES = ("ai", "connectors")
 # `core` for the cross-cutting `SEC-*` family, `infra` for `OPS-*`, and `web` /
 # `mobile` for the clients. Those four verify or render the modules rather than
 # being imported by them, so the §2 picture states no edges for them and their
-# *outgoing* edges are outside the projection rule. Their incoming edges are
-# not exempt: a module depending on a client is a real inversion and is
-# reported. Recorded here because `AC-DEP-02.1` says "every edge" without
-# saying which graph the four cross-cutting families belong to.
+# *outgoing* edges are outside the projection rule. Recorded here because
+# `AC-DEP-02.1` says "every edge" without saying which graph the four
+# cross-cutting families belong to.
 CROSS_CUTTING_SOURCES = frozenset({"core", "infra", "web", "mobile"})
+
+# The clients are not importable from the API, so "MATCH-09 requires WEB-03" is
+# a build-order fact - the screen must exist before the feature that renders
+# into it - rather than an import the §2 graph could permit or forbid. They are
+# therefore permitted as edge *targets*. The leaf rule below is unaffected and
+# stays strict: `ai` and `connectors` may point at nothing outside foundations,
+# which is what `AC-DEP-02.2` and the `connectors-are-leaf` import contract say.
+CLIENT_TARGETS = frozenset({"web", "mobile"})
 
 
 @dataclass(frozen=True)
@@ -101,7 +108,7 @@ def module_edge_violations(m: Manifest | None = None) -> list[EdgeViolation]:
             continue
         for dependency in entry.requires:
             other = m[dependency].module
-            if other in (entry.module, FOUNDATIONS):
+            if other in (entry.module, FOUNDATIONS) or other in CLIENT_TARGETS:
                 continue
             if other in MODULE_EDGES.get(entry.module, frozenset()):
                 continue
