@@ -154,11 +154,11 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-07` | R1 | P0 | `AC-FOUND-07.3` | `T-FOUND-07.3` | `tests/integration/test_cursor_security.py` | test present |
 | `FOUND-07` | R1 | P0 | `AC-FOUND-07.4` | `T-FOUND-07.4` | `tests/integration/test_index_usage.py` | test present |
 | `FOUND-07` | R1 | P0 | `AC-FOUND-07.5` | `T-FOUND-07.5` | `tests/unit/test_pagination_limits.py` | test present |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.1` | `T-FOUND-08.1` | `tests/integration/test_idempotency.py` | test not written |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.2` | `T-FOUND-08.2` | `tests/integration/test_idempotency.py` | test not written |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.3` | `T-FOUND-08.3` | `tests/integration/test_idempotency.py` | test not written |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.4` | `T-FOUND-08.4` | `tests/contract/test_idempotent_routes.py` | test not written |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.5` | `T-FOUND-08.5` | `tests/integration/test_idempotency_redis_down.py` | test not written |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.1` | `T-FOUND-08.1` | `tests/integration/test_idempotency.py` | test present |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.2` | `T-FOUND-08.2` | `tests/integration/test_idempotency.py` | test present |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.3` | `T-FOUND-08.3` | `tests/integration/test_idempotency.py` | test present |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.4` | `T-FOUND-08.4` | `tests/contract/test_idempotent_routes.py` | test present |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.5` | `T-FOUND-08.5` | `tests/integration/test_idempotency_redis_down.py` | test present |
 | `FOUND-09` | R1 | P0 | `AC-FOUND-09.1` | `T-FOUND-09.1` | `tests/spec/test_handlers_only_enqueue.py` | test present |
 | `FOUND-09` | R1 | P0 | `AC-FOUND-09.2` | `T-FOUND-09.2` | `tests/unit/test_event_bus.py` | test present |
 | `FOUND-09` | R1 | P0 | `AC-FOUND-09.3` | `T-FOUND-09.3` | `tests/unit/test_event_payload_primitives.py` | test present |
@@ -627,7 +627,7 @@ Requirement → track → acceptance criterion → test → status.
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.4` | `T-APPLY-02.4` | `tests/ai/test_tone_claim_invariance.py` | test not written |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.5` | `T-APPLY-02.5` | `tests/unit/test_pack_lengths.py` | test not written |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.6` | `T-APPLY-02.6` | `tests/unit/test_answer_coverage.py` | test not written |
-| `APPLY-02` | R1 | P5 | `AC-APPLY-02.7` | `T-APPLY-02.7` | `tests/integration/test_idempotency.py` | test not written |
+| `APPLY-02` | R1 | P5 | `AC-APPLY-02.7` | `T-APPLY-02.7` | `tests/integration/test_idempotency.py` | test present |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.8` | `T-APPLY-02.8` | `tests/ai/test_degradation.py` | test not written |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.9` | `T-APPLY-02.9` | `tests/ai/test_injection_corpus.py` | test not written |
 | `APPLY-03` | R1 | P5 | `AC-APPLY-03.1` | `T-APPLY-03.1` | `tests/integration/test_pack_editing.py` | test not written |

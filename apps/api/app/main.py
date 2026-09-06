@@ -28,6 +28,7 @@ from fastapi.responses import JSONResponse
 from app.core import clock
 from app.core.config import Settings, get_settings
 from app.core.errors import AppError, ErrorCode, InvalidCursor
+from app.core.idempotency import Idempotency, MemoryStore
 from app.core.ids import new_id
 from app.infra import mongo
 from app.infra.email import webhook as email_webhook
@@ -82,6 +83,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     )
     app.state.email_webhook_secret = settings.EMAIL_WEBHOOK_SECRET.get_secret_value()
     app.include_router(email_webhook.router)
+
+    # `FOUND-08`. The store is `MemoryStore` until the Redis client lands with
+    # `FOUND-10`'s queue - correct for one worker, wrong the moment two
+    # containers serve the same user, which is why `/readyz` still names
+    # `redis` in `not_yet_checked` rather than reporting ready without it.
+    app.state.idempotency = Idempotency(MemoryStore())
 
     # `16-security-and-compliance.md` §2, control 7: an explicit origin
     # allowlist, credentials true, never a wildcard outside local.

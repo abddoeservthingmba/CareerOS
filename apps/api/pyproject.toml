@@ -8,6 +8,9 @@ dependencies = [
     "fastapi>=0.115",
     "pydantic>=2.9",
     "pydantic-settings>=2.6",
+    # `FOUND-08` §8: "Stored in Redis with a 24 h TTL". The atomic claim is
+    # `SET key value NX PX ttl`, which is the entire concurrency argument.
+    "redis>=5.2",
     "uvicorn[standard]>=0.32",
 ]
 
@@ -26,6 +29,10 @@ dev = [
     # history, so the deprecation warning is the cheaper of the two risks until
     # `httpx2` is the established name.
     "httpx>=0.28",
+    # A real Redis, in process. `RedisStore`'s claim is a single `SET ... NX`,
+    # and asserting that it is atomic against a hand-written double would be
+    # asserting against my own assumption rather than against Redis.
+    "fakeredis>=2.26",
     "ruff>=0.8",
     "mypy>=1.13",
     "import-linter>=2.0",
