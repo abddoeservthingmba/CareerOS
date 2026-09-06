@@ -22,6 +22,7 @@ include_external_packages = True
 name = layers
 type = layers
 layers =
+    app.main
     app.modules
     app.connectors | app.ai | app.infra
     app.core

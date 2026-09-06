@@ -101,6 +101,15 @@ def check_spec(_: list[str]) -> int:
     return specgate(["check"])
 
 
+def api(args: list[str]) -> int:
+    """Run the API locally. `make up` needs Docker, which this machine lacks."""
+    return run([sys.executable, str(ROOT / "infra" / "scripts" / "run_api.py"), *args])
+
+
+def web(_: list[str]) -> int:
+    return run(["npm", "run", "dev"], cwd=ROOT / "apps" / "web")
+
+
 def import_contracts(_: list[str]) -> int:
     return run(
         [
@@ -183,6 +192,8 @@ TARGETS = {
     "spec-trace-strict": spec_trace_strict,
     "spec-metadata": spec_metadata,
     "check-spec": check_spec,
+    "api": api,
+    "web": web,
     "import-contracts": import_contracts,
     "lint-imports": lint_imports,
     "new-module": new_module,

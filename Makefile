@@ -57,6 +57,14 @@ error-codes:  ## Regenerate docs/error-codes.md from the ErrorCode enum
 	@cd apps/api && py -m uv run python -c "from app.core.errors import render_error_codes; open('../../docs/error-codes.md','w',encoding='utf-8',newline='').write(render_error_codes())"
 	@echo "wrote docs/error-codes.md"
 
+.PHONY: api
+api:  ## Run the API locally without Docker (http://localhost:8000)
+	@py infra/scripts/run_api.py
+
+.PHONY: web
+web:  ## Run the web client locally (http://localhost:5173)
+	cd apps/web && npm run dev
+
 .PHONY: import-contracts
 import-contracts:  ## Regenerate apps/api/.importlinter from the module tree
 	@py infra/scripts/gen_importlinter.py --write
