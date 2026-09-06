@@ -16,6 +16,7 @@ as a glob.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -127,6 +128,25 @@ def _normalise_path(candidate: str) -> str | None:
     return None
 
 
+STEP_NAMED = re.compile(r"step\s+`([A-Za-z0-9][\w-]*)`")
+
+
+def _named_step(text: str) -> str | None:
+    """The CI step a **Tests** entry names, if it names one.
+
+    "`T-MOB-01.4` `mobile-ci` step `build-flavors`" locates both the workflow
+    and the step inside it.
+    """
+    m = STEP_NAMED.search(text)
+    return m.group(1) if m else None
+
+
+def _has_step(workflow: Path, step: str) -> bool:
+    if not workflow.is_file():
+        return False
+    return step in workflow.read_text(encoding="utf-8")
+
+
 def _ci_workflow_paths(text: str) -> tuple[str, ...]:
     out = [path for name, path in CI_WORKFLOWS.items() if f"`{name}`" in text]
     return tuple(dict.fromkeys(out))
@@ -236,6 +256,24 @@ def run(
                         "test-file-missing",
                         tid,
                         f"{path} does not exist",
+                        definition.file,
+                        definition.line,
+                    )
+                )
+                continue
+            step = _named_step(definition.text)
+            if step and path.startswith(".github/workflows/") and not _has_step(
+                root / path, step
+            ):
+                # A workflow file existing does not mean the step exists. Half
+                # a dozen `T-` entries point at a step inside `api-ci`, and
+                # counting them satisfied the moment the file appears would
+                # quietly overstate progress.
+                report.missing_paths.append(
+                    Finding(
+                        "ci-step-missing",
+                        tid,
+                        f"{path} has no step named {step!r}",
                         definition.file,
                         definition.line,
                     )

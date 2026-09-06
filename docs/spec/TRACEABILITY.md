@@ -48,7 +48,7 @@ Requirement → track → acceptance criterion → test → status.
 | `AI-06` | R1 | P0 | `AC-AI-06.5` | `T-AI-06.5` | `apps/web/src/features/**/__tests__/ai-content.test.tsx`, `apps/mobile/test/ai_content_test.dart` | test not written |
 | `AI-06` | R1 | P0 | `AC-AI-06.6` | `T-AI-06.6` | `tests/unit/test_content_caps.py` | test present |
 | `AI-07` | R1 | P0 | `AC-AI-07.1` | `T-AI-07.1` | `tests/ai/test_prompt_loader.py` | test not written |
-| `AI-07` | R1 | P0 | `AC-AI-07.2` | `T-AI-07.2` | `.github/workflows/api-ci.yml` | test not written |
+| `AI-07` | R1 | P0 | `AC-AI-07.2` | `T-AI-07.2` | `.github/workflows/api-ci.yml` | test present |
 | `AI-07` | R1 | P0 | `AC-AI-07.3` | `T-AI-07.3` | `tests/ai/test_golden_fake.py` | test not written |
 | `AI-07` | R1 | P0 | `AC-AI-07.4` | `T-AI-07.4` | `.github/workflows/nightly-ai.yml` | test not written |
 | `AI-07` | R1 | P0 | `AC-AI-07.5` | `T-AI-07.5` | `tests/ai/test_extraction_precision.py` | test not written |
@@ -121,7 +121,7 @@ Requirement → track → acceptance criterion → test → status.
 | `DEP-06` | R1 | P0 | `AC-DEP-06.3` | `T-DEP-06.3` | `tests/spec/test_handoff_bundle.py` | test present |
 | `DEP-06` | R1 | P0 | `AC-DEP-06.4` | `T-DEP-06.4` | `tests/spec/test_handoff_bundle.py` | test present |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.1` | `T-FOUND-01.1` | `tests/integration/test_compose_boot.py` | test not written |
-| `FOUND-01` | R1 | P0 | `AC-FOUND-01.2` | `T-FOUND-01.2` | `.github/workflows/api-ci.yml` | test not written |
+| `FOUND-01` | R1 | P0 | `AC-FOUND-01.2` | `T-FOUND-01.2` | `.github/workflows/api-ci.yml` | test present |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.3` | `T-FOUND-01.3` | `tests/spec/test_layer_leaks.py` | test not written |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.4` | `T-FOUND-01.4` | `tests/spec/test_layer_leaks.py` | test not written |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.5` | `T-FOUND-01.5` | `.github/workflows/contracts.yml` | test not written |
@@ -136,12 +136,12 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.4` | `T-FOUND-03.4` | `tests/unit/test_money.py` | test present |
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.5` | `T-FOUND-03.5` | `tests/unit/test_fx.py` | test present |
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.6` | `T-FOUND-03.6` | `tests/unit/test_ulid.py` | test present |
-| `FOUND-04` | R1 | P0 | `AC-FOUND-04.1` | `T-FOUND-04.1` | `.github/workflows/api-ci.yml` | test not written |
+| `FOUND-04` | R1 | P0 | `AC-FOUND-04.1` | `T-FOUND-04.1` | `.github/workflows/api-ci.yml` | test present |
 | `FOUND-04` | R1 | P0 | `AC-FOUND-04.2` | `T-FOUND-04.2` | `tests/spec/test_module_anatomy.py` | test present |
 | `FOUND-04` | R1 | P0 | `AC-FOUND-04.3` | `T-FOUND-04.3` | `tests/spec/test_import_linter_catches_violation.py` | test present |
 | `FOUND-04` | R1 | P0 | `AC-FOUND-04.4` | `T-FOUND-04.4` | `tests/spec/test_module_readmes.py` | test present |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.1` | `T-FOUND-05.1` | `tests/spec/test_new_module_scaffold.py` | test present |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.2` | `T-FOUND-05.2` | `.github/workflows/api-ci.yml` | test not written |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.2` | `T-FOUND-05.2` | `.github/workflows/api-ci.yml` | test present |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.3` | `T-FOUND-05.3` | `tests/spec/test_import_contracts.py` | test present |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.4` | `T-FOUND-05.4` | `tests/contract/test_response_models.py` | test not written |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.5` | `T-FOUND-05.5` | `tests/spec/test_import_contracts.py` | test present |
@@ -213,25 +213,25 @@ Requirement → track → acceptance criterion → test → status.
 | `MOB-01` | R1 | P0 | `AC-MOB-01.3` | `T-MOB-01.3` | `apps/mobile/test/architecture_test.dart` | test not written |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.4` | `T-MOB-01.4` | `.github/workflows/mobile-ci.yml` | test not written |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.5` | `T-MOB-01.5` | `tests/spec/test_no_admin_in_mobile.py` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.1` | `T-OPS-01.1` | `.github/workflows/api-ci.yml` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.2` | `T-OPS-01.2` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.1` | `T-OPS-01.1` | `.github/workflows/api-ci.yml` | test present |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.2` | `T-OPS-01.2` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-01` | R1 | P0 | `AC-OPS-01.3` | `T-OPS-01.3` | `tests/integration/test_readyz.py` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.4` | `T-OPS-01.4` | `.github/workflows/api-ci.yml` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.5` | `T-OPS-01.5` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.4` | `T-OPS-01.4` | `.github/workflows/api-ci.yml` | test present |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.5` | `T-OPS-01.5` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-01` | R1 | P0 | `AC-OPS-01.6` | `T-OPS-01.6` | `tests/integration/test_compose_boot.py` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.7` | `T-OPS-01.7` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.7` | `T-OPS-01.7` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.1` | `T-OPS-02.1` | `infra/scripts/check_origin_lockdown.sh`, `tests/spec/test_origin_check_exists.py` | test not written |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.2` | `T-OPS-02.2` | `tests/spec/test_env_parity.py` | test not written |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.3` | `T-OPS-02.3` | `.github/workflows/deploy-staging.yml`, `.github/workflows/deploy-prod.yml` | test not written |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.4` | `T-OPS-02.4` | `.github/workflows/deploy-staging.yml`, `.github/workflows/deploy-prod.yml` | test not written |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.5` | `T-OPS-02.5` | `.github/workflows/deploy-staging.yml`, `.github/workflows/deploy-prod.yml` | test not written |
-| `OPS-02` | R1 | P0 | `AC-OPS-02.6` | `T-OPS-02.6` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-02` | R1 | P0 | `AC-OPS-02.6` | `T-OPS-02.6` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.1` | `T-OPS-03.1` | `infra/scripts/check_branch_protection.sh` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.2` | `T-OPS-03.2` | `tests/spec/test_coverage_config.py` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.3` | `T-OPS-03.3` | `tests/spec/test_no_live_source_calls.py` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.4` | `T-OPS-03.4` | `.github/workflows/contracts.yml` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.5` | `T-OPS-03.5` | `.github/workflows/deploy-prod.yml` | test not written |
-| `OPS-03` | R1 | P0 | `AC-OPS-03.6` | `T-OPS-03.6` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-03` | R1 | P0 | `AC-OPS-03.6` | `T-OPS-03.6` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.1` | `T-OPS-04.1` | `tests/integration/test_metrics_endpoint.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.2` | `T-OPS-04.2` | `tests/integration/test_log_privacy.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.3` | `T-OPS-04.3` | `tests/integration/test_tracing.py` | test not written |
@@ -240,7 +240,7 @@ Requirement → track → acceptance criterion → test → status.
 | `OPS-05` | R1 | P0 | `AC-OPS-05.1` | `T-OPS-05.1` | `tests/spec/test_env_example_parity.py` | test present |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.2` | `T-OPS-05.2` | `tests/spec/test_env_example_no_secrets.py` | test not written |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.3` | `T-OPS-05.3` | `tests/ai/test_gemini_startup_guards.py` | test not written |
-| `OPS-05` | R1 | P0 | `AC-OPS-05.4` | `T-OPS-05.4` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-05` | R1 | P0 | `AC-OPS-05.4` | `T-OPS-05.4` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.1` | `T-OPS-06.1` | `tests/integration/test_backup_restore.py` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.2` | `T-OPS-06.2` | `tests/integration/test_backup_verification.py` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.3` | `T-OPS-06.3` | `infra/scripts/check_backup_retention.sh` | test not written |
