@@ -147,6 +147,19 @@ def error_codes(_: list[str]) -> int:
     return code
 
 
+def events_doc(_: list[str]) -> int:
+    target = ROOT / "docs" / "events.md"
+    script = (
+        "from app.core.events import render_events_doc; "
+        f"open(r'{target}', 'w', encoding='utf-8', newline='')"
+        ".write(render_events_doc())"
+    )
+    code = uv(["run", "python", "-c", script], cwd=API)
+    if code == 0:
+        print(f"wrote {target}")
+    return code
+
+
 def generate(_: list[str]) -> int:
     for target in (
         build_order,
@@ -198,6 +211,7 @@ TARGETS = {
     "lint-imports": lint_imports,
     "new-module": new_module,
     "error-codes": error_codes,
+    "events-doc": events_doc,
     "generate": generate,
 }
 

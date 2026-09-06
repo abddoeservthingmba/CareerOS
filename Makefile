@@ -65,6 +65,11 @@ api:  ## Run the API locally without Docker (http://localhost:8000)
 web:  ## Run the web client locally (http://localhost:5173)
 	cd apps/web && npm run dev
 
+.PHONY: events-doc
+events-doc:  ## Regenerate docs/events.md from the event registry
+	@cd apps/api && py -m uv run python -c "from app.core.events import render_events_doc; open('../../docs/events.md','w',encoding='utf-8',newline='').write(render_events_doc())"
+	@echo "wrote docs/events.md"
+
 .PHONY: import-contracts
 import-contracts:  ## Regenerate apps/api/.importlinter from the module tree
 	@py infra/scripts/gen_importlinter.py --write
@@ -79,7 +84,7 @@ new-module:  ## Scaffold a module: make new-module NAME=demo
 	@py infra/scripts/gen_importlinter.py --write
 
 .PHONY: generate
-generate: build-order status spec-trace spec-metadata error-codes import-contracts  ## Regenerate every committed artifact
+generate: build-order status spec-trace spec-metadata error-codes events-doc import-contracts  ## Regenerate every committed artifact
 
 # --- the gate ---------------------------------------------------------------
 

@@ -159,11 +159,11 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-08` | R1 | P0 | `AC-FOUND-08.3` | `T-FOUND-08.3` | `tests/integration/test_idempotency.py` | test not written |
 | `FOUND-08` | R1 | P0 | `AC-FOUND-08.4` | `T-FOUND-08.4` | `tests/contract/test_idempotent_routes.py` | test not written |
 | `FOUND-08` | R1 | P0 | `AC-FOUND-08.5` | `T-FOUND-08.5` | `tests/integration/test_idempotency_redis_down.py` | test not written |
-| `FOUND-09` | R1 | P0 | `AC-FOUND-09.1` | `T-FOUND-09.1` | `tests/spec/test_handlers_only_enqueue.py` | test not written |
-| `FOUND-09` | R1 | P0 | `AC-FOUND-09.2` | `T-FOUND-09.2` | `tests/unit/test_event_bus.py` | test not written |
-| `FOUND-09` | R1 | P0 | `AC-FOUND-09.3` | `T-FOUND-09.3` | `tests/unit/test_event_payload_primitives.py` | test not written |
+| `FOUND-09` | R1 | P0 | `AC-FOUND-09.1` | `T-FOUND-09.1` | `tests/spec/test_handlers_only_enqueue.py` | test present |
+| `FOUND-09` | R1 | P0 | `AC-FOUND-09.2` | `T-FOUND-09.2` | `tests/unit/test_event_bus.py` | test present |
+| `FOUND-09` | R1 | P0 | `AC-FOUND-09.3` | `T-FOUND-09.3` | `tests/unit/test_event_payload_primitives.py` | test present |
 | `FOUND-09` | R1 | P0 | `AC-FOUND-09.4` | `T-FOUND-09.4` | `tests/integration/test_event_wiring.py` | test not written |
-| `FOUND-09` | R1 | P0 | `AC-FOUND-09.5` | `T-FOUND-09.5` | `tests/spec/test_events_doc.py` | test not written |
+| `FOUND-09` | R1 | P0 | `AC-FOUND-09.5` | `T-FOUND-09.5` | `tests/spec/test_events_doc.py` | test present |
 | `FOUND-10` | R1 | P0 | `AC-FOUND-10.1` | `T-FOUND-10.1` | `tests/spec/test_task_signatures.py` | test not written |
 | `FOUND-10` | R1 | P0 | `AC-FOUND-10.2` | `T-FOUND-10.2` | `tests/spec/test_task_signatures.py` | test not written |
 | `FOUND-10` | R1 | P0 | `AC-FOUND-10.3` | `T-FOUND-10.3` | `tests/integration/test_task_idempotency.py` | test not written |
@@ -699,7 +699,7 @@ Requirement → track → acceptance criterion → test → status.
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.9` | `T-NOTIF-01.9` | `tests/integration/test_tz_change_reconcile.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.10` | `T-NOTIF-01.10` | `tests/integration/test_reconciliation.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.11` | `T-NOTIF-01.11` | `tests/integration/test_reconciliation.py` | test not written |
-| `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.12` | `T-NOTIF-01.12` | `tests/spec/test_handlers_only_enqueue.py` | test not written |
+| `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.12` | `T-NOTIF-01.12` | `tests/spec/test_handlers_only_enqueue.py` | test present |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.1` | `T-NOTIF-02.1` | `tests/unit/test_email_templates.py` | test not written |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.2` | `T-NOTIF-02.2` | `tests/integration/test_email_content_rules.py` | test not written |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.3` | `T-NOTIF-02.3` | `tests/integration/test_bounce_handling.py` | test not written |
