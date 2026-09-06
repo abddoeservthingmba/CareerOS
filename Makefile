@@ -57,8 +57,21 @@ error-codes:  ## Regenerate docs/error-codes.md from the ErrorCode enum
 	@cd apps/api && py -m uv run python -c "from app.core.errors import render_error_codes; open('../../docs/error-codes.md','w',encoding='utf-8',newline='').write(render_error_codes())"
 	@echo "wrote docs/error-codes.md"
 
+.PHONY: import-contracts
+import-contracts:  ## Regenerate apps/api/.importlinter from the module tree
+	@py infra/scripts/gen_importlinter.py --write
+
+.PHONY: lint-imports
+lint-imports:  ## import-linter (FOUND-04, HR-12)
+	cd apps/api && py -m uv run lint-imports --config .importlinter
+
+.PHONY: new-module
+new-module:  ## Scaffold a module: make new-module NAME=demo
+	@py infra/scripts/new_module.py $(NAME)
+	@py infra/scripts/gen_importlinter.py --write
+
 .PHONY: generate
-generate: build-order status spec-trace spec-metadata error-codes  ## Regenerate every committed artifact
+generate: build-order status spec-trace spec-metadata error-codes import-contracts  ## Regenerate every committed artifact
 
 # --- the gate ---------------------------------------------------------------
 
@@ -79,5 +92,5 @@ test:  ## pytest
 	cd apps/api && py -m uv run pytest
 
 .PHONY: check
-check: lint types test  ## Everything that must be green before a commit
+check: lint lint-imports types test  ## Everything that must be green before a commit
 	@echo "make check: green"

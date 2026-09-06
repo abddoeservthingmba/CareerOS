@@ -9,10 +9,10 @@ scheduling (`11-notifications.md` §2) and client rendering."
 which is what makes `freeze()` sufficient for every time-dependent test in the
 product.
 
-Note on location: `01-foundations.md` §3's Outputs line writes this module as
-`app/shared/clock.py`, but its own Constraints say `core.clock.now()`,
-`AC-FOUND-03.1` says "outside `core/clock.py`", and the tree in §1 lists `clock`
-under `core/`. Three references to one, so it lives in `core/`.
+The pure timezone helpers live in `app.shared.timeutils` and are re-exported
+here, because `shared` is the innermost layer and may not import `core`
+(§4's `layers` contract) while `shared/ulid.py` still has to validate an
+instant. Nothing in `shared` reads the time; only this module does.
 """
 
 from __future__ import annotations
@@ -21,16 +21,12 @@ import contextlib
 from collections.abc import Iterator
 from datetime import UTC, datetime, timedelta
 
+from app.shared.timeutils import NaiveDatetimeError, ensure_utc, is_utc
+
+__all__ = ["NaiveDatetimeError", "ensure_utc", "freeze", "is_utc", "now", "shift"]
+
 _frozen_at: datetime | None = None
 _offset = timedelta(0)
-
-
-class NaiveDatetimeError(ValueError):
-    """A datetime without a timezone reached code that stores or compares it.
-
-    Raised rather than assumed-UTC: a naive value is an unanswered question
-    about which zone it came from, and guessing is how a reminder fires at 3am.
-    """
 
 
 def now() -> datetime:
@@ -38,19 +34,6 @@ def now() -> datetime:
     if _frozen_at is not None:
         return _frozen_at
     return datetime.now(UTC) + _offset
-
-
-def ensure_utc(value: datetime) -> datetime:
-    """Return `value` as UTC, or raise if it carries no timezone."""
-    if value.tzinfo is None or value.tzinfo.utcoffset(value) is None:
-        raise NaiveDatetimeError(
-            f"{value!r} is naive; every stored datetime is timezone-aware UTC (HR-10)"
-        )
-    return value.astimezone(UTC)
-
-
-def is_utc(value: datetime) -> bool:
-    return value.tzinfo is not None and value.utcoffset() == timedelta(0)
 
 
 @contextlib.contextmanager

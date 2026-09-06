@@ -88,7 +88,7 @@ def test_named_test_files_exist(spec, manifest, repo):
 
 # Lowered by each commit that lands a test file; reaches 0 at the R1 gate.
 # Update this number downward in the same commit that writes the tests.
-EXPECTED_OUTSTANDING_TESTS = 763
+EXPECTED_OUTSTANDING_TESTS = 756
 
 
 def test_the_range_and_list_notation_expands(spec):

@@ -41,6 +41,6 @@ def test_check_is_the_gate_claude_md_names(repo: Path):
     must cover lint, types and tests."""
     assert "check" in make_targets(repo)
     makefile = (repo / "Makefile").read_text(encoding="utf-8")
-    assert re.search(r"^check:\s*lint types test", makefile, re.MULTILINE), (
+    assert re.search(r"^check:\s*lint lint-imports types test", makefile, re.MULTILINE), (
         "make check must run lint, types and test"
     )

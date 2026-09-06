@@ -101,6 +101,30 @@ def check_spec(_: list[str]) -> int:
     return specgate(["check"])
 
 
+def import_contracts(_: list[str]) -> int:
+    return run(
+        [
+            sys.executable,
+            str(ROOT / "infra" / "scripts" / "gen_importlinter.py"),
+            "--write",
+        ]
+    )
+
+
+def lint_imports(_: list[str]) -> int:
+    return uv(["run", "lint-imports", "--config", ".importlinter"], cwd=API)
+
+
+def new_module(args: list[str]) -> int:
+    if not args:
+        print("usage: tasks.py new-module <name>", file=sys.stderr)
+        return 2
+    code = run(
+        [sys.executable, str(ROOT / "infra" / "scripts" / "new_module.py"), args[0]]
+    )
+    return code or import_contracts([])
+
+
 def error_codes(_: list[str]) -> int:
     target = ROOT / "docs" / "error-codes.md"
     script = (
@@ -115,7 +139,14 @@ def error_codes(_: list[str]) -> int:
 
 
 def generate(_: list[str]) -> int:
-    for target in (build_order, status, spec_trace, spec_metadata, error_codes):
+    for target in (
+        build_order,
+        status,
+        spec_trace,
+        spec_metadata,
+        error_codes,
+        import_contracts,
+    ):
         code = target([])
         if code != 0:
             return code
@@ -124,7 +155,12 @@ def generate(_: list[str]) -> int:
 
 def check(_: list[str]) -> int:
     """Everything that must be green before a commit."""
-    for name, target in (("lint", lint), ("types", types), ("test", test)):
+    for name, target in (
+        ("lint", lint),
+        ("lint-imports", lint_imports),
+        ("types", types),
+        ("test", test),
+    ):
         code = target([])
         if code != 0:
             print(f"\ncheck: {name} failed", file=sys.stderr)
@@ -147,6 +183,9 @@ TARGETS = {
     "spec-trace-strict": spec_trace_strict,
     "spec-metadata": spec_metadata,
     "check-spec": check_spec,
+    "import-contracts": import_contracts,
+    "lint-imports": lint_imports,
+    "new-module": new_module,
     "error-codes": error_codes,
     "generate": generate,
 }

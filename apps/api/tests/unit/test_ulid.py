@@ -6,11 +6,12 @@ import multiprocessing
 from datetime import UTC, datetime, timedelta
 
 from app.core import clock
+from app.core.ids import new_id
 from app.shared.ulid import ULID_LENGTH, is_ulid, new_ulid, timestamp_of
 
 
 def test_shape():
-    value = new_ulid()
+    value = new_id()
     assert len(value) == ULID_LENGTH
     assert is_ulid(value)
     # Crockford base32 excludes the four ambiguous letters.
@@ -32,7 +33,7 @@ def test_monotonic_within_a_millisecond():
     """AC-FOUND-03.6 - monotonic within a millisecond."""
     at = datetime(2026, 9, 6, 12, 0, 0, tzinfo=UTC)
     with clock.freeze(at):
-        minted = [new_ulid() for _ in range(1000)]
+        minted = [new_id() for _ in range(1000)]
     assert minted == sorted(minted), "ids minted in one millisecond must sort in creation order"
     assert len(set(minted)) == len(minted), "ids must be unique"
 
@@ -68,23 +69,38 @@ def test_timestamp_round_trips():
     assert abs((recovered - at).total_seconds()) < 0.001
 
 
-def test_the_clock_moving_backwards_still_yields_ascending_ids():
-    """NTP correction must not produce a duplicate or a descending id."""
+def test_the_clock_moving_backwards_yields_an_honest_timestamp():
+    """An NTP correction produces a lower id, which is correct: the id encodes
+    when it was minted. The ULID guarantee is monotonicity *within* a
+    millisecond, not across a clock that moved."""
     with clock.freeze(datetime(2026, 9, 6, 12, 0, 1, tzinfo=UTC)):
-        later = new_ulid()
+        later = new_id()
     with clock.freeze(datetime(2026, 9, 6, 12, 0, 0, tzinfo=UTC)):
-        after_step_back = new_ulid()
-    assert after_step_back > later
+        after_step_back = new_id()
+    assert after_step_back < later
     assert after_step_back != later
 
 
-def test_an_explicit_instant_is_encoded_faithfully():
-    """Seeding a fixture with a chosen instant must produce that instant, so the
-    monotonic high-water mark is not consulted on this path."""
+def test_an_explicit_instant_is_always_encoded_faithfully():
+    """Seeding a fixture with a chosen instant must produce that instant, even
+    after ids have been minted far in the future: the monotonic counter moves
+    the random field only, never the timestamp."""
     with clock.freeze(datetime(2030, 1, 1, tzinfo=UTC)):
-        new_ulid()  # push the monotonic state far into the future
+        new_id()
     at = datetime(2026, 9, 6, 12, 34, 56, tzinfo=UTC)
     assert abs((timestamp_of(new_ulid(at)) - at).total_seconds()) < 0.001
+
+
+def test_shared_ulid_does_not_read_a_clock():
+    """§4's `layers` contract: `shared` may not import `core`, so `new_ulid`
+    takes its instant explicitly and `core.ids.new_id` supplies it."""
+    import inspect
+
+    assert "at" in inspect.signature(new_ulid).parameters
+    import app.shared.ulid as ulid_module
+
+    source = inspect.getsource(ulid_module)
+    assert "app.core" not in source
 
 
 def test_multiprocessing_is_available_for_the_cross_process_case():

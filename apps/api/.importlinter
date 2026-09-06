@@ -1,0 +1,98 @@
+; Module boundaries, by machine - `FOUND-04`, HR-12.
+;
+; Generated. Do not edit; run `py infra/scripts/gen_importlinter.py --write`.
+;
+; `01-foundations.md` §4: "Make the modular monolith actually modular, by
+; machine, so that any module could be extracted into a service later without
+; archaeology."
+;
+; `AC-FOUND-04.1`: "`lint-imports` exits 0 with all eight contracts active and
+; **zero** `ignore_imports` entries. An exemption requires a new ADR." There are
+; no `ignore_imports` entries here and the test asserts there are none, so
+; adding one is a visible act rather than a quiet line.
+
+[importlinter]
+root_packages =
+    app
+include_external_packages = True
+
+; --- 1. layers -----------------------------------------------------------------
+; shared <- core <- infra <- {ai, connectors} <- modules <- main
+[importlinter:contract:layers]
+name = layers
+type = layers
+layers =
+    app.modules
+    app.connectors | app.ai | app.infra
+    app.core
+    app.shared
+exhaustive = False
+
+; --- 3. no-concrete-ai ---------------------------------------------------------
+; HR-5: a feature module names a capability, never a provider.
+[importlinter:contract:no-concrete-ai]
+name = no-concrete-ai
+type = forbidden
+source_modules =
+    app.modules
+    app.connectors
+forbidden_modules =
+    app.ai.stubs
+
+; --- 4. ai-is-leaf ---------------------------------------------------------
+[importlinter:contract:ai-is-leaf]
+name = ai-is-leaf
+type = forbidden
+source_modules =
+    app.ai
+forbidden_modules =
+    app.modules
+    app.connectors
+
+; --- 5. connectors-are-leaf ------------------------------------------------
+; "A connector normalizes; enrichment is the ingestion service's job."
+[importlinter:contract:connectors-are-leaf]
+name = connectors-are-leaf
+type = forbidden
+source_modules =
+    app.connectors
+forbidden_modules =
+    app.modules
+    app.ai
+
+; --- 6. no-oauth-in-ai -----------------------------------------------------
+; HR-6. Sign-in and inference share the word "Google" and nothing else. A change
+; reaching for an available Google credential in the AI path would attach a
+; user's identity to inference calls.
+;
+; import-linter cannot forbid a subpackage of an external package, so
+; `google.auth` and `google.oauth2` cannot be named here - and forbidding
+; `google` wholesale would also forbid `google.genai`, which `ai/gemini.py`
+; legitimately needs. Those two are asserted by AST in
+; `tests/spec/test_import_contracts.py::test_no_google_credential_import_in_ai`,
+; which is what `AC-AI-05.3` actually requires. `app.modules.auth` needs no
+; entry: `ai-is-leaf` already forbids `app.ai -> app.modules` entirely.
+[importlinter:contract:no-oauth-in-ai]
+name = no-oauth-in-ai
+type = forbidden
+source_modules =
+    app.ai
+forbidden_modules =
+    authlib
+    googleapiclient
+
+; --- 7. infra-is-dumb ------------------------------------------------------
+[importlinter:contract:infra-is-dumb]
+name = infra-is-dumb
+type = forbidden
+source_modules =
+    app.infra
+forbidden_modules =
+    app.modules
+    app.ai
+    app.connectors
+
+; --- 2. module-independence, 8. no-http-in-domain --------------------------
+; Both enumerate every module by name and appear here as soon as the first
+; module exists. `app/modules/` is empty today, so there is nothing to bind;
+; `AC-FOUND-04.1`'s "all eight contracts" is reached when `auth` lands in P1.

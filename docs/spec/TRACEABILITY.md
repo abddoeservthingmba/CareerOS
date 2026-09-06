@@ -35,7 +35,7 @@ Requirement → track → acceptance criterion → test → status.
 | `AI-04` | R1 | P0 | `AC-AI-04.5` | `T-AI-04.5` | `tests/integration/test_admin_ai_dashboard.py` | test not written |
 | `AI-05` | R1 | P0 | `AC-AI-05.1` | `T-AI-05.1` | `tests/spec/test_compliance_docs.py` | test not written |
 | `AI-05` | R1 | P0 | `AC-AI-05.2` | `T-AI-05.2` | `tests/ai/test_gemini_startup_guards.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.3` | `T-AI-05.3` | `tests/spec/test_import_linter_catches_violation.py` | test not written |
+| `AI-05` | R1 | P0 | `AC-AI-05.3` | `T-AI-05.3` | `tests/spec/test_import_linter_catches_violation.py` | test present |
 | `AI-05` | R1 | P0 | `AC-AI-05.4` | `T-AI-05.4` | `tests/ai/test_gemini_credential_surface.py` | test not written |
 | `AI-05` | R1 | P0 | `AC-AI-05.5` | `T-AI-05.5` | `.github/workflows/web-ci.yml`, `.github/workflows/mobile-ci.yml` | test not written |
 | `AI-05` | R1 | P0 | `AC-AI-05.6` | `T-AI-05.6` | `tests/ai/test_structured_repair.py` | test not written |
@@ -137,14 +137,14 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.5` | `T-FOUND-03.5` | `tests/unit/test_fx.py` | test present |
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.6` | `T-FOUND-03.6` | `tests/unit/test_ulid.py` | test present |
 | `FOUND-04` | R1 | P0 | `AC-FOUND-04.1` | `T-FOUND-04.1` | `.github/workflows/api-ci.yml` | test not written |
-| `FOUND-04` | R1 | P0 | `AC-FOUND-04.2` | `T-FOUND-04.2` | `tests/spec/test_module_anatomy.py` | test not written |
-| `FOUND-04` | R1 | P0 | `AC-FOUND-04.3` | `T-FOUND-04.3` | `tests/spec/test_import_linter_catches_violation.py` | test not written |
-| `FOUND-04` | R1 | P0 | `AC-FOUND-04.4` | `T-FOUND-04.4` | `tests/spec/test_module_readmes.py` | test not written |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.1` | `T-FOUND-05.1` | `tests/spec/test_new_module_scaffold.py` | test not written |
+| `FOUND-04` | R1 | P0 | `AC-FOUND-04.2` | `T-FOUND-04.2` | `tests/spec/test_module_anatomy.py` | test present |
+| `FOUND-04` | R1 | P0 | `AC-FOUND-04.3` | `T-FOUND-04.3` | `tests/spec/test_import_linter_catches_violation.py` | test present |
+| `FOUND-04` | R1 | P0 | `AC-FOUND-04.4` | `T-FOUND-04.4` | `tests/spec/test_module_readmes.py` | test present |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.1` | `T-FOUND-05.1` | `tests/spec/test_new_module_scaffold.py` | test present |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.2` | `T-FOUND-05.2` | `.github/workflows/api-ci.yml` | test not written |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.3` | `T-FOUND-05.3` | `tests/spec/test_import_contracts.py` | test not written |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.3` | `T-FOUND-05.3` | `tests/spec/test_import_contracts.py` | test present |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.4` | `T-FOUND-05.4` | `tests/contract/test_response_models.py` | test not written |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.5` | `T-FOUND-05.5` | `tests/spec/test_import_contracts.py` | test not written |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.5` | `T-FOUND-05.5` | `tests/spec/test_import_contracts.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.1` | `T-FOUND-06.1` | `tests/spec/test_traceability.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.2` | `T-FOUND-06.2` | `tests/spec/test_traceability.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.3` | `T-FOUND-06.3` | `tests/spec/test_traceability.py` | test present |
