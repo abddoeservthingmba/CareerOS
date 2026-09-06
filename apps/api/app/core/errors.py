@@ -197,6 +197,23 @@ class RateLimited(AppError):
     http_status = 429
 
 
+class InvalidCursor(AppError):
+    """`AC-FOUND-07.2` - a pagination cursor that is not one we issued.
+
+    400 rather than 422: the cursor is opaque, so "this value is malformed" is
+    the only thing that can be said about it, and a field-level validation error
+    would imply the client could correct it. It cannot; it can only start the
+    list again.
+
+    `shared.pagination` raises a plain `CursorError`, because `shared` may not
+    import `core`. `main.py` converts it here, in the one place that renders
+    problems.
+    """
+
+    code = ErrorCode.INVALID_CURSOR
+    http_status = 400
+
+
 class NotImplementedRoute(AppError):
     """`01-foundations.md` §15 `stub-501`: a route reserved so a client can tell
     "not yet" from "not a thing". The response never varies by input."""

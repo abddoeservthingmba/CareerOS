@@ -27,12 +27,13 @@ from fastapi.responses import JSONResponse
 
 from app.core import clock
 from app.core.config import Settings, get_settings
-from app.core.errors import AppError, ErrorCode
+from app.core.errors import AppError, ErrorCode, InvalidCursor
 from app.core.ids import new_id
 from app.infra import mongo
 from app.infra.email import webhook as email_webhook
 from app.infra.email.bounces import MemoryBounceRegistry
 from app.infra.email.senders import SmtpSettings, build_sender
+from app.shared.pagination import CursorError
 
 STARTED_AT = time.monotonic()
 
@@ -109,6 +110,22 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             content=exc.problem(getattr(request.state, "request_id", "")),
             media_type="application/problem+json",
             headers=exc.headers,
+        )
+
+    @app.exception_handler(CursorError)
+    async def handle_bad_cursor(request: Request, exc: CursorError) -> JSONResponse:
+        """`AC-FOUND-07.2` - 400 `invalid_cursor`.
+
+        Converted here rather than in every list endpoint: `shared.pagination`
+        raises a plain `ValueError` because `shared` may not import `core`, and
+        a `try/except` per route is exactly the boilerplate one of them would
+        eventually forget - turning a tampered cursor into a 500.
+        """
+        error = InvalidCursor()
+        return JSONResponse(
+            status_code=error.http_status,
+            content=error.problem(getattr(request.state, "request_id", "")),
+            media_type="application/problem+json",
         )
 
     @app.exception_handler(Exception)

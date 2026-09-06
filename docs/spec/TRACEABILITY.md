@@ -65,7 +65,7 @@ Requirement → track → acceptance criterion → test → status.
 | `DATA-02` | R1 | P0 | `AC-DATA-02.5` | `T-DATA-02.5` | `tests/unit/test_scorer_input_type.py` | test not written |
 | `DATA-02` | R1 | P0 | `AC-DATA-02.6` | `T-DATA-02.6` | `tests/unit/test_embedding_guard.py` | test not written |
 | `DATA-03` | R1 | P0 | `AC-DATA-03.1` | `T-DATA-03.1` | `tests/integration/test_index_declarations.py` | test not written |
-| `DATA-03` | R1 | P0 | `AC-DATA-03.2` | `T-DATA-03.2` | `tests/integration/test_index_usage.py` | test not written |
+| `DATA-03` | R1 | P0 | `AC-DATA-03.2` | `T-DATA-03.2` | `tests/integration/test_index_usage.py` | test present |
 | `DATA-03` | R1 | P0 | `AC-DATA-03.3` | `T-DATA-03.3` | `tests/integration/test_index_declarations.py` | test not written |
 | `DATA-03` | R1 | P0 | `AC-DATA-03.4` | `T-DATA-03.4` | `tests/integration/test_index_size_budget.py` | test not written |
 | `DATA-04` | R1 | P0 | `AC-DATA-04.1` | `T-DATA-04.1` | `tests/unit/test_object_keys.py`, `tests/integration/test_key_audit.py` | test not written |
@@ -149,11 +149,11 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.2` | `T-FOUND-06.2` | `tests/spec/test_traceability.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.3` | `T-FOUND-06.3` | `tests/spec/test_traceability.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.4` | `T-FOUND-06.4` | `tests/spec/test_traceability.py` | test present |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.1` | `T-FOUND-07.1` | `tests/integration/test_pagination_stability.py` | test not written |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.2` | `T-FOUND-07.2` | `tests/integration/test_cursor_security.py` | test not written |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.3` | `T-FOUND-07.3` | `tests/integration/test_cursor_security.py` | test not written |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.4` | `T-FOUND-07.4` | `tests/integration/test_index_usage.py` | test not written |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.5` | `T-FOUND-07.5` | `tests/unit/test_pagination_limits.py` | test not written |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.1` | `T-FOUND-07.1` | `tests/integration/test_pagination_stability.py` | test present |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.2` | `T-FOUND-07.2` | `tests/integration/test_cursor_security.py` | test present |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.3` | `T-FOUND-07.3` | `tests/integration/test_cursor_security.py` | test present |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.4` | `T-FOUND-07.4` | `tests/integration/test_index_usage.py` | test present |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.5` | `T-FOUND-07.5` | `tests/unit/test_pagination_limits.py` | test present |
 | `FOUND-08` | R1 | P0 | `AC-FOUND-08.1` | `T-FOUND-08.1` | `tests/integration/test_idempotency.py` | test not written |
 | `FOUND-08` | R1 | P0 | `AC-FOUND-08.2` | `T-FOUND-08.2` | `tests/integration/test_idempotency.py` | test not written |
 | `FOUND-08` | R1 | P0 | `AC-FOUND-08.3` | `T-FOUND-08.3` | `tests/integration/test_idempotency.py` | test not written |
@@ -493,7 +493,7 @@ Requirement → track → acceptance criterion → test → status.
 | `JOB-03` | R1 | P3 | `AC-JOB-03.5` | `T-JOB-03.5` | `tests/unit/test_merge_precedence.py` | test not written |
 | `JOB-03` | R1 | P3 | `AC-JOB-03.6` | `T-JOB-03.6` | `tests/integration/test_dedup_idempotence.py` | test not written |
 | `JOB-03` | R1 | P3 | `AC-JOB-03.7` | `T-JOB-03.7` | `tests/integration/test_late_merge.py` | test not written |
-| `JOB-03` | R1 | P3 | `AC-JOB-03.8` | `T-JOB-03.8` | `tests/integration/test_index_usage.py` | test not written |
+| `JOB-03` | R1 | P3 | `AC-JOB-03.8` | `T-JOB-03.8` | `tests/integration/test_index_usage.py` | test present |
 | `JOB-03` | R1 | P3 | `AC-JOB-03.9` | `T-JOB-03.9` | `tests/integration/test_dedup_corpus.py` | test not written |
 | `JOB-04` | R1 | P3 | `AC-JOB-04.1` | `T-JOB-04.1` | `tests/unit/test_title_normalization.py` | test not written |
 | `JOB-04` | R1 | P3 | `AC-JOB-04.2` | `T-JOB-04.2` | `tests/unit/test_title_normalization.py` | test not written |
