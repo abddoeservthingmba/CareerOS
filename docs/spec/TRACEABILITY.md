@@ -170,11 +170,11 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-10` | R1 | P0 | `AC-FOUND-10.4` | `T-FOUND-10.4` | `tests/integration/test_worker_restart.py` | test present |
 | `FOUND-10` | R1 | P0 | `AC-FOUND-10.5` | `T-FOUND-10.5` | `tests/integration/test_failed_tasks.py` | test present |
 | `FOUND-10` | R1 | P0 | `AC-FOUND-10.6` | `T-FOUND-10.6` | `tests/integration/test_cron_locks.py` | test present |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.1` | `T-FOUND-11.1` | `tests/contract/test_accepted_responses.py` | test not written |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.2` | `T-FOUND-11.2` | `tests/integration/test_poll_fallback.py` | test not written |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.3` | `T-FOUND-11.3` | `tests/integration/test_sse_ownership.py` | test not written |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.4` | `T-FOUND-11.4` | `tests/integration/test_sse_lifecycle.py` | test not written |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.5` | `T-FOUND-11.5` | `tests/contract/test_sse_headers.py` | test not written |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.1` | `T-FOUND-11.1` | `tests/contract/test_accepted_responses.py` | test present |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.2` | `T-FOUND-11.2` | `tests/integration/test_poll_fallback.py` | test present |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.3` | `T-FOUND-11.3` | `tests/integration/test_sse_ownership.py` | test present |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.4` | `T-FOUND-11.4` | `tests/integration/test_sse_lifecycle.py` | test present |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.5` | `T-FOUND-11.5` | `tests/contract/test_sse_headers.py` | test present |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.1` | `T-FOUND-12.1` | `tests/contract/test_problem_json.py` | test not written |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.2` | `T-FOUND-12.2` | `tests/integration/test_unhandled_exception.py` | test not written |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.3` | `T-FOUND-12.3` | `tests/integration/test_request_id_propagation.py` | test not written |
@@ -410,7 +410,7 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-06` | R1 | P2 | `AC-RES-06.4` | `T-RES-06.4` | `tests/integration/test_resume_failures.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.5` | `T-RES-06.5` | `tests/ai/test_degradation.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.6` | `T-RES-06.6` | `tests/integration/test_resume_latency.py` | test not written |
-| `RES-06` | R1 | P2 | `AC-RES-06.7` | `T-RES-06.7` | `tests/integration/test_poll_fallback.py` | test not written |
+| `RES-06` | R1 | P2 | `AC-RES-06.7` | `T-RES-06.7` | `tests/integration/test_poll_fallback.py` | test present |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.1` | `T-SEC-03.1` | `tests/integration/test_ai_data_boundary.py` | test not written |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.2` | `T-SEC-03.2` | `tests/spec/test_consent_data_parity.py` | test not written |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.3` | `T-SEC-03.3` | `tests/spec/test_compliance_docs.py` | test not written |

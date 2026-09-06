@@ -14,6 +14,8 @@ dependencies = [
     # `FOUND-08` §8: "Stored in Redis with a 24 h TTL". The atomic claim is
     # `SET key value NX PX ttl`, which is the entire concurrency argument.
     "redis>=5.2",
+    # `FOUND-11` §11: "SSE via `sse-starlette`. No WebSockets in R1 or R2."
+    "sse-starlette>=2.1",
     "uvicorn[standard]>=0.32",
 ]
 
