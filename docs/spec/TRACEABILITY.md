@@ -110,7 +110,7 @@ Requirement → track → acceptance criterion → test → status.
 | `DEP-04` | R1 | P0 | `AC-DEP-04.4` | `T-DEP-04.4` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-04` | R1 | P0 | `AC-DEP-04.5` | `T-DEP-04.5` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.1` | `T-DEP-05.1` | `tests/spec/test_phase_closure.py` | test present |
-| `DEP-05` | R1 | P0 | `AC-DEP-05.2` | `T-DEP-05.2` | `tests/spec/test_email_ownership.py` | test not written |
+| `DEP-05` | R1 | P0 | `AC-DEP-05.2` | `T-DEP-05.2` | `tests/spec/test_email_ownership.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.3` | `T-DEP-05.3` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.4` | `T-DEP-05.4` | `tests/unit/test_embedding_quantization.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.5` | `T-DEP-05.5` | `tests/spec/test_phase_closure.py` | test present |
@@ -185,7 +185,7 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-13` | R1 | P0 | `AC-FOUND-13.3` | `T-FOUND-13.3` | `.github/workflows/contracts.yml` | test not written |
 | `FOUND-13` | R1 | P0 | `AC-FOUND-13.4` | `T-FOUND-13.4` | `.github/workflows/contracts.yml` | test not written |
 | `FOUND-13` | R1 | P0 | `AC-FOUND-13.5` | `T-FOUND-13.5` | `tests/contract/test_client_surface.py` | test not written |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.1` | `T-FOUND-14.1` | `tests/integration/test_log_privacy.py` | test not written |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.1` | `T-FOUND-14.1` | `tests/integration/test_log_privacy.py` | test present |
 | `FOUND-14` | R1 | P0 | `AC-FOUND-14.2` | `T-FOUND-14.2` | `tests/integration/test_request_id_propagation.py` | test not written |
 | `FOUND-14` | R1 | P0 | `AC-FOUND-14.3` | `T-FOUND-14.3` | `tests/integration/test_metrics_endpoint.py` | test not written |
 | `FOUND-14` | R1 | P0 | `AC-FOUND-14.4` | `T-FOUND-14.4` | `tests/unit/test_sentry_before_send.py` | test not written |
@@ -199,15 +199,15 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.7` | `T-FOUND-15.7` | `tests/spec/test_no_placeholders.py` | test present |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.8` | `T-FOUND-15.8` | `tests/spec/test_status_matches_reality.py` | test not written |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.9` | `T-FOUND-15.9` | `tests/integration/test_admin_flags.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.1` | `T-FOUND-16.1` | `tests/unit/test_email_templates.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.2` | `T-FOUND-16.2` | `tests/unit/test_template_registry.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.3` | `T-FOUND-16.3` | `tests/integration/test_email_idempotency.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.4` | `T-FOUND-16.4` | `tests/integration/test_log_privacy.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.5` | `T-FOUND-16.5` | `tests/spec/test_no_live_email.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.6` | `T-FOUND-16.6` | `tests/integration/test_bounce_handling.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.7` | `T-FOUND-16.7` | `tests/spec/test_email_ownership.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.8` | `T-FOUND-16.8` | `tests/unit/test_email_retries.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.9` | `T-FOUND-16.9` | `tests/integration/test_email_adapter_contract.py` | test not written |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.1` | `T-FOUND-16.1` | `tests/unit/test_email_templates.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.2` | `T-FOUND-16.2` | `tests/unit/test_template_registry.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.3` | `T-FOUND-16.3` | `tests/integration/test_email_idempotency.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.4` | `T-FOUND-16.4` | `tests/integration/test_log_privacy.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.5` | `T-FOUND-16.5` | `tests/spec/test_no_live_email.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.6` | `T-FOUND-16.6` | `tests/integration/test_bounce_handling.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.7` | `T-FOUND-16.7` | `tests/spec/test_email_ownership.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.8` | `T-FOUND-16.8` | `tests/unit/test_email_retries.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.9` | `T-FOUND-16.9` | `tests/integration/test_email_adapter_contract.py` | test present |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.1` | `T-MOB-01.1` | `.github/workflows/mobile-ci.yml` | test not written |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.2` | `T-MOB-01.2` | `.github/workflows/contracts.yml` | test not written |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.3` | `T-MOB-01.3` | `apps/mobile/test/architecture_test.dart` | test not written |
@@ -233,7 +233,7 @@ Requirement → track → acceptance criterion → test → status.
 | `OPS-03` | R1 | P0 | `AC-OPS-03.5` | `T-OPS-03.5` | `.github/workflows/deploy-prod.yml` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.6` | `T-OPS-03.6` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.1` | `T-OPS-04.1` | `tests/integration/test_metrics_endpoint.py` | test not written |
-| `OPS-04` | R1 | P0 | `AC-OPS-04.2` | `T-OPS-04.2` | `tests/integration/test_log_privacy.py` | test not written |
+| `OPS-04` | R1 | P0 | `AC-OPS-04.2` | `T-OPS-04.2` | `tests/integration/test_log_privacy.py` | test present |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.3` | `T-OPS-04.3` | `tests/integration/test_tracing.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.4` | `T-OPS-04.4` | `tests/integration/test_alert_conditions.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.5` | `T-OPS-04.5` | `tests/spec/test_runbooks_present.py` | test not written |
@@ -700,9 +700,9 @@ Requirement → track → acceptance criterion → test → status.
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.10` | `T-NOTIF-01.10` | `tests/integration/test_reconciliation.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.11` | `T-NOTIF-01.11` | `tests/integration/test_reconciliation.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.12` | `T-NOTIF-01.12` | `tests/spec/test_handlers_only_enqueue.py` | test present |
-| `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.1` | `T-NOTIF-02.1` | `tests/unit/test_email_templates.py` | test not written |
+| `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.1` | `T-NOTIF-02.1` | `tests/unit/test_email_templates.py` | test present |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.2` | `T-NOTIF-02.2` | `tests/integration/test_email_content_rules.py` | test not written |
-| `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.3` | `T-NOTIF-02.3` | `tests/integration/test_bounce_handling.py` | test not written |
+| `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.3` | `T-NOTIF-02.3` | `tests/integration/test_bounce_handling.py` | test present |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.4` | `T-NOTIF-02.4` | `tests/spec/test_deep_link_parity.py` | test not written |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.5` | `T-NOTIF-02.5` | `tests/integration/test_inbox_sse.py` | test not written |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.6` | `T-NOTIF-02.6` | `infra/scripts/check_email_dns.sh`, `tests/spec/test_dns_check_exists.py` | test not written |
@@ -824,9 +824,9 @@ Requirement → track → acceptance criterion → test → status.
 | `MOB-07` | R2 | S4 | `AC-MOB-07.2` | `T-MOB-07.2` | `apps/mobile/integration_test/offline_test.dart` | test not written |
 | `MOB-07` | R2 | S4 | `AC-MOB-07.3` | `T-MOB-07.3` | `apps/mobile/integration_test/offline_test.dart` | test not written |
 | `MOB-07` | R2 | S4 | `AC-MOB-07.4` | `T-MOB-07.4` | `apps/mobile/integration_test/offline_test.dart` | test not written |
-| `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.1` | `T-NOTIF-02.1` | `tests/unit/test_email_templates.py` | test not written |
+| `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.1` | `T-NOTIF-02.1` | `tests/unit/test_email_templates.py` | test present |
 | `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.2` | `T-NOTIF-02.2` | `tests/integration/test_email_content_rules.py` | test not written |
-| `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.3` | `T-NOTIF-02.3` | `tests/integration/test_bounce_handling.py` | test not written |
+| `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.3` | `T-NOTIF-02.3` | `tests/integration/test_bounce_handling.py` | test present |
 | `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.4` | `T-NOTIF-02.4` | `tests/spec/test_deep_link_parity.py` | test not written |
 | `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.5` | `T-NOTIF-02.5` | `tests/integration/test_inbox_sse.py` | test not written |
 | `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.6` | `T-NOTIF-02.6` | `infra/scripts/check_email_dns.sh`, `tests/spec/test_dns_check_exists.py` | test not written |

@@ -118,6 +118,12 @@ class Settings(BaseSettings):
     EMAIL_PROVIDER: Literal["resend", "ses", "mailpit"] = "resend"
     RESEND_API_KEY: SecretStr = SecretStr("")
     EMAIL_FROM: str
+    # `AC-FOUND-16.6`'s webhook fails closed without this: an unauthenticated
+    # bounce endpoint lets anyone stop a chosen user from receiving a password
+    # reset, which is an account-takeover step rather than a nuisance.
+    EMAIL_WEBHOOK_SECRET: SecretStr = SecretStr("")
+    SMTP_HOST: str = "127.0.0.1"
+    SMTP_PORT: int = 1025
 
     # -- oauth (sign-in only - never reachable from the AI path, HR-6) ------
     GOOGLE_OAUTH_CLIENT_ID: str = ""

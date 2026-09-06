@@ -52,6 +52,44 @@ def _load_dotenv() -> None:
 _load_dotenv()
 
 
+def _block_outbound_mail() -> None:
+    """`AC-FOUND-16.5` - no test sends mail outside mailpit.
+
+    Installed at import time rather than as a fixture: a fixture protects the
+    tests that ask for it, and the test that sends real mail is by definition the
+    one that did not ask. `tests/spec/test_no_live_email.py` asserts this is in
+    place, so a guard that quietly stopped being installed fails a test rather
+    than passing silently.
+
+    The failure mode this prevents is not a slow test. It is a message to a real
+    person, from a domain whose sending reputation every other user depends on.
+    """
+    import smtplib
+
+    real = smtplib.SMTP
+    local = {"", "localhost", "127.0.0.1", "::1", "mailpit"}
+
+    class BlockedSMTP(real):  # type: ignore[valid-type,misc]
+        __jobpilot_blocked__ = True
+
+        def __init__(self, host: str = "", *args: object, **kwargs: object) -> None:
+            # "outside mailpit", not "at all": a local receiver is the intended
+            # target, and forbidding it too would make the `SmtpSender` contract
+            # untestable against a real socket.
+            if host not in local:
+                raise RuntimeError(
+                    f"a test tried to open an SMTP connection to {host!r}. Tests "
+                    "use MemorySender, or mailpit on 127.0.0.1:1025 - never a "
+                    "real provider (AC-FOUND-16.5)."
+                )
+            super().__init__(host, *args, **kwargs)
+
+    smtplib.SMTP = BlockedSMTP  # type: ignore[misc]
+
+
+_block_outbound_mail()
+
+
 @pytest.fixture(scope="session")
 def repo() -> Path:
     return REPO_ROOT
@@ -65,6 +103,29 @@ def spec() -> parser_mod.Spec:
 @pytest.fixture(scope="session")
 def manifest() -> manifest_mod.Manifest:
     return manifest_mod.manifest()
+
+
+@pytest.fixture
+def settings_factory(monkeypatch: pytest.MonkeyPatch) -> Any:
+    """Build a `Settings` with a few variables overridden.
+
+    Through the environment rather than through the constructor, because that is
+    the path `AC-FOUND-02.1` describes and the one a deployment actually takes -
+    a factory that bypassed validation would let a test assert behaviour no
+    running container can reach. `Settings` is frozen, so this is also the only
+    way to vary one variable.
+    """
+
+    def build(**overrides: object) -> Any:
+        from app.core.config import Settings
+
+        for key, value in overrides.items():
+            monkeypatch.setenv(key, str(value))
+        # Every required variable comes from the environment, which is the whole
+        # point; mypy sees only the declared fields.
+        return Settings()  # type: ignore[call-arg]
+
+    return build
 
 
 @pytest.fixture(scope="session")

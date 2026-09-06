@@ -20,6 +20,12 @@ dev = [
     "pytest>=8.3",
     "hypothesis>=6.112",
     "pytest-asyncio>=0.24",
+    # Starlette's TestClient is an httpx transport; without it every route test
+    # would have to drive ASGI by hand. Starlette now prefers `httpx2` and warns
+    # on `httpx`; `httpx` is the one FastAPI documents and the one with a long
+    # history, so the deprecation warning is the cheaper of the two risks until
+    # `httpx2` is the established name.
+    "httpx>=0.28",
     "ruff>=0.8",
     "mypy>=1.13",
     "import-linter>=2.0",

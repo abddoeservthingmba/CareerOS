@@ -30,6 +30,9 @@ from app.core.config import Settings, get_settings
 from app.core.errors import AppError, ErrorCode
 from app.core.ids import new_id
 from app.infra import mongo
+from app.infra.email import webhook as email_webhook
+from app.infra.email.bounces import MemoryBounceRegistry
+from app.infra.email.senders import SmtpSettings, build_sender
 
 STARTED_AT = time.monotonic()
 
@@ -63,6 +66,21 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         openapi_url="/openapi.json",
     )
     app.state.settings = settings
+
+    # `FOUND-16`. Resolved here rather than at the first send: a container that
+    # boots green while unable to send mail is the "up but not ready" state
+    # `AC-OPS-01.3` exists to prevent, and the user who finds out is one who
+    # cannot get back into their account.
+    app.state.bounces = MemoryBounceRegistry()
+    app.state.email = build_sender(
+        settings.EMAIL_PROVIDER,
+        sender_address=settings.EMAIL_FROM,
+        product_name=settings.PRODUCT_NAME,
+        bounces=app.state.bounces,
+        smtp=SmtpSettings(host=settings.SMTP_HOST, port=settings.SMTP_PORT),
+    )
+    app.state.email_webhook_secret = settings.EMAIL_WEBHOOK_SECRET.get_secret_value()
+    app.include_router(email_webhook.router)
 
     # `16-security-and-compliance.md` §2, control 7: an explicit origin
     # allowlist, credentials true, never a wildcard outside local.

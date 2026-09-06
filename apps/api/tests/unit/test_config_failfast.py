@@ -117,6 +117,11 @@ def test_no_default_silently_disables_a_feature():
         "RATE_LOGIN_PER_MIN_IP",
         "RATE_LOGIN_PER_MIN_EMAIL",
         "RATE_GENERAL_PER_MIN_USER",
+        "SMTP_HOST",
+        "SMTP_PORT",
+        # `AC-FOUND-16.6`'s webhook fails **closed** without this, so a blank
+        # value disables nothing silently: it returns 503 and says why.
+        "EMAIL_WEBHOOK_SECRET",
         # Flags, which are switches on purpose.
         *(n for n in Settings.model_fields if n.startswith("FLAG_")),
     }
