@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "JobPilot API and worker — one image, two entrypoints (ADR-002)."
 requires-python = "==3.12.*"
 dependencies = [
+    # `FOUND-10` §10: "ARQ on Redis. Worker settings and the cron table in
+    # `app/worker.py`, in one place."
+    "arq>=0.26",
     "beanie>=1.27",
     "fastapi>=0.115",
     "pydantic>=2.9",

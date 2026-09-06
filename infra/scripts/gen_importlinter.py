@@ -47,9 +47,14 @@ root_packages =
 include_external_packages = True
 """
 
-# innermost last: shared <- core <- infra(interfaces) <- {ai, connectors} <- modules <- main
+# innermost last: shared <- core <- infra(interfaces) <- {ai, connectors} <- modules <- entrypoints
+#
+# `app.main` and `app.worker` are peers at the top: one image, two entrypoints
+# (ADR-002). Both compose what the layers below them provide, and neither is
+# imported by anything - a module that imported the worker would be a module
+# that knows how it is deployed.
 LAYERS = (
-    "app.main",
+    "app.main | app.worker",
     "app.modules",
     "app.connectors | app.ai | app.infra",
     "app.core",
@@ -163,7 +168,7 @@ def _layers() -> str:
     ]
     return _block(
         "1. layers",
-        "; shared <- core <- infra <- {ai, connectors} <- modules <- main",
+        "; shared <- core <- infra <- {ai, connectors} <- modules <- {main, worker}",
         [
             "[importlinter:contract:layers]",
             "name = layers",

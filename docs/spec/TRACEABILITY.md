@@ -164,12 +164,12 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-09` | R1 | P0 | `AC-FOUND-09.3` | `T-FOUND-09.3` | `tests/unit/test_event_payload_primitives.py` | test present |
 | `FOUND-09` | R1 | P0 | `AC-FOUND-09.4` | `T-FOUND-09.4` | `tests/integration/test_event_wiring.py` | test not written |
 | `FOUND-09` | R1 | P0 | `AC-FOUND-09.5` | `T-FOUND-09.5` | `tests/spec/test_events_doc.py` | test present |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.1` | `T-FOUND-10.1` | `tests/spec/test_task_signatures.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.2` | `T-FOUND-10.2` | `tests/spec/test_task_signatures.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.3` | `T-FOUND-10.3` | `tests/integration/test_task_idempotency.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.4` | `T-FOUND-10.4` | `tests/integration/test_worker_restart.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.5` | `T-FOUND-10.5` | `tests/integration/test_failed_tasks.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.6` | `T-FOUND-10.6` | `tests/integration/test_cron_locks.py` | test not written |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.1` | `T-FOUND-10.1` | `tests/spec/test_task_signatures.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.2` | `T-FOUND-10.2` | `tests/spec/test_task_signatures.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.3` | `T-FOUND-10.3` | `tests/integration/test_task_idempotency.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.4` | `T-FOUND-10.4` | `tests/integration/test_worker_restart.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.5` | `T-FOUND-10.5` | `tests/integration/test_failed_tasks.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.6` | `T-FOUND-10.6` | `tests/integration/test_cron_locks.py` | test present |
 | `FOUND-11` | R1 | P0 | `AC-FOUND-11.1` | `T-FOUND-11.1` | `tests/contract/test_accepted_responses.py` | test not written |
 | `FOUND-11` | R1 | P0 | `AC-FOUND-11.2` | `T-FOUND-11.2` | `tests/integration/test_poll_fallback.py` | test not written |
 | `FOUND-11` | R1 | P0 | `AC-FOUND-11.3` | `T-FOUND-11.3` | `tests/integration/test_sse_ownership.py` | test not written |
@@ -405,7 +405,7 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-05` | R1 | P2 | `AC-RES-05.4` | `T-RES-05.4` | `tests/integration/test_presigned_urls.py` | test not written |
 | `RES-05` | R1 | P2 | `AC-RES-05.5` | `T-RES-05.5` | `tests/unit/test_content_disposition.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.1` | `T-RES-06.1` | `tests/integration/test_resume_stages.py` | test not written |
-| `RES-06` | R1 | P2 | `AC-RES-06.2` | `T-RES-06.2` | `tests/integration/test_worker_restart.py` | test not written |
+| `RES-06` | R1 | P2 | `AC-RES-06.2` | `T-RES-06.2` | `tests/integration/test_worker_restart.py` | test present |
 | `RES-06` | R1 | P2 | `AC-RES-06.3` | `T-RES-06.3` | `tests/integration/test_stage_ordering.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.4` | `T-RES-06.4` | `tests/integration/test_resume_failures.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.5` | `T-RES-06.5` | `tests/ai/test_degradation.py` | test not written |
@@ -481,7 +481,7 @@ Requirement → track → acceptance criterion → test → status.
 | `JOB-01` | R1 | P3 | `AC-JOB-01.5` | `T-JOB-01.5` | `tests/integration/test_job_upsert.py` | test not written |
 | `JOB-01` | R1 | P3 | `AC-JOB-01.6` | `T-JOB-01.6` | `tests/integration/test_description_truncation.py` | test not written |
 | `JOB-02` | R1 | P3 | `AC-JOB-02.1` | `T-JOB-02.1` | `tests/integration/test_query_fanout.py` | test not written |
-| `JOB-02` | R1 | P3 | `AC-JOB-02.2` | `T-JOB-02.2` | `tests/integration/test_cron_locks.py` | test not written |
+| `JOB-02` | R1 | P3 | `AC-JOB-02.2` | `T-JOB-02.2` | `tests/integration/test_cron_locks.py` | test present |
 | `JOB-02` | R1 | P3 | `AC-JOB-02.3` | `T-JOB-02.3` | `tests/integration/test_cold_start_seed.py` | test not written |
 | `JOB-02` | R1 | P3 | `AC-JOB-02.4` | `T-JOB-02.4` | `tests/integration/test_run_time_budget.py` | test not written |
 | `JOB-02` | R1 | P3 | `AC-JOB-02.5` | `T-JOB-02.5` | `tests/integration/test_fanout_recording.py` | test not written |
@@ -708,7 +708,7 @@ Requirement → track → acceptance criterion → test → status.
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.6` | `T-NOTIF-02.6` | `infra/scripts/check_email_dns.sh`, `tests/spec/test_dns_check_exists.py` | test not written |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.7` | `T-NOTIF-02.7` | `tests/integration/test_fcm_token_lifecycle.py` | test not written |
 | `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.1` | `T-NOTIF-05.1` | `tests/integration/test_dispatch_concurrency.py` | test not written |
-| `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.2` | `T-NOTIF-05.2` | `tests/integration/test_worker_restart.py` | test not written |
+| `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.2` | `T-NOTIF-05.2` | `tests/integration/test_worker_restart.py` | test present |
 | `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.3` | `T-NOTIF-05.3` | `tests/integration/test_dedup_key_uniqueness.py` | test not written |
 | `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.4` | `T-NOTIF-05.4` | `tests/integration/test_interview_reschedule.py` | test not written |
 | `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.5` | `T-NOTIF-05.5` | `tests/integration/test_send_failure.py` | test not written |

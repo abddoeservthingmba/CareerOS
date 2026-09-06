@@ -17,12 +17,12 @@ root_packages =
 include_external_packages = True
 
 ; --- 1. layers -----------------------------------------------------------------
-; shared <- core <- infra <- {ai, connectors} <- modules <- main
+; shared <- core <- infra <- {ai, connectors} <- modules <- {main, worker}
 [importlinter:contract:layers]
 name = layers
 type = layers
 layers =
-    app.main
+    app.main | app.worker
     app.modules
     app.connectors | app.ai | app.infra
     app.core
