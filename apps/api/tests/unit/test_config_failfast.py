@@ -7,6 +7,9 @@ field, as the Tests list requires.
 
 from __future__ import annotations
 
+import os
+from unittest import mock
+
 import pytest
 from pydantic import ValidationError
 
@@ -42,7 +45,16 @@ REQUIRED_FIELDS = sorted(COMPLETE_ENV)
 
 
 def build(env: dict[str, str]) -> Settings:
-    return Settings(**env)  # type: ignore[arg-type]
+    """Construct `Settings` from `env` and nothing else.
+
+    `pydantic-settings` reads `os.environ` as well as the keywords, and the test
+    session loads the repository's `.env` so the integration suite can reach
+    MongoDB. Without clearing the environment first, removing a key from `env`
+    would silently fall back to the real one and every "this variable is
+    required" assertion would pass for the wrong reason.
+    """
+    with mock.patch.dict(os.environ, {}, clear=True):
+        return Settings(**env)  # type: ignore[arg-type]
 
 
 def test_a_complete_environment_boots():

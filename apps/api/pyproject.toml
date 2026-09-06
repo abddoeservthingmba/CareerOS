@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "JobPilot API and worker — one image, two entrypoints (ADR-002)."
 requires-python = "==3.12.*"
 dependencies = [
+    "beanie>=1.27",
     "pydantic>=2.9",
     "pydantic-settings>=2.6",
 ]

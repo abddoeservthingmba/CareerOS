@@ -53,11 +53,11 @@ Requirement → track → acceptance criterion → test → status.
 | `AI-07` | R1 | P0 | `AC-AI-07.4` | `T-AI-07.4` | `.github/workflows/nightly-ai.yml` | test not written |
 | `AI-07` | R1 | P0 | `AC-AI-07.5` | `T-AI-07.5` | `tests/ai/test_extraction_precision.py` | test not written |
 | `AI-07` | R1 | P0 | `AC-AI-07.6` | `T-AI-07.6` | `tests/spec/test_fixture_scrub.py` | test not written |
-| `DATA-01` | R1 | P0 | `AC-DATA-01.1` | `T-DATA-01.1` | `tests/unit/test_base_doc.py` | test not written |
-| `DATA-01` | R1 | P0 | `AC-DATA-01.2` | `T-DATA-01.2` | `tests/unit/test_doc_hooks.py` | test not written |
+| `DATA-01` | R1 | P0 | `AC-DATA-01.1` | `T-DATA-01.1` | `tests/unit/test_base_doc.py` | test present |
+| `DATA-01` | R1 | P0 | `AC-DATA-01.2` | `T-DATA-01.2` | `tests/unit/test_doc_hooks.py` | test present |
 | `DATA-01` | R1 | P0 | `AC-DATA-01.3` | `T-DATA-01.3` | `tests/integration/test_readyz_indexes.py` | test not written |
-| `DATA-01` | R1 | P0 | `AC-DATA-01.4` | `T-DATA-01.4` | `tests/spec/test_repo_user_scoping.py` | test not written |
-| `DATA-01` | R1 | P0 | `AC-DATA-01.5` | `T-DATA-01.5` | `tests/integration/test_soft_delete_default.py` | test not written |
+| `DATA-01` | R1 | P0 | `AC-DATA-01.4` | `T-DATA-01.4` | `tests/spec/test_repo_user_scoping.py` | test present |
+| `DATA-01` | R1 | P0 | `AC-DATA-01.5` | `T-DATA-01.5` | `tests/integration/test_soft_delete_default.py` | test present |
 | `DATA-02` | R1 | P0 | `AC-DATA-02.1` | `T-DATA-02.1` | `tests/spec/test_schema_snapshot.py` | test not written |
 | `DATA-02` | R1 | P0 | `AC-DATA-02.2` | `T-DATA-02.2` | `tests/spec/test_collection_ownership.py` | test not written |
 | `DATA-02` | R1 | P0 | `AC-DATA-02.3` | `T-DATA-02.3` | `tests/integration/test_application_job_xor.py` | test not written |

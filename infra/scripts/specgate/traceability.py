@@ -262,8 +262,10 @@ def run(
                 )
                 continue
             step = _named_step(definition.text)
-            if step and path.startswith(".github/workflows/") and not _has_step(
-                root / path, step
+            if (
+                step
+                and path.startswith(".github/workflows/")
+                and not _has_step(root / path, step)
             ):
                 # A workflow file existing does not mean the step exists. Half
                 # a dozen `T-` entries point at a step inside `api-ci`, and
