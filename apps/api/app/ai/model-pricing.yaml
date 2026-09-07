@@ -1,0 +1,101 @@
+# Model pricing — `AI-04` §4, `AC-AI-02.2`.
+#
+# A data file, not a `.py` table, because `01-foundations.md`'s conventions say
+# "Model names, provider names and limits are configuration, never literals in
+# `.py` files" and `AC-AI-02.2` asserts it. A provider's prices change on their
+# schedule, not on ours; a table that needed a release to update is a table that
+# is wrong between releases.
+#
+# `MODEL_PRICING_PATH` overrides this file, so a deployment can correct a price
+# without waiting for a build.
+#
+# Every price carries `verified_on`. `05-ai-layer.md` §5.2: "Model names and
+# free-tier limits are verified against Gemini's documentation at implementation
+# time and recorded with a date. Any figure in this specification about a
+# provider's limits is indicative and must not be hard-coded."
+# `tests/ai/test_unpriced_model.py` fails when a verification is more than 90
+# days old — the same window as the compliance document's review date, so the
+# two go stale together and get refreshed together.
+#
+# `changes_on` / `then_*` exist because Gemini's 3.x Flash rates are
+# introductory and double on 2027-01-01. A table holding only today's number
+# would report half the real cost from that morning onward, on every dashboard
+# and in every budget check, and nothing would fail.
+#
+# A model that is **absent** here is not free. `estimate_cost` returns null and
+# increments the unpriced counter, which alerts (`AC-AI-04.3`,
+# `15-infra-and-ops.md` §4.3). Zero would say "this was free", which is a claim.
+
+source: https://ai.google.dev/gemini-api/docs/pricing
+verified_on: 2026-09-07
+currency: USD
+unit: per_million_tokens
+
+models:
+  # -- the three tiers `.env.example` selects ---------------------------------
+  gemini-3.5-flash-lite:
+    input: "0.30"
+    output: "2.50"
+
+  gemini-3.8-flash:
+    input: "0.75"
+    output: "3.75"
+    changes_on: 2027-01-01
+    then_input: "1.50"
+    then_output: "7.50"
+    note: introductory rate through 2026-12-31; doubles on 2027-01-01
+
+  gemini-embedding-001:
+    input: "0.15"
+    output: "0"
+
+  # -- others a deployment might point GEMINI_MODEL_* at ----------------------
+  gemini-3.7-flash:
+    input: "0.75"
+    output: "3.75"
+    changes_on: 2027-01-01
+    then_input: "1.50"
+    then_output: "7.50"
+    note: introductory rate through 2026-12-31
+
+  gemini-3.6-flash:
+    input: "0.75"
+    output: "3.75"
+    changes_on: 2027-01-01
+    then_input: "1.50"
+    then_output: "7.50"
+    note: introductory rate through 2026-12-31
+
+  gemini-3.5-flash:
+    input: "1.50"
+    output: "9.00"
+
+  gemini-3.1-flash-lite:
+    input: "0.25"
+    output: "1.50"
+
+  gemini-2.5-flash:
+    input: "0.30"
+    output: "2.50"
+
+  gemini-2.5-flash-lite:
+    input: "0.10"
+    output: "0.40"
+
+  gemini-embedding-2:
+    input: "0.20"
+    output: "0"
+
+  # The deterministic fake, so a test run exercises the priced path rather than
+  # the unpriced branch on every call.
+  fake-fast: { input: "0", output: "0", note: the deterministic fake }
+  fake-quality: { input: "0", output: "0", note: the deterministic fake }
+  fake-embedding: { input: "0", output: "0", note: the deterministic fake }
+
+# Models the provider prices by prompt length rather than at a flat rate.
+# Deliberately absent from `models` above: a single number for them would be
+# wrong for every prompt over 200k tokens, and a wrong price is worse than a
+# known-unknown one because it looks authoritative.
+length_tiered:
+  - gemini-3.1-pro-preview
+  - gemini-2.5-pro

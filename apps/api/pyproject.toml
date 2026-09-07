@@ -17,6 +17,12 @@ dependencies = [
     # `FOUND-08` §8: "Stored in Redis with a 24 h TTL". The atomic claim is
     # `SET key value NX PX ttl`, which is the entire concurrency argument.
     "prometheus-client>=0.21",
+    # `AI-03`/`AI-04` §3.2: "`docs/spec/ai-budget.yaml` - the matrix above in
+    # machine-readable form, which parametrizes the degradation tests", and the
+    # model-pricing table, which `AC-AI-02.2` forbids writing as `.py` literals.
+    # A hand-rolled reader for a nested ten-feature matrix would be a second
+    # YAML implementation to keep correct.
+    "pyyaml>=6.0",
     "redis>=5.2",
     # `FOUND-14` §14: "Sentry for API, web, and mobile, with `before_send`
     # applying the same redaction list."

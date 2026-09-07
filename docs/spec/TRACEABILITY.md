@@ -28,10 +28,10 @@ Requirement → track → acceptance criterion → test → status.
 | `AI-03` | R1 | P0 | `AC-AI-03.10` | `T-AI-03.10` | `tests/ai/test_budget_recovery.py` | test not written |
 | `AI-03` | R1 | P0 | `AC-AI-03.11` | `T-AI-03.11` | `tests/integration/test_pack_budget_refusal.py` | test not written |
 | `AI-03` | R1 | P0 | `AC-AI-03.12` | `T-AI-03.12` | `tests/spec/test_budget_matrix_coverage.py` | test not written |
-| `AI-04` | R1 | P0 | `AC-AI-04.1` | `T-AI-04.1` | `tests/ai/test_usage_rows.py` | test not written |
-| `AI-04` | R1 | P0 | `AC-AI-04.2` | `T-AI-04.2` | `tests/spec/test_artifact_provenance.py` | test not written |
-| `AI-04` | R1 | P0 | `AC-AI-04.3` | `T-AI-04.3` | `tests/ai/test_unpriced_model.py` | test not written |
-| `AI-04` | R1 | P0 | `AC-AI-04.4` | `T-AI-04.4` | `tests/ai/test_usage_write_failure.py` | test not written |
+| `AI-04` | R1 | P0 | `AC-AI-04.1` | `T-AI-04.1` | `tests/ai/test_usage_rows.py` | test present |
+| `AI-04` | R1 | P0 | `AC-AI-04.2` | `T-AI-04.2` | `tests/spec/test_artifact_provenance.py` | test present |
+| `AI-04` | R1 | P0 | `AC-AI-04.3` | `T-AI-04.3` | `tests/ai/test_unpriced_model.py` | test present |
+| `AI-04` | R1 | P0 | `AC-AI-04.4` | `T-AI-04.4` | `tests/ai/test_usage_write_failure.py` | test present |
 | `AI-04` | R1 | P0 | `AC-AI-04.5` | `T-AI-04.5` | `tests/integration/test_admin_ai_dashboard.py` | test not written |
 | `AI-05` | R1 | P0 | `AC-AI-05.1` | `T-AI-05.1` | `tests/spec/test_compliance_docs.py` | test not written |
 | `AI-05` | R1 | P0 | `AC-AI-05.2` | `T-AI-05.2` | `tests/ai/test_gemini_startup_guards.py` | test not written |
@@ -536,7 +536,7 @@ Requirement → track → acceptance criterion → test → status.
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.2` | `T-ADMIN-02.2` | `tests/integration/test_admin_ai_dashboard.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.3` | `T-ADMIN-02.3` | `tests/integration/test_budget_trip_e2e.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.4` | `T-ADMIN-02.4` | `tests/integration/test_golden_spend_separation.py` | test not written |
-| `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.5` | `T-ADMIN-02.5` | `tests/ai/test_unpriced_model.py` | test not written |
+| `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.5` | `T-ADMIN-02.5` | `tests/ai/test_unpriced_model.py` | test present |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.6` | `T-ADMIN-02.6` | `tests/integration/test_usage_rollup.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.7` | `T-ADMIN-02.7` | `apps/web/.../ai-usage.test.tsx` | test not written |
 | `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.1` | `T-ADMIN-03.1` | `tests/integration/test_admin_flags.py` | test not written |
