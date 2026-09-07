@@ -177,7 +177,7 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-11` | R1 | P0 | `AC-FOUND-11.5` | `T-FOUND-11.5` | `tests/contract/test_sse_headers.py` | test present |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.1` | `T-FOUND-12.1` | `tests/contract/test_problem_json.py` | test not written |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.2` | `T-FOUND-12.2` | `tests/integration/test_unhandled_exception.py` | test not written |
-| `FOUND-12` | R1 | P0 | `AC-FOUND-12.3` | `T-FOUND-12.3` | `tests/integration/test_request_id_propagation.py` | test not written |
+| `FOUND-12` | R1 | P0 | `AC-FOUND-12.3` | `T-FOUND-12.3` | `tests/integration/test_request_id_propagation.py` | test present |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.4` | `T-FOUND-12.4` | `tests/spec/test_error_code_registry.py` | test present |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.5` | `T-FOUND-12.5` | `tests/spec/test_error_code_registry.py` | test present |
 | `FOUND-13` | R1 | P0 | `AC-FOUND-13.1` | `T-FOUND-13.1` | `tests/contract/test_route_metadata.py` | test present |
@@ -186,10 +186,10 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-13` | R1 | P0 | `AC-FOUND-13.4` | `T-FOUND-13.4` | `.github/workflows/contracts.yml` | test present |
 | `FOUND-13` | R1 | P0 | `AC-FOUND-13.5` | `T-FOUND-13.5` | `tests/contract/test_client_surface.py` | test present |
 | `FOUND-14` | R1 | P0 | `AC-FOUND-14.1` | `T-FOUND-14.1` | `tests/integration/test_log_privacy.py` | test present |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.2` | `T-FOUND-14.2` | `tests/integration/test_request_id_propagation.py` | test not written |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.3` | `T-FOUND-14.3` | `tests/integration/test_metrics_endpoint.py` | test not written |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.4` | `T-FOUND-14.4` | `tests/unit/test_sentry_before_send.py` | test not written |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.5` | `T-FOUND-14.5` | `tests/unit/test_provider_error_logging.py` | test not written |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.2` | `T-FOUND-14.2` | `tests/integration/test_request_id_propagation.py` | test present |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.3` | `T-FOUND-14.3` | `tests/integration/test_metrics_endpoint.py` | test present |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.4` | `T-FOUND-14.4` | `tests/unit/test_sentry_before_send.py` | test present |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.5` | `T-FOUND-14.5` | `tests/unit/test_provider_error_logging.py` | test present |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.1` | `T-FOUND-15.1` | `tests/spec/test_status_declared.py` | test present |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.2` | `T-FOUND-15.2` | `tests/spec/test_status_declared.py` | test present |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.3` | `T-FOUND-15.3` | `tests/integration/test_flag_flip.py` | test not written |
@@ -232,7 +232,7 @@ Requirement → track → acceptance criterion → test → status.
 | `OPS-03` | R1 | P0 | `AC-OPS-03.4` | `T-OPS-03.4` | `.github/workflows/contracts.yml` | test present |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.5` | `T-OPS-03.5` | `.github/workflows/deploy-prod.yml` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.6` | `T-OPS-03.6` | `.github/workflows/api-ci.yml` | test present |
-| `OPS-04` | R1 | P0 | `AC-OPS-04.1` | `T-OPS-04.1` | `tests/integration/test_metrics_endpoint.py` | test not written |
+| `OPS-04` | R1 | P0 | `AC-OPS-04.1` | `T-OPS-04.1` | `tests/integration/test_metrics_endpoint.py` | test present |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.2` | `T-OPS-04.2` | `tests/integration/test_log_privacy.py` | test present |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.3` | `T-OPS-04.3` | `tests/integration/test_tracing.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.4` | `T-OPS-04.4` | `tests/integration/test_alert_conditions.py` | test not written |
@@ -433,7 +433,7 @@ Requirement → track → acceptance criterion → test → status.
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.2` | `T-ADMIN-01.2` | `tests/integration/test_connector_toggle.py` | test not written |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.3` | `T-ADMIN-01.3` | `tests/integration/test_admin_run_now.py` | test not written |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.4` | `T-ADMIN-01.4` | `tests/integration/test_circuit_reset.py` | test not written |
-| `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.5` | `T-ADMIN-01.5` | `tests/unit/test_provider_error_logging.py` | test not written |
+| `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.5` | `T-ADMIN-01.5` | `tests/unit/test_provider_error_logging.py` | test present |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.6` | `T-ADMIN-01.6` | `tests/integration/test_raw_payload_link.py` | test not written |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.7` | `T-ADMIN-01.7` | `tests/integration/test_board_slug_lifecycle.py` | test not written |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.8` | `T-ADMIN-01.8` | `apps/web/.../connector-status.test.tsx` | test not written |
@@ -657,7 +657,7 @@ Requirement → track → acceptance criterion → test → status.
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.1` | `T-APPLY-07.1` | `tests/integration/test_audit_coverage.py` | test not written |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.2` | `T-APPLY-07.2` | `tests/integration/test_audit_append_only.py` | test not written |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.3` | `T-APPLY-07.3` | `tests/integration/test_audit_no_content.py` | test not written |
-| `APPLY-07` | R1 | P5 | `AC-APPLY-07.4` | `T-APPLY-07.4` | `tests/integration/test_request_id_propagation.py` | test not written |
+| `APPLY-07` | R1 | P5 | `AC-APPLY-07.4` | `T-APPLY-07.4` | `tests/integration/test_request_id_propagation.py` | test present |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.5` | `T-APPLY-07.5` | `tests/unit/test_ip_prefix.py` | test not written |
 | `MOB-05` | R1 | P5 | `AC-MOB-05.1` | `T-MOB-05.1` | `apps/mobile/integration_test/local_notifications_test.dart` | test not written |
 | `MOB-05` | R1 | P5 | `AC-MOB-05.2` | `T-MOB-05.2` | `apps/mobile/integration_test/local_notifications_test.dart` | test not written |

@@ -17,19 +17,20 @@ response rather than implied by a bare 200.
 from __future__ import annotations
 
 import time
+import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
-from app.core import clock
+from app.core import clock, metrics, sentry
+from app.core import logging as app_logging
 from app.core.config import Settings, get_settings
 from app.core.errors import AppError, ErrorCode, InvalidCursor
 from app.core.idempotency import Idempotency, MemoryStore
-from app.core.ids import new_id
 from app.infra import mongo
 from app.infra.email import webhook as email_webhook
 from app.infra.email.bounces import MemoryBounceRegistry
@@ -57,8 +58,29 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         await app.state.mongo.close()
 
 
+def valid_request_id(value: str) -> bool:
+    """§14: "accepting an inbound `X-Request-ID` if it is a valid UUID".
+
+    Validated rather than trusted. The header is echoed into every log line and
+    into the response, so an unvalidated one is a way to write arbitrary text
+    into the log aggregator - newlines included, which is how a forged log entry
+    gets in - and to poison a correlation search by sending one id with every
+    request.
+    """
+    try:
+        uuid.UUID(value)
+    except (ValueError, AttributeError, TypeError):
+        return False
+    return True
+
+
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or get_settings()
+
+    # `FOUND-14`. Configured before anything else, so a failure during startup
+    # is logged in the same shape as everything after it.
+    app_logging.configure(environment=settings.APP_ENV.value, level=settings.LOG_LEVEL)
+    sentry.configure(settings.SENTRY_DSN.get_secret_value(), environment=settings.APP_ENV.value)
 
     app = FastAPI(
         title=f"{settings.PRODUCT_NAME} API",
@@ -102,11 +124,29 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.middleware("http")
     async def request_id(request: Request, call_next: Any) -> Any:
-        """`FOUND-14`: one middleware assigns `request_id` and echoes it back."""
+        """`AC-FOUND-14.2` - one id, on every line and in the response header.
+
+        Also where the latency histogram is observed, because this is the one
+        place that sees every request and its final status - including the ones
+        that ended in an exception handler.
+        """
         incoming = request.headers.get("X-Request-ID", "")
-        request.state.request_id = incoming or new_id()
-        response = await call_next(request)
-        response.headers["X-Request-ID"] = request.state.request_id
+        assigned = incoming if valid_request_id(incoming) else str(uuid.uuid4())
+        request.state.request_id = assigned
+        app_logging.bind_request(request_id=assigned)
+
+        started = time.perf_counter()
+        try:
+            response = await call_next(request)
+        finally:
+            app_logging.clear_request()
+
+        metrics.observe_request(
+            metrics.route_label(request),
+            response.status_code,
+            time.perf_counter() - started,
+        )
+        response.headers["X-Request-ID"] = assigned
         return response
 
     @app.exception_handler(AppError)
@@ -178,6 +218,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 "time": clock.now().isoformat(),
             },
         )
+
+    @app.get("/metrics", tags=["ops"], include_in_schema=False)
+    async def prometheus(x_metrics_token: str = Header(default="")) -> Response:
+        """`AC-FOUND-14.3` - 401 without a valid token, all seven families with.
+
+        Protected because `/metrics` describes the shape of the system: which
+        routes exist, how much AI spend there is, how many reminders go out. It
+        is the reconnaissance step of an attack and a competitor's intelligence
+        feed, in one endpoint.
+        """
+        if not metrics.token_matches(x_metrics_token, settings.METRICS_TOKEN.get_secret_value()):
+            raise AppError(code=ErrorCode.TOKEN_INVALID, http_status=401)
+        return Response(content=metrics.render(), media_type=metrics.content_type())
 
     return app
 

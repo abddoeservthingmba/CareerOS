@@ -11,9 +11,16 @@ dependencies = [
     "fastapi>=0.115",
     "pydantic>=2.9",
     "pydantic-settings>=2.6",
+    # `FOUND-14` §14: "structlog to stdout, JSON in every environment except
+    # local (where it is pretty-printed)."
+    "structlog>=24.4",
     # `FOUND-08` §8: "Stored in Redis with a 24 h TTL". The atomic claim is
     # `SET key value NX PX ttl`, which is the entire concurrency argument.
+    "prometheus-client>=0.21",
     "redis>=5.2",
+    # `FOUND-14` §14: "Sentry for API, web, and mobile, with `before_send`
+    # applying the same redaction list."
+    "sentry-sdk>=2.19",
     # `FOUND-11` §11: "SSE via `sse-starlette`. No WebSockets in R1 or R2."
     "sse-starlette>=2.1",
     "uvicorn[standard]>=0.32",
