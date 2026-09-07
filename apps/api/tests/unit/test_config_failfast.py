@@ -117,6 +117,13 @@ def test_no_default_silently_disables_a_feature():
         "RATE_LOGIN_PER_MIN_IP",
         "RATE_LOGIN_PER_MIN_EMAIL",
         "RATE_GENERAL_PER_MIN_USER",
+        "AI_PROVIDER_RPM",
+        # `05-ai-layer.md` §3.1's optional per-feature caps. Zero means "no cap
+        # of its own", not "no spending allowed": the feature is bound by the
+        # global cap, which is not optional. Reading zero the other way would
+        # deny every feature the moment a variable was left unset, which is the
+        # state every deployment starts in.
+        *(n for n in Settings.model_fields if n.startswith("AI_FEATURE_CAP_USD__")),
         "SMTP_HOST",
         "SMTP_PORT",
         # `AC-FOUND-16.6`'s webhook fails **closed** without this, so a blank

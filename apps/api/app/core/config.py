@@ -99,6 +99,26 @@ class Settings(BaseSettings):
 
     AI_DAILY_COST_CAP_USD: float = 2.0
     AI_USER_DAILY_CALLS: int = 500
+    # `05-ai-layer.md` §3.1: "`AI_FEATURE_CAP_USD__<FEATURE>` (optional, per
+    # feature)". Ten explicit fields rather than a prefix scan, because
+    # `extra="forbid"` is what makes a typo in a deploy's environment fail the
+    # boot (`AC-FOUND-02.1`) - and a scan would have to relax it, turning
+    # `AI_FEATURE_CAP_USD__PAKC_GENERATE` into a cap that silently never binds.
+    AI_FEATURE_CAP_USD__RESUME_EXTRACT: float = 0
+    AI_FEATURE_CAP_USD__RESUME_QUALITY: float = 0
+    AI_FEATURE_CAP_USD__JOB_ENRICH: float = 0
+    AI_FEATURE_CAP_USD__MATCH_RATIONALE: float = 0
+    AI_FEATURE_CAP_USD__PACK_GENERATE: float = 0
+    AI_FEATURE_CAP_USD__FOLLOWUP_DRAFT: float = 0
+    AI_FEATURE_CAP_USD__ANSWER_SUGGEST: float = 0
+    AI_FEATURE_CAP_USD__EMBED_PROFILE: float = 0
+    AI_FEATURE_CAP_USD__EMBED_JOB: float = 0
+    AI_FEATURE_CAP_USD__EMBED_QUESTION: float = 0
+
+    #: The provider's requests-per-minute limit. §3.1's token bucket queues at
+    #: this rate rather than rejecting, so a burst drains instead of failing.
+    AI_PROVIDER_RPM: int = 15
+
     AI_RATIONALE_TOP_N: int = 20
     AI_CACHE_TTL_DAYS: int = 7
     AI_EMBEDDING_MIGRATION: Literal["", "allow"] = ""

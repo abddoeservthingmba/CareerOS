@@ -16,18 +16,18 @@ Requirement → track → acceptance criterion → test → status.
 | `AI-02` | R1 | P0 | `AC-AI-02.3` | `T-AI-02.3` | `tests/ai/test_provider_contract.py` | test present |
 | `AI-02` | R1 | P0 | `AC-AI-02.4` | `T-AI-02.4` | `tests/ai/test_embedding_migration_guard.py` | test present |
 | `AI-02` | R1 | P0 | `AC-AI-02.5` | `T-AI-02.5` | `tests/ai/test_registry_startup_validation.py` | test present |
-| `AI-03` | R1 | P0 | `AC-AI-03.1` | `T-AI-03.1` | `tests/ai/test_degradation.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.2` | `T-AI-03.2` | `tests/ai/test_precall_budget_check.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.3` | `T-AI-03.3` | `tests/ai/test_cost_accounting.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.4` | `T-AI-03.4` | `tests/integration/test_budget_trip_e2e.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.5` | `T-AI-03.5` | `tests/ai/test_response_cache.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.6` | `T-AI-03.6` | `tests/ai/test_rate_limiter.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.7` | `T-AI-03.7` | `tests/ai/test_deny_precedence.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.8` | `T-AI-03.8` | `tests/ai/test_cache_before_budget.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.9` | `T-AI-03.9` | `tests/ai/test_budget_states.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.10` | `T-AI-03.10` | `tests/ai/test_budget_recovery.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.11` | `T-AI-03.11` | `tests/integration/test_pack_budget_refusal.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.12` | `T-AI-03.12` | `tests/spec/test_budget_matrix_coverage.py` | test not written |
+| `AI-03` | R1 | P0 | `AC-AI-03.1` | `T-AI-03.1` | `tests/ai/test_degradation.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.2` | `T-AI-03.2` | `tests/ai/test_precall_budget_check.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.3` | `T-AI-03.3` | `tests/ai/test_cost_accounting.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.4` | `T-AI-03.4` | `tests/integration/test_budget_trip_e2e.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.5` | `T-AI-03.5` | `tests/ai/test_response_cache.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.6` | `T-AI-03.6` | `tests/ai/test_rate_limiter.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.7` | `T-AI-03.7` | `tests/ai/test_deny_precedence.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.8` | `T-AI-03.8` | `tests/ai/test_cache_before_budget.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.9` | `T-AI-03.9` | `tests/ai/test_budget_states.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.10` | `T-AI-03.10` | `tests/ai/test_budget_recovery.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.11` | `T-AI-03.11` | `tests/integration/test_pack_budget_refusal.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.12` | `T-AI-03.12` | `tests/spec/test_budget_matrix_coverage.py` | test present |
 | `AI-04` | R1 | P0 | `AC-AI-04.1` | `T-AI-04.1` | `tests/ai/test_usage_rows.py` | test present |
 | `AI-04` | R1 | P0 | `AC-AI-04.2` | `T-AI-04.2` | `tests/spec/test_artifact_provenance.py` | test present |
 | `AI-04` | R1 | P0 | `AC-AI-04.3` | `T-AI-04.3` | `tests/ai/test_unpriced_model.py` | test present |
@@ -408,7 +408,7 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-06` | R1 | P2 | `AC-RES-06.2` | `T-RES-06.2` | `tests/integration/test_worker_restart.py` | test present |
 | `RES-06` | R1 | P2 | `AC-RES-06.3` | `T-RES-06.3` | `tests/integration/test_stage_ordering.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.4` | `T-RES-06.4` | `tests/integration/test_resume_failures.py` | test not written |
-| `RES-06` | R1 | P2 | `AC-RES-06.5` | `T-RES-06.5` | `tests/ai/test_degradation.py` | test not written |
+| `RES-06` | R1 | P2 | `AC-RES-06.5` | `T-RES-06.5` | `tests/ai/test_degradation.py` | test present |
 | `RES-06` | R1 | P2 | `AC-RES-06.6` | `T-RES-06.6` | `tests/integration/test_resume_latency.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.7` | `T-RES-06.7` | `tests/integration/test_poll_fallback.py` | test present |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.1` | `T-SEC-03.1` | `tests/integration/test_ai_data_boundary.py` | test not written |
@@ -507,7 +507,7 @@ Requirement → track → acceptance criterion → test → status.
 | `JOB-05` | R1 | P3 | `AC-JOB-05.2` | `T-JOB-05.2` | `tests/unit/test_requirement_sectioning.py` | test not written |
 | `JOB-05` | R1 | P3 | `AC-JOB-05.3` | `T-JOB-05.3` | `tests/unit/test_enrichment_gate.py` | test not written |
 | `JOB-05` | R1 | P3 | `AC-JOB-05.4` | `T-JOB-05.4` | `tests/unit/test_enrichment_no_override.py` | test not written |
-| `JOB-05` | R1 | P3 | `AC-JOB-05.5` | `T-JOB-05.5` | `tests/ai/test_response_cache.py` | test not written |
+| `JOB-05` | R1 | P3 | `AC-JOB-05.5` | `T-JOB-05.5` | `tests/ai/test_response_cache.py` | test present |
 | `JOB-05` | R1 | P3 | `AC-JOB-05.6` | `T-JOB-05.6` | `tests/integration/test_enrichment_degraded.py` | test not written |
 | `JOB-05` | R1 | P3 | `AC-JOB-05.7` | `T-JOB-05.7` | `tests/unit/test_experience_parsing.py` | test not written |
 | `JOB-06` | R1 | P3 | `AC-JOB-06.1` | `T-JOB-06.1` | `tests/integration/test_text_search_weights.py` | test not written |
@@ -534,7 +534,7 @@ Requirement → track → acceptance criterion → test → status.
 | `SEC-05` | R1 | P3 | `AC-SEC-05.5` | `T-SEC-05.5` | `tests/integration/test_source_ttl.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.1` | `T-ADMIN-02.1` | `tests/integration/test_admin_ai_dashboard.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.2` | `T-ADMIN-02.2` | `tests/integration/test_admin_ai_dashboard.py` | test not written |
-| `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.3` | `T-ADMIN-02.3` | `tests/integration/test_budget_trip_e2e.py` | test not written |
+| `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.3` | `T-ADMIN-02.3` | `tests/integration/test_budget_trip_e2e.py` | test present |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.4` | `T-ADMIN-02.4` | `tests/integration/test_golden_spend_separation.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.5` | `T-ADMIN-02.5` | `tests/ai/test_unpriced_model.py` | test present |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.6` | `T-ADMIN-02.6` | `tests/integration/test_usage_rollup.py` | test not written |
@@ -628,7 +628,7 @@ Requirement → track → acceptance criterion → test → status.
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.5` | `T-APPLY-02.5` | `tests/unit/test_pack_lengths.py` | test not written |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.6` | `T-APPLY-02.6` | `tests/unit/test_answer_coverage.py` | test not written |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.7` | `T-APPLY-02.7` | `tests/integration/test_idempotency.py` | test present |
-| `APPLY-02` | R1 | P5 | `AC-APPLY-02.8` | `T-APPLY-02.8` | `tests/ai/test_degradation.py` | test not written |
+| `APPLY-02` | R1 | P5 | `AC-APPLY-02.8` | `T-APPLY-02.8` | `tests/ai/test_degradation.py` | test present |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.9` | `T-APPLY-02.9` | `tests/ai/test_injection_corpus.py` | test not written |
 | `APPLY-03` | R1 | P5 | `AC-APPLY-03.1` | `T-APPLY-03.1` | `tests/integration/test_pack_editing.py` | test not written |
 | `APPLY-03` | R1 | P5 | `AC-APPLY-03.2` | `T-APPLY-03.2` | `tests/integration/test_pack_approval_gates.py` | test not written |
