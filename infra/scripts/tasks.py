@@ -168,11 +168,35 @@ def generate(_: list[str]) -> int:
         spec_metadata,
         error_codes,
         import_contracts,
+        openapi,
     ):
         code = target([])
         if code != 0:
             return code
     return 0
+
+
+def openapi(argv: list[str]) -> int:
+    """`FOUND-13` - regenerate `packages/contracts/openapi.json`.
+
+    The document is committed because it is the baseline an API diff is taken
+    against (`AC-FOUND-13.4`): one that existed only at build time would have
+    nothing to subtract from.
+    """
+    return uv(
+        ["run", "python", "../../infra/scripts/export_openapi.py", "--write", *argv],
+        cwd=API,
+    )
+
+
+def api_diff(argv: list[str]) -> int:
+    """Classify a change to the API surface as additive or breaking.
+
+    Locally this takes two files; in CI `contracts.yml` passes the base commit's
+    document and the PR body. Available here so the answer can be had before the
+    PR rather than from it.
+    """
+    return uv(["run", "python", "../../infra/scripts/diff_openapi.py", *argv], cwd=API)
 
 
 def check(_: list[str]) -> int:
@@ -212,6 +236,8 @@ TARGETS = {
     "new-module": new_module,
     "error-codes": error_codes,
     "events-doc": events_doc,
+    "openapi": openapi,
+    "api-diff": api_diff,
     "generate": generate,
 }
 

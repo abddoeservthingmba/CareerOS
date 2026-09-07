@@ -124,7 +124,7 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.2` | `T-FOUND-01.2` | `.github/workflows/api-ci.yml` | test present |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.3` | `T-FOUND-01.3` | `tests/spec/test_layer_leaks.py` | test not written |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.4` | `T-FOUND-01.4` | `tests/spec/test_layer_leaks.py` | test not written |
-| `FOUND-01` | R1 | P0 | `AC-FOUND-01.5` | `T-FOUND-01.5` | `.github/workflows/contracts.yml` | test not written |
+| `FOUND-01` | R1 | P0 | `AC-FOUND-01.5` | `T-FOUND-01.5` | `.github/workflows/contracts.yml` | test present |
 | `FOUND-02` | R1 | P0 | `AC-FOUND-02.1` | `T-FOUND-02.1` | `tests/unit/test_config_failfast.py` | test present |
 | `FOUND-02` | R1 | P0 | `AC-FOUND-02.2` | `T-FOUND-02.2` | `tests/unit/test_config_secrets.py` | test present |
 | `FOUND-02` | R1 | P0 | `AC-FOUND-02.3` | `T-FOUND-02.3` | `tests/spec/test_env_example_parity.py` | test present |
@@ -180,11 +180,11 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.3` | `T-FOUND-12.3` | `tests/integration/test_request_id_propagation.py` | test not written |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.4` | `T-FOUND-12.4` | `tests/spec/test_error_code_registry.py` | test present |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.5` | `T-FOUND-12.5` | `tests/spec/test_error_code_registry.py` | test present |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.1` | `T-FOUND-13.1` | `tests/contract/test_route_metadata.py` | test not written |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.2` | `T-FOUND-13.2` | `.github/workflows/contracts.yml` | test not written |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.3` | `T-FOUND-13.3` | `.github/workflows/contracts.yml` | test not written |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.4` | `T-FOUND-13.4` | `.github/workflows/contracts.yml` | test not written |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.5` | `T-FOUND-13.5` | `tests/contract/test_client_surface.py` | test not written |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.1` | `T-FOUND-13.1` | `tests/contract/test_route_metadata.py` | test present |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.2` | `T-FOUND-13.2` | `.github/workflows/contracts.yml` | test present |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.3` | `T-FOUND-13.3` | `.github/workflows/contracts.yml` | test present |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.4` | `T-FOUND-13.4` | `.github/workflows/contracts.yml` | test present |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.5` | `T-FOUND-13.5` | `tests/contract/test_client_surface.py` | test present |
 | `FOUND-14` | R1 | P0 | `AC-FOUND-14.1` | `T-FOUND-14.1` | `tests/integration/test_log_privacy.py` | test present |
 | `FOUND-14` | R1 | P0 | `AC-FOUND-14.2` | `T-FOUND-14.2` | `tests/integration/test_request_id_propagation.py` | test not written |
 | `FOUND-14` | R1 | P0 | `AC-FOUND-14.3` | `T-FOUND-14.3` | `tests/integration/test_metrics_endpoint.py` | test not written |
@@ -209,7 +209,7 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-16` | R1 | P0 | `AC-FOUND-16.8` | `T-FOUND-16.8` | `tests/unit/test_email_retries.py` | test present |
 | `FOUND-16` | R1 | P0 | `AC-FOUND-16.9` | `T-FOUND-16.9` | `tests/integration/test_email_adapter_contract.py` | test present |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.1` | `T-MOB-01.1` | `.github/workflows/mobile-ci.yml` | test not written |
-| `MOB-01` | R1 | P0 | `AC-MOB-01.2` | `T-MOB-01.2` | `.github/workflows/contracts.yml` | test not written |
+| `MOB-01` | R1 | P0 | `AC-MOB-01.2` | `T-MOB-01.2` | `.github/workflows/contracts.yml` | test present |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.3` | `T-MOB-01.3` | `apps/mobile/test/architecture_test.dart` | test not written |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.4` | `T-MOB-01.4` | `.github/workflows/mobile-ci.yml` | test not written |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.5` | `T-MOB-01.5` | `tests/spec/test_no_admin_in_mobile.py` | test not written |
@@ -229,7 +229,7 @@ Requirement → track → acceptance criterion → test → status.
 | `OPS-03` | R1 | P0 | `AC-OPS-03.1` | `T-OPS-03.1` | `infra/scripts/check_branch_protection.sh` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.2` | `T-OPS-03.2` | `tests/spec/test_coverage_config.py` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.3` | `T-OPS-03.3` | `tests/spec/test_no_live_source_calls.py` | test not written |
-| `OPS-03` | R1 | P0 | `AC-OPS-03.4` | `T-OPS-03.4` | `.github/workflows/contracts.yml` | test not written |
+| `OPS-03` | R1 | P0 | `AC-OPS-03.4` | `T-OPS-03.4` | `.github/workflows/contracts.yml` | test present |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.5` | `T-OPS-03.5` | `.github/workflows/deploy-prod.yml` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.6` | `T-OPS-03.6` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.1` | `T-OPS-04.1` | `tests/integration/test_metrics_endpoint.py` | test not written |
@@ -251,7 +251,7 @@ Requirement → track → acceptance criterion → test → status.
 | `SEC-01` | R1 | P0 | `AC-SEC-01.3` | `T-SEC-01.3` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.1` | `T-WEB-01.1` | `.github/workflows/web-ci.yml` | test not written |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.2` | `T-WEB-01.2` | `.github/workflows/web-ci.yml` | test not written |
-| `WEB-01` | R1 | P0 | `AC-WEB-01.3` | `T-WEB-01.3` | `.github/workflows/contracts.yml` | test not written |
+| `WEB-01` | R1 | P0 | `AC-WEB-01.3` | `T-WEB-01.3` | `.github/workflows/contracts.yml` | test present |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.4` | `T-WEB-01.4` | `.github/workflows/web-ci.yml` | test not written |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.5` | `T-WEB-01.5` | `apps/web/scripts/check-bundle-size.mjs` | test not written |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.6` | `T-WEB-01.6` | `apps/web/scripts/check-admin-chunk.mjs` | test not written |

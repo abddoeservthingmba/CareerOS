@@ -1,0 +1,210 @@
+name: contracts
+
+# `FOUND-13`, and the guard step `AC-FOUND-01.5` asks for.
+#
+# Four things happen here, and each one is a specific failure someone would
+# otherwise find weeks later in a different repository:
+#
+#   1. the OpenAPI document is regenerated and diffed against the committed one
+#      (`AC-FOUND-13.2`) - a stale contract means both generated clients
+#      describe a server that no longer exists;
+#   2. an API surface change is classified additive or breaking and posted as a
+#      PR comment, and a breaking change on `v1` fails without an explicit
+#      approval token (`AC-FOUND-13.4`);
+#   3. both generated clients are built and compiled - `tsc --noEmit` and
+#      `dart analyze` (`AC-FOUND-13.3`) - because a contract that generates
+#      uncompilable code is a contract nobody can use;
+#   4. `packages/contracts` is checked for hand-written commits
+#      (`AC-FOUND-01.5`), because `openapi.json` is the evidence an API diff is
+#      taken against, and evidence you can edit proves nothing.
+#
+# Shared with `T-WEB-01.3`, `T-MOB-01.2` and `T-OPS-03.4`.
+#
+# The client generation steps are guarded on the document having routes. Until
+# P1 there are none - `app/modules/` is empty - and `openapi-typescript` on a
+# document with no paths emits a file with no exports, which `tsc` then reports
+# as an error about the *tooling* rather than about the API. The guard is
+# removed by the first requirement that adds a route; `test_client_surface.py`
+# asserts the document's shape in the meantime, so the gap is not silent.
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+concurrency:
+  group: contracts-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  UV_SYSTEM_CERTS: "1"
+
+jobs:
+  contract:
+    name: export, diff, generate, compile
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The API diff needs the base commit to subtract from. Without the
+          # history, every PR looks like the API was invented from nothing.
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install the pinned Python and dependencies
+        working-directory: apps/api
+        run: uv sync --frozen
+
+      # `AC-FOUND-01.5` - `packages/contracts` is written by CI and nobody else.
+      # `openapi.json` is the baseline an API diff is taken against; if a human
+      # can edit it, a breaking change can be declared additive by editing the
+      # evidence rather than the API.
+      - name: guard
+        run: |
+          set -euo pipefail
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.sha }}"
+          if [ -z "$base" ]; then
+            echo "not a pull request; nothing to guard"
+            exit 0
+          fi
+          offenders=""
+          for sha in $(git rev-list "$base..$head" -- packages/contracts); do
+            author=$(git show -s --format='%ae' "$sha")
+            case "$author" in
+              *"[bot]"*|*"github-actions"*|*"noreply@github.com"*) ;;
+              *) offenders="$offenders\n  $sha by $author" ;;
+            esac
+          done
+          if [ -n "$offenders" ]; then
+            echo "packages/contracts is written by CI only (AC-FOUND-01.5)."
+            echo "These commits touch it with a human author:"
+            printf "$offenders\n"
+            echo ""
+            echo "Regenerate with 'py infra/scripts/export_openapi.py --write'"
+            echo "and let this workflow commit the result."
+            exit 1
+          fi
+          echo "no hand-written commits under packages/contracts"
+
+      # `AC-FOUND-13.2` - the committed document equals the generated one.
+      - name: export-openapi
+        env:
+          APP_ENV: test
+          PRODUCT_NAME: JobPilot
+          API_BASE_URL: http://localhost:8000
+          WEB_ORIGIN: http://localhost:5173
+          SECRET_KEY: ci-secret-key-at-least-thirty-two-chars
+          REFRESH_PEPPER: ci-refresh-pepper-at-least-thirty-two-chars
+          JWT_PRIVATE_KEY_PEM: ci
+          JWT_PUBLIC_KEY_PEM: ci
+          JWT_ISSUER: jobpilot
+          JWT_AUDIENCE: jobpilot
+          MONGODB_URI: mongodb://localhost:27017
+          MONGODB_DB: jobpilot
+          REDIS_URL: redis://localhost:6379/0
+          R2_ACCOUNT_ID: ci
+          R2_ACCESS_KEY_ID: ci
+          R2_SECRET_ACCESS_KEY: ci
+          R2_BUCKET: ci
+          R2_PUBLIC_BASE_URL: http://localhost:9000
+          CONNECTOR_USER_AGENT: JobPilot/1.0 (+http://localhost/about)
+          EMAIL_FROM: no-reply@localhost
+          EMAIL_PROVIDER: mailpit
+          METRICS_TOKEN: ci
+        run: |
+          cd apps/api
+          uv run python ../../infra/scripts/export_openapi.py --check
+
+      # `AC-FOUND-13.4` - a removed field or a widened requirement fails without
+      # the approval token. Classified rather than shown as a text diff, because
+      # a text diff makes the reviewer decide whether a change is breaking, and
+      # the changes that reach production are the ones nobody thought about.
+      - name: api-diff
+        if: github.event_name == 'pull_request'
+        run: |
+          set -euo pipefail
+          git show "${{ github.event.pull_request.base.sha }}:packages/contracts/openapi.json" \
+            > /tmp/base-openapi.json 2>/dev/null || echo '{}' > /tmp/base-openapi.json
+          cd apps/api
+          uv run python ../../infra/scripts/diff_openapi.py \
+            /tmp/base-openapi.json ../../packages/contracts/openapi.json \
+            --pr-body "$PR_BODY" \
+            --comment /tmp/api-diff.md
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+
+      - name: api-diff-comment
+        if: github.event_name == 'pull_request' && always()
+        continue-on-error: true
+        run: |
+          if [ -s /tmp/api-diff.md ] && ! grep -q "No API surface change" /tmp/api-diff.md; then
+            gh pr comment "${{ github.event.pull_request.number }}" --body-file /tmp/api-diff.md
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: has-routes
+        id: routes
+        run: |
+          count=$(python -c "import json,sys; print(len(json.load(open('packages/contracts/openapi.json')).get('paths',{})))")
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "$count path(s) under /api/v1"
+
+      # `AC-FOUND-13.3`, first half.
+      - name: generate-ts
+        if: steps.routes.outputs.count != '0'
+        run: |
+          npx --yes openapi-typescript packages/contracts/openapi.json \
+            -o packages/contracts/ts/schema.d.ts
+
+      - name: compile-ts
+        if: steps.routes.outputs.count != '0'
+        run: |
+          cd packages/contracts/ts
+          npx --yes typescript@5 --noEmit --strict schema.d.ts
+
+      # `AC-FOUND-13.3`, second half.
+      - name: generate-dart
+        if: steps.routes.outputs.count != '0'
+        uses: openapi-generators/openapitools-generator-action@v1
+        with:
+          generator: dart-dio
+          openapi-file: packages/contracts/openapi.json
+          command-args: -o packages/contracts/dart
+
+      - name: compile-dart
+        if: steps.routes.outputs.count != '0'
+        uses: dart-lang/setup-dart@v1
+
+      - name: dart-analyze
+        if: steps.routes.outputs.count != '0'
+        run: |
+          cd packages/contracts/dart
+          dart pub get
+          dart analyze
+
+      # `AC-FOUND-13.5` - nothing outside `/api/v1` reaches a client. Asserted
+      # in `tests/contract/test_client_surface.py` too; repeated here because
+      # this is the workflow that would otherwise ship the leak.
+      - name: client-surface
+        run: |
+          python - <<'PY'
+          import json, sys
+          paths = json.load(open("packages/contracts/openapi.json")).get("paths", {})
+          outside = [p for p in paths if not p.startswith("/api/v1")]
+          if outside:
+              print("these would be generated into both clients:", outside)
+              sys.exit(1)
+          print(f"{len(paths)} path(s), all under /api/v1")
+          PY

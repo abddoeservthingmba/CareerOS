@@ -83,8 +83,16 @@ new-module:  ## Scaffold a module: make new-module NAME=demo
 	@py infra/scripts/new_module.py $(NAME)
 	@py infra/scripts/gen_importlinter.py --write
 
+.PHONY: openapi
+openapi:  ## Regenerate packages/contracts/openapi.json (FOUND-13)
+	@py infra/scripts/export_openapi.py --write
+
+.PHONY: api-diff
+api-diff:  ## Classify an API change: make api-diff ARGS="before.json after.json"
+	@py infra/scripts/diff_openapi.py $(ARGS)
+
 .PHONY: generate
-generate: build-order status spec-trace spec-metadata error-codes events-doc import-contracts  ## Regenerate every committed artifact
+generate: build-order status spec-trace spec-metadata error-codes events-doc import-contracts openapi  ## Regenerate every committed artifact
 
 # --- the gate ---------------------------------------------------------------
 
