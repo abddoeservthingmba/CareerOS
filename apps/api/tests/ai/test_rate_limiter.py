@@ -20,6 +20,22 @@ the connectors would look like a bad day for enrichment.
 
 **Elapsed time is asserted against a frozen clock**, not a real one. A test that
 actually waited thirteen minutes for 200 calls at 15/min would never be run.
+
+**Every bucket is constructed inside the frozen window, and that is
+load-bearing rather than tidy.** `TokenBucket.__init__` captures `clock.now()`
+as its refill baseline. Built before `clock.freeze(start)`, that baseline sits a
+few microseconds *after* `start` - so the refill arithmetic sees 3.9999 seconds
+elapsed against a 4-second interval, which is 0.99997 tokens rather than 1, and
+the bucket sleeps when the test says it should not.
+
+Whether it does depends on the platform's clock granularity. On Windows both
+`clock.now()` calls land inside one timer tick, `elapsed` is exactly 4.0, and
+the test passes. On Linux they do not, and it fails.
+`test_tokens_refill_over_time` passed on this machine through the entire build
+and failed on the first CI run that ever reached pytest - `assert 1 == 0`, the
+sleep that should not have happened.
+
+A tolerance would have hidden it. The boundary is the assertion.
 """
 
 from __future__ import annotations
@@ -65,9 +81,10 @@ async def test_two_hundred_calls_at_fifteen_a_minute_all_complete():
     time is the limiter's."""
     ticker = Ticker()
     start = clock.now()
-    bucket = TokenBucket(15, sleep=ticker, burst=1)
 
+    # Constructed inside the frozen window - see the module docstring.
     with clock.freeze(start):
+        bucket = TokenBucket(15, sleep=ticker, burst=1)
         for _ in range(200):
             await bucket.acquire()
 
@@ -103,9 +120,10 @@ async def test_the_sixteenth_call_in_a_minute_waits():
     it and provide no limiting at all."""
     ticker = Ticker()
     start = clock.now()
-    bucket = TokenBucket(15, sleep=ticker)
 
+    # Constructed inside the frozen window - see the module docstring.
     with clock.freeze(start):
+        bucket = TokenBucket(15, sleep=ticker)
         for _ in range(16):
             await bucket.acquire()
 
@@ -118,9 +136,10 @@ async def test_tokens_refill_over_time():
     the first burst."""
     ticker = Ticker()
     start = clock.now()
-    bucket = TokenBucket(15, sleep=ticker, burst=1)
 
+    # Constructed inside the frozen window - see the module docstring.
     with clock.freeze(start):
+        bucket = TokenBucket(15, sleep=ticker, burst=1)
         await bucket.acquire()
 
     # Four seconds later, one token is back.
@@ -135,9 +154,10 @@ async def test_the_rate_is_the_configured_one():
     wrong the moment a second provider is configured (`AI-02`)."""
     ticker = Ticker()
     start = clock.now()
-    bucket = TokenBucket(60, sleep=ticker, burst=1)
 
+    # Constructed inside the frozen window - see the module docstring.
     with clock.freeze(start):
+        bucket = TokenBucket(60, sleep=ticker, burst=1)
         for _ in range(10):
             await bucket.acquire()
 
@@ -161,9 +181,10 @@ async def test_concurrent_callers_share_one_bucket():
     which is the exact burst the provider is throttling."""
     ticker = Ticker()
     start = clock.now()
-    bucket = TokenBucket(15, sleep=ticker, burst=1)
 
+    # Constructed inside the frozen window - see the module docstring.
     with clock.freeze(start):
+        bucket = TokenBucket(15, sleep=ticker, burst=1)
         await asyncio.gather(*(bucket.acquire() for _ in range(10)))
 
     # Nine of the ten had to wait, whatever order they arrived in.
@@ -191,9 +212,10 @@ async def test_waiting_is_observable():
     make those two look identical."""
     ticker = Ticker()
     start = clock.now()
-    bucket = TokenBucket(15, sleep=ticker, burst=1)
 
+    # Constructed inside the frozen window - see the module docstring.
     with clock.freeze(start):
+        bucket = TokenBucket(15, sleep=ticker, burst=1)
         for _ in range(5):
             await bucket.acquire()
 
