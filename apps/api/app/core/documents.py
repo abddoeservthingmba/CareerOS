@@ -242,21 +242,93 @@ def declared_indexes(document: type[Document]) -> list[Any]:
     return list(getattr(settings, "indexes", []) or [])
 
 
-def compound_index_starts_with_user_id(index: Any) -> bool:
-    """`17-data-model.md` §1 / §3 - "Every compound index on a user-owned
-    collection starts with `user_id`"."""
+#: ADR-012's enumerated exceptions to "every compound index on a user-owned
+#: collection starts with `user_id`".
+#:
+#: A **system-scan index** serves a scheduled job or an entity narrower than a
+#: user. Nothing on a request path may use one; `AC-DATA-01.4`'s `@admin_scope`
+#: check enforces that from the other side.
+#:
+#: The rule keeps its absolute form and gains this list rather than becoming a
+#: "should", because its whole value is having no judgement in it: an index that
+#: does not lead with `user_id` is wrong, so a forgotten `user_id` and a
+#: deliberate cross-user index look different. With a "should", the next index
+#: that omits `user_id` omits it by accident with a plausible reason attached.
+#:
+#: Adding an entry is a visible act in a reviewed file next to entries that each
+#: say why - the same mechanism `AC-FOUND-04.1` uses for `ignore_imports`.
+SYSTEM_SCAN_INDEXES: dict[tuple[str, tuple[str, ...]], str] = {
+    ("profiles", ("preferences.locations.country", "preferences.remote_mode")): (
+        "candidate-set selection reads from the profile side too: when a newly "
+        "ingested job is scored, the question is 'which users want this kind of "
+        "role, in this country' - across users by definition. A user's own "
+        "profile is found by the unique `user_id` index, not this one."
+    ),
+    ("reminders", ("status", "due_at")): (
+        "the dispatch scan asks 'what is due now, for everybody' - that is the "
+        "whole job. Leading with user_id would make it O(users) per minute, "
+        "growing with signups, forever."
+    ),
+    ("application_packs", ("application_id", "status")): (
+        "an application belongs to exactly one user, so application_id is "
+        "already narrower than user_id. Prefixing it would make the index "
+        "larger, no more selective and no safer."
+    ),
+}
+
+
+def index_fields(index: Any) -> tuple[str, ...] | None:
+    """The key fields of a declared index, or `None` for a shape not modelled.
+
+    Beanie accepts a string, a list of `(field, direction)` pairs, and a
+    `pymongo.IndexModel`. All three appear in this codebase - a TTL or partial
+    index has to be an `IndexModel` because only that form carries the extra
+    arguments - so a checker that understood one of them would silently pass
+    over the others.
+    """
     keys = getattr(index, "document", None)
     if keys is not None:  # a pymongo IndexModel
-        fields = list(keys.get("key", {}))
-    elif isinstance(index, list | tuple):
-        fields = [f[0] if isinstance(f, list | tuple) else f for f in index]
-    elif isinstance(index, str):
-        fields = [index]
-    else:
+        return tuple(keys.get("key", {}))
+    if isinstance(index, str):
+        return (index,)
+    if isinstance(index, list | tuple):
+        return tuple(f[0] if isinstance(f, list | tuple) else f for f in index)
+    return None
+
+
+def compound_index_starts_with_user_id(index: Any, collection: str | None = None) -> bool:
+    """`17-data-model.md` §1 / §3, as ADR-012 amended it.
+
+    `collection` is optional so existing callers keep working, but without it an
+    exception cannot be looked up - so a system-scan index reads as a violation.
+    That is the safe direction: a caller that forgets the collection gets a
+    stricter answer, not a laxer one.
+
+    **A text index is outside the rule**, and not by exception. "Leads with
+    `user_id`" is not a property a text index can have: Mongo replaces the
+    declared fields with its own `(_fts, _ftsx)` pair, so the key order the rule
+    talks about does not survive into the index at all. Scoping a text search to
+    one user is done by the query's own `user_id` predicate, which
+    `AC-DATA-01.4` enforces from the repository side. Treating text indexes as
+    violations would mean listing every one in the exception table, which is how
+    an exception table stops meaning anything.
+    """
+    fields = index_fields(index)
+    if fields is None:
         return True  # a shape this check does not model; §3's table covers it
+    if _is_text_index(index):
+        return True
     if len(fields) < 2:
         return True
-    return bool(fields[0] == "user_id")
+    if fields[0] == "user_id":
+        return True
+    return collection is not None and (collection, fields) in SYSTEM_SCAN_INDEXES
+
+
+def _is_text_index(index: Any) -> bool:
+    document = getattr(index, "document", None)
+    keys = document.get("key", {}) if document is not None else {}
+    return any(direction == "text" for direction in keys.values())
 
 
 __all__ = [
@@ -267,8 +339,10 @@ __all__ = [
     "Provenance",
     "StoredEmbedding",
     "NaiveDatetimeError",
+    "SYSTEM_SCAN_INDEXES",
     "UserOwnedDoc",
     "compound_index_starts_with_user_id",
     "declared_indexes",
+    "index_fields",
     "is_user_owned",
 ]

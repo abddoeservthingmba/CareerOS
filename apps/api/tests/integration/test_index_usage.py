@@ -271,3 +271,299 @@ async def test_every_declared_sort_has_an_index_leading_with_the_owner(corpus: A
     for name, (_, index_keys) in SORTS.items():
         assert by_name.get(f"pagination_{name}") == index_keys
         assert index_keys[0][0] == "user_id"
+
+
+# ============================================================================
+# T-DATA-03.2 - `AC-DATA-03.2`'s five named queries.
+#
+# "The feed query, the search query, the candidate-set query, the dispatch scan,
+# and the Kanban query each show `IXSCAN` (not `COLLSCAN`) in `explain()`
+# against a seeded 100k-job, 50-user database."
+#
+# Shares this file because it shares the expensive thing: a corpus at a scale
+# where a collection scan is visible. It does *not* share the corpus above,
+# which is a synthetic collection built for `FOUND-07`'s pagination sorts. These
+# five run against the **real documents and their real declared indexes**, which
+# is the only way the check means what it says - an explain against a
+# hand-created index proves the index works, not that the product declared it.
+#
+# The five are named individually in the criterion because each is a different
+# shape of query and each loses its index for a different reason:
+#
+# * the **feed** sorts descending on a score with a tie-break, so it needs the
+#   sort keys in the index in that order;
+# * the **search** is a text query, which cannot combine with a sort on another
+#   field without losing the index;
+# * the **candidate set** is four equality predicates, and a missing one turns
+#   the index prefix into a partial match;
+# * the **dispatch scan** deliberately crosses users (ADR-012), so it is the one
+#   a well-meaning "add user_id to every index" change would break;
+# * the **Kanban** query sorts on a third field after two equalities, which is
+#   the classic ESR shape and the classic place to get the order wrong.
+# ============================================================================
+
+#: `AC-DATA-03.2`'s numbers.
+JOBS_FOR_EXPLAIN = 100_000
+USERS_FOR_EXPLAIN = 50
+EXPLAIN_DATABASE = "jobpilot_explain"
+
+
+def explain_users() -> list[str]:
+    return [f"01J{number:023d}" for number in range(USERS_FOR_EXPLAIN)]
+
+
+@pytest_asyncio.fixture(scope="module", loop_scope="module")
+async def seeded(mongodb_uri: str) -> AsyncIterator[Any]:
+    """100k jobs and 50 users, in the real collections with the real indexes."""
+    from pymongo import AsyncMongoClient
+
+    from app.documents import all_documents
+    from app.infra.mongo import init_documents
+
+    client: AsyncMongoClient[Any] = AsyncMongoClient(
+        mongodb_uri,
+        serverSelectionTimeoutMS=30000,
+        uuidRepresentation="standard",
+        tz_aware=True,
+    )
+    database = client[EXPLAIN_DATABASE]
+    try:
+        await client.drop_database(EXPLAIN_DATABASE)
+        await init_documents(database, all_documents())
+        await _seed(database)
+        yield database
+    finally:
+        if os.environ.get("KEEP_INDEX_CORPUS") != "1":
+            await client.drop_database(EXPLAIN_DATABASE)
+        await client.close()
+
+
+async def _seed(database: Any) -> None:
+    from datetime import UTC, datetime, timedelta
+
+    epoch = datetime(2026, 1, 1, tzinfo=UTC)
+    users = explain_users()
+    countries = ["IN", "GB", "US", "DE"]
+    modes = ["onsite", "hybrid", "remote"]
+    families = ["backend_engineer", "frontend_engineer", "data_engineer", "sre"]
+
+    batch: list[dict[str, Any]] = []
+    for number in range(JOBS_FOR_EXPLAIN):
+        batch.append(
+            {
+                "_id": f"01JOB{number:021d}",
+                "dedup_key": f"dedup-{number:08d}",
+                "simhash": f"{number * 2654435761 % (2**64):020d}",
+                "primary_source": "adzuna",
+                "source_refs": [{"source": "adzuna", "external_id": str(number)}],
+                "title": f"Senior Backend Engineer {number % 977}",
+                "title_family": families[number % len(families)],
+                "company": {
+                    "name": f"Company {number % 4001}",
+                    "normalized": f"company-{number % 4001}",
+                },
+                "location": {
+                    "raw": "Bengaluru, India",
+                    "country": countries[number % len(countries)],
+                    "remote_mode": modes[number % len(modes)],
+                },
+                "description_text": (
+                    f"engineer {number} distributed systems payments observability "
+                    f"python fastapi postgres kubernetes team {number % 313}"
+                ),
+                # Not all active: a filter on `status` that matched everything
+                # would be a filter the planner could ignore.
+                "status": "active" if number % 7 else "expired",
+                "last_seen_at": epoch + timedelta(minutes=number % 10_000),
+                "posted_at": epoch + timedelta(minutes=number),
+                "revision": 1,
+            }
+        )
+        if len(batch) == BATCH:
+            await database["jobs"].insert_many(batch, ordered=False)
+            batch = []
+    if batch:
+        await database["jobs"].insert_many(batch, ordered=False)
+
+    # 50 users x 400 scored jobs. Enough that the feed query has a real
+    # candidate set per user and a scan would be visible.
+    scores: list[dict[str, Any]] = []
+    for index, user in enumerate(users):
+        for offset in range(400):
+            number = (index * 400 + offset) % JOBS_FOR_EXPLAIN
+            score = (number * 37) % 101
+            scores.append(
+                {
+                    "_id": f"01MS{index:03d}{offset:018d}",
+                    "user_id": user,
+                    "job_id": f"01JOB{number:021d}",
+                    "score": score,
+                    "band": "strong" if score >= 80 else "good" if score >= 65 else "weak",
+                    "computed_at": epoch + timedelta(seconds=number),
+                    "deleted_at": None,
+                }
+            )
+    await database["match_scores"].insert_many(scores, ordered=False)
+
+    await database["reminders"].insert_many(
+        [
+            {
+                "_id": f"01RM{number:022d}",
+                "user_id": users[number % USERS_FOR_EXPLAIN],
+                "application_id": f"01AP{number:022d}",
+                "type": "follow_up",
+                "due_at": epoch + timedelta(minutes=number),
+                "status": "scheduled" if number % 3 else "sent",
+                "dedup_key": f"follow_up:01AP{number:022d}:{number}",
+                "deleted_at": None,
+            }
+            for number in range(20_000)
+        ],
+        ordered=False,
+    )
+
+    await database["applications"].insert_many(
+        [
+            {
+                "_id": f"01AP{number:022d}",
+                "user_id": users[number % USERS_FOR_EXPLAIN],
+                "job_id": f"01JOB{number:021d}",
+                "status": ["applied", "screening", "interview", "offer"][number % 4],
+                "last_activity_at": epoch + timedelta(minutes=number),
+                "next_action_at": epoch + timedelta(days=number % 30),
+                "deleted_at": None,
+            }
+            for number in range(10_000)
+        ],
+        ordered=False,
+    )
+
+
+async def explain_query(
+    database: Any,
+    collection: str,
+    criteria: dict[str, Any],
+    sort: dict[str, int] | None = None,
+    limit: int = 25,
+) -> list[str]:
+    """The winning plan's stages for one query."""
+    command: dict[str, Any] = {"find": collection, "filter": criteria, "limit": limit}
+    if sort:
+        command["sort"] = sort
+    explanation: dict[str, Any] = await database.command(
+        {"explain": command, "verbosity": "executionStats"}
+    )
+    return winning_stages(explanation)
+
+
+def assert_indexed(stages: list[str], label: str) -> None:
+    assert "COLLSCAN" not in stages, f"the {label} query scans the collection: {stages}"
+    assert "IXSCAN" in stages, f"the {label} query does not reach an index: {stages}"
+
+
+async def test_the_feed_query_uses_an_index(seeded: Any):
+    """`AC-DATA-03.2`, the feed. Served by `match_scores (user_id, score desc,
+    job_id)`."""
+    stages = await explain_query(
+        seeded,
+        "match_scores",
+        {"user_id": explain_users()[0], "deleted_at": None},
+        {"score": -1, "job_id": 1},
+    )
+    assert_indexed(stages, "feed")
+
+
+async def test_the_search_query_uses_an_index(seeded: Any):
+    """`AC-DATA-03.2`, the search. Served by `jobs`' text index.
+
+    No sort on another field: a `$text` query combined with one cannot use the
+    text index for both, and `JOB-06` sorts by text score. That is a real
+    constraint on the feature rather than a quirk of the test.
+    """
+    stages = await explain_query(
+        seeded, "jobs", {"$text": {"$search": "kubernetes postgres"}, "status": "active"}
+    )
+    assert_indexed(stages, "search")
+
+
+async def test_the_candidate_set_query_uses_an_index(seeded: Any):
+    """`AC-DATA-03.2`, candidate-set selection. Served by `jobs (title_family,
+    location.country, location.remote_mode, status)`.
+
+    All four equality predicates. With three the index still serves it as a
+    prefix; the fourth is what keeps expired listings out of the matcher.
+    """
+    stages = await explain_query(
+        seeded,
+        "jobs",
+        {
+            "title_family": "backend_engineer",
+            "location.country": "IN",
+            "location.remote_mode": "remote",
+            "status": "active",
+        },
+    )
+    assert_indexed(stages, "candidate-set")
+
+
+async def test_the_dispatch_scan_uses_an_index(seeded: Any):
+    """`AC-DATA-03.2`, the dispatch scan. Served by `reminders (status,
+    due_at)` - ADR-012's system-scan index.
+
+    Deliberately not scoped to a user: "what is due now, for everybody". This
+    is the query a well-meaning "add `user_id` to every index" change would
+    break, and it would break it into a per-minute collection scan.
+    """
+    from datetime import UTC, datetime
+
+    stages = await explain_query(
+        seeded,
+        "reminders",
+        {"status": "scheduled", "due_at": {"$lte": datetime(2026, 1, 2, tzinfo=UTC)}},
+        {"due_at": 1},
+    )
+    assert_indexed(stages, "dispatch scan")
+
+
+async def test_the_kanban_query_uses_an_index(seeded: Any):
+    """`AC-DATA-03.2`, the Kanban board. Served by `applications (user_id,
+    status, last_activity_at desc)`.
+
+    Equality, equality, sort - the ESR shape. Declaring the three in any other
+    order gives an index the planner uses for the filter and not for the sort,
+    which still reports `IXSCAN` while sorting the whole column in memory.
+    """
+    stages = await explain_query(
+        seeded,
+        "applications",
+        {"user_id": explain_users()[0], "status": "applied", "deleted_at": None},
+        {"last_activity_at": -1},
+    )
+    assert_indexed(stages, "Kanban")
+
+
+async def test_the_seeded_database_is_the_size_the_criterion_names(seeded: Any):
+    """ "a seeded 100k-job, 50-user database".
+
+    At 10k a collection scan is fast enough to hide, and with one user every
+    `user_id` predicate matches everything - so the planner's choice would not
+    be the one it makes in production. Both numbers are the criterion's.
+    """
+    assert await seeded["jobs"].count_documents({}) == JOBS_FOR_EXPLAIN
+    assert len(await seeded["match_scores"].distinct("user_id")) == USERS_FOR_EXPLAIN
+
+
+async def test_an_unindexed_query_on_the_real_collections_still_scans(seeded: Any):
+    """The negative control, on the real collections.
+
+    Without it, five green assertions could all be passing because
+    `winning_stages` never reports `COLLSCAN` - a walker that missed the stage
+    name would make the whole section vacuous. The filter is on a field no
+    declared index covers.
+    """
+    stages = await explain_query(seeded, "jobs", {"description_html_sanitized": "nothing"})
+
+    assert "COLLSCAN" in stages, (
+        "a query with no usable index did not report a collection scan, so the "
+        f"five checks above prove nothing: {stages}"
+    )

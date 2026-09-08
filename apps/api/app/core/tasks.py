@@ -53,6 +53,7 @@ from datetime import datetime, timedelta
 from typing import Any, get_args, get_origin, get_type_hints
 
 from pydantic import Field
+from pymongo import ASCENDING, DESCENDING, IndexModel
 
 from app.core import clock
 from app.core.documents import BaseDoc
@@ -395,6 +396,12 @@ class FailedTask(BaseDoc):
 
     class Settings:
         name = "failed_tasks"
+        indexes = [
+            # Triage: "what has been failing, most recent first". Not TTL - a
+            # dead-lettered job is work that did not happen, and expiring the
+            # record would quietly discard the evidence that it did not.
+            IndexModel([("task", ASCENDING), ("last_failed_at", DESCENDING)], name="task_recent"),
+        ]
 
 
 #: `AC-FOUND-10.5`'s "increments the failure metric". A counter here, exported

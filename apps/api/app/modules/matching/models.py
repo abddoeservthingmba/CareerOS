@@ -34,6 +34,7 @@ from datetime import datetime
 from enum import StrEnum
 
 from pydantic import BaseModel, Field, field_validator
+from pymongo import ASCENDING, DESCENDING, IndexModel
 
 from app.core.documents import UserOwnedDoc
 from app.shared.timeutils import ensure_utc
@@ -250,6 +251,30 @@ class MatchScore(UserOwnedDoc):
     class Settings:
         name = "match_scores"
         validate_on_save = True
+        indexes = [
+            # Unique, and it is the upsert key: `MATCH-05` rescores
+            # incrementally, so the same (user, job) is written many times and
+            # must not accumulate rows.
+            IndexModel(
+                [("user_id", ASCENDING), ("job_id", ASCENDING)],
+                name="user_job",
+                unique=True,
+            ),
+            # The feed. `job_id` is the tie-break, so keyset pagination over
+            # equal scores is stable and terminating (`FOUND-07`).
+            IndexModel(
+                [("user_id", ASCENDING), ("score", DESCENDING), ("job_id", ASCENDING)],
+                name="user_score",
+            ),
+            IndexModel(
+                [
+                    ("user_id", ASCENDING),
+                    ("band", ASCENDING),
+                    ("computed_at", DESCENDING),
+                ],
+                name="user_band",
+            ),
+        ]
 
 
 DOCUMENTS = (MatchScore,)

@@ -35,6 +35,7 @@ from datetime import datetime
 from enum import StrEnum
 
 from pydantic import BaseModel, Field, field_validator
+from pymongo import ASCENDING, DESCENDING, TEXT, IndexModel
 
 from app.core.documents import BaseDoc, StoredEmbedding, UserOwnedDoc
 from app.shared.timeutils import ensure_utc
@@ -242,6 +243,21 @@ class AnswerBankEntry(UserOwnedDoc):
     class Settings:
         name = "answer_bank"
         validate_on_save = True
+        indexes = [
+            # Unique *sparse*: a free-text question has `question_key: null`,
+            # and a non-sparse unique index would let a user store exactly one
+            # of those.
+            IndexModel(
+                [("user_id", ASCENDING), ("question_key", ASCENDING)],
+                name="user_question_key",
+                unique=True,
+                sparse=True,
+            ),
+            # The fuzzy path, for the questions no taxonomy covers. `variants`
+            # is in the text index because employers ask one question in a
+            # hundred wordings and the user has seen some of them before.
+            IndexModel([("question_text", TEXT), ("variants", TEXT)], name="answer_search"),
+        ]
 
 
 class ApplicationPack(UserOwnedDoc):
@@ -286,6 +302,16 @@ class ApplicationPack(UserOwnedDoc):
     class Settings:
         name = "application_packs"
         validate_on_save = True
+        indexes = [
+            # ADR-012: a system-scan index, and the one exception here. An
+            # application belongs to exactly one user, so `application_id` is
+            # already narrower than `user_id` - prefixing it would make the
+            # index larger, no more selective and no safer.
+            IndexModel(
+                [("application_id", ASCENDING), ("status", ASCENDING)],
+                name="application_status",
+            ),
+        ]
 
 
 class AuditEntry(BaseDoc):
@@ -318,6 +344,14 @@ class AuditEntry(BaseDoc):
     class Settings:
         name = "audit_log"
         validate_on_save = True
+        indexes = [
+            IndexModel([("user_id", ASCENDING), ("at", DESCENDING)], name="user_timeline"),
+            # `kind, at` deliberately omits `user_id`: a compliance query is
+            # "every deletion request last quarter", across users. `audit_log`
+            # is not a `UserOwnedDoc`, so §1's rule does not reach it - which
+            # is also why `user_id` is nullable here.
+            IndexModel([("kind", ASCENDING), ("at", DESCENDING)], name="kind_timeline"),
+        ]
 
 
 DOCUMENTS = (AnswerBankEntry, ApplicationPack, AuditEntry)

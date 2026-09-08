@@ -9,9 +9,10 @@ API consumers.
 
 `/readyz` is the one with teeth: `AC-OPS-01.3` requires 503 when Mongo is down,
 when Redis is down, or when a declared index is missing - "a container that is
-up but missing an index is not ready". Redis and the index check arrive with
-`FOUND-10` and `DATA-03`; what it checks today is reported honestly in the
-response rather than implied by a bare 200.
+up but missing an index is not ready". Mongo and the declared-index set are
+checked (`DATA-03`); Redis arrives with `FOUND-10`'s queue and is named in
+`not_yet_checked` until then, so the response never implies more than it
+verified.
 """
 
 from __future__ import annotations
@@ -33,7 +34,7 @@ from app.core.config import Settings, get_settings
 from app.core.errors import AppError, ErrorCode, InvalidCursor
 from app.core.idempotency import Idempotency, MemoryStore
 from app.documents import all_documents
-from app.infra import mongo
+from app.infra import indexes, mongo
 from app.infra.email import webhook as email_webhook
 from app.infra.email.bounces import MemoryBounceRegistry
 from app.infra.email.senders import SmtpSettings, build_sender
@@ -45,8 +46,8 @@ STARTED_AT = time.monotonic()
 # reach before it can serve. Redis (`FOUND-10`) and the declared-index check
 # (`DATA-03`) join this list when they land, so the response is never a bare
 # "ready" that means less than it looks.
-READINESS_CHECKS = ("mongo",)
-PENDING_CHECKS = ("redis", "indexes")
+READINESS_CHECKS = ("mongo", "indexes")
+PENDING_CHECKS = ("redis",)
 
 
 @asynccontextmanager
@@ -223,6 +224,21 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             checks["mongo"] = "ok" if await mongo.ping(app.state.database) else "failed"
         except Exception as exc:  # noqa: BLE001 - the reason is reported, not raised
             checks["mongo"] = f"unreachable: {type(exc).__name__}"
+
+        # `AC-DATA-01.3` / `AC-DATA-03.1`: 503 listing any declared index that
+        # is absent, and `AC-DATA-03.3`: any live index that is not declared.
+        # `AC-OPS-01.3`'s wording is the reason this is a readiness check rather
+        # than a log line - "a container that is up but missing an index is not
+        # ready" - and the reasons are in the body because a bare 503 sends
+        # whoever is on call to look at the wrong thing.
+        if checks["mongo"] == "ok":
+            ok, reasons = await indexes.verify(app.state.database, all_documents())
+            checks["indexes"] = "ok" if ok else "; ".join(reasons)
+        else:
+            # Not "failed": the index check did not run, and saying it failed
+            # would send someone looking for a missing index when the database
+            # is simply unreachable.
+            checks["indexes"] = "not checked: mongo unreachable"
 
         ready = all(value == "ok" for value in checks.values())
         return JSONResponse(

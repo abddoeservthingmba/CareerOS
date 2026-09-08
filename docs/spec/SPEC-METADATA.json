@@ -4516,7 +4516,7 @@
       "requirements": "`DATA-01` \u2026 `DATA-06`",
       "depends": "`01-foundations.md` \u00a73 (primitives)",
       "lines": 662,
-      "words": 5964,
+      "words": 6066,
       "ac": 37,
       "tests": 37,
       "sections": [

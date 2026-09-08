@@ -27,6 +27,7 @@ from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field, field_validator
+from pymongo import ASCENDING, IndexModel
 
 from app.core.documents import BaseDoc, StoredEmbedding, UserOwnedDoc
 from app.shared.enums import RemoteMode
@@ -250,6 +251,23 @@ class Profile(UserOwnedDoc):
     class Settings:
         name = "profiles"
         validate_on_save = True
+        indexes = [
+            # Unique: one profile per user (§2.5). Without the constraint, a
+            # retried create writes a second profile and the user has two
+            # answers to every question about themselves.
+            IndexModel([("user_id", ASCENDING)], name="user_id", unique=True),
+            # Multikey. `MATCH-01`'s candidate-set selection reads from the
+            # *profile* side too - "which users want a backend role" - when a
+            # newly ingested job is scored against everyone.
+            IndexModel([("preferences.title_families", ASCENDING)], name="pref_title_families"),
+            IndexModel(
+                [
+                    ("preferences.locations.country", ASCENDING),
+                    ("preferences.remote_mode", ASCENDING),
+                ],
+                name="pref_location",
+            ),
+        ]
 
 
 class SkillAlias(BaseDoc):
@@ -280,6 +298,11 @@ class SkillAlias(BaseDoc):
     class Settings:
         name = "skill_aliases"
         validate_on_save = True
+        # §3 lists only `_id` for this collection, which Mongo creates itself.
+        # Declared as empty rather than omitted: an absent `indexes` and a
+        # deliberately empty one look the same to a reader, and only one of them
+        # is a decision.
+        indexes: list[IndexModel] = []
 
 
 DOCUMENTS = (Profile, SkillAlias)

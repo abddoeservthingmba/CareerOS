@@ -29,6 +29,7 @@ from datetime import datetime
 from enum import StrEnum
 
 from pydantic import BaseModel, Field, field_validator
+from pymongo import ASCENDING, IndexModel
 
 from app.core import clock
 from app.core.documents import BaseDoc, UserOwnedDoc
@@ -190,6 +191,26 @@ class User(BaseDoc):
     class Settings:
         name = "users"
         validate_on_save = True
+        indexes = [
+            # §3: the login and registration-collision key. Unique, so two
+            # accounts for one person is a write failure rather than a support
+            # ticket six months later.
+            IndexModel([("email_normalized", ASCENDING)], name="email_normalized", unique=True),
+            # Sparse: most users have no linked provider, and a non-sparse
+            # unique index would collide every one of them on `null`.
+            IndexModel(
+                [("oauth.provider", ASCENDING), ("oauth.sub", ASCENDING)],
+                name="oauth_identity",
+                unique=True,
+                sparse=True,
+            ),
+            # `account.purge_deleted`'s cron scan. Not user-scoped on purpose:
+            # `users` is not a user-owned collection - it *is* the user.
+            IndexModel(
+                [("status", ASCENDING), ("deletion_requested_at", ASCENDING)],
+                name="pending_deletion",
+            ),
+        ]
 
 
 class DeviceFingerprint(BaseModel):
@@ -227,6 +248,16 @@ class RefreshToken(UserOwnedDoc):
     class Settings:
         name = "refresh_tokens"
         validate_on_save = True
+        indexes = [
+            IndexModel([("token_hash", ASCENDING)], name="token_hash", unique=True),
+            # Family revoke: presenting a rotated token revokes the whole
+            # family, so the family has to be findable in one query.
+            IndexModel([("family_id", ASCENDING)], name="family_id"),
+            # TTL. Mongo's reaper runs about once a minute, so expiry is
+            # eventual - which is why `expires_at` is *also* checked on every
+            # refresh rather than trusted to the index.
+            IndexModel([("expires_at", ASCENDING)], name="expires_at_ttl", expireAfterSeconds=0),
+        ]
 
 
 class EmailToken(UserOwnedDoc):
@@ -252,6 +283,10 @@ class EmailToken(UserOwnedDoc):
     class Settings:
         name = "email_tokens"
         validate_on_save = True
+        indexes = [
+            IndexModel([("token_hash", ASCENDING)], name="token_hash", unique=True),
+            IndexModel([("expires_at", ASCENDING)], name="expires_at_ttl", expireAfterSeconds=0),
+        ]
 
 
 #: Every document this module owns, for `init_beanie` and the ownership check

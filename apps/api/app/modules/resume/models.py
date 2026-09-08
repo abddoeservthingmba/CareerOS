@@ -24,6 +24,7 @@ from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field
+from pymongo import ASCENDING, DESCENDING, IndexModel
 
 from app.core.documents import UserOwnedDoc
 
@@ -108,6 +109,17 @@ class Resume(UserOwnedDoc):
     class Settings:
         name = "resumes"
         validate_on_save = True
+        indexes = [
+            IndexModel([("user_id", ASCENDING), ("created_at", DESCENDING)], name="user_recent"),
+            # Partial on `is_default: true`: one row per user matches, so the
+            # index is a handful of entries rather than one per resume, and the
+            # default lookup is a single seek.
+            IndexModel(
+                [("user_id", ASCENDING), ("is_default", ASCENDING)],
+                name="user_default",
+                partialFilterExpression={"is_default": True},
+            ),
+        ]
 
 
 DOCUMENTS = (Resume,)

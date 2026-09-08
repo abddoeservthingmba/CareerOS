@@ -64,10 +64,10 @@ Requirement → track → acceptance criterion → test → status.
 | `DATA-02` | R1 | P0 | `AC-DATA-02.4` | `T-DATA-02.4` | `tests/integration/test_audit_append_only.py` | test present |
 | `DATA-02` | R1 | P0 | `AC-DATA-02.5` | `T-DATA-02.5` | `tests/unit/test_scorer_input_type.py` | test present |
 | `DATA-02` | R1 | P0 | `AC-DATA-02.6` | `T-DATA-02.6` | `tests/unit/test_embedding_guard.py` | test present |
-| `DATA-03` | R1 | P0 | `AC-DATA-03.1` | `T-DATA-03.1` | `tests/integration/test_index_declarations.py` | test not written |
+| `DATA-03` | R1 | P0 | `AC-DATA-03.1` | `T-DATA-03.1` | `tests/integration/test_index_declarations.py` | test present |
 | `DATA-03` | R1 | P0 | `AC-DATA-03.2` | `T-DATA-03.2` | `tests/integration/test_index_usage.py` | test present |
-| `DATA-03` | R1 | P0 | `AC-DATA-03.3` | `T-DATA-03.3` | `tests/integration/test_index_declarations.py` | test not written |
-| `DATA-03` | R1 | P0 | `AC-DATA-03.4` | `T-DATA-03.4` | `tests/integration/test_index_size_budget.py` | test not written |
+| `DATA-03` | R1 | P0 | `AC-DATA-03.3` | `T-DATA-03.3` | `tests/integration/test_index_declarations.py` | test present |
+| `DATA-03` | R1 | P0 | `AC-DATA-03.4` | `T-DATA-03.4` | `tests/integration/test_index_size_budget.py` | test present |
 | `DATA-04` | R1 | P0 | `AC-DATA-04.1` | `T-DATA-04.1` | `tests/unit/test_object_keys.py`, `tests/integration/test_key_audit.py` | test not written |
 | `DATA-04` | R1 | P0 | `AC-DATA-04.2` | `T-DATA-04.2` | `tests/integration/test_presigned_urls.py` | test not written |
 | `DATA-04` | R1 | P0 | `AC-DATA-04.3` | `T-DATA-04.3` | `tests/integration/test_upload_memory.py` | test not written |

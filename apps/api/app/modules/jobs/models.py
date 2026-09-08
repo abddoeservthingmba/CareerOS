@@ -32,6 +32,7 @@ from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field, field_validator
+from pymongo import ASCENDING, DESCENDING, TEXT, IndexModel
 
 from app.core.documents import BaseDoc, Provenance, StoredEmbedding, UserOwnedDoc
 from app.shared.enums import MoneyPeriod, RemoteMode
@@ -40,6 +41,11 @@ from app.shared.timeutils import ensure_utc
 #: §2.6 / `05-ai-layer.md` §6: a job description is capped before it is stored
 #: and before it is rendered into a prompt. The same number in both places.
 DESCRIPTION_CAP = 8_000
+
+#: §2.7 and `DATA-05`: `raw_listings` is kept for 30 days. Config as a constant
+#: rather than a literal in the index, so the retention table and the index
+#: cannot disagree about the number.
+RAW_LISTING_TTL_DAYS = 30
 
 
 class JobStatus(StrEnum):
@@ -323,6 +329,56 @@ class Job(BaseDoc):
     class Settings:
         name = "jobs"
         validate_on_save = True
+        indexes = [
+            IndexModel([("dedup_key", ASCENDING)], name="dedup_key", unique=True),
+            # Unique multikey: one source's id maps to one job, which is what
+            # makes ingestion an upsert rather than an insert-and-hope.
+            IndexModel(
+                [
+                    ("source_refs.source", ASCENDING),
+                    ("source_refs.external_id", ASCENDING),
+                ],
+                name="source_ref",
+                unique=True,
+            ),
+            IndexModel([("status", ASCENDING), ("posted_at", DESCENDING)], name="status_posted"),
+            # §3 writes this row as `title_family, location.country,
+            # remote_mode, status`. `remote_mode` is abbreviated there; the
+            # field is `location.remote_mode` (§2.6), and the real path is what
+            # is declared - an index on a field that does not exist is an index
+            # the planner never chooses, and it looks identical to a correct one
+            # in `listIndexes`.
+            IndexModel(
+                [
+                    ("title_family", ASCENDING),
+                    ("location.country", ASCENDING),
+                    ("location.remote_mode", ASCENDING),
+                    ("status", ASCENDING),
+                ],
+                name="candidate_set",
+            ),
+            # `JOB-06`'s search. Weights 10/5/1: a title match is what the user
+            # meant, a company match is usually what they meant, and a
+            # description match is a coincidence often enough that ranking it
+            # equally buries the first two.
+            IndexModel(
+                [
+                    ("title", TEXT),
+                    ("company.name", TEXT),
+                    ("description_text", TEXT),
+                ],
+                name="job_search",
+                weights={"title": 10, "company.name": 5, "description_text": 1},
+            ),
+            # Fuzzy-dedup shortlist. Stored rather than recomputed: comparing a
+            # simhash requires having it, and 50k recomputations per run is the
+            # cost of not storing one 8-byte string.
+            IndexModel([("simhash", ASCENDING)], name="simhash"),
+            IndexModel(
+                [("primary_source", ASCENDING), ("last_seen_at", ASCENDING)],
+                name="staleness_sweep",
+            ),
+        ]
 
 
 class RawListing(BaseDoc):
@@ -348,6 +404,20 @@ class RawListing(BaseDoc):
     class Settings:
         name = "raw_listings"
         validate_on_save = True
+        indexes = [
+            # TTL 30 d (§2.7, `DATA-05`). The largest collection by volume, and
+            # Atlas M0 has 512 MB - so the retention rule is an index rather
+            # than a cron, which cannot fall behind.
+            IndexModel(
+                [("fetched_at", ASCENDING)],
+                name="fetched_at_ttl",
+                expireAfterSeconds=RAW_LISTING_TTL_DAYS * 86_400,
+            ),
+            IndexModel(
+                [("connector", ASCENDING), ("external_id", ASCENDING)],
+                name="connector_external_id",
+            ),
+        ]
 
 
 class RunError(BaseModel):
@@ -395,6 +465,12 @@ class ConnectorRun(BaseDoc):
     class Settings:
         name = "connector_runs"
         validate_on_save = True
+        indexes = [
+            IndexModel(
+                [("connector", ASCENDING), ("started_at", DESCENDING)],
+                name="connector_recent",
+            ),
+        ]
 
 
 class UserJobAction(UserOwnedDoc):
@@ -421,6 +497,16 @@ class UserJobAction(UserOwnedDoc):
     class Settings:
         name = "user_job_actions"
         validate_on_save = True
+        indexes = [
+            # Unique, which is the whole idempotency mechanism: pressing hide
+            # twice is one row, not two, and the second press is a duplicate-key
+            # error the service treats as success.
+            IndexModel(
+                [("user_id", ASCENDING), ("job_id", ASCENDING), ("action", ASCENDING)],
+                name="user_job_action",
+                unique=True,
+            ),
+        ]
 
 
 DOCUMENTS = (Job, RawListing, ConnectorRun, UserJobAction)

@@ -35,10 +35,17 @@ from enum import StrEnum
 from typing import Any
 
 from pydantic import Field
+from pymongo import ASCENDING, IndexModel
 
 from app.ai.base import Feature
 from app.core import clock, metrics
 from app.core.documents import BaseDoc
+
+#: §3's TTL and §5's retention table, as one number. 400 days rather than 395
+#: so a "last 13 months" query has a full final month rather than a partial one
+#: - a monthly cost chart whose oldest bar is two-thirds of a month looks like a
+#: drop in spend.
+USAGE_RETENTION_DAYS = 400
 
 logger = logging.getLogger("app.ai.usage")
 
@@ -108,6 +115,22 @@ class AiUsage(BaseDoc):
 
     class Settings:
         name = "ai_usage"
+        indexes = [
+            # §3 lists `at` twice for this collection - once "plain | daily
+            # aggregation" and once "TTL 400 d | 13-month retention". Mongo
+            # cannot hold two indexes on one key pattern, and it does not need
+            # to: a TTL index *is* an ordinary single-field index that
+            # additionally expires, so one declaration serves both rows. Two
+            # would be a `IndexOptionsConflict` at boot.
+            IndexModel(
+                [("at", ASCENDING)],
+                name="at_ttl",
+                expireAfterSeconds=USAGE_RETENTION_DAYS * 86_400,
+            ),
+            # Per-feature cost, which is what `12-admin.md` §2's dashboard and
+            # `AI-03`'s cap arithmetic both read.
+            IndexModel([("feature", ASCENDING), ("at", ASCENDING)], name="feature_at"),
+        ]
 
 
 def build_row(

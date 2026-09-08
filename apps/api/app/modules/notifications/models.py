@@ -30,6 +30,7 @@ from datetime import datetime
 from enum import StrEnum
 
 from pydantic import Field, field_validator
+from pymongo import ASCENDING, DESCENDING, IndexModel
 
 from app.core.documents import UserOwnedDoc
 from app.shared.timeutils import ensure_utc
@@ -133,6 +134,17 @@ class Reminder(UserOwnedDoc):
     class Settings:
         name = "reminders"
         validate_on_save = True
+        indexes = [
+            # Unique. `NOTIF-05`'s entire idempotency mechanism: the second
+            # attempt to schedule the same occurrence is a duplicate-key error,
+            # not a second email.
+            IndexModel([("dedup_key", ASCENDING)], name="dedup_key", unique=True),
+            # ADR-012: a system-scan index. The dispatch scan asks "what is due
+            # now, for everybody" - that is the whole job, and leading with
+            # `user_id` would make it O(users) per minute, growing with signups,
+            # forever.
+            IndexModel([("status", ASCENDING), ("due_at", ASCENDING)], name="dispatch_scan"),
+        ]
 
 
 class Notification(UserOwnedDoc):
@@ -159,6 +171,17 @@ class Notification(UserOwnedDoc):
     class Settings:
         name = "notifications"
         validate_on_save = True
+        indexes = [
+            IndexModel([("user_id", ASCENDING), ("created_at", DESCENDING)], name="inbox"),
+            # Partial on `read_at: null`: the unread badge is read on every page
+            # load and matches a handful of rows, so the index stays small even
+            # for a user with a year of history.
+            IndexModel(
+                [("user_id", ASCENDING), ("read_at", ASCENDING)],
+                name="unread",
+                partialFilterExpression={"read_at": None},
+            ),
+        ]
 
 
 DOCUMENTS = (Reminder, Notification)

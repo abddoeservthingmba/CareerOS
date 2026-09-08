@@ -19,6 +19,7 @@ from __future__ import annotations
 from datetime import datetime
 
 from pydantic import Field, field_validator
+from pymongo import IndexModel
 
 from app.core.documents import BaseDoc
 from app.shared.timeutils import ensure_utc
@@ -55,6 +56,9 @@ class FeatureFlag(BaseDoc):
     class Settings:
         name = "feature_flags"
         validate_on_save = True
+        # The flag name is the `_id`, so the only lookup this collection has is
+        # a primary-key read. §3 lists no index for it.
+        indexes: list[IndexModel] = []
 
 
 DOCUMENTS = (FeatureFlag,)

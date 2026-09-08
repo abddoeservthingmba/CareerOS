@@ -30,6 +30,7 @@ from datetime import datetime
 from enum import StrEnum
 
 from pydantic import BaseModel, Field, field_validator
+from pymongo import ASCENDING, DESCENDING, IndexModel
 
 from app.core.documents import UserOwnedDoc
 from app.core.ids import new_id
@@ -325,6 +326,31 @@ class Application(UserOwnedDoc):
     class Settings:
         name = "applications"
         validate_on_save = True
+        indexes = [
+            IndexModel(
+                [
+                    ("user_id", ASCENDING),
+                    ("status", ASCENDING),
+                    ("last_activity_at", DESCENDING),
+                ],
+                name="kanban",
+            ),
+            # Unique *partial*: one application per job per user, but only
+            # where `job_id` exists. Without the partial filter, every manual
+            # application (`job_id: null`) would collide with every other one
+            # the same user tracked - and manual applications are most of early
+            # usage (`TRACK-05`).
+            IndexModel(
+                [("user_id", ASCENDING), ("job_id", ASCENDING)],
+                name="user_job",
+                unique=True,
+                partialFilterExpression={"job_id": {"$exists": True, "$type": "string"}},
+            ),
+            IndexModel(
+                [("user_id", ASCENDING), ("next_action_at", ASCENDING)],
+                name="user_next_action",
+            ),
+        ]
 
 
 DOCUMENTS = (Application,)
