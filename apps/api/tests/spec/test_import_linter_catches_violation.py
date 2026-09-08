@@ -149,51 +149,132 @@ def test_an_oauth_import_in_the_ai_path_fails(repo: Path, tmp_path: Path):
 def test_two_modules_importing_each_others_internals_fails(repo: Path, tmp_path: Path):
     """AC-FOUND-04.3, the criterion's own wording: "a deliberately introduced
     cross-module model import"."""
+    workspace = _module_fixture(repo, tmp_path)
+    _write(
+        workspace, "alpha", "service", "from app.modules.beta.models import VALUE\n\nUSED = VALUE\n"
+    )
+    _register_fixture_modules(workspace, ("alpha", "beta"))
+
+    result = _lint(workspace)
+
+    assert result.returncode != 0, (
+        "module-independence-alpha did not catch alpha -> beta.models:\n" + result.stdout
+    )
+    assert "module-independence-alpha" in result.stdout
+
+
+def test_a_module_importing_another_modules_public_surface_passes(repo: Path, tmp_path: Path):
+    """The other direction, and the reason ADR-014 exists.
+
+    `01-foundations.md` §5: "a **read** through another module's public service
+    method is allowed and preferred over duplicating a query." The old
+    `independence` contract forbade it, which is what `AC-DATA-05.2` ran into -
+    `jobs.purge_expired` has to ask `tracker` whether a job is referenced.
+
+    Without this assertion the fix would be indistinguishable from making the
+    contracts stricter, and a contract that forbade everything would satisfy
+    the test above while breaking the product.
+    """
+    workspace = _module_fixture(repo, tmp_path)
+    _write(workspace, "alpha", "service", "from app.modules.beta import PUBLIC\n\nUSED = PUBLIC\n")
+    _register_fixture_modules(workspace, ("alpha", "beta"))
+
+    result = _lint(workspace)
+
+    assert result.returncode == 0, (
+        "importing another module's package root is §5's sanctioned read and "
+        "must pass:\n" + result.stdout + result.stderr
+    )
+
+
+def test_a_module_importing_another_modules_repository_fails(repo: Path, tmp_path: Path):
+    """Not only `models`. A repository is a module's Mongo knowledge, and
+    another module holding one is coupled to a collection it does not own."""
+    workspace = _module_fixture(repo, tmp_path)
+    _write(
+        workspace,
+        "alpha",
+        "service",
+        "from app.modules.beta.repository import QUERY\n\nUSED = QUERY\n",
+    )
+    _register_fixture_modules(workspace, ("alpha", "beta"))
+
+    result = _lint(workspace)
+
+    assert result.returncode != 0, "alpha -> beta.repository was allowed"
+    assert "module-independence-alpha" in result.stdout
+
+
+def test_a_module_may_import_its_own_internals(repo: Path, tmp_path: Path):
+    """The per-module form's advantage, and the case a careless contract breaks:
+    `alpha.service` importing `alpha.models` is the ordinary shape of every
+    module in the product."""
+    workspace = _module_fixture(repo, tmp_path)
+    _write(
+        workspace,
+        "alpha",
+        "service",
+        "from app.modules.alpha.models import VALUE\n\nUSED = VALUE\n",
+    )
+    _register_fixture_modules(workspace, ("alpha", "beta"))
+
+    result = _lint(workspace)
+
+    assert result.returncode == 0, (
+        "a module must be able to import its own models:\n" + result.stdout + result.stderr
+    )
+
+
+def _write(workspace: Path, module: str, name: str, source: str) -> None:
+    (workspace / "app" / "modules" / module / f"{name}.py").write_text(source, encoding="utf-8")
+
+
+def _module_fixture(repo: Path, tmp_path: Path) -> Path:
+    """A workspace with two empty modules, `alpha` and `beta`.
+
+    `beta` exports `PUBLIC` from its `__init__.py` - the public surface §5
+    permits - and defines `VALUE` in `models.py` and `QUERY` in
+    `repository.py`, which are the internals it does not.
+    """
     workspace = _fixture_tree(repo, tmp_path)
     for name in ("alpha", "beta"):
         module = workspace / "app" / "modules" / name
         module.mkdir(parents=True)
-        (module / "__init__.py").write_text("", encoding="utf-8")
+        (module / "__init__.py").write_text("PUBLIC = 1\n", encoding="utf-8")
         (module / "models.py").write_text("VALUE = 1\n", encoding="utf-8")
+        (module / "repository.py").write_text("QUERY = 1\n", encoding="utf-8")
         (module / "service.py").write_text("", encoding="utf-8")
-    # alpha reaches into beta's models - forbidden by `module-independence`.
-    (workspace / "app" / "modules" / "alpha" / "service.py").write_text(
-        "from app.modules.beta.models import VALUE\n\nUSED = VALUE\n", encoding="utf-8"
-    )
-
-    # `module-independence` enumerates modules by name, so the copied contract
-    # lists the nine real ones and knows nothing about `alpha` and `beta`. The
-    # fixture has to extend it, or the violation it introduces is not covered by
-    # any contract and this test passes for the wrong reason - which is exactly
-    # what happened when `DATA-02` created the first real modules: the assertion
-    # went from "the contract is absent, nothing to violate" straight to
-    # "lint-imports found nothing wrong".
-    _register_fixture_modules(workspace, ("alpha", "beta"))
-
-    result = _lint(workspace)
-    assert result.returncode != 0, (
-        "module-independence did not catch alpha -> beta.models:\n" + result.stdout
-    )
-    assert "module-independence" in result.stdout
+    return workspace
 
 
 def _register_fixture_modules(workspace: Path, names: tuple[str, ...]) -> None:
-    """Add `names` to the copied contract's `module-independence` list.
+    """Give `names` their own `module-independence-<name>` contracts.
 
     Editing the copy rather than re-running the generator: the generator reads
     the *repository's* `app/modules/`, not the workspace's, so regenerating
-    would produce the same nine names and leave the fixture uncovered.
+    would produce the nine real names and leave the fixture uncovered.
+
+    Built the same way the generator builds it - one `forbidden` contract per
+    module over the *other* modules' internals - so the fixture exercises
+    ADR-014's real rule rather than an approximation of it.
     """
+    internals = ("models", "repository", "service", "router", "tasks", "events")
     config = configparser.ConfigParser()
     config.read(workspace / ".importlinter", encoding="utf-8")
-    section = "importlinter:contract:module-independence"
 
-    assert section in config.sections(), (
-        f"the copied contract has no {section}. It is emitted once a real module "
-        "exists, and `DATA-02` landed nine - so its absence now means the "
-        "generator stopped emitting it."
-    )
-    existing = [line for line in config[section]["modules"].split("\n") if line.strip()]
-    config[section]["modules"] = "\n".join(existing + [f"app.modules.{name}" for name in names])
+    for name in names:
+        others = [other for other in names if other != name]
+        forbidden = [
+            f"app.modules.{other}.{internal}"
+            for other in others
+            for internal in internals
+            if (workspace / "app" / "modules" / other / f"{internal}.py").is_file()
+        ]
+        config[f"importlinter:contract:module-independence-{name}"] = {
+            "name": f"module-independence-{name}",
+            "type": "forbidden",
+            "source_modules": "\n" + f"    app.modules.{name}",
+            "forbidden_modules": "\n" + "\n".join(f"    {entry}" for entry in forbidden),
+        }
     with (workspace / ".importlinter").open("w", encoding="utf-8") as handle:
         config.write(handle)

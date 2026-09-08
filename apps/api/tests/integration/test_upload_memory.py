@@ -89,9 +89,7 @@ class CountingStore(MemoryStore):
     the totals.
     """
 
-    async def put_stream(
-        self, key: str, chunks: AsyncIterator[bytes], *, content_type: str
-    ):
+    async def put_stream(self, key: str, chunks: AsyncIterator[bytes], *, content_type: str):
         from app.infra.storage import StoredObject, check_key
 
         check_key(key)

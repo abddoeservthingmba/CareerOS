@@ -73,11 +73,11 @@ Requirement → track → acceptance criterion → test → status.
 | `DATA-04` | R1 | P0 | `AC-DATA-04.3` | `T-DATA-04.3` | `tests/integration/test_upload_memory.py` | test present |
 | `DATA-04` | R1 | P0 | `AC-DATA-04.4` | `T-DATA-04.4` | `tests/unit/test_magic_bytes.py` | test present |
 | `DATA-04` | R1 | P0 | `AC-DATA-04.5` | `T-DATA-04.5` | `tests/integration/test_deletion_sweep.py` | test present |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.1` | `T-DATA-05.1` | `tests/integration/test_ttl_indexes.py` | test not written |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.2` | `T-DATA-05.2` | `tests/integration/test_job_purge.py` | test not written |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.3` | `T-DATA-05.3` | `tests/integration/test_account_purge.py` | test not written |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.4` | `T-DATA-05.4` | `tests/spec/test_retention_coverage.py` | test not written |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.5` | `T-DATA-05.5` | `tests/integration/test_purge_isolation.py` | test not written |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.1` | `T-DATA-05.1` | `tests/integration/test_ttl_indexes.py` | test present |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.2` | `T-DATA-05.2` | `tests/integration/test_job_purge.py` | test present |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.3` | `T-DATA-05.3` | `tests/integration/test_account_purge.py` | test present |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.4` | `T-DATA-05.4` | `tests/spec/test_retention_coverage.py` | test present |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.5` | `T-DATA-05.5` | `tests/integration/test_purge_isolation.py` | test present |
 | `DATA-06` | R1 | P0 | `AC-DATA-06.1` | `T-DATA-06.1` | `tests/unit/test_embedding_quantization.py` | test present |
 | `DATA-06` | R1 | P0 | `AC-DATA-06.2` | `T-DATA-06.2` | `tests/integration/test_description_truncation.py` | test not written |
 | `DATA-06` | R1 | P0 | `AC-DATA-06.3` | `T-DATA-06.3` | `tests/integration/test_staleness_pressure.py` | test not written |
@@ -294,11 +294,11 @@ Requirement → track → acceptance criterion → test → status.
 | `AUTH-05` | R1 | P1 | `AC-AUTH-05.5` | `T-AUTH-05.5` | `tests/integration/test_password_reset.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.1` | `T-AUTH-07.1` | `tests/integration/test_deletion_request.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.2` | `T-AUTH-07.2` | `tests/integration/test_deletion_request.py` | test not written |
-| `AUTH-07` | R1 | P1 | `AC-AUTH-07.3` | `T-AUTH-07.3` | `tests/integration/test_account_purge.py` | test not written |
+| `AUTH-07` | R1 | P1 | `AC-AUTH-07.3` | `T-AUTH-07.3` | `tests/integration/test_account_purge.py` | test present |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.4` | `T-AUTH-07.4` | `tests/integration/test_deletion_sweep.py` | test present |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.5` | `T-AUTH-07.5` | `tests/integration/test_deletion_audit.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.6` | `T-AUTH-07.6` | `tests/integration/test_purge_failure.py` | test not written |
-| `AUTH-07` | R1 | P1 | `AC-AUTH-07.7` | `T-AUTH-07.7` | `tests/integration/test_purge_isolation.py` | test not written |
+| `AUTH-07` | R1 | P1 | `AC-AUTH-07.7` | `T-AUTH-07.7` | `tests/integration/test_purge_isolation.py` | test present |
 | `AUTH-09` | R1 | P1 | `AC-AUTH-09.1` | `T-AUTH-09.1` | `tests/integration/test_rate_limits.py` | test not written |
 | `AUTH-09` | R1 | P1 | `AC-AUTH-09.2` | `T-AUTH-09.2` | `tests/integration/test_rate_limits.py` | test not written |
 | `AUTH-09` | R1 | P1 | `AC-AUTH-09.3` | `T-AUTH-09.3` | `tests/integration/test_rate_limits.py` | test not written |
@@ -325,7 +325,7 @@ Requirement → track → acceptance criterion → test → status.
 | `SEC-04` | R1 | P1 | `AC-SEC-04.3` | `T-SEC-04.3` | `tests/spec/test_notice_parity.py` | test not written |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.4` | `T-SEC-04.4` | `tests/spec/test_consent_data_parity.py` | test not written |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.5` | `T-SEC-04.5` | `tests/integration/test_consent_gating.py` | test not written |
-| `SEC-04` | R1 | P1 | `AC-SEC-04.6` | `T-SEC-04.6` | `tests/spec/test_retention_coverage.py` | test not written |
+| `SEC-04` | R1 | P1 | `AC-SEC-04.6` | `T-SEC-04.6` | `tests/spec/test_retention_coverage.py` | test present |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.7` | `T-SEC-04.7` | `apps/web/e2e/data-rights.spec.ts`, `apps/mobile/integration_test/data_rights_test.dart` | test not written |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.8` | `T-SEC-04.8` | `apps/web/.../ai-label.test.tsx`, `apps/mobile/test/ai_label_test.dart` | test not written |
 | `WEB-02` | R1 | P1 | `AC-WEB-02.1` | `T-WEB-02.1` | `apps/web/e2e/auth-storage.spec.ts` | test not written |
@@ -465,7 +465,7 @@ Requirement → track → acceptance criterion → test → status.
 | `CONN-04` | R1 | P3 | `AC-CONN-04.3` | `T-CONN-04.3` | `tests/connectors/test_compliance_records.py` | test not written |
 | `CONN-04` | R1 | P3 | `AC-CONN-04.4` | `T-CONN-04.4` | `apps/web/.../job-card.test.tsx`, `apps/mobile/test/job_card_test.dart` | test not written |
 | `CONN-04` | R1 | P3 | `AC-CONN-04.5` | `T-CONN-04.5` | `tests/integration/test_source_ttl.py` | test not written |
-| `CONN-05` | R1 | P3 | `AC-CONN-05.1` | `T-CONN-05.1` | `tests/integration/test_ttl_indexes.py` | test not written |
+| `CONN-05` | R1 | P3 | `AC-CONN-05.1` | `T-CONN-05.1` | `tests/integration/test_ttl_indexes.py` | test present |
 | `CONN-06a` | R1 | P3 | `AC-CONN-06.1` | `T-CONN-06.1` | `tests/connectors/test_registry_contract.py` | test not written |
 | `CONN-06a` | R1 | P3 | `AC-CONN-06.2` | `T-CONN-06.2` | `tests/connectors/test_normalize_fixtures.py` | test not written |
 | `CONN-06a` | R1 | P3 | `AC-CONN-06.3` | `T-CONN-06.3` | `tests/connectors/test_normalize_fixtures.py` | test not written |
@@ -523,7 +523,7 @@ Requirement → track → acceptance criterion → test → status.
 | `JOB-08` | R1 | P3 | `AC-JOB-08.4` | `T-JOB-08.4` | `tests/integration/test_expired_visibility.py` | test not written |
 | `JOB-08` | R1 | P3 | `AC-JOB-08.5` | `T-JOB-08.5` | `tests/integration/test_job_revival.py` | test not written |
 | `JOB-08` | R1 | P3 | `AC-JOB-08.6` | `T-JOB-08.6` | `tests/unit/test_apply_deadline.py` | test not written |
-| `JOB-08` | R1 | P3 | `AC-JOB-08.7` | `T-JOB-08.7` | `tests/integration/test_job_purge.py` | test not written |
+| `JOB-08` | R1 | P3 | `AC-JOB-08.7` | `T-JOB-08.7` | `tests/integration/test_job_purge.py` | test present |
 | `JOB-09` | R1 | P3 | `AC-JOB-09.1` | `T-JOB-09.1` | `tests/integration/test_hidden_exclusion.py`, `tests/unit/test_hide_reasons.py` | test not written |
 | `JOB-09` | R1 | P3 | `AC-JOB-09.2` | `T-JOB-09.2` | `tests/integration/test_hidden_exclusion.py`, `tests/unit/test_hide_reasons.py` | test not written |
 | `JOB-09` | R1 | P3 | `AC-JOB-09.3` | `T-JOB-09.3` | `tests/integration/test_hidden_exclusion.py`, `tests/unit/test_hide_reasons.py` | test not written |

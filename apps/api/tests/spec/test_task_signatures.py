@@ -59,7 +59,7 @@ def table_rows(repo: Path) -> list[tuple[str, str, str]]:
     if something compares them.
     """
     text = (repo / "docs" / "spec" / "01-foundations.md").read_text(encoding="utf-8")
-    section = text.split("**R1 task/cron inventory.**", 1)[1].split("**Inputs.**", 1)[0]
+    section = text.split("**R1 task/cron inventory**", 1)[1].split("**Inputs.**", 1)[0]
     rows = []
     for line in section.split("\n"):
         if not line.startswith("| `"):
@@ -81,11 +81,17 @@ def test_the_declared_inventory_is_the_specifications_table(repo: Path):
     assert [row.natural_key for row in R1_TASKS] == [key for _, _, key in parsed]
 
 
-def test_the_inventory_has_fourteen_rows():
+def test_the_inventory_has_eighteen_rows():
     """The number §10 gives. A test that only compared the two lists would pass
-    if both were empty."""
-    assert len(R1_TASKS) == 14
-    assert len(DECLARED) == 14
+    if both were empty.
+
+    Fourteen until ADR-013, which added the four retention sweeps §5's table
+    requires and §10 had not declared. The number is asserted rather than
+    derived so a fifteenth-through-nineteenth task is a deliberate edit here as
+    well as in the specification.
+    """
+    assert len(R1_TASKS) == 18
+    assert len(DECLARED) == 18
 
 
 def test_every_implemented_task_is_declared():

@@ -96,21 +96,526 @@ forbidden_modules =
     app.ai
     app.connectors
 
-; --- 2. module-independence ----------------------------------------------------
-; Only another module's `__init__.py` public surface may be imported.
-[importlinter:contract:module-independence]
-name = module-independence
-type = independence
-modules =
+; --- module-independence-admin -------------------------------------------------
+; `admin` may import another module's package root - §5's sanctioned read - and none of its internals (ADR-014).
+[importlinter:contract:module-independence-admin]
+name = module-independence-admin
+type = forbidden
+source_modules =
     app.modules.admin
+forbidden_modules =
+    app.modules.apply.models
+    app.modules.apply.repository
+    app.modules.apply.service
+    app.modules.apply.router
+    app.modules.apply.tasks
+    app.modules.apply.events
+    app.modules.auth.models
+    app.modules.auth.repository
+    app.modules.auth.service
+    app.modules.auth.router
+    app.modules.auth.tasks
+    app.modules.auth.events
+    app.modules.jobs.models
+    app.modules.jobs.repository
+    app.modules.jobs.service
+    app.modules.jobs.router
+    app.modules.jobs.tasks
+    app.modules.jobs.events
+    app.modules.matching.models
+    app.modules.matching.repository
+    app.modules.matching.service
+    app.modules.matching.router
+    app.modules.matching.tasks
+    app.modules.matching.events
+    app.modules.matching.scoring
+    app.modules.notifications.models
+    app.modules.notifications.repository
+    app.modules.notifications.service
+    app.modules.notifications.router
+    app.modules.notifications.tasks
+    app.modules.notifications.events
+    app.modules.profile.models
+    app.modules.profile.repository
+    app.modules.profile.service
+    app.modules.profile.router
+    app.modules.profile.tasks
+    app.modules.profile.events
+    app.modules.resume.models
+    app.modules.resume.repository
+    app.modules.resume.service
+    app.modules.resume.router
+    app.modules.resume.tasks
+    app.modules.resume.events
+    app.modules.tracker.models
+    app.modules.tracker.repository
+    app.modules.tracker.service
+    app.modules.tracker.router
+    app.modules.tracker.tasks
+    app.modules.tracker.events
+
+; --- module-independence-apply -------------------------------------------------
+; `apply` may import another module's package root - §5's sanctioned read - and none of its internals (ADR-014).
+[importlinter:contract:module-independence-apply]
+name = module-independence-apply
+type = forbidden
+source_modules =
     app.modules.apply
+forbidden_modules =
+    app.modules.admin.models
+    app.modules.admin.repository
+    app.modules.admin.service
+    app.modules.admin.router
+    app.modules.admin.tasks
+    app.modules.admin.events
+    app.modules.auth.models
+    app.modules.auth.repository
+    app.modules.auth.service
+    app.modules.auth.router
+    app.modules.auth.tasks
+    app.modules.auth.events
+    app.modules.jobs.models
+    app.modules.jobs.repository
+    app.modules.jobs.service
+    app.modules.jobs.router
+    app.modules.jobs.tasks
+    app.modules.jobs.events
+    app.modules.matching.models
+    app.modules.matching.repository
+    app.modules.matching.service
+    app.modules.matching.router
+    app.modules.matching.tasks
+    app.modules.matching.events
+    app.modules.matching.scoring
+    app.modules.notifications.models
+    app.modules.notifications.repository
+    app.modules.notifications.service
+    app.modules.notifications.router
+    app.modules.notifications.tasks
+    app.modules.notifications.events
+    app.modules.profile.models
+    app.modules.profile.repository
+    app.modules.profile.service
+    app.modules.profile.router
+    app.modules.profile.tasks
+    app.modules.profile.events
+    app.modules.resume.models
+    app.modules.resume.repository
+    app.modules.resume.service
+    app.modules.resume.router
+    app.modules.resume.tasks
+    app.modules.resume.events
+    app.modules.tracker.models
+    app.modules.tracker.repository
+    app.modules.tracker.service
+    app.modules.tracker.router
+    app.modules.tracker.tasks
+    app.modules.tracker.events
+
+; --- module-independence-auth --------------------------------------------------
+; `auth` may import another module's package root - §5's sanctioned read - and none of its internals (ADR-014).
+[importlinter:contract:module-independence-auth]
+name = module-independence-auth
+type = forbidden
+source_modules =
     app.modules.auth
+forbidden_modules =
+    app.modules.admin.models
+    app.modules.admin.repository
+    app.modules.admin.service
+    app.modules.admin.router
+    app.modules.admin.tasks
+    app.modules.admin.events
+    app.modules.apply.models
+    app.modules.apply.repository
+    app.modules.apply.service
+    app.modules.apply.router
+    app.modules.apply.tasks
+    app.modules.apply.events
+    app.modules.jobs.models
+    app.modules.jobs.repository
+    app.modules.jobs.service
+    app.modules.jobs.router
+    app.modules.jobs.tasks
+    app.modules.jobs.events
+    app.modules.matching.models
+    app.modules.matching.repository
+    app.modules.matching.service
+    app.modules.matching.router
+    app.modules.matching.tasks
+    app.modules.matching.events
+    app.modules.matching.scoring
+    app.modules.notifications.models
+    app.modules.notifications.repository
+    app.modules.notifications.service
+    app.modules.notifications.router
+    app.modules.notifications.tasks
+    app.modules.notifications.events
+    app.modules.profile.models
+    app.modules.profile.repository
+    app.modules.profile.service
+    app.modules.profile.router
+    app.modules.profile.tasks
+    app.modules.profile.events
+    app.modules.resume.models
+    app.modules.resume.repository
+    app.modules.resume.service
+    app.modules.resume.router
+    app.modules.resume.tasks
+    app.modules.resume.events
+    app.modules.tracker.models
+    app.modules.tracker.repository
+    app.modules.tracker.service
+    app.modules.tracker.router
+    app.modules.tracker.tasks
+    app.modules.tracker.events
+
+; --- module-independence-jobs --------------------------------------------------
+; `jobs` may import another module's package root - §5's sanctioned read - and none of its internals (ADR-014).
+[importlinter:contract:module-independence-jobs]
+name = module-independence-jobs
+type = forbidden
+source_modules =
     app.modules.jobs
+forbidden_modules =
+    app.modules.admin.models
+    app.modules.admin.repository
+    app.modules.admin.service
+    app.modules.admin.router
+    app.modules.admin.tasks
+    app.modules.admin.events
+    app.modules.apply.models
+    app.modules.apply.repository
+    app.modules.apply.service
+    app.modules.apply.router
+    app.modules.apply.tasks
+    app.modules.apply.events
+    app.modules.auth.models
+    app.modules.auth.repository
+    app.modules.auth.service
+    app.modules.auth.router
+    app.modules.auth.tasks
+    app.modules.auth.events
+    app.modules.matching.models
+    app.modules.matching.repository
+    app.modules.matching.service
+    app.modules.matching.router
+    app.modules.matching.tasks
+    app.modules.matching.events
+    app.modules.matching.scoring
+    app.modules.notifications.models
+    app.modules.notifications.repository
+    app.modules.notifications.service
+    app.modules.notifications.router
+    app.modules.notifications.tasks
+    app.modules.notifications.events
+    app.modules.profile.models
+    app.modules.profile.repository
+    app.modules.profile.service
+    app.modules.profile.router
+    app.modules.profile.tasks
+    app.modules.profile.events
+    app.modules.resume.models
+    app.modules.resume.repository
+    app.modules.resume.service
+    app.modules.resume.router
+    app.modules.resume.tasks
+    app.modules.resume.events
+    app.modules.tracker.models
+    app.modules.tracker.repository
+    app.modules.tracker.service
+    app.modules.tracker.router
+    app.modules.tracker.tasks
+    app.modules.tracker.events
+
+; --- module-independence-matching ----------------------------------------------
+; `matching` may import another module's package root - §5's sanctioned read - and none of its internals (ADR-014).
+[importlinter:contract:module-independence-matching]
+name = module-independence-matching
+type = forbidden
+source_modules =
     app.modules.matching
+forbidden_modules =
+    app.modules.admin.models
+    app.modules.admin.repository
+    app.modules.admin.service
+    app.modules.admin.router
+    app.modules.admin.tasks
+    app.modules.admin.events
+    app.modules.apply.models
+    app.modules.apply.repository
+    app.modules.apply.service
+    app.modules.apply.router
+    app.modules.apply.tasks
+    app.modules.apply.events
+    app.modules.auth.models
+    app.modules.auth.repository
+    app.modules.auth.service
+    app.modules.auth.router
+    app.modules.auth.tasks
+    app.modules.auth.events
+    app.modules.jobs.models
+    app.modules.jobs.repository
+    app.modules.jobs.service
+    app.modules.jobs.router
+    app.modules.jobs.tasks
+    app.modules.jobs.events
+    app.modules.notifications.models
+    app.modules.notifications.repository
+    app.modules.notifications.service
+    app.modules.notifications.router
+    app.modules.notifications.tasks
+    app.modules.notifications.events
+    app.modules.profile.models
+    app.modules.profile.repository
+    app.modules.profile.service
+    app.modules.profile.router
+    app.modules.profile.tasks
+    app.modules.profile.events
+    app.modules.resume.models
+    app.modules.resume.repository
+    app.modules.resume.service
+    app.modules.resume.router
+    app.modules.resume.tasks
+    app.modules.resume.events
+    app.modules.tracker.models
+    app.modules.tracker.repository
+    app.modules.tracker.service
+    app.modules.tracker.router
+    app.modules.tracker.tasks
+    app.modules.tracker.events
+
+; --- module-independence-notifications -----------------------------------------
+; `notifications` may import another module's package root - §5's sanctioned read - and none of its internals (ADR-014).
+[importlinter:contract:module-independence-notifications]
+name = module-independence-notifications
+type = forbidden
+source_modules =
     app.modules.notifications
+forbidden_modules =
+    app.modules.admin.models
+    app.modules.admin.repository
+    app.modules.admin.service
+    app.modules.admin.router
+    app.modules.admin.tasks
+    app.modules.admin.events
+    app.modules.apply.models
+    app.modules.apply.repository
+    app.modules.apply.service
+    app.modules.apply.router
+    app.modules.apply.tasks
+    app.modules.apply.events
+    app.modules.auth.models
+    app.modules.auth.repository
+    app.modules.auth.service
+    app.modules.auth.router
+    app.modules.auth.tasks
+    app.modules.auth.events
+    app.modules.jobs.models
+    app.modules.jobs.repository
+    app.modules.jobs.service
+    app.modules.jobs.router
+    app.modules.jobs.tasks
+    app.modules.jobs.events
+    app.modules.matching.models
+    app.modules.matching.repository
+    app.modules.matching.service
+    app.modules.matching.router
+    app.modules.matching.tasks
+    app.modules.matching.events
+    app.modules.matching.scoring
+    app.modules.profile.models
+    app.modules.profile.repository
+    app.modules.profile.service
+    app.modules.profile.router
+    app.modules.profile.tasks
+    app.modules.profile.events
+    app.modules.resume.models
+    app.modules.resume.repository
+    app.modules.resume.service
+    app.modules.resume.router
+    app.modules.resume.tasks
+    app.modules.resume.events
+    app.modules.tracker.models
+    app.modules.tracker.repository
+    app.modules.tracker.service
+    app.modules.tracker.router
+    app.modules.tracker.tasks
+    app.modules.tracker.events
+
+; --- module-independence-profile -----------------------------------------------
+; `profile` may import another module's package root - §5's sanctioned read - and none of its internals (ADR-014).
+[importlinter:contract:module-independence-profile]
+name = module-independence-profile
+type = forbidden
+source_modules =
     app.modules.profile
+forbidden_modules =
+    app.modules.admin.models
+    app.modules.admin.repository
+    app.modules.admin.service
+    app.modules.admin.router
+    app.modules.admin.tasks
+    app.modules.admin.events
+    app.modules.apply.models
+    app.modules.apply.repository
+    app.modules.apply.service
+    app.modules.apply.router
+    app.modules.apply.tasks
+    app.modules.apply.events
+    app.modules.auth.models
+    app.modules.auth.repository
+    app.modules.auth.service
+    app.modules.auth.router
+    app.modules.auth.tasks
+    app.modules.auth.events
+    app.modules.jobs.models
+    app.modules.jobs.repository
+    app.modules.jobs.service
+    app.modules.jobs.router
+    app.modules.jobs.tasks
+    app.modules.jobs.events
+    app.modules.matching.models
+    app.modules.matching.repository
+    app.modules.matching.service
+    app.modules.matching.router
+    app.modules.matching.tasks
+    app.modules.matching.events
+    app.modules.matching.scoring
+    app.modules.notifications.models
+    app.modules.notifications.repository
+    app.modules.notifications.service
+    app.modules.notifications.router
+    app.modules.notifications.tasks
+    app.modules.notifications.events
+    app.modules.resume.models
+    app.modules.resume.repository
+    app.modules.resume.service
+    app.modules.resume.router
+    app.modules.resume.tasks
+    app.modules.resume.events
+    app.modules.tracker.models
+    app.modules.tracker.repository
+    app.modules.tracker.service
+    app.modules.tracker.router
+    app.modules.tracker.tasks
+    app.modules.tracker.events
+
+; --- module-independence-resume ------------------------------------------------
+; `resume` may import another module's package root - §5's sanctioned read - and none of its internals (ADR-014).
+[importlinter:contract:module-independence-resume]
+name = module-independence-resume
+type = forbidden
+source_modules =
     app.modules.resume
+forbidden_modules =
+    app.modules.admin.models
+    app.modules.admin.repository
+    app.modules.admin.service
+    app.modules.admin.router
+    app.modules.admin.tasks
+    app.modules.admin.events
+    app.modules.apply.models
+    app.modules.apply.repository
+    app.modules.apply.service
+    app.modules.apply.router
+    app.modules.apply.tasks
+    app.modules.apply.events
+    app.modules.auth.models
+    app.modules.auth.repository
+    app.modules.auth.service
+    app.modules.auth.router
+    app.modules.auth.tasks
+    app.modules.auth.events
+    app.modules.jobs.models
+    app.modules.jobs.repository
+    app.modules.jobs.service
+    app.modules.jobs.router
+    app.modules.jobs.tasks
+    app.modules.jobs.events
+    app.modules.matching.models
+    app.modules.matching.repository
+    app.modules.matching.service
+    app.modules.matching.router
+    app.modules.matching.tasks
+    app.modules.matching.events
+    app.modules.matching.scoring
+    app.modules.notifications.models
+    app.modules.notifications.repository
+    app.modules.notifications.service
+    app.modules.notifications.router
+    app.modules.notifications.tasks
+    app.modules.notifications.events
+    app.modules.profile.models
+    app.modules.profile.repository
+    app.modules.profile.service
+    app.modules.profile.router
+    app.modules.profile.tasks
+    app.modules.profile.events
+    app.modules.tracker.models
+    app.modules.tracker.repository
+    app.modules.tracker.service
+    app.modules.tracker.router
+    app.modules.tracker.tasks
+    app.modules.tracker.events
+
+; --- module-independence-tracker -----------------------------------------------
+; `tracker` may import another module's package root - §5's sanctioned read - and none of its internals (ADR-014).
+[importlinter:contract:module-independence-tracker]
+name = module-independence-tracker
+type = forbidden
+source_modules =
     app.modules.tracker
+forbidden_modules =
+    app.modules.admin.models
+    app.modules.admin.repository
+    app.modules.admin.service
+    app.modules.admin.router
+    app.modules.admin.tasks
+    app.modules.admin.events
+    app.modules.apply.models
+    app.modules.apply.repository
+    app.modules.apply.service
+    app.modules.apply.router
+    app.modules.apply.tasks
+    app.modules.apply.events
+    app.modules.auth.models
+    app.modules.auth.repository
+    app.modules.auth.service
+    app.modules.auth.router
+    app.modules.auth.tasks
+    app.modules.auth.events
+    app.modules.jobs.models
+    app.modules.jobs.repository
+    app.modules.jobs.service
+    app.modules.jobs.router
+    app.modules.jobs.tasks
+    app.modules.jobs.events
+    app.modules.matching.models
+    app.modules.matching.repository
+    app.modules.matching.service
+    app.modules.matching.router
+    app.modules.matching.tasks
+    app.modules.matching.events
+    app.modules.matching.scoring
+    app.modules.notifications.models
+    app.modules.notifications.repository
+    app.modules.notifications.service
+    app.modules.notifications.router
+    app.modules.notifications.tasks
+    app.modules.notifications.events
+    app.modules.profile.models
+    app.modules.profile.repository
+    app.modules.profile.service
+    app.modules.profile.router
+    app.modules.profile.tasks
+    app.modules.profile.events
+    app.modules.resume.models
+    app.modules.resume.repository
+    app.modules.resume.service
+    app.modules.resume.router
+    app.modules.resume.tasks
+    app.modules.resume.events
 
 ; --- 8. no-http-in-domain ------------------------------------------------------
 ; Services take and return plain objects; HTTP lives in `router.py`.

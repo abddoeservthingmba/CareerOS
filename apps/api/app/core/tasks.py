@@ -188,6 +188,34 @@ R1_TASKS: tuple[TaskDeclaration, ...] = (
         "user_id",
         "7-day hard delete incl. storage",
     ),
+    # ADR-013's four retention sweeps. §5's table names a mechanism for every
+    # row and its first constraint makes that non-negotiable - "a retention
+    # rule with no mechanism is a defect" - but §10's inventory declared only
+    # `account.purge_deleted`. The conflict surfaced as a failed import, which
+    # is `AC-FOUND-10.4` working as intended.
+    #
+    # All four at 04:00 UTC: after `ops.backup` (02:00) so a purge is always
+    # recoverable from that night's backup, and after `account.purge_deleted`
+    # (03:00) so a deleted user's rows are gone before the sweeps run.
+    TaskDeclaration(
+        "jobs.purge_expired",
+        "cron 0 4 * * *",
+        "expired_at window + reference check",
+        "Clears descriptions on referenced jobs rather than deleting them",
+    ),
+    TaskDeclaration("connector_runs.purge", "cron 0 4 * * *", "started_at window", "180 days"),
+    TaskDeclaration(
+        "notifications.purge",
+        "cron 0 4 * * *",
+        "created_at window",
+        "Covers notifications and sent/cancelled reminders",
+    ),
+    TaskDeclaration(
+        "ops.purge_failed_tasks",
+        "cron 0 4 * * *",
+        "resolved_at window",
+        "90 days, resolved only",
+    ),
     TaskDeclaration("ops.backup", "cron 0 2 * * *", "date", "mongodump → R2"),
     TaskDeclaration("ops.heartbeat", "cron * * * * *", "minute", "Liveness signal from P0 onward"),
 )

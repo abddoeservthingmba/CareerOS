@@ -1,6 +1,7 @@
 """T-FOUND-05.3 / T-FOUND-05.5 - the import contracts are active and passing.
 
-`AC-FOUND-04.1`: "`lint-imports` exits 0 with all eight contracts active and
+`AC-FOUND-04.1`: "`lint-imports` exits 0 with all seven cross-cutting contracts
+active, one `module-independence-<name>` contract per module, and
 **zero** `ignore_imports` entries. An exemption requires a new ADR."
 
 `AC-FOUND-05.3`/`.5` name `no-http-in-domain` and `pure-logic` specifically:
@@ -32,8 +33,20 @@ ALWAYS_ACTIVE = {
     "no-oauth-in-ai",
     "infra-is-dumb",
 }
-PER_MODULE = {"module-independence", "no-http-in-domain"}
-ALL_EIGHT = ALWAYS_ACTIVE | PER_MODULE
+#: `no-http-in-domain` enumerates every module inside one contract and appears
+#: as soon as the first module exists.
+PER_MODULE = {"no-http-in-domain"}
+
+#: ADR-014: one `module-independence-<name>` contract per module, in place of a
+#: single `independence` contract over the nine packages. `independence` forbids
+#: every import between the listed modules at any depth, including the one §5
+#: calls "allowed and preferred" - "a read through another module's public
+#: service method". There is no mode of it that permits a package root and
+#: forbids its internals, so the contract said something the specification did
+#: not.
+INDEPENDENCE_PREFIX = "module-independence-"
+
+CROSS_CUTTING = ALWAYS_ACTIVE | PER_MODULE
 
 
 def lint_imports_command() -> list[str]:
@@ -88,16 +101,47 @@ def test_no_ignore_imports_entry(repo: Path):
 
 
 def test_the_active_contracts_are_the_ones_the_spec_names(repo: Path):
-    """AC-FOUND-04.1 - all eight, once there is a module for the last two."""
+    """`AC-FOUND-04.1` as ADR-014 amended it: seven cross-cutting contracts,
+    plus one per module."""
     active = contract_names(repo)
-    assert active >= ALWAYS_ACTIVE, f"missing: {sorted(ALWAYS_ACTIVE - active)}"
-    assert active <= ALL_EIGHT, f"unexpected contract: {sorted(active - ALL_EIGHT)}"
+    per_module = {name for name in active if name.startswith(INDEPENDENCE_PREFIX)}
+    named = active - per_module
+
+    assert named >= ALWAYS_ACTIVE, f"missing: {sorted(ALWAYS_ACTIVE - named)}"
+    assert named <= CROSS_CUTTING, f"unexpected contract: {sorted(named - CROSS_CUTTING)}"
 
     if modules_present(repo):
-        assert active == ALL_EIGHT, (
-            f"modules exist, so all eight contracts must be active; missing "
-            f"{sorted(ALL_EIGHT - active)}. Run gen_importlinter.py --write."
+        assert named == CROSS_CUTTING, (
+            f"modules exist, so all seven cross-cutting contracts must be active; "
+            f"missing {sorted(CROSS_CUTTING - named)}. Run gen_importlinter.py --write."
         )
+
+
+def test_every_module_has_its_own_independence_contract(repo: Path):
+    """ADR-014.
+
+    One per module, and none missing - a module with no contract is a module
+    that may reach into every other module's repository, and nothing would say
+    so. Compared against the module list rather than a count, because the
+    number changes and the correspondence does not.
+    """
+    from app.documents import OWNERS
+
+    modules = {
+        name
+        for name in OWNERS
+        if (repo / "apps" / "api" / "app" / "modules" / name / "__init__.py").is_file()
+    }
+    contracts = {
+        name.removeprefix(INDEPENDENCE_PREFIX)
+        for name in contract_names(repo)
+        if name.startswith(INDEPENDENCE_PREFIX)
+    }
+
+    assert contracts == modules, (
+        f"module(s) without an independence contract: {sorted(modules - contracts)}; "
+        f"contract(s) for no module: {sorted(contracts - modules)}"
+    )
 
 
 def test_the_contract_file_is_current(repo: Path):

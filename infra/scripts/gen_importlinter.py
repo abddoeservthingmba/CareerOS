@@ -210,18 +210,73 @@ def _no_concrete_ai() -> str:
     )
 
 
+#: The files a module keeps to itself. `01-foundations.md` §5's anatomy, minus
+#: `__init__.py` - which is the public surface and is the one thing another
+#: module may import.
+#:
+#: The pure-logic files are included: `scoring.py` is `matching`'s internal
+#: arithmetic, and another module reaching into it would be coupling to an
+#: implementation rather than to a capability.
+MODULE_INTERNALS = (
+    "models",
+    "repository",
+    "service",
+    "router",
+    "tasks",
+    "events",
+    "scoring",
+    "normalize",
+    "state",
+    "fabrication",
+    "skills",
+)
+
+
 def _module_independence(found: list[str]) -> str:
-    return _block(
-        "2. module-independence",
-        "; Only another module's `__init__.py` public surface may be imported.",
-        [
-            "[importlinter:contract:module-independence]",
-            "name = module-independence",
-            "type = independence",
-            "modules =",
-            *(f"    app.modules.{name}" for name in found),
-        ],
-    )
+    """One `forbidden` contract per module - ADR-014.
+
+    Not an `independence` contract over the nine packages, which is what this
+    generated until `DATA-05`. `independence` forbids **every** import between
+    the listed modules at any depth, including the one §5 calls "allowed and
+    preferred": "a read through another module's public service method ...
+    preferred over duplicating a query". There is no mode of `independence`
+    that permits a package root and forbids its internals, so the contract said
+    something the specification did not.
+
+    What §5 actually forbids is reaching *past* the public surface - into
+    `models`, `repository`, or a service's internals. That is the coupling that
+    makes a module impossible to extract later, and it is what these contracts
+    forbid: `from app.modules.tracker import TrackerService` passes,
+    `from app.modules.tracker.repository import ...` does not.
+    """
+    blocks: list[str] = []
+    for name in found:
+        others = [other for other in found if other != name]
+        forbidden = [
+            f"    app.modules.{other}.{internal}"
+            for other in others
+            for internal in MODULE_INTERNALS
+            if exists(f"app.modules.{other}.{internal}")
+        ]
+        if not forbidden:
+            continue
+        blocks.append(
+            _block(
+                f"module-independence-{name}",
+                f"; `{name}` may import another module's package root - §5's "
+                "sanctioned read - and none of its internals (ADR-014).",
+                [
+                    f"[importlinter:contract:module-independence-{name}]",
+                    f"name = module-independence-{name}",
+                    "type = forbidden",
+                    "source_modules =",
+                    f"    app.modules.{name}",
+                    "forbidden_modules =",
+                    *forbidden,
+                ],
+            )
+        )
+    return "".join(blocks)
 
 
 def _no_http_in_domain(found: list[str]) -> str:

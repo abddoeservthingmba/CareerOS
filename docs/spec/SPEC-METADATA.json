@@ -2595,8 +2595,8 @@
       "module": "`apps/api/app/core`, `apps/api/app/shared`, repo root",
       "requirements": "`FOUND-01` \u2026 `FOUND-14`",
       "depends": "nothing",
-      "lines": 644,
-      "words": 6727,
+      "lines": 648,
+      "words": 6868,
       "ac": 88,
       "tests": 88,
       "sections": [

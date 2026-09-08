@@ -171,7 +171,7 @@ Cross-module side effects go through in-process domain events (§9), never a dir
 **Outputs.** A CI check; a `docs/adr/ADR-001-modular-monolith.md` recording the rationale.
 
 **Acceptance criteria.**
-- `AC-FOUND-04.1` `lint-imports` exits 0 with all eight contracts active and **zero** `ignore_imports` entries. An exemption requires a new ADR.
+- `AC-FOUND-04.1` `lint-imports` exits 0 with all seven cross-cutting contracts active, one `module-independence-<name>` contract per module, and **zero** `ignore_imports` entries. A module's package root is importable by another module — §5's sanctioned read — and its internals are not (ADR-014). An exemption requires a new ADR.
 - `AC-FOUND-04.2` Every `modules/*/` directory contains exactly the files in §5 below, and every one of them has an `__init__.py` whose `__all__` is non-empty and contains no name defined in `models.py` or `repository.py`.
 - `AC-FOUND-04.3` A deliberately introduced cross-module model import fails CI (verified by a test that runs `lint-imports` against a fixture package containing the violation).
 - `AC-FOUND-04.4` Every module has a `README.md` stating purpose, public API, events published, and events consumed.
@@ -370,7 +370,7 @@ modules/<name>/
 - Cron tasks must tolerate overlapping runs: each takes a Redis lock named for itself and exits quietly if held.
 - Tasks never call another module's service across a boundary that events would cover; they may call their own module's service freely.
 
-**R1 task/cron inventory.**
+**R1 task/cron inventory** — eighteen tasks. A nineteenth needs a row here before it can be registered: `core/tasks.py` refuses at import any task whose name is absent from this table (`AC-FOUND-10.4`).
 
 | Task | Trigger | Natural key | Notes |
 |---|---|---|---|
@@ -386,6 +386,10 @@ modules/<name>/
 | `notifications.reconcile_reminders(application_id)` | status/interview change | `dedup_key` per occurrence | Cancels stale, schedules new |
 | `reminders.dispatch()` | cron `* * * * *` | `dedup_key` | Batches of 200; lock-guarded |
 | `account.purge_deleted()` | cron `0 3 * * *` | `user_id` | 7-day hard delete incl. storage |
+| `jobs.purge_expired()` | cron `0 4 * * *` | `expired_at` window + reference check | `DATA-05`; clears descriptions on referenced jobs rather than deleting them (ADR-013) |
+| `connector_runs.purge()` | cron `0 4 * * *` | `started_at` window | `DATA-05`; 180 days (ADR-013) |
+| `notifications.purge()` | cron `0 4 * * *` | `created_at` window | `DATA-05`; covers `notifications` and sent/cancelled `reminders` (ADR-013) |
+| `ops.purge_failed_tasks()` | cron `0 4 * * *` | `resolved_at` window | `DATA-05`; 90 days, resolved only (ADR-013) |
 | `ops.backup()` | cron `0 2 * * *` | date | `mongodump` → R2 |
 | `ops.heartbeat()` | cron `* * * * *` | minute | Liveness signal from P0 onward |
 
