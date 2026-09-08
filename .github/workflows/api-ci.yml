@@ -125,6 +125,13 @@ jobs:
         run: |
           set -o pipefail
           if uv run pytest --tb=short 2>&1 | tee "$RUNNER_TEMP/pytest.txt"; then
+            # The count, as a notice annotation on every green run. "Green" and
+            # "green, and it ran 1898 tests" are different claims, and only the
+            # second one rules out a suite that collected almost nothing -
+            # which is the failure a passing build cannot show you.
+            summary=$(grep -E '^[0-9]+ (passed|failed)|passed|no tests ran'               "$RUNNER_TEMP/pytest.txt" | tail -1)
+            echo "::notice title=pytest::${summary}"
+            echo "pytest: ${summary}" >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           {
