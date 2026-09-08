@@ -63,9 +63,9 @@ def test_a_local_address_is_allowed_for_the_replay_tests():
 def test_the_allowlist_is_short_and_says_what_is_on_it():
     """Three entries: the provider, and two spellings of this machine. An
     allowlist that grew would be a decision, and it should look like one."""
-    assert frozenset(
-        {"generativelanguage.googleapis.com", "127.0.0.1", "localhost"}
-    ) == ALLOWED_HOSTS
+    assert (
+        frozenset({"generativelanguage.googleapis.com", "127.0.0.1", "localhost"}) == ALLOWED_HOSTS
+    )
 
 
 # -- what is refused ---------------------------------------------------------

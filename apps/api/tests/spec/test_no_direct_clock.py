@@ -40,14 +40,32 @@ def _code_lines(path: Path) -> list[tuple[int, str]]:
     `shared/timeutils.py` explaining why it does not call it - is prose, not a
     call. Comments stay in scope: a commented-out call is dead code, which
     `AC-FOUND-15.7` forbids anyway.
+
+    **Only the string's own columns are blanked.** Blanking the whole line
+    exempted every line that happened to contain a literal - which is most
+    lines of real code, and included
+
+        "first_seen": datetime.now(UTC).date().isoformat(),
+
+    because of the dict key. That is a hole big enough to walk a violation
+    through without trying, and it was found by a violation walking through it.
+    A literal that genuinely spans lines still blanks each line it covers,
+    since there is no code on those lines to keep.
     """
     source = path.read_text(encoding="utf-8")
     lines = dict(enumerate(source.split("\n"), start=1))
     try:
         for token in tokenize.generate_tokens(io.StringIO(source).readline):
-            if token.type == tokenize.STRING:
-                for number in range(token.start[0], token.end[0] + 1):
-                    lines[number] = ""
+            if token.type != tokenize.STRING:
+                continue
+            first, last = token.start[0], token.end[0]
+            if first == last:
+                line = lines.get(first, "")
+                start, end = token.start[1], token.end[1]
+                lines[first] = line[:start] + " " * (end - start) + line[end:]
+                continue
+            for number in range(first, last + 1):
+                lines[number] = ""
     except (tokenize.TokenError, IndentationError, SyntaxError):
         pass
     return sorted(lines.items())
@@ -92,4 +110,41 @@ def test_a_docstring_mentioning_the_call_is_not_a_call(tmp_path: Path):
     prose = tmp_path / "prose.py"
     prose.write_text('"""Nothing here calls datetime.now()."""\n', encoding="utf-8")
     found = [line for _, line in _code_lines(prose) if any(p.search(line) for p in FORBIDDEN)]
+    assert found == []
+
+
+def test_a_string_on_the_same_line_does_not_exempt_the_call(tmp_path: Path):
+    """The hole this check had until a violation walked through it.
+
+    Blanking the whole line for any literal exempted every line that happened
+    to contain one - which is most lines of real code. A dict key was enough:
+
+        "first_seen": datetime.now(UTC).date().isoformat(),
+
+    read as prose and passed. Now only the literal's own columns are blanked.
+    """
+    mixed = tmp_path / "mixed.py"
+    mixed.write_text(
+        'from datetime import UTC, datetime\n\n\ndef row():\n'
+        '    return {"first_seen": datetime.now(UTC).isoformat()}\n',
+        encoding="utf-8",
+    )
+
+    found = [line for _, line in _code_lines(mixed) if any(p.search(line) for p in FORBIDDEN)]
+
+    assert found, "a call beside a string literal is still a call"
+
+
+def test_a_multiline_docstring_still_blanks_every_line_it_covers(tmp_path: Path):
+    """The other half. There is no code on the interior lines of a triple-quoted
+    string, so blanking them whole is right - and a paragraph explaining why a
+    module does not call `datetime.now` must not fail the gate."""
+    prose = tmp_path / "long.py"
+    prose.write_text(
+        '"""A module.\n\nIt deliberately does not call datetime.now() anywhere.\n"""\n',
+        encoding="utf-8",
+    )
+
+    found = [line for _, line in _code_lines(prose) if any(p.search(line) for p in FORBIDDEN)]
+
     assert found == []

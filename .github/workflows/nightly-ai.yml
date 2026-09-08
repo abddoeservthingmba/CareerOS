@@ -1,0 +1,100 @@
+name: nightly-ai
+
+# T-AI-07.4 - `AC-AI-07.4`: "The nightly `real_ai` run posts a report: per
+# feature, pass/fail, tokens, cost, and any tolerance breach."
+#
+# `15-infra-and-ops.md` §90's nightly job. Separate from `api-ci` on purpose:
+# these tests cost money and take minutes, and `api-ci` is a required check on
+# every pull request. A paid provider on the merge path is how a required check
+# becomes a flaky one, and a flaky required check gets bypassed.
+#
+# `05-ai-layer.md` §7: the real-provider mode uses "tolerance-based assertions
+# (field presence, precision thresholds, no fabrication) rather than string
+# equality". A model's exact wording changes between minor versions; a golden
+# test asserting string equality against a real provider fails on a night the
+# provider was fine, which trains everyone to ignore it.
+
+on:
+  schedule:
+    # 02:30 UTC. HR-10: everything scheduled is UTC, and the report's window is
+    # stated in UTC too, so "last night's run" means one thing.
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: nightly-ai
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  UV_SYSTEM_CERTS: "1"
+
+jobs:
+  golden:
+    name: real-provider golden tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install the pinned Python and dependencies
+        working-directory: apps/api
+        run: uv sync --frozen
+
+      # The credential belongs to the dedicated Cloud project with its own
+      # billing account and a budget alert at 2 x the daily cap x 30
+      # (`AC-AI-05.1`, recorded in docs/compliance/ai-providers.md). It reaches
+      # nothing else: `assert_configuration` refuses to start if an ambient
+      # Google credential is also present (HR-6, `AC-AI-05.3`).
+      - name: Run the golden set against the real provider
+        id: golden
+        continue-on-error: true
+        working-directory: apps/api
+        env:
+          GEMINI_API_KEY: ${{ secrets.NIGHTLY_GEMINI_API_KEY }}
+          MONGODB_URI: ${{ secrets.NIGHTLY_MONGODB_URI }}
+          MONGODB_DB: jobpilot_nightly
+          SECRET_KEY: ${{ secrets.NIGHTLY_SECRET_KEY }}
+          APP_ENV: local
+        run: uv run pytest -m real_ai --junitxml=../../nightly-junit.xml -o addopts=""
+
+      # Rendered whether or not the suite passed - the report is the deliverable
+      # `AC-AI-07.4` names, and the nights it is most worth reading are the
+      # nights something failed.
+      - name: Render the report
+        id: report
+        env:
+          MONGODB_URI: ${{ secrets.NIGHTLY_MONGODB_URI }}
+          MONGODB_DB: jobpilot_nightly
+        run: |
+          uv run --project apps/api python infra/scripts/ai_nightly_report.py \
+            --junit nightly-junit.xml --out nightly-ai-report.md --hours 6 \
+            || echo "failed=true" >> "$GITHUB_OUTPUT"
+          cat nightly-ai-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish the report
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-ai-report
+          path: |
+            nightly-ai-report.md
+            nightly-junit.xml
+          retention-days: 30
+
+      # The job is red if the suite was red. `continue-on-error` above exists so
+      # the report is still produced and uploaded first, not to swallow the
+      # failure - a nightly gate that reports green on a failed run is worse
+      # than no gate, because it is believed.
+      - name: Fail if the golden set failed
+        if: steps.golden.outcome != 'success' || steps.report.outputs.failed == 'true'
+        run: |
+          echo "::error::the nightly golden set failed; see nightly-ai-report.md"
+          exit 1

@@ -26,6 +26,7 @@ from fastapi import FastAPI, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 
+from app.ai import prompt
 from app.core import clock, metrics, sentry
 from app.core import logging as app_logging
 from app.core.config import Settings, get_settings
@@ -111,6 +112,18 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     # containers serve the same user, which is why `/readyz` still names
     # `redis` in `not_yet_checked` rather than reporting ready without it.
     app.state.idempotency = Idempotency(MemoryStore())
+
+    # `AI-07` §7: "Prompts are loaded and validated at startup ... A malformed
+    # prompt fails the boot." Here rather than inside `app.ai` because
+    # validation resolves each `output_schema` to a feature module's model, and
+    # contract 4 (`ai-is-leaf`) forbids `app.ai -> app.modules`. `app.main` sits
+    # above both and is the only place allowed to join them.
+    #
+    # Fails the boot deliberately. A prompt whose schema no longer imports
+    # produces a `StructuredOutputInvalid` on the first real request for that
+    # feature, which is a 500 for a user rather than a container that never
+    # went live.
+    app.state.prompts = prompt.validate_at_startup()
 
     # `16-security-and-compliance.md` §2, control 7: an explicit origin
     # allowlist, credentials true, never a wildcard outside local.

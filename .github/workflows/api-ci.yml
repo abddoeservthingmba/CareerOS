@@ -61,6 +61,18 @@ jobs:
         working-directory: apps/api
         run: uv run pytest
 
+      # T-AI-07.2 - `AC-AI-07.2`: editing a prompt whose version has already run
+      # in production fails CI with a message to create the next version.
+      #
+      # Its own step rather than a pytest case so the failure is legible in the
+      # checks list: the thing to do about it is "create v<N+1>", and that
+      # instruction should be the first line someone reads, not the tail of a
+      # test summary. Checked against the committed manifest
+      # (packages/contracts/prompts-in-production.json) because CI has no
+      # production credential and should not be given one.
+      - name: prompt-immutability
+        run: uv run --project apps/api python infra/scripts/check_prompt_immutability.py
+
       # T-FOUND-06.1 - the traceability gate, and the closure checks.
       - name: spec gates
         run: uv run --project apps/api python -m specgate check
