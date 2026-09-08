@@ -1,0 +1,19 @@
+# Nothing outside `apps/web` is part of the client build, and several things
+# inside the repository must never reach a build host at all.
+#
+# `.env` is gitignored, so it cannot arrive through git - but `vercel deploy`
+# from a working copy uploads the directory, not the commit. This is the second
+# lock on the same door (`CLAUDE.md`: "Secrets never enter the repo").
+.env
+.env.*
+!.env.example
+
+node_modules
+dist
+.vite
+
+# The API, the specification and the tooling are not client assets. Excluding
+# them keeps the upload small and keeps `docs/spec/` off a public host.
+../api
+../../docs
+../../infra

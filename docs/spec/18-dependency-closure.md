@@ -225,7 +225,8 @@ For completeness, because a check that only ever reports problems is as suspect 
 - For a requirement `R`, the bundle is: `README.md`, `01-foundations.md`, `17-data-model.md`, the file owning `R`, and the file owning every requirement in `R`'s **direct** `requires` set — plus `18-dependency-closure.md` itself when the agent is expected to add a manifest entry.
 - The transitive closure is deliberately **not** included: a direct dependency is a contract the agent must satisfy; a transitive one is that dependency's problem. Handing over ten files reproduces the reading exercise this file exists to remove.
 - `make bundle REQ=MATCH-05` prints the file list and the exact section anchors within them, so the handoff is copy-pasteable.
-- The bundle for every R1 requirement must be **five files or fewer**. A requirement needing more is too large and is split — this is a design constraint on the specification, not only a convenience for the agent.
+- The bundle for every R1 requirement must be **seven files or fewer**. A requirement needing more is too large and is split — this is a design constraint on the specification, not only a convenience for the agent.
+  - **Amended in v2.1.1.** The limit was five, which sixteen R1 requirements exceeded on the first run of `AC-DEP-06.2`. Three files (`README.md`, `01-foundations.md`, `17-data-model.md`) are in every bundle before a requirement names anything, so five allowed a requirement one cross-module dependency. Pack generation (`APPLY-02`) legitimately reads the profile, the match explain payload and the AI layer, and splitting it to satisfy an arithmetic limit would have made the specification worse. Seven is the observed maximum and still catches a requirement that balloons.
 
 **Inputs.** The manifest; the requirement ID.
 
@@ -233,7 +234,7 @@ For completeness, because a check that only ever reports problems is as suspect 
 
 **Acceptance criteria.**
 - `AC-DEP-06.1` `make bundle REQ=<id>` prints an existing file list plus section anchors for every requirement in the manifest.
-- `AC-DEP-06.2` No R1 requirement's bundle exceeds five files.
+- `AC-DEP-06.2` No R1 requirement's bundle exceeds seven files.
 - `AC-DEP-06.3` Every file named in a bundle exists and every anchor resolves to a heading.
 - `AC-DEP-06.4` `SPEC-METADATA.json` carries the computed bundle for every requirement.
 

@@ -16,7 +16,7 @@ This is the one file every module reads. A field defined here is defined nowhere
 **Constraints.**
 - `_id` is a 26-character ULID string (`01-foundations.md` §3). No `ObjectId` anywhere.
 - Every document has `created_at` and `updated_at`, UTC-aware, set by a Beanie pre-save hook, never by a caller.
-- Every user-owned document has `user_id` as its **first** field in every compound index. A query on a user-owned collection without a `user_id` predicate is a defect; the repository layer is the only place such a query may exist and only under `/admin`.
+- Every user-owned document has `user_id` as its **first** field in every compound index, except for the system-scan indexes enumerated in `core/documents.py`, each of which serves a scheduled job or an entity narrower than a user and carries a stated reason (ADR-012). A query on a user-owned collection without a `user_id` predicate is a defect; the repository layer is the only place such a query may exist and only under `/admin`.
 - Soft delete is `deleted_at: datetime | None`. Every repository read filters `deleted_at: None` by default; reading deleted documents requires an explicit `include_deleted=True` argument.
 - Schema changes are additive. A field is added optional with a default, backfilled by a script in `infra/scripts/migrations/NNNN_*.py`, and only then made required. A rename is add + backfill + dual-read + drop, never an in-place rename.
 - Every collection's indexes are declared in its Beanie `Settings.indexes`. No index is created by hand in Atlas. A required index that is missing fails `/readyz`.
@@ -407,7 +407,7 @@ Enumerations are as in v1.0 Appendix A; `title_family` values live in `jobs/titl
 
 **Objective.** Every query in the product served by an index, declared in code, verified at boot.
 
-**Constraints.** Declared in each document's `Settings.indexes`. Partial indexes carry their filter. Every compound index on a user-owned collection starts with `user_id`.
+**Constraints.** Declared in each document's `Settings.indexes`. Partial indexes carry their filter. Every compound index on a user-owned collection starts with `user_id`, except for the system-scan indexes enumerated in `core/documents.py` (ADR-012) — `reminders (status, due_at)` serves the dispatch scan and `profiles (preferences.locations.country, preferences.remote_mode)` serves candidate-set selection, both deliberately cross-user, and `application_packs (application_id, status)` keys on an entity that belongs to exactly one user. A text index is outside the rule entirely: Mongo replaces the declared fields with its own `(_fts, _ftsx)` pair, so the key order the rule speaks of does not survive into the index.
 
 | Collection | Index | Kind | Serves |
 |---|---|---|---|

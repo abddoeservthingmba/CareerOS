@@ -591,8 +591,8 @@
     status: built
     declared: false
   - section: '6.1'
-    heading: '6.1 Follow-up draft'
-    requirements: []
+    heading: '6.1 Follow-up draft — `APPLY-09`'
+    requirements: [APPLY-09]
     track: 'R1'
     status: built
     declared: false

@@ -127,8 +127,8 @@ Do not edit. Regenerate with `make build-order`.
 123. `ADMIN-04` — S2 · R2 · admin
 124. `CONN-06b` — S2 · R2 · connectors
 125. `JOB-07` — S2 · R2 · jobs
-126. `ADMIN-05` — S2 · R2 · admin
-127. `JOB-10` — S2 · R2 · jobs
+126. `JOB-10` — S2 · R2 · jobs
+127. `ADMIN-05` — S2 · R2 · admin
 128. `AUTH-06` — S3 · R2 · auth
 129. `AUTH-08` — S3 · R2 · auth
 130. `MATCH-06` — S3 · R2 · matching

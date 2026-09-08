@@ -489,7 +489,7 @@ CONN-07:
   track: R1
   phase: P3
   module: connectors
-  requires: [CONN-04, WEB-03, MOB-03]
+  requires: [CONN-04]
 
 JOB-01:
   track: R1
@@ -576,7 +576,7 @@ MATCH-02b:
   phase: P4
   module: matching
   enabled_in: R2
-  requires: [MATCH-02a, AI-03, AI-07, ADMIN-03]
+  requires: [MATCH-02a, AI-03, AI-07, FOUND-02]
 
 MATCH-03:
   track: R1
@@ -738,7 +738,7 @@ OPS-08:
   track: R1
   phase: P7
   module: infra
-  requires: [AI-03, OPS-04, ADMIN-03]
+  requires: [AI-03, OPS-04, FOUND-02]
 
 WEB-08:
   track: R1
@@ -774,7 +774,7 @@ JOB-10:
   track: R2
   phase: S2
   module: jobs
-  requires: [JOB-09, ADMIN-05]
+  requires: [JOB-09]
 
 AUTH-06:
   track: R2

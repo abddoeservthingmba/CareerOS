@@ -1,0 +1,25 @@
+{
+  "$comment": [
+    "AC-AI-07.2 - the committed manifest of prompt versions that have run in",
+    "production or staging. `infra/scripts/check_prompt_immutability.py` hashes",
+    "each named file and fails CI on any difference, with a message to create",
+    "v<N+1>.",
+    "",
+    "Why a manifest and not a query. The check runs in CI, which has no",
+    "credential for a production database and should not have one. A committed",
+    "file is the only form of this fact that a pull request can be checked",
+    "against - and it makes 'this prompt is live' a reviewable line in a diff",
+    "rather than a state only the database knows.",
+    "",
+    "An entry is added by the deploy that first uses the version, from the",
+    "`ai_usage` rows it wrote. Entries are never removed: a version that has",
+    "produced a stored artifact stays resolvable forever, because the artifact",
+    "records only the string `<feature>/v<N>`.",
+    "",
+    "Empty because no prompt has run anywhere yet - the features that own them",
+    "arrive in P1-P6. The check is live regardless, so the first entry is",
+    "protected from the moment it is written."
+  ],
+  "version": 1,
+  "prompts": {}
+}

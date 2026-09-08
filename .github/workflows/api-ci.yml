@@ -1,0 +1,91 @@
+name: api-ci
+
+# `15-infra-and-ops.md` §3. The required checks for merge are ruff, mypy,
+# import-linter, pytest, the coverage gates and spec traceability; everything
+# else reports without blocking, "so a flaky Lighthouse run never blocks a fix".
+#
+# This workflow is also where anything needing a container is verified. The
+# development machine has no Docker - virtualization is disabled by policy - so
+# `make up`, the Mongo/Redis service containers and the image audit run here
+# rather than locally. Steps that need code which does not exist yet are added
+# by the requirement that produces them, not stubbed in advance.
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+concurrency:
+  group: api-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_SYSTEM_CERTS: "1"
+
+jobs:
+  checks:
+    name: lint, types, contracts, tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 12  # AC-OPS-03.6: a full run completes in under 12 minutes
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install the pinned Python and dependencies
+        working-directory: apps/api
+        run: uv sync --frozen
+
+      - name: ruff
+        working-directory: apps/api
+        run: uv run ruff check ../../apps/api ../../infra/scripts
+
+      - name: ruff format
+        working-directory: apps/api
+        run: uv run ruff format --check ../../apps/api ../../infra/scripts
+
+      # T-FOUND-04.1 - `AC-FOUND-04.1`: all contracts active, zero exemptions.
+      - name: import-linter
+        working-directory: apps/api
+        run: uv run lint-imports --config .importlinter
+
+      - name: mypy
+        working-directory: apps/api
+        run: uv run mypy
+
+      - name: pytest
+        working-directory: apps/api
+        run: uv run pytest
+
+      # T-AI-07.2 - `AC-AI-07.2`: editing a prompt whose version has already run
+      # in production fails CI with a message to create the next version.
+      #
+      # Its own step rather than a pytest case so the failure is legible in the
+      # checks list: the thing to do about it is "create v<N+1>", and that
+      # instruction should be the first line someone reads, not the tail of a
+      # test summary. Checked against the committed manifest
+      # (packages/contracts/prompts-in-production.json) because CI has no
+      # production credential and should not be given one.
+      - name: prompt-immutability
+        run: uv run --project apps/api python infra/scripts/check_prompt_immutability.py
+
+      # T-FOUND-06.1 - the traceability gate, and the closure checks.
+      - name: spec gates
+        run: uv run --project apps/api python -m specgate check
+        env:
+          PYTHONPATH: infra/scripts
+
+      # Every committed generated artifact must match what the generator
+      # produces: BUILD-ORDER.md, status.yaml, TRACEABILITY.md,
+      # SPEC-METADATA.json, docs/error-codes.md and .importlinter.
+      - name: generated artifacts are current
+        run: |
+          uv run --project apps/api python infra/scripts/tasks.py generate
+          git diff --exit-code || {
+            echo "::error::a generated artifact is stale; run tasks.py generate"
+            exit 1
+          }

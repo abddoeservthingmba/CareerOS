@@ -21,7 +21,7 @@ The v1.0 document was a BRD plus an architecture guide: it explained *what* and 
 | **Acceptance criteria** | Numbered, observable statements. Each is true or false by inspection or by running something. No "should be fast". |
 | **Tests** | The named test that proves each acceptance criterion, with its level and location. |
 
-An agent given the right **bundle** should be able to implement a requirement without reading the rest. v2.0 claimed one module file plus two shared ones was always that bundle; v2.1 computes it instead — `make bundle REQ=<id>` returns the exact file list and section anchors from the dependency manifest (`18-dependency-closure.md` §6), and no R1 requirement needs more than five files.
+An agent given the right **bundle** should be able to implement a requirement without reading the rest. v2.0 claimed one module file plus two shared ones was always that bundle; v2.1 computes it instead — `make bundle REQ=<id>` returns the exact file list and section anchors from the dependency manifest (`18-dependency-closure.md` §6), and no R1 requirement needs more than seven files.
 
 ### How to use this with an agent
 

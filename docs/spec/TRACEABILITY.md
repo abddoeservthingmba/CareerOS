@@ -6,79 +6,79 @@ Requirement → track → acceptance criterion → test → status.
 
 | Requirement | Track | Phase | AC | Test | Path | Status |
 |---|---|---|---|---|---|---|
-| `AI-01` | R1 | P0 | `AC-AI-01.1` | `T-AI-01.1` | `tests/spec/test_ai_base_purity.py` | test not written |
-| `AI-01` | R1 | P0 | `AC-AI-01.2` | `T-AI-01.2` | `tests/unit/test_llm_request.py` | test not written |
+| `AI-01` | R1 | P0 | `AC-AI-01.1` | `T-AI-01.1` | `tests/spec/test_ai_base_purity.py` | test present |
+| `AI-01` | R1 | P0 | `AC-AI-01.2` | `T-AI-01.2` | `tests/unit/test_llm_request.py` | test present |
 | `AI-01` | R1 | P0 | `AC-AI-01.3` | `T-AI-01.3` | `tests/spec/test_layer_leaks.py` | test not written |
 | `AI-01` | R1 | P0 | `AC-AI-01.4` | `T-AI-01.4` | `tests/ai/test_adapter_error_mapping.py` | test not written |
 | `AI-01` | R1 | P0 | `AC-AI-01.5` | `T-AI-01.5` | `tests/ai/test_complete_json_contract.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.1` | `T-AI-02.1` | `tests/ai/test_registry_routing.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.2` | `T-AI-02.2` | `tests/spec/test_no_model_literals.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.3` | `T-AI-02.3` | `tests/ai/test_provider_contract.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.4` | `T-AI-02.4` | `tests/ai/test_embedding_migration_guard.py` | test not written |
-| `AI-02` | R1 | P0 | `AC-AI-02.5` | `T-AI-02.5` | `tests/ai/test_registry_startup_validation.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.1` | `T-AI-03.1` | `tests/ai/test_degradation.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.2` | `T-AI-03.2` | `tests/ai/test_precall_budget_check.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.3` | `T-AI-03.3` | `tests/ai/test_cost_accounting.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.4` | `T-AI-03.4` | `tests/integration/test_budget_trip_e2e.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.5` | `T-AI-03.5` | `tests/ai/test_response_cache.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.6` | `T-AI-03.6` | `tests/ai/test_rate_limiter.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.7` | `T-AI-03.7` | `tests/ai/test_deny_precedence.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.8` | `T-AI-03.8` | `tests/ai/test_cache_before_budget.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.9` | `T-AI-03.9` | `tests/ai/test_budget_states.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.10` | `T-AI-03.10` | `tests/ai/test_budget_recovery.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.11` | `T-AI-03.11` | `tests/integration/test_pack_budget_refusal.py` | test not written |
-| `AI-03` | R1 | P0 | `AC-AI-03.12` | `T-AI-03.12` | `tests/spec/test_budget_matrix_coverage.py` | test not written |
-| `AI-04` | R1 | P0 | `AC-AI-04.1` | `T-AI-04.1` | `tests/ai/test_usage_rows.py` | test not written |
-| `AI-04` | R1 | P0 | `AC-AI-04.2` | `T-AI-04.2` | `tests/spec/test_artifact_provenance.py` | test not written |
-| `AI-04` | R1 | P0 | `AC-AI-04.3` | `T-AI-04.3` | `tests/ai/test_unpriced_model.py` | test not written |
-| `AI-04` | R1 | P0 | `AC-AI-04.4` | `T-AI-04.4` | `tests/ai/test_usage_write_failure.py` | test not written |
+| `AI-02` | R1 | P0 | `AC-AI-02.1` | `T-AI-02.1` | `tests/ai/test_registry_routing.py` | test present |
+| `AI-02` | R1 | P0 | `AC-AI-02.2` | `T-AI-02.2` | `tests/spec/test_no_model_literals.py` | test present |
+| `AI-02` | R1 | P0 | `AC-AI-02.3` | `T-AI-02.3` | `tests/ai/test_provider_contract.py` | test present |
+| `AI-02` | R1 | P0 | `AC-AI-02.4` | `T-AI-02.4` | `tests/ai/test_embedding_migration_guard.py` | test present |
+| `AI-02` | R1 | P0 | `AC-AI-02.5` | `T-AI-02.5` | `tests/ai/test_registry_startup_validation.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.1` | `T-AI-03.1` | `tests/ai/test_degradation.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.2` | `T-AI-03.2` | `tests/ai/test_precall_budget_check.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.3` | `T-AI-03.3` | `tests/ai/test_cost_accounting.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.4` | `T-AI-03.4` | `tests/integration/test_budget_trip_e2e.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.5` | `T-AI-03.5` | `tests/ai/test_response_cache.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.6` | `T-AI-03.6` | `tests/ai/test_rate_limiter.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.7` | `T-AI-03.7` | `tests/ai/test_deny_precedence.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.8` | `T-AI-03.8` | `tests/ai/test_cache_before_budget.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.9` | `T-AI-03.9` | `tests/ai/test_budget_states.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.10` | `T-AI-03.10` | `tests/ai/test_budget_recovery.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.11` | `T-AI-03.11` | `tests/integration/test_pack_budget_refusal.py` | test present |
+| `AI-03` | R1 | P0 | `AC-AI-03.12` | `T-AI-03.12` | `tests/spec/test_budget_matrix_coverage.py` | test present |
+| `AI-04` | R1 | P0 | `AC-AI-04.1` | `T-AI-04.1` | `tests/ai/test_usage_rows.py` | test present |
+| `AI-04` | R1 | P0 | `AC-AI-04.2` | `T-AI-04.2` | `tests/spec/test_artifact_provenance.py` | test present |
+| `AI-04` | R1 | P0 | `AC-AI-04.3` | `T-AI-04.3` | `tests/ai/test_unpriced_model.py` | test present |
+| `AI-04` | R1 | P0 | `AC-AI-04.4` | `T-AI-04.4` | `tests/ai/test_usage_write_failure.py` | test present |
 | `AI-04` | R1 | P0 | `AC-AI-04.5` | `T-AI-04.5` | `tests/integration/test_admin_ai_dashboard.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.1` | `T-AI-05.1` | `tests/spec/test_compliance_docs.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.2` | `T-AI-05.2` | `tests/ai/test_gemini_startup_guards.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.3` | `T-AI-05.3` | `tests/spec/test_import_linter_catches_violation.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.4` | `T-AI-05.4` | `tests/ai/test_gemini_credential_surface.py` | test not written |
+| `AI-05` | R1 | P0 | `AC-AI-05.1` | `T-AI-05.1` | `tests/spec/test_compliance_docs.py` | test present |
+| `AI-05` | R1 | P0 | `AC-AI-05.2` | `T-AI-05.2` | `tests/ai/test_gemini_startup_guards.py` | test present |
+| `AI-05` | R1 | P0 | `AC-AI-05.3` | `T-AI-05.3` | `tests/spec/test_import_linter_catches_violation.py` | test present |
+| `AI-05` | R1 | P0 | `AC-AI-05.4` | `T-AI-05.4` | `tests/ai/test_gemini_credential_surface.py` | test present |
 | `AI-05` | R1 | P0 | `AC-AI-05.5` | `T-AI-05.5` | `.github/workflows/web-ci.yml`, `.github/workflows/mobile-ci.yml` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.6` | `T-AI-05.6` | `tests/ai/test_structured_repair.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.7` | `T-AI-05.7` | `tests/ai/test_base_url_allowlist.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.8` | `T-AI-05.8` | `tests/integration/test_consent_matches_tier.py` | test not written |
+| `AI-05` | R1 | P0 | `AC-AI-05.6` | `T-AI-05.6` | `tests/ai/test_structured_repair.py` | test present |
+| `AI-05` | R1 | P0 | `AC-AI-05.7` | `T-AI-05.7` | `tests/ai/test_base_url_allowlist.py` | test present |
+| `AI-05` | R1 | P0 | `AC-AI-05.8` | `T-AI-05.8` | `tests/integration/test_consent_matches_tier.py` | test present |
 | `AI-06` | R1 | P0 | `AC-AI-06.1` | `T-AI-06.1` | `tests/spec/test_untrusted_rendering.py` | test not written |
 | `AI-06` | R1 | P0 | `AC-AI-06.2` | `T-AI-06.2` | `tests/ai/test_injection_corpus.py` | test not written |
 | `AI-06` | R1 | P0 | `AC-AI-06.3` | `T-AI-06.3` | `tests/spec/test_no_output_driven_control_flow.py` | test not written |
-| `AI-06` | R1 | P0 | `AC-AI-06.4` | `T-AI-06.4` | `tests/unit/test_delimiter_nonce.py` | test not written |
+| `AI-06` | R1 | P0 | `AC-AI-06.4` | `T-AI-06.4` | `tests/unit/test_delimiter_nonce.py` | test present |
 | `AI-06` | R1 | P0 | `AC-AI-06.5` | `T-AI-06.5` | `apps/web/src/features/**/__tests__/ai-content.test.tsx`, `apps/mobile/test/ai_content_test.dart` | test not written |
-| `AI-06` | R1 | P0 | `AC-AI-06.6` | `T-AI-06.6` | `tests/unit/test_content_caps.py` | test not written |
-| `AI-07` | R1 | P0 | `AC-AI-07.1` | `T-AI-07.1` | `tests/ai/test_prompt_loader.py` | test not written |
-| `AI-07` | R1 | P0 | `AC-AI-07.2` | `T-AI-07.2` | `.github/workflows/api-ci.yml` | test not written |
-| `AI-07` | R1 | P0 | `AC-AI-07.3` | `T-AI-07.3` | `tests/ai/test_golden_fake.py` | test not written |
-| `AI-07` | R1 | P0 | `AC-AI-07.4` | `T-AI-07.4` | `.github/workflows/nightly-ai.yml` | test not written |
-| `AI-07` | R1 | P0 | `AC-AI-07.5` | `T-AI-07.5` | `tests/ai/test_extraction_precision.py` | test not written |
-| `AI-07` | R1 | P0 | `AC-AI-07.6` | `T-AI-07.6` | `tests/spec/test_fixture_scrub.py` | test not written |
-| `DATA-01` | R1 | P0 | `AC-DATA-01.1` | `T-DATA-01.1` | `tests/unit/test_base_doc.py` | test not written |
-| `DATA-01` | R1 | P0 | `AC-DATA-01.2` | `T-DATA-01.2` | `tests/unit/test_doc_hooks.py` | test not written |
+| `AI-06` | R1 | P0 | `AC-AI-06.6` | `T-AI-06.6` | `tests/unit/test_content_caps.py` | test present |
+| `AI-07` | R1 | P0 | `AC-AI-07.1` | `T-AI-07.1` | `tests/ai/test_prompt_loader.py` | test present |
+| `AI-07` | R1 | P0 | `AC-AI-07.2` | `T-AI-07.2` | `.github/workflows/api-ci.yml` | test present |
+| `AI-07` | R1 | P0 | `AC-AI-07.3` | `T-AI-07.3` | `tests/ai/test_golden_fake.py` | test present |
+| `AI-07` | R1 | P0 | `AC-AI-07.4` | `T-AI-07.4` | `.github/workflows/nightly-ai.yml` | test present |
+| `AI-07` | R1 | P0 | `AC-AI-07.5` | `T-AI-07.5` | `tests/ai/test_extraction_precision.py` | test present |
+| `AI-07` | R1 | P0 | `AC-AI-07.6` | `T-AI-07.6` | `tests/spec/test_fixture_scrub.py` | test present |
+| `DATA-01` | R1 | P0 | `AC-DATA-01.1` | `T-DATA-01.1` | `tests/unit/test_base_doc.py` | test present |
+| `DATA-01` | R1 | P0 | `AC-DATA-01.2` | `T-DATA-01.2` | `tests/unit/test_doc_hooks.py` | test present |
 | `DATA-01` | R1 | P0 | `AC-DATA-01.3` | `T-DATA-01.3` | `tests/integration/test_readyz_indexes.py` | test not written |
-| `DATA-01` | R1 | P0 | `AC-DATA-01.4` | `T-DATA-01.4` | `tests/spec/test_repo_user_scoping.py` | test not written |
-| `DATA-01` | R1 | P0 | `AC-DATA-01.5` | `T-DATA-01.5` | `tests/integration/test_soft_delete_default.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.1` | `T-DATA-02.1` | `tests/spec/test_schema_snapshot.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.2` | `T-DATA-02.2` | `tests/spec/test_collection_ownership.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.3` | `T-DATA-02.3` | `tests/integration/test_application_job_xor.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.4` | `T-DATA-02.4` | `tests/integration/test_audit_append_only.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.5` | `T-DATA-02.5` | `tests/unit/test_scorer_input_type.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.6` | `T-DATA-02.6` | `tests/unit/test_embedding_guard.py` | test not written |
-| `DATA-03` | R1 | P0 | `AC-DATA-03.1` | `T-DATA-03.1` | `tests/integration/test_index_declarations.py` | test not written |
-| `DATA-03` | R1 | P0 | `AC-DATA-03.2` | `T-DATA-03.2` | `tests/integration/test_index_usage.py` | test not written |
-| `DATA-03` | R1 | P0 | `AC-DATA-03.3` | `T-DATA-03.3` | `tests/integration/test_index_declarations.py` | test not written |
-| `DATA-03` | R1 | P0 | `AC-DATA-03.4` | `T-DATA-03.4` | `tests/integration/test_index_size_budget.py` | test not written |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.1` | `T-DATA-04.1` | `tests/unit/test_object_keys.py`, `tests/integration/test_key_audit.py` | test not written |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.2` | `T-DATA-04.2` | `tests/integration/test_presigned_urls.py` | test not written |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.3` | `T-DATA-04.3` | `tests/integration/test_upload_memory.py` | test not written |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.4` | `T-DATA-04.4` | `tests/unit/test_magic_bytes.py` | test not written |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.5` | `T-DATA-04.5` | `tests/integration/test_deletion_sweep.py` | test not written |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.1` | `T-DATA-05.1` | `tests/integration/test_ttl_indexes.py` | test not written |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.2` | `T-DATA-05.2` | `tests/integration/test_job_purge.py` | test not written |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.3` | `T-DATA-05.3` | `tests/integration/test_account_purge.py` | test not written |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.4` | `T-DATA-05.4` | `tests/spec/test_retention_coverage.py` | test not written |
-| `DATA-05` | R1 | P0 | `AC-DATA-05.5` | `T-DATA-05.5` | `tests/integration/test_purge_isolation.py` | test not written |
-| `DATA-06` | R1 | P0 | `AC-DATA-06.1` | `T-DATA-06.1` | `tests/unit/test_embedding_quantization.py` | test not written |
+| `DATA-01` | R1 | P0 | `AC-DATA-01.4` | `T-DATA-01.4` | `tests/spec/test_repo_user_scoping.py` | test present |
+| `DATA-01` | R1 | P0 | `AC-DATA-01.5` | `T-DATA-01.5` | `tests/integration/test_soft_delete_default.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.1` | `T-DATA-02.1` | `tests/spec/test_schema_snapshot.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.2` | `T-DATA-02.2` | `tests/spec/test_collection_ownership.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.3` | `T-DATA-02.3` | `tests/integration/test_application_job_xor.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.4` | `T-DATA-02.4` | `tests/integration/test_audit_append_only.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.5` | `T-DATA-02.5` | `tests/unit/test_scorer_input_type.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.6` | `T-DATA-02.6` | `tests/unit/test_embedding_guard.py` | test present |
+| `DATA-03` | R1 | P0 | `AC-DATA-03.1` | `T-DATA-03.1` | `tests/integration/test_index_declarations.py` | test present |
+| `DATA-03` | R1 | P0 | `AC-DATA-03.2` | `T-DATA-03.2` | `tests/integration/test_index_usage.py` | test present |
+| `DATA-03` | R1 | P0 | `AC-DATA-03.3` | `T-DATA-03.3` | `tests/integration/test_index_declarations.py` | test present |
+| `DATA-03` | R1 | P0 | `AC-DATA-03.4` | `T-DATA-03.4` | `tests/integration/test_index_size_budget.py` | test present |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.1` | `T-DATA-04.1` | `tests/unit/test_object_keys.py`, `tests/integration/test_key_audit.py` | test present |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.2` | `T-DATA-04.2` | `tests/integration/test_presigned_urls.py` | test present |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.3` | `T-DATA-04.3` | `tests/integration/test_upload_memory.py` | test present |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.4` | `T-DATA-04.4` | `tests/unit/test_magic_bytes.py` | test present |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.5` | `T-DATA-04.5` | `tests/integration/test_deletion_sweep.py` | test present |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.1` | `T-DATA-05.1` | `tests/integration/test_ttl_indexes.py` | test present |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.2` | `T-DATA-05.2` | `tests/integration/test_job_purge.py` | test present |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.3` | `T-DATA-05.3` | `tests/integration/test_account_purge.py` | test present |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.4` | `T-DATA-05.4` | `tests/spec/test_retention_coverage.py` | test present |
+| `DATA-05` | R1 | P0 | `AC-DATA-05.5` | `T-DATA-05.5` | `tests/integration/test_purge_isolation.py` | test present |
+| `DATA-06` | R1 | P0 | `AC-DATA-06.1` | `T-DATA-06.1` | `tests/unit/test_embedding_quantization.py` | test present |
 | `DATA-06` | R1 | P0 | `AC-DATA-06.2` | `T-DATA-06.2` | `tests/integration/test_description_truncation.py` | test not written |
 | `DATA-06` | R1 | P0 | `AC-DATA-06.3` | `T-DATA-06.3` | `tests/integration/test_staleness_pressure.py` | test not written |
 | `DATA-06` | R1 | P0 | `AC-DATA-06.4` | `T-DATA-06.4` | `tests/integration/test_capacity_report.py` | test not written |
@@ -88,7 +88,7 @@ Requirement → track → acceptance criterion → test → status.
 | `DATA-07` | R1 | P0 | `AC-DATA-07.3` | `T-DATA-07.3` | `tests/spec/test_field_registry.py` | test not written |
 | `DATA-07` | R1 | P0 | `AC-DATA-07.4` | `T-DATA-07.4` | `tests/spec/test_field_registry.py` | test not written |
 | `DATA-07` | R1 | P0 | `AC-DATA-07.5` | `T-DATA-07.5` | `tests/spec/test_field_registry.py` | test not written |
-| `DATA-07` | R1 | P0 | `AC-DATA-07.6` | `T-DATA-07.6` | `tests/spec/test_schema_snapshot.py` | test not written |
+| `DATA-07` | R1 | P0 | `AC-DATA-07.6` | `T-DATA-07.6` | `tests/spec/test_schema_snapshot.py` | test present |
 | `DATA-07` | R1 | P0 | `AC-DATA-07.7` | `T-DATA-07.7` | `tests/spec/test_enum_registry.py` | test not written |
 | `DEP-01` | R1 | P0 | `AC-DEP-01.1` | `T-DEP-01.1` | `tests/spec/test_dependency_manifest.py` | test present |
 | `DEP-01` | R1 | P0 | `AC-DEP-01.2` | `T-DEP-01.2` | `tests/spec/test_dependency_manifest.py` | test present |
@@ -110,9 +110,9 @@ Requirement → track → acceptance criterion → test → status.
 | `DEP-04` | R1 | P0 | `AC-DEP-04.4` | `T-DEP-04.4` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-04` | R1 | P0 | `AC-DEP-04.5` | `T-DEP-04.5` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.1` | `T-DEP-05.1` | `tests/spec/test_phase_closure.py` | test present |
-| `DEP-05` | R1 | P0 | `AC-DEP-05.2` | `T-DEP-05.2` | `tests/spec/test_email_ownership.py` | test not written |
+| `DEP-05` | R1 | P0 | `AC-DEP-05.2` | `T-DEP-05.2` | `tests/spec/test_email_ownership.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.3` | `T-DEP-05.3` | `tests/spec/test_phase_closure.py` | test present |
-| `DEP-05` | R1 | P0 | `AC-DEP-05.4` | `T-DEP-05.4` | `tests/unit/test_embedding_quantization.py` | test not written |
+| `DEP-05` | R1 | P0 | `AC-DEP-05.4` | `T-DEP-05.4` | `tests/unit/test_embedding_quantization.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.5` | `T-DEP-05.5` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.6` | `T-DEP-05.6` | `tests/spec/test_phase_closure.py` | test present |
 | `DEP-05` | R1 | P0 | `AC-DEP-05.7` | `T-DEP-05.7` | `tests/spec/test_consistency_report.py` | test not written |
@@ -121,75 +121,75 @@ Requirement → track → acceptance criterion → test → status.
 | `DEP-06` | R1 | P0 | `AC-DEP-06.3` | `T-DEP-06.3` | `tests/spec/test_handoff_bundle.py` | test present |
 | `DEP-06` | R1 | P0 | `AC-DEP-06.4` | `T-DEP-06.4` | `tests/spec/test_handoff_bundle.py` | test present |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.1` | `T-FOUND-01.1` | `tests/integration/test_compose_boot.py` | test not written |
-| `FOUND-01` | R1 | P0 | `AC-FOUND-01.2` | `T-FOUND-01.2` | `.github/workflows/api-ci.yml` | test not written |
+| `FOUND-01` | R1 | P0 | `AC-FOUND-01.2` | `T-FOUND-01.2` | `.github/workflows/api-ci.yml` | test present |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.3` | `T-FOUND-01.3` | `tests/spec/test_layer_leaks.py` | test not written |
 | `FOUND-01` | R1 | P0 | `AC-FOUND-01.4` | `T-FOUND-01.4` | `tests/spec/test_layer_leaks.py` | test not written |
-| `FOUND-01` | R1 | P0 | `AC-FOUND-01.5` | `T-FOUND-01.5` | `.github/workflows/contracts.yml` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.1` | `T-FOUND-02.1` | `tests/unit/test_config_failfast.py` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.2` | `T-FOUND-02.2` | `tests/unit/test_config_secrets.py` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.3` | `T-FOUND-02.3` | `tests/spec/test_env_example_parity.py` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.4` | `T-FOUND-02.4` | `tests/spec/test_no_hardcoded_product_name.py` | test not written |
-| `FOUND-02` | R1 | P0 | `AC-FOUND-02.5` | `T-FOUND-02.5` | `tests/integration/test_feature_flags.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.1` | `T-FOUND-03.1` | `tests/spec/test_no_direct_clock.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.2` | `T-FOUND-03.2` | `tests/unit/test_time_utc.py` | test not written |
+| `FOUND-01` | R1 | P0 | `AC-FOUND-01.5` | `T-FOUND-01.5` | `.github/workflows/contracts.yml` | test present |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.1` | `T-FOUND-02.1` | `tests/unit/test_config_failfast.py` | test present |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.2` | `T-FOUND-02.2` | `tests/unit/test_config_secrets.py` | test present |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.3` | `T-FOUND-02.3` | `tests/spec/test_env_example_parity.py` | test present |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.4` | `T-FOUND-02.4` | `tests/spec/test_no_hardcoded_product_name.py` | test present |
+| `FOUND-02` | R1 | P0 | `AC-FOUND-02.5` | `T-FOUND-02.5` | `tests/integration/test_feature_flags.py` | test present |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.1` | `T-FOUND-03.1` | `tests/spec/test_no_direct_clock.py` | test present |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.2` | `T-FOUND-03.2` | `tests/unit/test_time_utc.py` | test present |
 | `FOUND-03` | R1 | P0 | `AC-FOUND-03.3` | `T-FOUND-03.3` | `tests/contract/test_no_objectid_in_responses.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.4` | `T-FOUND-03.4` | `tests/unit/test_money.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.5` | `T-FOUND-03.5` | `tests/unit/test_fx.py` | test not written |
-| `FOUND-03` | R1 | P0 | `AC-FOUND-03.6` | `T-FOUND-03.6` | `tests/unit/test_ulid.py` | test not written |
-| `FOUND-04` | R1 | P0 | `AC-FOUND-04.1` | `T-FOUND-04.1` | `.github/workflows/api-ci.yml` | test not written |
-| `FOUND-04` | R1 | P0 | `AC-FOUND-04.2` | `T-FOUND-04.2` | `tests/spec/test_module_anatomy.py` | test not written |
-| `FOUND-04` | R1 | P0 | `AC-FOUND-04.3` | `T-FOUND-04.3` | `tests/spec/test_import_linter_catches_violation.py` | test not written |
-| `FOUND-04` | R1 | P0 | `AC-FOUND-04.4` | `T-FOUND-04.4` | `tests/spec/test_module_readmes.py` | test not written |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.1` | `T-FOUND-05.1` | `tests/spec/test_new_module_scaffold.py` | test not written |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.2` | `T-FOUND-05.2` | `.github/workflows/api-ci.yml` | test not written |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.3` | `T-FOUND-05.3` | — | no test path |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.4` | `T-FOUND-03.4` | `tests/unit/test_money.py` | test present |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.5` | `T-FOUND-03.5` | `tests/unit/test_fx.py` | test present |
+| `FOUND-03` | R1 | P0 | `AC-FOUND-03.6` | `T-FOUND-03.6` | `tests/unit/test_ulid.py` | test present |
+| `FOUND-04` | R1 | P0 | `AC-FOUND-04.1` | `T-FOUND-04.1` | `.github/workflows/api-ci.yml` | test present |
+| `FOUND-04` | R1 | P0 | `AC-FOUND-04.2` | `T-FOUND-04.2` | `tests/spec/test_module_anatomy.py` | test present |
+| `FOUND-04` | R1 | P0 | `AC-FOUND-04.3` | `T-FOUND-04.3` | `tests/spec/test_import_linter_catches_violation.py` | test present |
+| `FOUND-04` | R1 | P0 | `AC-FOUND-04.4` | `T-FOUND-04.4` | `tests/spec/test_module_readmes.py` | test present |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.1` | `T-FOUND-05.1` | `tests/spec/test_new_module_scaffold.py` | test present |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.2` | `T-FOUND-05.2` | `.github/workflows/api-ci.yml` | test present |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.3` | `T-FOUND-05.3` | `tests/spec/test_import_contracts.py` | test present |
 | `FOUND-05` | R1 | P0 | `AC-FOUND-05.4` | `T-FOUND-05.4` | `tests/contract/test_response_models.py` | test not written |
-| `FOUND-05` | R1 | P0 | `AC-FOUND-05.5` | `T-FOUND-05.5` | — | no test path |
+| `FOUND-05` | R1 | P0 | `AC-FOUND-05.5` | `T-FOUND-05.5` | `tests/spec/test_import_contracts.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.1` | `T-FOUND-06.1` | `tests/spec/test_traceability.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.2` | `T-FOUND-06.2` | `tests/spec/test_traceability.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.3` | `T-FOUND-06.3` | `tests/spec/test_traceability.py` | test present |
 | `FOUND-06` | R1 | P0 | `AC-FOUND-06.4` | `T-FOUND-06.4` | `tests/spec/test_traceability.py` | test present |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.1` | `T-FOUND-07.1` | `tests/integration/test_pagination_stability.py` | test not written |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.2` | `T-FOUND-07.2` | `tests/integration/test_cursor_security.py` | test not written |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.3` | `T-FOUND-07.3` | `tests/integration/test_cursor_security.py` | test not written |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.4` | `T-FOUND-07.4` | `tests/integration/test_index_usage.py` | test not written |
-| `FOUND-07` | R1 | P0 | `AC-FOUND-07.5` | `T-FOUND-07.5` | `tests/unit/test_pagination_limits.py` | test not written |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.1` | `T-FOUND-08.1` | `tests/integration/test_idempotency.py` | test not written |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.2` | `T-FOUND-08.2` | `tests/integration/test_idempotency.py` | test not written |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.3` | `T-FOUND-08.3` | `tests/integration/test_idempotency.py` | test not written |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.4` | `T-FOUND-08.4` | `tests/contract/test_idempotent_routes.py` | test not written |
-| `FOUND-08` | R1 | P0 | `AC-FOUND-08.5` | `T-FOUND-08.5` | `tests/integration/test_idempotency_redis_down.py` | test not written |
-| `FOUND-09` | R1 | P0 | `AC-FOUND-09.1` | `T-FOUND-09.1` | `tests/spec/test_handlers_only_enqueue.py` | test not written |
-| `FOUND-09` | R1 | P0 | `AC-FOUND-09.2` | `T-FOUND-09.2` | `tests/unit/test_event_bus.py` | test not written |
-| `FOUND-09` | R1 | P0 | `AC-FOUND-09.3` | `T-FOUND-09.3` | `tests/unit/test_event_payload_primitives.py` | test not written |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.1` | `T-FOUND-07.1` | `tests/integration/test_pagination_stability.py` | test present |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.2` | `T-FOUND-07.2` | `tests/integration/test_cursor_security.py` | test present |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.3` | `T-FOUND-07.3` | `tests/integration/test_cursor_security.py` | test present |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.4` | `T-FOUND-07.4` | `tests/integration/test_index_usage.py` | test present |
+| `FOUND-07` | R1 | P0 | `AC-FOUND-07.5` | `T-FOUND-07.5` | `tests/unit/test_pagination_limits.py` | test present |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.1` | `T-FOUND-08.1` | `tests/integration/test_idempotency.py` | test present |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.2` | `T-FOUND-08.2` | `tests/integration/test_idempotency.py` | test present |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.3` | `T-FOUND-08.3` | `tests/integration/test_idempotency.py` | test present |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.4` | `T-FOUND-08.4` | `tests/contract/test_idempotent_routes.py` | test present |
+| `FOUND-08` | R1 | P0 | `AC-FOUND-08.5` | `T-FOUND-08.5` | `tests/integration/test_idempotency_redis_down.py` | test present |
+| `FOUND-09` | R1 | P0 | `AC-FOUND-09.1` | `T-FOUND-09.1` | `tests/spec/test_handlers_only_enqueue.py` | test present |
+| `FOUND-09` | R1 | P0 | `AC-FOUND-09.2` | `T-FOUND-09.2` | `tests/unit/test_event_bus.py` | test present |
+| `FOUND-09` | R1 | P0 | `AC-FOUND-09.3` | `T-FOUND-09.3` | `tests/unit/test_event_payload_primitives.py` | test present |
 | `FOUND-09` | R1 | P0 | `AC-FOUND-09.4` | `T-FOUND-09.4` | `tests/integration/test_event_wiring.py` | test not written |
-| `FOUND-09` | R1 | P0 | `AC-FOUND-09.5` | `T-FOUND-09.5` | `tests/spec/test_events_doc.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.1` | `T-FOUND-10.1` | `tests/spec/test_task_signatures.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.2` | `T-FOUND-10.2` | `tests/spec/test_task_signatures.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.3` | `T-FOUND-10.3` | `tests/integration/test_task_idempotency.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.4` | `T-FOUND-10.4` | `tests/integration/test_worker_restart.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.5` | `T-FOUND-10.5` | `tests/integration/test_failed_tasks.py` | test not written |
-| `FOUND-10` | R1 | P0 | `AC-FOUND-10.6` | `T-FOUND-10.6` | `tests/integration/test_cron_locks.py` | test not written |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.1` | `T-FOUND-11.1` | `tests/contract/test_accepted_responses.py` | test not written |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.2` | `T-FOUND-11.2` | `tests/integration/test_poll_fallback.py` | test not written |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.3` | `T-FOUND-11.3` | `tests/integration/test_sse_ownership.py` | test not written |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.4` | `T-FOUND-11.4` | `tests/integration/test_sse_lifecycle.py` | test not written |
-| `FOUND-11` | R1 | P0 | `AC-FOUND-11.5` | `T-FOUND-11.5` | `tests/contract/test_sse_headers.py` | test not written |
+| `FOUND-09` | R1 | P0 | `AC-FOUND-09.5` | `T-FOUND-09.5` | `tests/spec/test_events_doc.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.1` | `T-FOUND-10.1` | `tests/spec/test_task_signatures.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.2` | `T-FOUND-10.2` | `tests/spec/test_task_signatures.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.3` | `T-FOUND-10.3` | `tests/integration/test_task_idempotency.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.4` | `T-FOUND-10.4` | `tests/integration/test_worker_restart.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.5` | `T-FOUND-10.5` | `tests/integration/test_failed_tasks.py` | test present |
+| `FOUND-10` | R1 | P0 | `AC-FOUND-10.6` | `T-FOUND-10.6` | `tests/integration/test_cron_locks.py` | test present |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.1` | `T-FOUND-11.1` | `tests/contract/test_accepted_responses.py` | test present |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.2` | `T-FOUND-11.2` | `tests/integration/test_poll_fallback.py` | test present |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.3` | `T-FOUND-11.3` | `tests/integration/test_sse_ownership.py` | test present |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.4` | `T-FOUND-11.4` | `tests/integration/test_sse_lifecycle.py` | test present |
+| `FOUND-11` | R1 | P0 | `AC-FOUND-11.5` | `T-FOUND-11.5` | `tests/contract/test_sse_headers.py` | test present |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.1` | `T-FOUND-12.1` | `tests/contract/test_problem_json.py` | test not written |
 | `FOUND-12` | R1 | P0 | `AC-FOUND-12.2` | `T-FOUND-12.2` | `tests/integration/test_unhandled_exception.py` | test not written |
-| `FOUND-12` | R1 | P0 | `AC-FOUND-12.3` | `T-FOUND-12.3` | `tests/integration/test_request_id_propagation.py` | test not written |
-| `FOUND-12` | R1 | P0 | `AC-FOUND-12.4` | `T-FOUND-12.4` | `tests/spec/test_error_code_registry.py` | test not written |
-| `FOUND-12` | R1 | P0 | `AC-FOUND-12.5` | `T-FOUND-12.5` | `tests/spec/test_error_code_registry.py` | test not written |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.1` | `T-FOUND-13.1` | `tests/contract/test_route_metadata.py` | test not written |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.2` | `T-FOUND-13.2` | `.github/workflows/contracts.yml` | test not written |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.3` | `T-FOUND-13.3` | `.github/workflows/contracts.yml` | test not written |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.4` | `T-FOUND-13.4` | `.github/workflows/contracts.yml` | test not written |
-| `FOUND-13` | R1 | P0 | `AC-FOUND-13.5` | `T-FOUND-13.5` | `tests/contract/test_client_surface.py` | test not written |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.1` | `T-FOUND-14.1` | `tests/integration/test_log_privacy.py` | test not written |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.2` | `T-FOUND-14.2` | `tests/integration/test_request_id_propagation.py` | test not written |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.3` | `T-FOUND-14.3` | `tests/integration/test_metrics_endpoint.py` | test not written |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.4` | `T-FOUND-14.4` | `tests/unit/test_sentry_before_send.py` | test not written |
-| `FOUND-14` | R1 | P0 | `AC-FOUND-14.5` | `T-FOUND-14.5` | `tests/unit/test_provider_error_logging.py` | test not written |
+| `FOUND-12` | R1 | P0 | `AC-FOUND-12.3` | `T-FOUND-12.3` | `tests/integration/test_request_id_propagation.py` | test present |
+| `FOUND-12` | R1 | P0 | `AC-FOUND-12.4` | `T-FOUND-12.4` | `tests/spec/test_error_code_registry.py` | test present |
+| `FOUND-12` | R1 | P0 | `AC-FOUND-12.5` | `T-FOUND-12.5` | `tests/spec/test_error_code_registry.py` | test present |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.1` | `T-FOUND-13.1` | `tests/contract/test_route_metadata.py` | test present |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.2` | `T-FOUND-13.2` | `.github/workflows/contracts.yml` | test present |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.3` | `T-FOUND-13.3` | `.github/workflows/contracts.yml` | test present |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.4` | `T-FOUND-13.4` | `.github/workflows/contracts.yml` | test present |
+| `FOUND-13` | R1 | P0 | `AC-FOUND-13.5` | `T-FOUND-13.5` | `tests/contract/test_client_surface.py` | test present |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.1` | `T-FOUND-14.1` | `tests/integration/test_log_privacy.py` | test present |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.2` | `T-FOUND-14.2` | `tests/integration/test_request_id_propagation.py` | test present |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.3` | `T-FOUND-14.3` | `tests/integration/test_metrics_endpoint.py` | test present |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.4` | `T-FOUND-14.4` | `tests/unit/test_sentry_before_send.py` | test present |
+| `FOUND-14` | R1 | P0 | `AC-FOUND-14.5` | `T-FOUND-14.5` | `tests/unit/test_provider_error_logging.py` | test present |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.1` | `T-FOUND-15.1` | `tests/spec/test_status_declared.py` | test present |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.2` | `T-FOUND-15.2` | `tests/spec/test_status_declared.py` | test present |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.3` | `T-FOUND-15.3` | `tests/integration/test_flag_flip.py` | test not written |
@@ -199,59 +199,59 @@ Requirement → track → acceptance criterion → test → status.
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.7` | `T-FOUND-15.7` | `tests/spec/test_no_placeholders.py` | test present |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.8` | `T-FOUND-15.8` | `tests/spec/test_status_matches_reality.py` | test not written |
 | `FOUND-15` | R1 | P0 | `AC-FOUND-15.9` | `T-FOUND-15.9` | `tests/integration/test_admin_flags.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.1` | `T-FOUND-16.1` | `tests/unit/test_email_templates.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.2` | `T-FOUND-16.2` | `tests/unit/test_template_registry.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.3` | `T-FOUND-16.3` | `tests/integration/test_email_idempotency.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.4` | `T-FOUND-16.4` | `tests/integration/test_log_privacy.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.5` | `T-FOUND-16.5` | `tests/spec/test_no_live_email.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.6` | `T-FOUND-16.6` | `tests/integration/test_bounce_handling.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.7` | `T-FOUND-16.7` | `tests/spec/test_email_ownership.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.8` | `T-FOUND-16.8` | `tests/unit/test_email_retries.py` | test not written |
-| `FOUND-16` | R1 | P0 | `AC-FOUND-16.9` | `T-FOUND-16.9` | `tests/integration/test_email_adapter_contract.py` | test not written |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.1` | `T-FOUND-16.1` | `tests/unit/test_email_templates.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.2` | `T-FOUND-16.2` | `tests/unit/test_template_registry.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.3` | `T-FOUND-16.3` | `tests/integration/test_email_idempotency.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.4` | `T-FOUND-16.4` | `tests/integration/test_log_privacy.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.5` | `T-FOUND-16.5` | `tests/spec/test_no_live_email.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.6` | `T-FOUND-16.6` | `tests/integration/test_bounce_handling.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.7` | `T-FOUND-16.7` | `tests/spec/test_email_ownership.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.8` | `T-FOUND-16.8` | `tests/unit/test_email_retries.py` | test present |
+| `FOUND-16` | R1 | P0 | `AC-FOUND-16.9` | `T-FOUND-16.9` | `tests/integration/test_email_adapter_contract.py` | test present |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.1` | `T-MOB-01.1` | `.github/workflows/mobile-ci.yml` | test not written |
-| `MOB-01` | R1 | P0 | `AC-MOB-01.2` | `T-MOB-01.2` | `.github/workflows/contracts.yml` | test not written |
+| `MOB-01` | R1 | P0 | `AC-MOB-01.2` | `T-MOB-01.2` | `.github/workflows/contracts.yml` | test present |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.3` | `T-MOB-01.3` | `apps/mobile/test/architecture_test.dart` | test not written |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.4` | `T-MOB-01.4` | `.github/workflows/mobile-ci.yml` | test not written |
 | `MOB-01` | R1 | P0 | `AC-MOB-01.5` | `T-MOB-01.5` | `tests/spec/test_no_admin_in_mobile.py` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.1` | `T-OPS-01.1` | `.github/workflows/api-ci.yml` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.2` | `T-OPS-01.2` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.1` | `T-OPS-01.1` | `.github/workflows/api-ci.yml` | test present |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.2` | `T-OPS-01.2` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-01` | R1 | P0 | `AC-OPS-01.3` | `T-OPS-01.3` | `tests/integration/test_readyz.py` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.4` | `T-OPS-01.4` | `.github/workflows/api-ci.yml` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.5` | `T-OPS-01.5` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.4` | `T-OPS-01.4` | `.github/workflows/api-ci.yml` | test present |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.5` | `T-OPS-01.5` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-01` | R1 | P0 | `AC-OPS-01.6` | `T-OPS-01.6` | `tests/integration/test_compose_boot.py` | test not written |
-| `OPS-01` | R1 | P0 | `AC-OPS-01.7` | `T-OPS-01.7` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-01` | R1 | P0 | `AC-OPS-01.7` | `T-OPS-01.7` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.1` | `T-OPS-02.1` | `infra/scripts/check_origin_lockdown.sh`, `tests/spec/test_origin_check_exists.py` | test not written |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.2` | `T-OPS-02.2` | `tests/spec/test_env_parity.py` | test not written |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.3` | `T-OPS-02.3` | `.github/workflows/deploy-staging.yml`, `.github/workflows/deploy-prod.yml` | test not written |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.4` | `T-OPS-02.4` | `.github/workflows/deploy-staging.yml`, `.github/workflows/deploy-prod.yml` | test not written |
 | `OPS-02` | R1 | P0 | `AC-OPS-02.5` | `T-OPS-02.5` | `.github/workflows/deploy-staging.yml`, `.github/workflows/deploy-prod.yml` | test not written |
-| `OPS-02` | R1 | P0 | `AC-OPS-02.6` | `T-OPS-02.6` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-02` | R1 | P0 | `AC-OPS-02.6` | `T-OPS-02.6` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.1` | `T-OPS-03.1` | `infra/scripts/check_branch_protection.sh` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.2` | `T-OPS-03.2` | `tests/spec/test_coverage_config.py` | test not written |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.3` | `T-OPS-03.3` | `tests/spec/test_no_live_source_calls.py` | test not written |
-| `OPS-03` | R1 | P0 | `AC-OPS-03.4` | `T-OPS-03.4` | `.github/workflows/contracts.yml` | test not written |
+| `OPS-03` | R1 | P0 | `AC-OPS-03.4` | `T-OPS-03.4` | `.github/workflows/contracts.yml` | test present |
 | `OPS-03` | R1 | P0 | `AC-OPS-03.5` | `T-OPS-03.5` | `.github/workflows/deploy-prod.yml` | test not written |
-| `OPS-03` | R1 | P0 | `AC-OPS-03.6` | `T-OPS-03.6` | `.github/workflows/api-ci.yml` | test not written |
-| `OPS-04` | R1 | P0 | `AC-OPS-04.1` | `T-OPS-04.1` | `tests/integration/test_metrics_endpoint.py` | test not written |
-| `OPS-04` | R1 | P0 | `AC-OPS-04.2` | `T-OPS-04.2` | `tests/integration/test_log_privacy.py` | test not written |
+| `OPS-03` | R1 | P0 | `AC-OPS-03.6` | `T-OPS-03.6` | `.github/workflows/api-ci.yml` | test present |
+| `OPS-04` | R1 | P0 | `AC-OPS-04.1` | `T-OPS-04.1` | `tests/integration/test_metrics_endpoint.py` | test present |
+| `OPS-04` | R1 | P0 | `AC-OPS-04.2` | `T-OPS-04.2` | `tests/integration/test_log_privacy.py` | test present |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.3` | `T-OPS-04.3` | `tests/integration/test_tracing.py` | test not written |
 | `OPS-04` | R1 | P0 | `AC-OPS-04.4` | `T-OPS-04.4` | `tests/integration/test_alert_conditions.py` | test not written |
-| `OPS-04` | R1 | P0 | `AC-OPS-04.5` | `T-OPS-04.5` | `docs/runbooks/alerting.md` | test not written |
-| `OPS-05` | R1 | P0 | `AC-OPS-05.1` | `T-OPS-05.1` | `tests/spec/test_env_example_parity.py` | test not written |
+| `OPS-04` | R1 | P0 | `AC-OPS-04.5` | `T-OPS-04.5` | `tests/spec/test_runbooks_present.py` | test not written |
+| `OPS-05` | R1 | P0 | `AC-OPS-05.1` | `T-OPS-05.1` | `tests/spec/test_env_example_parity.py` | test present |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.2` | `T-OPS-05.2` | `tests/spec/test_env_example_no_secrets.py` | test not written |
-| `OPS-05` | R1 | P0 | `AC-OPS-05.3` | `T-OPS-05.3` | `tests/ai/test_gemini_startup_guards.py` | test not written |
-| `OPS-05` | R1 | P0 | `AC-OPS-05.4` | `T-OPS-05.4` | `.github/workflows/api-ci.yml` | test not written |
+| `OPS-05` | R1 | P0 | `AC-OPS-05.3` | `T-OPS-05.3` | `tests/ai/test_gemini_startup_guards.py` | test present |
+| `OPS-05` | R1 | P0 | `AC-OPS-05.4` | `T-OPS-05.4` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.1` | `T-OPS-06.1` | `tests/integration/test_backup_restore.py` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.2` | `T-OPS-06.2` | `tests/integration/test_backup_verification.py` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.3` | `T-OPS-06.3` | `infra/scripts/check_backup_retention.sh` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.4` | `T-OPS-06.4` | `tests/integration/test_r2_versioning.py` | test not written |
-| `OPS-06` | R1 | P0 | `AC-OPS-06.5` | `T-OPS-06.5` | `docs/runbooks/restore.md` | test not written |
-| `SEC-01` | R1 | P0 | `AC-SEC-01.1` | `T-SEC-01.1` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
-| `SEC-01` | R1 | P0 | `AC-SEC-01.2` | `T-SEC-01.2` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
-| `SEC-01` | R1 | P0 | `AC-SEC-01.3` | `T-SEC-01.3` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
+| `OPS-06` | R1 | P0 | `AC-OPS-06.5` | `T-OPS-06.5` | `tests/spec/test_runbooks_present.py` | test not written |
+| `SEC-01` | R1 | P0 | `AC-SEC-01.1` | `T-SEC-01.1` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test present |
+| `SEC-01` | R1 | P0 | `AC-SEC-01.2` | `T-SEC-01.2` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test present |
+| `SEC-01` | R1 | P0 | `AC-SEC-01.3` | `T-SEC-01.3` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test present |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.1` | `T-WEB-01.1` | `.github/workflows/web-ci.yml` | test not written |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.2` | `T-WEB-01.2` | `.github/workflows/web-ci.yml` | test not written |
-| `WEB-01` | R1 | P0 | `AC-WEB-01.3` | `T-WEB-01.3` | `.github/workflows/contracts.yml` | test not written |
+| `WEB-01` | R1 | P0 | `AC-WEB-01.3` | `T-WEB-01.3` | `.github/workflows/contracts.yml` | test present |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.4` | `T-WEB-01.4` | `.github/workflows/web-ci.yml` | test not written |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.5` | `T-WEB-01.5` | `apps/web/scripts/check-bundle-size.mjs` | test not written |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.6` | `T-WEB-01.6` | `apps/web/scripts/check-admin-chunk.mjs` | test not written |
@@ -294,11 +294,11 @@ Requirement → track → acceptance criterion → test → status.
 | `AUTH-05` | R1 | P1 | `AC-AUTH-05.5` | `T-AUTH-05.5` | `tests/integration/test_password_reset.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.1` | `T-AUTH-07.1` | `tests/integration/test_deletion_request.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.2` | `T-AUTH-07.2` | `tests/integration/test_deletion_request.py` | test not written |
-| `AUTH-07` | R1 | P1 | `AC-AUTH-07.3` | `T-AUTH-07.3` | `tests/integration/test_account_purge.py` | test not written |
-| `AUTH-07` | R1 | P1 | `AC-AUTH-07.4` | `T-AUTH-07.4` | `tests/integration/test_deletion_sweep.py` | test not written |
+| `AUTH-07` | R1 | P1 | `AC-AUTH-07.3` | `T-AUTH-07.3` | `tests/integration/test_account_purge.py` | test present |
+| `AUTH-07` | R1 | P1 | `AC-AUTH-07.4` | `T-AUTH-07.4` | `tests/integration/test_deletion_sweep.py` | test present |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.5` | `T-AUTH-07.5` | `tests/integration/test_deletion_audit.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.6` | `T-AUTH-07.6` | `tests/integration/test_purge_failure.py` | test not written |
-| `AUTH-07` | R1 | P1 | `AC-AUTH-07.7` | `T-AUTH-07.7` | `tests/integration/test_purge_isolation.py` | test not written |
+| `AUTH-07` | R1 | P1 | `AC-AUTH-07.7` | `T-AUTH-07.7` | `tests/integration/test_purge_isolation.py` | test present |
 | `AUTH-09` | R1 | P1 | `AC-AUTH-09.1` | `T-AUTH-09.1` | `tests/integration/test_rate_limits.py` | test not written |
 | `AUTH-09` | R1 | P1 | `AC-AUTH-09.2` | `T-AUTH-09.2` | `tests/integration/test_rate_limits.py` | test not written |
 | `AUTH-09` | R1 | P1 | `AC-AUTH-09.3` | `T-AUTH-09.3` | `tests/integration/test_rate_limits.py` | test not written |
@@ -325,9 +325,9 @@ Requirement → track → acceptance criterion → test → status.
 | `SEC-04` | R1 | P1 | `AC-SEC-04.3` | `T-SEC-04.3` | `tests/spec/test_notice_parity.py` | test not written |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.4` | `T-SEC-04.4` | `tests/spec/test_consent_data_parity.py` | test not written |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.5` | `T-SEC-04.5` | `tests/integration/test_consent_gating.py` | test not written |
-| `SEC-04` | R1 | P1 | `AC-SEC-04.6` | `T-SEC-04.6` | `tests/spec/test_retention_coverage.py` | test not written |
+| `SEC-04` | R1 | P1 | `AC-SEC-04.6` | `T-SEC-04.6` | `tests/spec/test_retention_coverage.py` | test present |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.7` | `T-SEC-04.7` | `apps/web/e2e/data-rights.spec.ts`, `apps/mobile/integration_test/data_rights_test.dart` | test not written |
-| `SEC-04` | R1 | P1 | `AC-SEC-04.8` | `T-SEC-04.8` | — | no test path |
+| `SEC-04` | R1 | P1 | `AC-SEC-04.8` | `T-SEC-04.8` | `apps/web/.../ai-label.test.tsx`, `apps/mobile/test/ai_label_test.dart` | test not written |
 | `WEB-02` | R1 | P1 | `AC-WEB-02.1` | `T-WEB-02.1` | `apps/web/e2e/auth-storage.spec.ts` | test not written |
 | `WEB-02` | R1 | P1 | `AC-WEB-02.2` | `T-WEB-02.2` | `apps/web/src/lib/__tests__/refresh-single-flight.test.ts` | test not written |
 | `WEB-02` | R1 | P1 | `AC-WEB-02.3` | `T-WEB-02.3` | `apps/web/e2e/auth-redirect.spec.ts` | test not written |
@@ -391,29 +391,29 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-02a` | R1 | P2 | `AC-RES-02.6` | `T-RES-02.6` | `tests/unit/test_text_guardrails.py` | test not written |
 | `RES-02a` | R1 | P2 | `AC-RES-02.7` | `T-RES-02.7` | `tests/integration/test_malformed_pdf.py` | test not written |
 | `RES-02a` | R1 | P2 | `AC-RES-02.8` | `T-RES-02.8` | `tests/integration/test_ocr_fallback.py` | test not written |
-| `RES-03` | R1 | P2 | `AC-RES-03.1` | `T-RES-03.1` | `tests/ai/test_structured_repair.py` | test not written |
+| `RES-03` | R1 | P2 | `AC-RES-03.1` | `T-RES-03.1` | `tests/ai/test_structured_repair.py` | test present |
 | `RES-03` | R1 | P2 | `AC-RES-03.2` | `T-RES-03.2` | `tests/unit/test_evidence_spans.py` | test not written |
-| `RES-03` | R1 | P2 | `AC-RES-03.3` | `T-RES-03.3` | `tests/ai/test_golden_fake.py`, `tests/ai/test_extraction_precision.py` | test not written |
-| `RES-03` | R1 | P2 | `AC-RES-03.4` | `T-RES-03.4` | `tests/ai/test_golden_fake.py`, `tests/ai/test_extraction_precision.py` | test not written |
-| `RES-03` | R1 | P2 | `AC-RES-03.5` | `T-RES-03.5` | `tests/ai/test_extraction_precision.py` | test not written |
+| `RES-03` | R1 | P2 | `AC-RES-03.3` | `T-RES-03.3` | `tests/ai/test_golden_fake.py`, `tests/ai/test_extraction_precision.py` | test present |
+| `RES-03` | R1 | P2 | `AC-RES-03.4` | `T-RES-03.4` | `tests/ai/test_golden_fake.py`, `tests/ai/test_extraction_precision.py` | test present |
+| `RES-03` | R1 | P2 | `AC-RES-03.5` | `T-RES-03.5` | `tests/ai/test_extraction_precision.py` | test present |
 | `RES-03` | R1 | P2 | `AC-RES-03.6` | `T-RES-03.6` | `tests/ai/test_injection_corpus.py` | test not written |
 | `RES-03` | R1 | P2 | `AC-RES-03.7` | `T-RES-03.7` | `tests/unit/test_extraction_chunking.py` | test not written |
-| `RES-03` | R1 | P2 | `AC-RES-03.8` | `T-RES-03.8` | `tests/spec/test_collection_ownership.py` | test not written |
-| `RES-05` | R1 | P2 | `AC-RES-05.1` | `T-RES-05.1` | `tests/unit/test_llm_request.py` | test not written |
+| `RES-03` | R1 | P2 | `AC-RES-03.8` | `T-RES-03.8` | `tests/spec/test_collection_ownership.py` | test present |
+| `RES-05` | R1 | P2 | `AC-RES-05.1` | `T-RES-05.1` | `tests/unit/test_llm_request.py` | test present |
 | `RES-05` | R1 | P2 | `AC-RES-05.2` | `T-RES-05.2` | `tests/integration/test_no_file_to_provider.py` | test not written |
 | `RES-05` | R1 | P2 | `AC-RES-05.3` | `T-RES-05.3` | `tests/integration/test_no_file_to_provider.py` | test not written |
-| `RES-05` | R1 | P2 | `AC-RES-05.4` | `T-RES-05.4` | `tests/integration/test_presigned_urls.py` | test not written |
+| `RES-05` | R1 | P2 | `AC-RES-05.4` | `T-RES-05.4` | `tests/integration/test_presigned_urls.py` | test present |
 | `RES-05` | R1 | P2 | `AC-RES-05.5` | `T-RES-05.5` | `tests/unit/test_content_disposition.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.1` | `T-RES-06.1` | `tests/integration/test_resume_stages.py` | test not written |
-| `RES-06` | R1 | P2 | `AC-RES-06.2` | `T-RES-06.2` | `tests/integration/test_worker_restart.py` | test not written |
+| `RES-06` | R1 | P2 | `AC-RES-06.2` | `T-RES-06.2` | `tests/integration/test_worker_restart.py` | test present |
 | `RES-06` | R1 | P2 | `AC-RES-06.3` | `T-RES-06.3` | `tests/integration/test_stage_ordering.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.4` | `T-RES-06.4` | `tests/integration/test_resume_failures.py` | test not written |
-| `RES-06` | R1 | P2 | `AC-RES-06.5` | `T-RES-06.5` | `tests/ai/test_degradation.py` | test not written |
+| `RES-06` | R1 | P2 | `AC-RES-06.5` | `T-RES-06.5` | `tests/ai/test_degradation.py` | test present |
 | `RES-06` | R1 | P2 | `AC-RES-06.6` | `T-RES-06.6` | `tests/integration/test_resume_latency.py` | test not written |
-| `RES-06` | R1 | P2 | `AC-RES-06.7` | `T-RES-06.7` | `tests/integration/test_poll_fallback.py` | test not written |
+| `RES-06` | R1 | P2 | `AC-RES-06.7` | `T-RES-06.7` | `tests/integration/test_poll_fallback.py` | test present |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.1` | `T-SEC-03.1` | `tests/integration/test_ai_data_boundary.py` | test not written |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.2` | `T-SEC-03.2` | `tests/spec/test_consent_data_parity.py` | test not written |
-| `SEC-03` | R1 | P2 | `AC-SEC-03.3` | `T-SEC-03.3` | `tests/spec/test_compliance_docs.py` | test not written |
+| `SEC-03` | R1 | P2 | `AC-SEC-03.3` | `T-SEC-03.3` | `tests/spec/test_compliance_docs.py` | test present |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.4` | `T-SEC-03.4` | `tests/integration/test_no_pii_in_prompts.py` | test not written |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.5` | `T-SEC-03.5` | `tests/integration/test_sensitive_questions.py` | test not written |
 | `WEB-03` | R1 | P2 | `AC-WEB-03.1` | `T-WEB-03.1` | `apps/web/src/features/**/__tests__/*.states.test.tsx` | test not written |
@@ -433,7 +433,7 @@ Requirement → track → acceptance criterion → test → status.
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.2` | `T-ADMIN-01.2` | `tests/integration/test_connector_toggle.py` | test not written |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.3` | `T-ADMIN-01.3` | `tests/integration/test_admin_run_now.py` | test not written |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.4` | `T-ADMIN-01.4` | `tests/integration/test_circuit_reset.py` | test not written |
-| `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.5` | `T-ADMIN-01.5` | `tests/unit/test_provider_error_logging.py` | test not written |
+| `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.5` | `T-ADMIN-01.5` | `tests/unit/test_provider_error_logging.py` | test present |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.6` | `T-ADMIN-01.6` | `tests/integration/test_raw_payload_link.py` | test not written |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.7` | `T-ADMIN-01.7` | `tests/integration/test_board_slug_lifecycle.py` | test not written |
 | `ADMIN-01` | R1 | P3 | `AC-ADMIN-01.8` | `T-ADMIN-01.8` | `apps/web/.../connector-status.test.tsx` | test not written |
@@ -465,7 +465,7 @@ Requirement → track → acceptance criterion → test → status.
 | `CONN-04` | R1 | P3 | `AC-CONN-04.3` | `T-CONN-04.3` | `tests/connectors/test_compliance_records.py` | test not written |
 | `CONN-04` | R1 | P3 | `AC-CONN-04.4` | `T-CONN-04.4` | `apps/web/.../job-card.test.tsx`, `apps/mobile/test/job_card_test.dart` | test not written |
 | `CONN-04` | R1 | P3 | `AC-CONN-04.5` | `T-CONN-04.5` | `tests/integration/test_source_ttl.py` | test not written |
-| `CONN-05` | R1 | P3 | `AC-CONN-05.1` | `T-CONN-05.1` | `tests/integration/test_ttl_indexes.py` | test not written |
+| `CONN-05` | R1 | P3 | `AC-CONN-05.1` | `T-CONN-05.1` | `tests/integration/test_ttl_indexes.py` | test present |
 | `CONN-06a` | R1 | P3 | `AC-CONN-06.1` | `T-CONN-06.1` | `tests/connectors/test_registry_contract.py` | test not written |
 | `CONN-06a` | R1 | P3 | `AC-CONN-06.2` | `T-CONN-06.2` | `tests/connectors/test_normalize_fixtures.py` | test not written |
 | `CONN-06a` | R1 | P3 | `AC-CONN-06.3` | `T-CONN-06.3` | `tests/connectors/test_normalize_fixtures.py` | test not written |
@@ -481,7 +481,7 @@ Requirement → track → acceptance criterion → test → status.
 | `JOB-01` | R1 | P3 | `AC-JOB-01.5` | `T-JOB-01.5` | `tests/integration/test_job_upsert.py` | test not written |
 | `JOB-01` | R1 | P3 | `AC-JOB-01.6` | `T-JOB-01.6` | `tests/integration/test_description_truncation.py` | test not written |
 | `JOB-02` | R1 | P3 | `AC-JOB-02.1` | `T-JOB-02.1` | `tests/integration/test_query_fanout.py` | test not written |
-| `JOB-02` | R1 | P3 | `AC-JOB-02.2` | `T-JOB-02.2` | `tests/integration/test_cron_locks.py` | test not written |
+| `JOB-02` | R1 | P3 | `AC-JOB-02.2` | `T-JOB-02.2` | `tests/integration/test_cron_locks.py` | test present |
 | `JOB-02` | R1 | P3 | `AC-JOB-02.3` | `T-JOB-02.3` | `tests/integration/test_cold_start_seed.py` | test not written |
 | `JOB-02` | R1 | P3 | `AC-JOB-02.4` | `T-JOB-02.4` | `tests/integration/test_run_time_budget.py` | test not written |
 | `JOB-02` | R1 | P3 | `AC-JOB-02.5` | `T-JOB-02.5` | `tests/integration/test_fanout_recording.py` | test not written |
@@ -493,7 +493,7 @@ Requirement → track → acceptance criterion → test → status.
 | `JOB-03` | R1 | P3 | `AC-JOB-03.5` | `T-JOB-03.5` | `tests/unit/test_merge_precedence.py` | test not written |
 | `JOB-03` | R1 | P3 | `AC-JOB-03.6` | `T-JOB-03.6` | `tests/integration/test_dedup_idempotence.py` | test not written |
 | `JOB-03` | R1 | P3 | `AC-JOB-03.7` | `T-JOB-03.7` | `tests/integration/test_late_merge.py` | test not written |
-| `JOB-03` | R1 | P3 | `AC-JOB-03.8` | `T-JOB-03.8` | `tests/integration/test_index_usage.py` | test not written |
+| `JOB-03` | R1 | P3 | `AC-JOB-03.8` | `T-JOB-03.8` | `tests/integration/test_index_usage.py` | test present |
 | `JOB-03` | R1 | P3 | `AC-JOB-03.9` | `T-JOB-03.9` | `tests/integration/test_dedup_corpus.py` | test not written |
 | `JOB-04` | R1 | P3 | `AC-JOB-04.1` | `T-JOB-04.1` | `tests/unit/test_title_normalization.py` | test not written |
 | `JOB-04` | R1 | P3 | `AC-JOB-04.2` | `T-JOB-04.2` | `tests/unit/test_title_normalization.py` | test not written |
@@ -507,7 +507,7 @@ Requirement → track → acceptance criterion → test → status.
 | `JOB-05` | R1 | P3 | `AC-JOB-05.2` | `T-JOB-05.2` | `tests/unit/test_requirement_sectioning.py` | test not written |
 | `JOB-05` | R1 | P3 | `AC-JOB-05.3` | `T-JOB-05.3` | `tests/unit/test_enrichment_gate.py` | test not written |
 | `JOB-05` | R1 | P3 | `AC-JOB-05.4` | `T-JOB-05.4` | `tests/unit/test_enrichment_no_override.py` | test not written |
-| `JOB-05` | R1 | P3 | `AC-JOB-05.5` | `T-JOB-05.5` | `tests/ai/test_response_cache.py` | test not written |
+| `JOB-05` | R1 | P3 | `AC-JOB-05.5` | `T-JOB-05.5` | `tests/ai/test_response_cache.py` | test present |
 | `JOB-05` | R1 | P3 | `AC-JOB-05.6` | `T-JOB-05.6` | `tests/integration/test_enrichment_degraded.py` | test not written |
 | `JOB-05` | R1 | P3 | `AC-JOB-05.7` | `T-JOB-05.7` | `tests/unit/test_experience_parsing.py` | test not written |
 | `JOB-06` | R1 | P3 | `AC-JOB-06.1` | `T-JOB-06.1` | `tests/integration/test_text_search_weights.py` | test not written |
@@ -523,7 +523,7 @@ Requirement → track → acceptance criterion → test → status.
 | `JOB-08` | R1 | P3 | `AC-JOB-08.4` | `T-JOB-08.4` | `tests/integration/test_expired_visibility.py` | test not written |
 | `JOB-08` | R1 | P3 | `AC-JOB-08.5` | `T-JOB-08.5` | `tests/integration/test_job_revival.py` | test not written |
 | `JOB-08` | R1 | P3 | `AC-JOB-08.6` | `T-JOB-08.6` | `tests/unit/test_apply_deadline.py` | test not written |
-| `JOB-08` | R1 | P3 | `AC-JOB-08.7` | `T-JOB-08.7` | `tests/integration/test_job_purge.py` | test not written |
+| `JOB-08` | R1 | P3 | `AC-JOB-08.7` | `T-JOB-08.7` | `tests/integration/test_job_purge.py` | test present |
 | `JOB-09` | R1 | P3 | `AC-JOB-09.1` | `T-JOB-09.1` | `tests/integration/test_hidden_exclusion.py`, `tests/unit/test_hide_reasons.py` | test not written |
 | `JOB-09` | R1 | P3 | `AC-JOB-09.2` | `T-JOB-09.2` | `tests/integration/test_hidden_exclusion.py`, `tests/unit/test_hide_reasons.py` | test not written |
 | `JOB-09` | R1 | P3 | `AC-JOB-09.3` | `T-JOB-09.3` | `tests/integration/test_hidden_exclusion.py`, `tests/unit/test_hide_reasons.py` | test not written |
@@ -534,13 +534,13 @@ Requirement → track → acceptance criterion → test → status.
 | `SEC-05` | R1 | P3 | `AC-SEC-05.5` | `T-SEC-05.5` | `tests/integration/test_source_ttl.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.1` | `T-ADMIN-02.1` | `tests/integration/test_admin_ai_dashboard.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.2` | `T-ADMIN-02.2` | `tests/integration/test_admin_ai_dashboard.py` | test not written |
-| `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.3` | `T-ADMIN-02.3` | `tests/integration/test_budget_trip_e2e.py` | test not written |
+| `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.3` | `T-ADMIN-02.3` | `tests/integration/test_budget_trip_e2e.py` | test present |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.4` | `T-ADMIN-02.4` | `tests/integration/test_golden_spend_separation.py` | test not written |
-| `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.5` | `T-ADMIN-02.5` | `tests/ai/test_unpriced_model.py` | test not written |
+| `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.5` | `T-ADMIN-02.5` | `tests/ai/test_unpriced_model.py` | test present |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.6` | `T-ADMIN-02.6` | `tests/integration/test_usage_rollup.py` | test not written |
 | `ADMIN-02` | R1 | P4 | `AC-ADMIN-02.7` | `T-ADMIN-02.7` | `apps/web/.../ai-usage.test.tsx` | test not written |
 | `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.1` | `T-ADMIN-03.1` | `tests/integration/test_admin_flags.py` | test not written |
-| `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.2` | `T-ADMIN-03.2` | `tests/integration/test_feature_flags.py` | test not written |
+| `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.2` | `T-ADMIN-03.2` | `tests/integration/test_feature_flags.py` | test present |
 | `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.3` | `T-ADMIN-03.3` | `tests/integration/test_unknown_flag.py` | test not written |
 | `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.4` | `T-ADMIN-03.4` | `tests/integration/test_admin_audit.py` | test not written |
 | `ADMIN-03` | R1 | P4 | `AC-ADMIN-03.5` | `T-ADMIN-03.5` | `tests/integration/test_ingestion_kill_switch.py` | test not written |
@@ -583,7 +583,7 @@ Requirement → track → acceptance criterion → test → status.
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.1` | `T-MATCH-03.1` | `tests/unit/test_scoring_determinism.py` | test not written |
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.2` | `T-MATCH-03.2` | `tests/spec/test_scoring_purity.py` | test not written |
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.3` | `T-MATCH-03.3` | `tests/integration/test_score_provenance.py` | test not written |
-| `MATCH-03` | R1 | P4 | `AC-MATCH-03.4` | `T-MATCH-03.4` | `tests/unit/test_scorer_input_type.py` | test not written |
+| `MATCH-03` | R1 | P4 | `AC-MATCH-03.4` | `T-MATCH-03.4` | `tests/unit/test_scorer_input_type.py` | test present |
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.5` | `T-MATCH-03.5` | `tests/unit/test_freshness_component.py` | test not written |
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.6` | `T-MATCH-03.6` | `tests/unit/test_weights_loading.py` | test not written |
 | `MATCH-04` | R1 | P4 | `AC-MATCH-04.1` | `T-MATCH-04.1` | `tests/unit/test_embedding_similarity.py`, `tests/unit/test_skills_fallback.py` | test not written |
@@ -595,7 +595,7 @@ Requirement → track → acceptance criterion → test → status.
 | `MATCH-05` | R1 | P4 | `AC-MATCH-05.5` | `T-MATCH-05.5` | `tests/integration/test_inactive_user_scoring.py` | test not written |
 | `MATCH-05` | R1 | P4 | `AC-MATCH-05.6` | `T-MATCH-05.6` | `tests/integration/test_threshold_read_time.py` | test not written |
 | `MATCH-05` | R1 | P4 | `AC-MATCH-05.7` | `T-MATCH-05.7` | `tests/integration/test_feed_latency.py` | test not written |
-| `MATCH-05` | R1 | P4 | `AC-MATCH-05.8` | `T-MATCH-05.8` | `tests/unit/test_embedding_guard.py` | test not written |
+| `MATCH-05` | R1 | P4 | `AC-MATCH-05.8` | `T-MATCH-05.8` | `tests/unit/test_embedding_guard.py` | test present |
 | `MATCH-05` | R1 | P4 | `AC-MATCH-05.9` | `T-MATCH-05.9` | `tests/integration/test_hidden_exclusion.py` | test not written |
 | `MATCH-07` | R1 | P4 | `AC-MATCH-07.1` | `T-MATCH-07.1` | `tests/integration/test_threshold_read_time.py`, `tests/unit/test_threshold_bounds.py` | test not written |
 | `MATCH-07` | R1 | P4 | `AC-MATCH-07.2` | `T-MATCH-07.2` | `tests/integration/test_threshold_read_time.py`, `tests/unit/test_threshold_bounds.py` | test not written |
@@ -627,8 +627,8 @@ Requirement → track → acceptance criterion → test → status.
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.4` | `T-APPLY-02.4` | `tests/ai/test_tone_claim_invariance.py` | test not written |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.5` | `T-APPLY-02.5` | `tests/unit/test_pack_lengths.py` | test not written |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.6` | `T-APPLY-02.6` | `tests/unit/test_answer_coverage.py` | test not written |
-| `APPLY-02` | R1 | P5 | `AC-APPLY-02.7` | `T-APPLY-02.7` | `tests/integration/test_idempotency.py` | test not written |
-| `APPLY-02` | R1 | P5 | `AC-APPLY-02.8` | `T-APPLY-02.8` | `tests/ai/test_degradation.py` | test not written |
+| `APPLY-02` | R1 | P5 | `AC-APPLY-02.7` | `T-APPLY-02.7` | `tests/integration/test_idempotency.py` | test present |
+| `APPLY-02` | R1 | P5 | `AC-APPLY-02.8` | `T-APPLY-02.8` | `tests/ai/test_degradation.py` | test present |
 | `APPLY-02` | R1 | P5 | `AC-APPLY-02.9` | `T-APPLY-02.9` | `tests/ai/test_injection_corpus.py` | test not written |
 | `APPLY-03` | R1 | P5 | `AC-APPLY-03.1` | `T-APPLY-03.1` | `tests/integration/test_pack_editing.py` | test not written |
 | `APPLY-03` | R1 | P5 | `AC-APPLY-03.2` | `T-APPLY-03.2` | `tests/integration/test_pack_approval_gates.py` | test not written |
@@ -655,21 +655,21 @@ Requirement → track → acceptance criterion → test → status.
 | `APPLY-05` | R1 | P5 | `AC-APPLY-05.7` | `T-APPLY-05.7` | `tests/integration/test_merged_apply_sources.py` | test not written |
 | `APPLY-05` | R1 | P5 | `AC-APPLY-05.8` | `T-APPLY-05.8` | `apps/web/e2e/apply.spec.ts`, `apps/mobile/integration_test/apply_test.dart` | test not written |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.1` | `T-APPLY-07.1` | `tests/integration/test_audit_coverage.py` | test not written |
-| `APPLY-07` | R1 | P5 | `AC-APPLY-07.2` | `T-APPLY-07.2` | `tests/integration/test_audit_append_only.py` | test not written |
+| `APPLY-07` | R1 | P5 | `AC-APPLY-07.2` | `T-APPLY-07.2` | `tests/integration/test_audit_append_only.py` | test present |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.3` | `T-APPLY-07.3` | `tests/integration/test_audit_no_content.py` | test not written |
-| `APPLY-07` | R1 | P5 | `AC-APPLY-07.4` | `T-APPLY-07.4` | `tests/integration/test_request_id_propagation.py` | test not written |
+| `APPLY-07` | R1 | P5 | `AC-APPLY-07.4` | `T-APPLY-07.4` | `tests/integration/test_request_id_propagation.py` | test present |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.5` | `T-APPLY-07.5` | `tests/unit/test_ip_prefix.py` | test not written |
 | `MOB-05` | R1 | P5 | `AC-MOB-05.1` | `T-MOB-05.1` | `apps/mobile/integration_test/local_notifications_test.dart` | test not written |
 | `MOB-05` | R1 | P5 | `AC-MOB-05.2` | `T-MOB-05.2` | `apps/mobile/integration_test/local_notifications_test.dart` | test not written |
 | `MOB-05` | R1 | P5 | `AC-MOB-05.3` | `T-MOB-05.3` | `apps/mobile/integration_test/push_routing_test.dart` | test not written |
 | `MOB-05` | R1 | P5 | `AC-MOB-05.4` | `T-MOB-05.4` | `tests/integration/test_fcm_token_lifecycle.py` | test not written |
-| `SEC-06` | R1 | P5 | `AC-SEC-06.1` | `T-SEC-06.1` | — | no test path |
-| `SEC-06` | R1 | P5 | `AC-SEC-06.2` | `T-SEC-06.2` | — | no test path |
-| `SEC-06` | R1 | P5 | `AC-SEC-06.3` | `T-SEC-06.3` | — | no test path |
-| `SEC-06` | R1 | P5 | `AC-SEC-06.4` | `T-SEC-06.4` | — | no test path |
+| `SEC-06` | R1 | P5 | `AC-SEC-06.1` | `T-SEC-06.1` | `tests/spec/test_no_submission_capability.py`, `tests/spec/test_no_autoapply_flag.py`, `tests/unit/test_fabrication_recall.py`, `tests/integration/test_pack_prompt_excludes_unconfirmed.py` | test not written |
+| `SEC-06` | R1 | P5 | `AC-SEC-06.2` | `T-SEC-06.2` | `tests/spec/test_no_submission_capability.py`, `tests/spec/test_no_autoapply_flag.py`, `tests/unit/test_fabrication_recall.py`, `tests/integration/test_pack_prompt_excludes_unconfirmed.py` | test not written |
+| `SEC-06` | R1 | P5 | `AC-SEC-06.3` | `T-SEC-06.3` | `tests/spec/test_no_submission_capability.py`, `tests/spec/test_no_autoapply_flag.py`, `tests/unit/test_fabrication_recall.py`, `tests/integration/test_pack_prompt_excludes_unconfirmed.py` | test not written |
+| `SEC-06` | R1 | P5 | `AC-SEC-06.4` | `T-SEC-06.4` | `tests/spec/test_no_submission_capability.py`, `tests/spec/test_no_autoapply_flag.py`, `tests/unit/test_fabrication_recall.py`, `tests/integration/test_pack_prompt_excludes_unconfirmed.py` | test not written |
 | `SEC-06` | R1 | P5 | `AC-SEC-06.5` | `T-SEC-06.5` | `tests/spec/test_ethics_doc.py` | test not written |
 | `SEC-06` | R1 | P5 | `AC-SEC-06.6` | `T-SEC-06.6` | `tests/spec/test_store_listing_claims.py` | test not written |
-| `TRACK-01` | R1 | P5 | `AC-TRACK-01.1` | `T-TRACK-01.1` | `tests/integration/test_application_job_xor.py` | test not written |
+| `TRACK-01` | R1 | P5 | `AC-TRACK-01.1` | `T-TRACK-01.1` | `tests/integration/test_application_job_xor.py` | test present |
 | `TRACK-01` | R1 | P5 | `AC-TRACK-01.2` | `T-TRACK-01.2` | `tests/integration/test_save_idempotence.py` | test not written |
 | `TRACK-01` | R1 | P5 | `AC-TRACK-01.3` | `T-TRACK-01.3` | `tests/integration/test_manual_entry.py` | test not written |
 | `TRACK-01` | R1 | P5 | `AC-TRACK-01.4` | `T-TRACK-01.4` | `tests/integration/test_manual_url_ssrf.py` | test not written |
@@ -694,21 +694,21 @@ Requirement → track → acceptance criterion → test → status.
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.4` | `T-NOTIF-01.4` | `tests/integration/test_reminder_cancellation.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.5` | `T-NOTIF-01.5` | `tests/unit/test_terminal_no_reminders.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.6` | `T-NOTIF-01.6` | `tests/integration/test_reminder_payload.py` | test not written |
-| `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.7` | `T-NOTIF-01.7` | `tests/unit/test_time_utc.py` | test not written |
+| `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.7` | `T-NOTIF-01.7` | `tests/unit/test_time_utc.py` | test present |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.8` | `T-NOTIF-01.8` | `tests/unit/test_dst_scheduling.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.9` | `T-NOTIF-01.9` | `tests/integration/test_tz_change_reconcile.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.10` | `T-NOTIF-01.10` | `tests/integration/test_reconciliation.py` | test not written |
 | `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.11` | `T-NOTIF-01.11` | `tests/integration/test_reconciliation.py` | test not written |
-| `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.12` | `T-NOTIF-01.12` | `tests/spec/test_handlers_only_enqueue.py` | test not written |
-| `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.1` | `T-NOTIF-02.1` | `tests/unit/test_email_templates.py` | test not written |
+| `NOTIF-01` | R1 | P6 | `AC-NOTIF-01.12` | `T-NOTIF-01.12` | `tests/spec/test_handlers_only_enqueue.py` | test present |
+| `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.1` | `T-NOTIF-02.1` | `tests/unit/test_email_templates.py` | test present |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.2` | `T-NOTIF-02.2` | `tests/integration/test_email_content_rules.py` | test not written |
-| `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.3` | `T-NOTIF-02.3` | `tests/integration/test_bounce_handling.py` | test not written |
+| `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.3` | `T-NOTIF-02.3` | `tests/integration/test_bounce_handling.py` | test present |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.4` | `T-NOTIF-02.4` | `tests/spec/test_deep_link_parity.py` | test not written |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.5` | `T-NOTIF-02.5` | `tests/integration/test_inbox_sse.py` | test not written |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.6` | `T-NOTIF-02.6` | `infra/scripts/check_email_dns.sh`, `tests/spec/test_dns_check_exists.py` | test not written |
 | `NOTIF-02a` | R1 | P6 | `AC-NOTIF-02.7` | `T-NOTIF-02.7` | `tests/integration/test_fcm_token_lifecycle.py` | test not written |
 | `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.1` | `T-NOTIF-05.1` | `tests/integration/test_dispatch_concurrency.py` | test not written |
-| `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.2` | `T-NOTIF-05.2` | `tests/integration/test_worker_restart.py` | test not written |
+| `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.2` | `T-NOTIF-05.2` | `tests/integration/test_worker_restart.py` | test present |
 | `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.3` | `T-NOTIF-05.3` | `tests/integration/test_dedup_key_uniqueness.py` | test not written |
 | `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.4` | `T-NOTIF-05.4` | `tests/integration/test_interview_reschedule.py` | test not written |
 | `NOTIF-05` | R1 | P6 | `AC-NOTIF-05.5` | `T-NOTIF-05.5` | `tests/integration/test_send_failure.py` | test not written |
@@ -729,13 +729,13 @@ Requirement → track → acceptance criterion → test → status.
 | `TRACK-03` | R1 | P6 | `AC-TRACK-03.5` | `T-TRACK-03.5` | `tests/integration/test_interview_reminders.py` | test not written |
 | `TRACK-03` | R1 | P6 | `AC-TRACK-03.6` | `T-TRACK-03.6` | `tests/unit/test_interview_rounds.py` | test not written |
 | `TRACK-03` | R1 | P6 | `AC-TRACK-03.7` | `T-TRACK-03.7` | `tests/integration/test_salary_log_append_only.py` | test not written |
-| `TRACK-03` | R1 | P6 | `AC-TRACK-03.8` | `T-TRACK-03.8` | `tests/unit/test_money.py` | test not written |
+| `TRACK-03` | R1 | P6 | `AC-TRACK-03.8` | `T-TRACK-03.8` | `tests/unit/test_money.py` | test present |
 | `TRACK-03` | R1 | P6 | `AC-TRACK-03.9` | `T-TRACK-03.9` | `tests/integration/test_last_activity.py` | test not written |
 | `TRACK-04` | R1 | P6 | `AC-TRACK-04.1` | `T-TRACK-04.1` | `tests/integration/test_timeline_journey.py` | test not written |
 | `TRACK-04` | R1 | P6 | `AC-TRACK-04.2` | `T-TRACK-04.2` | `tests/integration/test_timeline_backing.py` | test not written |
 | `TRACK-04` | R1 | P6 | `AC-TRACK-04.3` | `T-TRACK-04.3` | `tests/unit/test_timeline_ordering.py` | test not written |
 | `TRACK-04` | R1 | P6 | `AC-TRACK-04.4` | `T-TRACK-04.4` | `tests/integration/test_timeline_tombstones.py` | test not written |
-| `TRACK-04` | R1 | P6 | `AC-TRACK-04.5` | `T-TRACK-04.5` | `tests/spec/test_collection_ownership.py` | test not written |
+| `TRACK-04` | R1 | P6 | `AC-TRACK-04.5` | `T-TRACK-04.5` | `tests/spec/test_collection_ownership.py` | test present |
 | `TRACK-05` | R1 | P6 | `AC-TRACK-05.1` | `T-TRACK-05.1` | `tests/integration/test_manual_entry.py`, `tests/integration/test_manual_pack_gate.py`, `tests/integration/test_manual_reminders.py` | test not written |
 | `TRACK-05` | R1 | P6 | `AC-TRACK-05.2` | `T-TRACK-05.2` | `tests/integration/test_manual_entry.py`, `tests/integration/test_manual_pack_gate.py`, `tests/integration/test_manual_reminders.py` | test not written |
 | `TRACK-05` | R1 | P6 | `AC-TRACK-05.3` | `T-TRACK-05.3` | `tests/integration/test_manual_entry.py`, `tests/integration/test_manual_pack_gate.py`, `tests/integration/test_manual_reminders.py` | test not written |
@@ -824,9 +824,9 @@ Requirement → track → acceptance criterion → test → status.
 | `MOB-07` | R2 | S4 | `AC-MOB-07.2` | `T-MOB-07.2` | `apps/mobile/integration_test/offline_test.dart` | test not written |
 | `MOB-07` | R2 | S4 | `AC-MOB-07.3` | `T-MOB-07.3` | `apps/mobile/integration_test/offline_test.dart` | test not written |
 | `MOB-07` | R2 | S4 | `AC-MOB-07.4` | `T-MOB-07.4` | `apps/mobile/integration_test/offline_test.dart` | test not written |
-| `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.1` | `T-NOTIF-02.1` | `tests/unit/test_email_templates.py` | test not written |
+| `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.1` | `T-NOTIF-02.1` | `tests/unit/test_email_templates.py` | test present |
 | `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.2` | `T-NOTIF-02.2` | `tests/integration/test_email_content_rules.py` | test not written |
-| `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.3` | `T-NOTIF-02.3` | `tests/integration/test_bounce_handling.py` | test not written |
+| `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.3` | `T-NOTIF-02.3` | `tests/integration/test_bounce_handling.py` | test present |
 | `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.4` | `T-NOTIF-02.4` | `tests/spec/test_deep_link_parity.py` | test not written |
 | `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.5` | `T-NOTIF-02.5` | `tests/integration/test_inbox_sse.py` | test not written |
 | `NOTIF-02b` | R2 | S4 | `AC-NOTIF-02.6` | `T-NOTIF-02.6` | `infra/scripts/check_email_dns.sh`, `tests/spec/test_dns_check_exists.py` | test not written |
@@ -862,10 +862,10 @@ Requirement → track → acceptance criterion → test → status.
 | `WEB-07` | R2 | S5 | `AC-WEB-07.4` | `T-WEB-07.4` | `apps/web/.../non-color-indicators.test.tsx` | test not written |
 | `WEB-07` | R2 | S5 | `AC-WEB-07.5` | `T-WEB-07.5` | `apps/web/.../live-region.test.tsx` | test not written |
 | `WEB-07` | R2 | S5 | `AC-WEB-07.6` | `T-WEB-07.6` | `tests/spec/test_a11y_audit_doc.py` | test not written |
-| `APPLY-06` | R3 | — | `AC-APPLY-06.1` | `T-APPLY-06.1` | — | no test path |
-| `APPLY-06` | R3 | — | `AC-APPLY-06.2` | `T-APPLY-06.2` | — | no test path |
-| `APPLY-06` | R3 | — | `AC-APPLY-06.3` | `T-APPLY-06.3` | — | no test path |
-| `APPLY-06` | R3 | — | `AC-APPLY-06.4` | `T-APPLY-06.4` | — | no test path |
+| `APPLY-06` | R3 | — | `AC-APPLY-06.1` | `T-APPLY-06.1` | `apps/extension/test/extension.test.ts` | test not written |
+| `APPLY-06` | R3 | — | `AC-APPLY-06.2` | `T-APPLY-06.2` | `apps/extension/test/extension.test.ts` | test not written |
+| `APPLY-06` | R3 | — | `AC-APPLY-06.3` | `T-APPLY-06.3` | `apps/extension/test/extension.test.ts` | test not written |
+| `APPLY-06` | R3 | — | `AC-APPLY-06.4` | `T-APPLY-06.4` | `apps/extension/test/extension.test.ts` | test not written |
 | `APPLY-08` | R3 | — | `AC-APPLY-08.1` | `T-APPLY-08.1` | `tests/integration/test_resume_export.py` | test not written |
 | `APPLY-08` | R3 | — | `AC-APPLY-08.2` | `T-APPLY-08.2` | `tests/integration/test_resume_export.py` | test not written |
 | `APPLY-08` | R3 | — | `AC-APPLY-08.3` | `T-APPLY-08.3` | `tests/integration/test_resume_export.py` | test not written |

@@ -1,0 +1,81 @@
+[project]
+name = "jobpilot-api"
+version = "0.1.0"
+description = "JobPilot API and worker — one image, two entrypoints (ADR-002)."
+requires-python = "==3.12.*"
+dependencies = [
+    # `FOUND-10` §10: "ARQ on Redis. Worker settings and the cron table in
+    # `app/worker.py`, in one place."
+    "arq>=0.26",
+    "beanie>=1.27",
+    "fastapi>=0.115",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    # `FOUND-14` §14: "structlog to stdout, JSON in every environment except
+    # local (where it is pretty-printed)."
+    "structlog>=24.4",
+    # `FOUND-08` §8: "Stored in Redis with a 24 h TTL". The atomic claim is
+    # `SET key value NX PX ttl`, which is the entire concurrency argument.
+    "prometheus-client>=0.21",
+    # `AI-03`/`AI-04` §3.2: "`docs/spec/ai-budget.yaml` - the matrix above in
+    # machine-readable form, which parametrizes the degradation tests", and the
+    # model-pricing table, which `AC-AI-02.2` forbids writing as `.py` literals.
+    # A hand-rolled reader for a nested ten-feature matrix would be a second
+    # YAML implementation to keep correct.
+    "pyyaml>=6.0",
+    "redis>=5.2",
+    # `FOUND-14` §14: "Sentry for API, web, and mobile, with `before_send`
+    # applying the same redaction list."
+    "sentry-sdk>=2.19",
+    # `FOUND-11` §11: "SSE via `sse-starlette`. No WebSockets in R1 or R2."
+    "sse-starlette>=2.1",
+    "uvicorn[standard]>=0.32",
+]
+
+# Product dependencies are added by the requirement that needs them, never
+# speculatively (`01-foundations.md` §1). The spec gates in `tests/spec/` import
+# no product code and no third-party library beyond pytest, so they run before
+# any of it exists.
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "hypothesis>=6.112",
+    "pytest-asyncio>=0.24",
+    # Starlette's TestClient is an httpx transport; without it every route test
+    # would have to drive ASGI by hand. Starlette now prefers `httpx2` and warns
+    # on `httpx`; `httpx` is the one FastAPI documents and the one with a long
+    # history, so the deprecation warning is the cheaper of the two risks until
+    # `httpx2` is the established name.
+    "httpx>=0.28",
+    # A real Redis, in process. `RedisStore`'s claim is a single `SET ... NX`,
+    # and asserting that it is atomic against a hand-written double would be
+    # asserting against my own assumption rather than against Redis.
+    "fakeredis>=2.26",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "import-linter>=2.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["app", "../../infra/scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "specgate", "tests"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "../../infra/scripts"
+files = ["app", "tests", "../../infra/scripts/specgate"]
+
+# A pytest test function's signature is fixtures in, nothing out, and annotating
+# every one adds noise without adding a check. Everything else stays strict.
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false

@@ -1,0 +1,16 @@
+SUBJECT: Your JobPilot account will be deleted on 13 September 2026
+
+--- TEXT ---
+You asked us to delete your JobPilot account.
+Everything will be removed on 13 September 2026.
+
+Until then the account is inaccessible, and nothing new is processed —
+no scoring, no reminders.
+
+To cancel:
+https://example.test/cancel/TOKEN
+
+Backups made before today age out within 14 days.
+
+--- HTML ---
+<!doctype html><html><body style="margin:0;padding:24px;background:#f7faf9;"><div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.55;color:#12312e;max-width:520px;margin:0 auto;background:#ffffff;padding:28px;border-radius:10px;"><p>You asked us to delete your JobPilot account. Everything will be removed on <strong>13 September 2026</strong>.</p><p>Until then the account is inaccessible, and nothing new is processed — no scoring, no reminders.</p><p><a href="https://example.test/cancel/TOKEN" style="display:inline-block;padding:10px 18px;background:#0d9488;color:#ffffff;text-decoration:none;border-radius:6px;font-weight:600;">Cancel the deletion</a></p><p style="font-size:13px;color:#4b5c5a;">Backups made before today age out within 14 days.</p><hr style="border:none;border-top:1px solid #d9e6e3;margin:24px 0 12px;"><p style="font-size:12px;color:#4b5c5a;margin:0;">JobPilot — you are receiving this because someone used this address to sign in or sign up.</p></div></body></html>

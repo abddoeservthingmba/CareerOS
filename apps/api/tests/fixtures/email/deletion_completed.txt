@@ -1,0 +1,9 @@
+SUBJECT: Your JobPilot account has been deleted
+
+--- TEXT ---
+Your JobPilot account and everything in it have been deleted.
+
+We have kept no copy. This message is the last one you will receive.
+
+--- HTML ---
+<!doctype html><html><body style="margin:0;padding:24px;background:#f7faf9;"><div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.55;color:#12312e;max-width:520px;margin:0 auto;background:#ffffff;padding:28px;border-radius:10px;"><p>Your JobPilot account and everything in it have been deleted.</p><p>We have kept no copy. This message is the last one you will receive.</p><hr style="border:none;border-top:1px solid #d9e6e3;margin:24px 0 12px;"><p style="font-size:12px;color:#4b5c5a;margin:0;">JobPilot — you are receiving this because someone used this address to sign in or sign up.</p></div></body></html>

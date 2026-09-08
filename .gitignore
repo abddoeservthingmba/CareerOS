@@ -21,3 +21,14 @@ build/
 .DS_Store
 .idea/
 *.swp
+
+# Web build output and dependencies
+apps/web/node_modules/
+apps/web/dist/
+
+# `FOUND-13` — the generated clients are build outputs, reproducible from
+# `packages/contracts/openapi.json`. A hand-committed copy becomes the version
+# everyone actually uses and drifts from the server silently. `openapi.json`
+# itself *is* committed: it is the baseline an API diff is taken against.
+packages/contracts/ts/
+packages/contracts/dart/

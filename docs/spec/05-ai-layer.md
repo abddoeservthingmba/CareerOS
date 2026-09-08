@@ -109,7 +109,7 @@ GEMINI_EMBEDDING_MODEL=<model id>
 - Model identifiers are **configuration, never code**. No model name is a literal in a `.py` file outside `.env.example` documentation. Gemini model names and free-tier limits change often enough that a hard-coded name is a scheduled outage.
 - Each feature declares which **tier** it wants (`fast` or `quality`), not which model. The adapter maps tier to the configured model id.
 - Providers are constructed once at startup and injected. An adapter never reads the environment (§5).
-- Adapters present in R1: `gemini.py` (real), `fake.py` (deterministic, used by every test and by local development without a key). `openai.py`, `anthropic.py`, and `ollama.py` are R1 **stubs** that exist only to prove the contract: each is a class that satisfies the protocol, raises `ProviderNotConfigured` when called, and is included in the adapter contract test suite so that the protocol cannot drift into being Gemini-shaped.
+- Adapters present in R1: `gemini.py` (real, the production default), `fake.py` (deterministic, used by every test and by local development without a key), and `ollama.py` (real, the local-development provider — **amended by ADR-011**, so that prompt iteration and the resume-extraction golden set can run against a real model with no text leaving the machine). `openai.py` and `anthropic.py` are R1 **stubs** that exist only to prove the contract: each is a class that satisfies the protocol, raises `ProviderNotConfigured` when called, and is included in the adapter contract test suite so that the protocol cannot drift into being Gemini-shaped.
 - **Embedding model changes are a migration, not a config flip.** Switching `AI_EMBEDDING_PROVIDER` or the embedding model requires re-embedding every profile and job; the registry refuses to start if the configured embedding model differs from the one recorded in a `system_state` document unless `AI_EMBEDDING_MIGRATION=allow` is set, and starting with that flag enqueues `ai.reembed_all`.
 
 **Inputs.** `Settings`; the `Feature` enum.
@@ -119,7 +119,7 @@ GEMINI_EMBEDDING_MODEL=<model id>
 **Acceptance criteria.**
 - `AC-AI-02.1` Setting `AI_PROVIDER_MATCH_RATIONALE=fake` routes only that feature to the fake provider; every other feature still resolves to the default.
 - `AC-AI-02.2` No model identifier string appears in any `.py` file (checked against a pattern list for the known provider naming shapes).
-- `AC-AI-02.3` All five adapters pass the same contract suite; the three stubs pass by raising `ProviderNotConfigured` where a real call would occur.
+- `AC-AI-02.3` All five adapters pass the same contract suite; the two stubs pass by raising `ProviderNotConfigured` where a real call would occur (ADR-011).
 - `AC-AI-02.4` Starting with a changed embedding model and no migration flag exits non-zero with a message naming both models; with the flag, it starts and `ai.reembed_all` is enqueued.
 - `AC-AI-02.5` `get_llm` for a feature with no override and no default configured raises at startup, not at first call.
 

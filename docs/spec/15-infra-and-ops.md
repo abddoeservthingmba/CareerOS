@@ -162,7 +162,7 @@ Seven families, each named because a specific question needs it:
 - `T-OPS-04.2` `tests/integration/test_log_privacy.py` (shared).
 - `T-OPS-04.3` `tests/integration/test_tracing.py`.
 - `T-OPS-04.4` `tests/integration/test_alert_conditions.py`.
-- `T-OPS-04.5` `docs/runbooks/alerting.md` + a manual verification record (R2).
+- `T-OPS-04.5` `tests/spec/test_runbooks_present.py` (shared) — asserts `docs/runbooks/alerting.md` and its manual verification record (R2).
 
 ---
 
@@ -258,7 +258,7 @@ Restore the most recent backup into a scratch Atlas database, run the integratio
 - `T-OPS-06.2` `tests/integration/test_backup_verification.py`.
 - `T-OPS-06.3` `infra/scripts/check_backup_retention.sh`.
 - `T-OPS-06.4` `tests/integration/test_r2_versioning.py`.
-- `T-OPS-06.5` `docs/runbooks/restore.md` (R2).
+- `T-OPS-06.5` `tests/spec/test_runbooks_present.py` (shared) — asserts `docs/runbooks/restore.md` records a measured recovery time (R2).
 
 ---
 

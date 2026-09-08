@@ -269,7 +269,7 @@ Three layers, deliberately redundant, because any one of them can fail.
 
 ---
 
-## 6.1 Follow-up draft
+## 6.1 Follow-up draft — `APPLY-09`
 
 **Objective.** One tap turns "applied 7 days ago" into a sendable email.
 
@@ -287,7 +287,7 @@ Three layers, deliberately redundant, because any one of them can fail.
 **Constraints (design only; do not build in R1/R2).** Manifest v3, Chrome and Edge. Reads the approved pack via the API using the user's session. Detects fields by label, `aria-label`, `name`, and placeholder heuristics; proposes a mapping; **fills only after the user approves that page's mapping**; **never clicks submit**; never touches a CAPTCHA; never navigates in the background. Operates only on the tab the user is actively viewing, only on an operator-maintained site allowlist. Logs every fill event to `audit_log`. Its own threat model and store review are separate from the API's, which is why it is not R2. HR-1 applies unchanged: the extension is an autofill tool, not an applicant.
 
 **Acceptance criteria.** `AC-APPLY-06.1` (R3) No code path clicks a submit control. `AC-APPLY-06.2` (R3) Fill occurs only after per-page approval. `AC-APPLY-06.3` (R3) The allowlist is enforced. `AC-APPLY-06.4` (R3) Every fill is audited.
-**Tests.** `T-APPLY-06.1`–`.4` extension test suite (R3).
+**Tests.** `T-APPLY-06.1`–`.4` `apps/extension/test/extension.test.ts` (R3).
 
 ## 8. Tailored resume export — `APPLY-08` — **Track: R3**
 
