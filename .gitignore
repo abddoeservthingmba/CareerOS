@@ -32,3 +32,8 @@ apps/web/dist/
 # itself *is* committed: it is the baseline an API diff is taken against.
 packages/contracts/ts/
 packages/contracts/dart/
+
+# Vite's dev-server cache. Written by `npm run dev`, never by a build, and it
+# holds pre-bundled dependencies - so committing it would put a copy of
+# node_modules in the repository.
+apps/web/.vite/

@@ -36,6 +36,7 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Any
 
 GOLDEN_SUFFIX = ":golden"
 
@@ -149,7 +150,7 @@ async def load_spend(uri: str, database: str, since: datetime) -> dict[str, Feat
     """Tokens and cost per feature, from the `:golden` rows this run wrote."""
     from pymongo import AsyncMongoClient
 
-    client: AsyncMongoClient = AsyncMongoClient(uri)
+    client: AsyncMongoClient[Any] = AsyncMongoClient(uri)
     try:
         rows = client[database]["ai_usage"].find(
             {

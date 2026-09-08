@@ -71,7 +71,24 @@ known-first-party = ["app", "specgate", "tests"]
 python_version = "3.12"
 strict = true
 mypy_path = "../../infra/scripts"
-files = ["app", "tests", "../../infra/scripts/specgate"]
+# `infra/scripts`, not just `specgate`. The top-level scripts *are* the gate -
+# `tasks.py`, `export_openapi.py`, `check_prompt_immutability.py`,
+# `ai_nightly_report.py`, `gen_importlinter.py` - and they were checked only
+# when a test happened to import one, which is how `ai_nightly_report.py` came
+# to use `Any` without importing it and annotate `AsyncMongoClient` with no
+# type argument. Tooling nobody type-checks is tooling that breaks the build
+# it exists to run.
+files = ["app", "tests", "../../infra/scripts"]
+
+# The platform mypy narrows for. Linux, because that is what the product runs
+# on - one image, two entrypoints, Docker - and what CI runs on.
+#
+# Left unset, mypy narrows for whichever machine invokes it, so a Windows
+# development machine and a Linux runner check different code. That produced a
+# real divergence: `AsyncMongoClient` with no type argument passed locally and
+# failed `api-ci` on `mypy`, with the local gate reporting success. Pinning it
+# is not a workaround - it is checking the platform the code is deployed to.
+platform = "linux"
 
 # A pytest test function's signature is fixtures in, nothing out, and annotating
 # every one adds noise without adding a check. Everything else stays strict.
