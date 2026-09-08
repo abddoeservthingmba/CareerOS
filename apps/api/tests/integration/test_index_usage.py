@@ -46,6 +46,12 @@ BATCH = 5_000
 #: between tests and this corpus costs a minute to build.
 INDEX_DATABASE = "jobpilot_index_test"
 
+#: Every test here shares the module-scoped corpus, so every test has to share
+#: the event loop it was built on. `AsyncMongoClient` binds to the loop it was
+#: created on and refuses to be used from another - so a function-scoped loop
+#: with a module-scoped client is a `RuntimeError`, not a slow test.
+pytestmark = pytest.mark.asyncio(loop_scope="module")
+
 OWNER = "01J000000000000000000OWNER"
 OTHER = "01J000000000000000000OTHER"
 
@@ -220,17 +226,28 @@ async def test_a_deep_page_examines_a_bounded_number_of_documents(corpus: Any, n
     )
 
 
-async def test_an_unindexed_sort_is_visibly_a_collection_scan(corpus: Any):
+async def test_an_unindexed_query_is_visibly_a_collection_scan(corpus: Any):
     """The negative control.
 
-    Without it, every assertion above could be passing because `explain()`
-    never says `COLLSCAN` in this Mongo version, and nobody would know.
+    Without it, every assertion above could be passing because `explain()` never
+    says `COLLSCAN` in this Mongo version, and nobody would know.
+
+    The *filter* has to be unindexed, not just the sort. A query filtered on
+    `user_id` reaches one of the declared indexes for the filter and then sorts
+    in memory - `['SORT', 'FETCH', 'IXSCAN']`, no collection scan - which is
+    exactly what this test found on its first run. That is worth recording,
+    because it is also the shape a *real* regression would take: a paginated
+    query that keeps its index for the filter and quietly loses it for the sort
+    still reports `IXSCAN`, so the checks above are asserting something weaker
+    than their names suggest. `test_a_deep_page_examines_a_bounded_number_of_documents`
+    is what covers that gap - an in-memory sort of 50,000 rows shows up there
+    as documents examined, whatever the stage list says.
     """
     unindexed = SortSpec((SortKey("deleted_at", -1, nullable=True, nulls="last"),))
-    stages = winning_stages(await explain_page(corpus, unindexed, {"user_id": OWNER}))
+    stages = winning_stages(await explain_page(corpus, unindexed, {"deleted_at": None}))
     assert "COLLSCAN" in stages, (
-        "a sort with no index did not report a collection scan, so the checks "
-        f"above prove nothing: {stages}"
+        "a query with no usable index did not report a collection scan, so the "
+        f"checks above prove nothing: {stages}"
     )
 
 
@@ -245,7 +262,10 @@ async def test_every_declared_sort_has_an_index_leading_with_the_owner(corpus: A
     """Every user-facing query is scoped by owner (`AC-FOUND-05.2`), so an index
     that does not lead with `user_id` cannot serve one - it would have to scan
     every user's rows and discard them."""
-    existing = await corpus.list_indexes().to_list()
+    # `list_indexes()` is itself a coroutine in PyMongo's async driver: it
+    # returns the cursor, which is then drained. Chaining `.to_list()` onto the
+    # un-awaited coroutine silently produces nothing.
+    existing = await (await corpus.list_indexes()).to_list()
     by_name = {index["name"]: list(index["key"].items()) for index in existing}
 
     for name, (_, index_keys) in SORTS.items():
