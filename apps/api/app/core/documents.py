@@ -30,6 +30,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from app.core import clock
 from app.core.ids import new_id
+from app.shared.embedding import Vector
 from app.shared.timeutils import NaiveDatetimeError, ensure_utc
 
 
@@ -131,6 +132,106 @@ class UserOwnedDoc(BaseDoc, OwnedFields):
         validate_on_save = True
 
 
+class StoredEmbedding(BaseModel):
+    """The persisted shape of an embedding - `17-data-model.md` §2.5, §2.6, §2.9.
+
+    Here rather than in one module because three modules store one
+    (`profiles.embedding`, `jobs.embedding`, `answer_bank.embedding`) and a
+    module may not import another module. Two copies of this shape would
+    eventually disagree about whether `dims` is stored, which is the one field
+    that must never be optional.
+
+    `AC-DATA-02.6`: "every embedding carr[ies] `model` and `dims`; a comparison
+    between vectors of differing `model` raises `EmbeddingModelMismatch`". The
+    model travels *with* the vector for a reason that is easy to miss: a
+    re-embedding migration leaves both generations in the collection at once,
+    and cosine similarity between them is not a smaller number, it is a
+    meaningless one. Without `model` on the row there is no way to tell which
+    is which after the fact.
+    """
+
+    model: str
+    dims: int
+    #: The quantization scale. `DATA-06`: one byte per dimension, so the float
+    #: range has to travel too or the vector cannot be reconstructed.
+    scale: float = 0.0
+    #: Base64 of the quantized bytes. Empty until computed - a document exists
+    #: before its embedding does.
+    vector: str = ""
+    #: Hash of the text that produced it, so a recompute can be skipped when
+    #: nothing changed (`AC-PROF-05.3`, `AC-JOB-07.2`).
+    source_hash: str | None = None
+    computed_at: datetime | None = None
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    @field_validator("model")
+    @classmethod
+    def _model_is_named(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError(
+                "an embedding must carry the model that produced it; a vector "
+                "compared against one from another model is meaningless, not "
+                "merely less accurate"
+            )
+        return value
+
+    @field_validator("dims")
+    @classmethod
+    def _dims_are_positive(cls, value: int) -> int:
+        if value <= 0:
+            raise ValueError(f"dims must be positive, got {value}")
+        return value
+
+    @field_validator("computed_at")
+    @classmethod
+    def _computed_at_is_utc(cls, value: datetime | None) -> datetime | None:
+        return ensure_utc(value) if value is not None else None
+
+    @property
+    def is_computed(self) -> bool:
+        return bool(self.vector)
+
+    def to_vector(self) -> Vector:
+        """The value object, for comparison. Raises if nothing is stored yet."""
+        if not self.is_computed:
+            raise ValueError(f"{self.model} embedding has not been computed yet")
+        return Vector.from_document(self.model_dump())
+
+    @classmethod
+    def from_vector(
+        cls, vector: Vector, *, source_hash: str | None = None, computed_at: datetime | None = None
+    ) -> StoredEmbedding:
+        return cls(
+            **vector.to_document(),
+            source_hash=source_hash,
+            computed_at=computed_at or clock.now(),
+        )
+
+
+class Provenance(BaseModel):
+    """`model` and `prompt_version` on anything a model produced - HR-9.
+
+    HR-9: "every AI-generated artifact records the model and the prompt
+    version". Shared for the same reason `StoredEmbedding` is: `resumes`,
+    `jobs.enrichment`, `application_packs` and `match_scores` all record it, and
+    a per-module copy is a per-module chance to leave one of the two fields out.
+
+    The pair is what makes an output explainable a month later. The model alone
+    does not: the same model with a rewritten prompt is a different system, and
+    the prompt is the half that changes weekly.
+    """
+
+    model: str
+    prompt_version: str
+    at: datetime | None = None
+
+    @field_validator("at")
+    @classmethod
+    def _at_is_utc(cls, value: datetime | None) -> datetime | None:
+        return ensure_utc(value) if value is not None else None
+
+
 def is_user_owned(document: type[Document]) -> bool:
     return issubclass(document, UserOwnedDoc)
 
@@ -163,6 +264,8 @@ __all__ = [
     "DocumentFields",
     "OwnedFields",
     "MissingOwner",
+    "Provenance",
+    "StoredEmbedding",
     "NaiveDatetimeError",
     "UserOwnedDoc",
     "compound_index_starts_with_user_id",

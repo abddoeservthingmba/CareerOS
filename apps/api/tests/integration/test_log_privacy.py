@@ -237,21 +237,40 @@ def test_the_flow_list_is_the_one_the_criterion_names(repo):
     assert sentence.count(",") >= len(FLOWS)
 
 
-def test_none_of_the_five_flows_exists_yet(repo):
+def test_none_of_the_five_flows_is_reachable_yet(repo):
     """Stated rather than assumed.
 
-    The moment `app/modules/` has a module, this fails - which is the prompt to
-    add that flow's end-to-end assertion here instead of discovering later that
-    the criterion was only ever half-checked.
+    The moment one of §14's five flows becomes reachable, this fails - which is
+    the prompt to add that flow's end-to-end assertion here instead of
+    discovering later that the criterion was only ever half-checked.
+
+    **Keyed on a routable module, not on a module directory.** It used to check
+    for the directory, and `DATA-02` created all nine in P0 to hold their
+    Beanie documents - every other file still the scaffold's docstring. A
+    sentinel that fires when no flow exists is a false alarm, and a false alarm
+    is what gets a sentinel deleted. A flow can leak a secret only once there is
+    a request path to run it; an `APIRouter` in `router.py` is that.
     """
+    import ast
+
     modules = repo / "apps" / "api" / "app" / "modules"
-    present = sorted(
-        path.name
-        for path in modules.iterdir()
-        if path.is_dir() and (path / "__init__.py").is_file()
-    )
+    present: list[str] = []
+    for path in sorted(modules.iterdir()):
+        router = path / "router.py"
+        if not router.is_file():
+            continue
+        tree = ast.parse(router.read_text(encoding="utf-8"))
+        if any(
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Name | ast.Attribute)
+            and "APIRouter" in ast.unparse(node.func)
+            for node in ast.walk(tree)
+        ):
+            present.append(path.name)
+
     assert present == [], (
-        f"{present} now exist; add their flows to this file's end-to-end assertion. Owed: {FLOWS}"
+        f"{present} now expose routes; add their flows to this file's end-to-end "
+        f"assertion. Owed: {FLOWS}"
     )
 
 

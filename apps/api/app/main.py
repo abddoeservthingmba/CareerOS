@@ -32,6 +32,7 @@ from app.core import logging as app_logging
 from app.core.config import Settings, get_settings
 from app.core.errors import AppError, ErrorCode, InvalidCursor
 from app.core.idempotency import Idempotency, MemoryStore
+from app.documents import all_documents
 from app.infra import mongo
 from app.infra.email import webhook as email_webhook
 from app.infra.email.bounces import MemoryBounceRegistry
@@ -53,6 +54,10 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings: Settings = app.state.settings
     app.state.mongo = mongo.build_client(settings.MONGODB_URI.get_secret_value())
     app.state.database = app.state.mongo[settings.MONGODB_DB]
+    # `DATA-02`. Every document, from the one registry that names them all, so
+    # a query against an unregistered collection fails at boot rather than at
+    # the first request that needed it.
+    await mongo.init_documents(app.state.database, all_documents())
     try:
         yield
     finally:

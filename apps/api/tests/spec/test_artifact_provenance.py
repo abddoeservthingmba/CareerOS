@@ -160,17 +160,23 @@ def test_the_artifact_records_its_prompt_version_once_it_exists(entry: Provenanc
     )
 
 
-def test_none_of_the_four_collections_exists_yet():
-    """Stated rather than assumed.
+def test_all_four_collections_now_exist_so_the_assertions_above_are_live():
+    """`DATA-02` landed the four documents, so the two checks above stopped
+    being vacuous.
 
-    When this fails, one of the four has landed - which is the prompt to make
-    the two assertions above real rather than to notice later that they were
-    vacuous the whole time.
+    This replaces the sentinel that used to stand here saying "none of the four
+    exists yet". Its job was to fail the moment one arrived, and it did. What
+    takes its place is the same guarantee from the other side: if any of the
+    four were removed or renamed, the `if model is None: return` in the checks
+    above would silently skip it, and this is what refuses that.
     """
-    present = sorted(entry.collection for entry in ARTIFACTS if entry.collection in documents())
-    assert present == [], (
-        f"{present} now exist; their provenance assertions above are live, and "
-        "this test should be deleted"
+    defined = documents()
+
+    missing = sorted(entry.collection for entry in ARTIFACTS if entry.collection not in defined)
+    assert missing == [], (
+        f"{missing} no longer exist as collections, which makes the provenance "
+        "assertions above skip rather than fail. Either restore them or update "
+        "§4's list of model-produced artifacts."
     )
 
 

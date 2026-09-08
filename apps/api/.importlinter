@@ -23,6 +23,7 @@ name = layers
 type = layers
 layers =
     app.main | app.worker
+    app.documents
     app.modules
     app.connectors | app.ai | app.infra
     app.core
@@ -95,7 +96,39 @@ forbidden_modules =
     app.ai
     app.connectors
 
-; --- 2. module-independence, 8. no-http-in-domain --------------------------
-; Both enumerate every module by name and appear here as soon as the first
-; module exists. `app/modules/` is empty today, so there is nothing to bind;
-; `AC-FOUND-04.1`'s "all eight contracts" is reached when `auth` lands in P1.
+; --- 2. module-independence ----------------------------------------------------
+; Only another module's `__init__.py` public surface may be imported.
+[importlinter:contract:module-independence]
+name = module-independence
+type = independence
+modules =
+    app.modules.admin
+    app.modules.apply
+    app.modules.auth
+    app.modules.jobs
+    app.modules.matching
+    app.modules.notifications
+    app.modules.profile
+    app.modules.resume
+    app.modules.tracker
+
+; --- 8. no-http-in-domain ------------------------------------------------------
+; Services take and return plain objects; HTTP lives in `router.py`.
+[importlinter:contract:no-http-in-domain]
+name = no-http-in-domain
+type = forbidden
+source_modules =
+    app.modules.admin.service
+    app.modules.apply.service
+    app.modules.auth.service
+    app.modules.jobs.service
+    app.modules.matching.service
+    app.modules.notifications.service
+    app.modules.profile.service
+    app.modules.resume.service
+    app.modules.tracker.service
+forbidden_modules =
+    fastapi
+    starlette
+    motor
+    pymongo

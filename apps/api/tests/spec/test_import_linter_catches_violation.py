@@ -161,19 +161,39 @@ def test_two_modules_importing_each_others_internals_fails(repo: Path, tmp_path:
         "from app.modules.beta.models import VALUE\n\nUSED = VALUE\n", encoding="utf-8"
     )
 
-    # The contract enumerates modules, so it must be regenerated for the fixture.
-    sys.path.insert(0, str(repo / "infra" / "scripts"))
-    import gen_importlinter
-
-    config = configparser.ConfigParser()
-    config.read(workspace / ".importlinter", encoding="utf-8")
-    if "importlinter:contract:module-independence" not in config.sections():
-        # The contract is emitted once a real module exists; until then there is
-        # nothing for this fixture to violate. Returning rather than skipping:
-        # `AC-FOUND-15.7` forbids a skipped test on an R1 path.
-        assert gen_importlinter.modules() == []
-        return
+    # `module-independence` enumerates modules by name, so the copied contract
+    # lists the nine real ones and knows nothing about `alpha` and `beta`. The
+    # fixture has to extend it, or the violation it introduces is not covered by
+    # any contract and this test passes for the wrong reason - which is exactly
+    # what happened when `DATA-02` created the first real modules: the assertion
+    # went from "the contract is absent, nothing to violate" straight to
+    # "lint-imports found nothing wrong".
+    _register_fixture_modules(workspace, ("alpha", "beta"))
 
     result = _lint(workspace)
-    assert result.returncode != 0
+    assert result.returncode != 0, (
+        "module-independence did not catch alpha -> beta.models:\n" + result.stdout
+    )
     assert "module-independence" in result.stdout
+
+
+def _register_fixture_modules(workspace: Path, names: tuple[str, ...]) -> None:
+    """Add `names` to the copied contract's `module-independence` list.
+
+    Editing the copy rather than re-running the generator: the generator reads
+    the *repository's* `app/modules/`, not the workspace's, so regenerating
+    would produce the same nine names and leave the fixture uncovered.
+    """
+    config = configparser.ConfigParser()
+    config.read(workspace / ".importlinter", encoding="utf-8")
+    section = "importlinter:contract:module-independence"
+
+    assert section in config.sections(), (
+        f"the copied contract has no {section}. It is emitted once a real module "
+        "exists, and `DATA-02` landed nine - so its absence now means the "
+        "generator stopped emitting it."
+    )
+    existing = [line for line in config[section]["modules"].split("\n") if line.strip()]
+    config[section]["modules"] = "\n".join(existing + [f"app.modules.{name}" for name in names])
+    with (workspace / ".importlinter").open("w", encoding="utf-8") as handle:
+        config.write(handle)

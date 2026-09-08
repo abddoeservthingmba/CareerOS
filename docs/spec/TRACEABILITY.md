@@ -58,12 +58,12 @@ Requirement → track → acceptance criterion → test → status.
 | `DATA-01` | R1 | P0 | `AC-DATA-01.3` | `T-DATA-01.3` | `tests/integration/test_readyz_indexes.py` | test not written |
 | `DATA-01` | R1 | P0 | `AC-DATA-01.4` | `T-DATA-01.4` | `tests/spec/test_repo_user_scoping.py` | test present |
 | `DATA-01` | R1 | P0 | `AC-DATA-01.5` | `T-DATA-01.5` | `tests/integration/test_soft_delete_default.py` | test present |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.1` | `T-DATA-02.1` | `tests/spec/test_schema_snapshot.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.2` | `T-DATA-02.2` | `tests/spec/test_collection_ownership.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.3` | `T-DATA-02.3` | `tests/integration/test_application_job_xor.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.4` | `T-DATA-02.4` | `tests/integration/test_audit_append_only.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.5` | `T-DATA-02.5` | `tests/unit/test_scorer_input_type.py` | test not written |
-| `DATA-02` | R1 | P0 | `AC-DATA-02.6` | `T-DATA-02.6` | `tests/unit/test_embedding_guard.py` | test not written |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.1` | `T-DATA-02.1` | `tests/spec/test_schema_snapshot.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.2` | `T-DATA-02.2` | `tests/spec/test_collection_ownership.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.3` | `T-DATA-02.3` | `tests/integration/test_application_job_xor.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.4` | `T-DATA-02.4` | `tests/integration/test_audit_append_only.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.5` | `T-DATA-02.5` | `tests/unit/test_scorer_input_type.py` | test present |
+| `DATA-02` | R1 | P0 | `AC-DATA-02.6` | `T-DATA-02.6` | `tests/unit/test_embedding_guard.py` | test present |
 | `DATA-03` | R1 | P0 | `AC-DATA-03.1` | `T-DATA-03.1` | `tests/integration/test_index_declarations.py` | test not written |
 | `DATA-03` | R1 | P0 | `AC-DATA-03.2` | `T-DATA-03.2` | `tests/integration/test_index_usage.py` | test present |
 | `DATA-03` | R1 | P0 | `AC-DATA-03.3` | `T-DATA-03.3` | `tests/integration/test_index_declarations.py` | test not written |
@@ -88,7 +88,7 @@ Requirement → track → acceptance criterion → test → status.
 | `DATA-07` | R1 | P0 | `AC-DATA-07.3` | `T-DATA-07.3` | `tests/spec/test_field_registry.py` | test not written |
 | `DATA-07` | R1 | P0 | `AC-DATA-07.4` | `T-DATA-07.4` | `tests/spec/test_field_registry.py` | test not written |
 | `DATA-07` | R1 | P0 | `AC-DATA-07.5` | `T-DATA-07.5` | `tests/spec/test_field_registry.py` | test not written |
-| `DATA-07` | R1 | P0 | `AC-DATA-07.6` | `T-DATA-07.6` | `tests/spec/test_schema_snapshot.py` | test not written |
+| `DATA-07` | R1 | P0 | `AC-DATA-07.6` | `T-DATA-07.6` | `tests/spec/test_schema_snapshot.py` | test present |
 | `DATA-07` | R1 | P0 | `AC-DATA-07.7` | `T-DATA-07.7` | `tests/spec/test_enum_registry.py` | test not written |
 | `DEP-01` | R1 | P0 | `AC-DEP-01.1` | `T-DEP-01.1` | `tests/spec/test_dependency_manifest.py` | test present |
 | `DEP-01` | R1 | P0 | `AC-DEP-01.2` | `T-DEP-01.2` | `tests/spec/test_dependency_manifest.py` | test present |
@@ -398,7 +398,7 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-03` | R1 | P2 | `AC-RES-03.5` | `T-RES-03.5` | `tests/ai/test_extraction_precision.py` | test present |
 | `RES-03` | R1 | P2 | `AC-RES-03.6` | `T-RES-03.6` | `tests/ai/test_injection_corpus.py` | test not written |
 | `RES-03` | R1 | P2 | `AC-RES-03.7` | `T-RES-03.7` | `tests/unit/test_extraction_chunking.py` | test not written |
-| `RES-03` | R1 | P2 | `AC-RES-03.8` | `T-RES-03.8` | `tests/spec/test_collection_ownership.py` | test not written |
+| `RES-03` | R1 | P2 | `AC-RES-03.8` | `T-RES-03.8` | `tests/spec/test_collection_ownership.py` | test present |
 | `RES-05` | R1 | P2 | `AC-RES-05.1` | `T-RES-05.1` | `tests/unit/test_llm_request.py` | test present |
 | `RES-05` | R1 | P2 | `AC-RES-05.2` | `T-RES-05.2` | `tests/integration/test_no_file_to_provider.py` | test not written |
 | `RES-05` | R1 | P2 | `AC-RES-05.3` | `T-RES-05.3` | `tests/integration/test_no_file_to_provider.py` | test not written |
@@ -583,7 +583,7 @@ Requirement → track → acceptance criterion → test → status.
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.1` | `T-MATCH-03.1` | `tests/unit/test_scoring_determinism.py` | test not written |
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.2` | `T-MATCH-03.2` | `tests/spec/test_scoring_purity.py` | test not written |
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.3` | `T-MATCH-03.3` | `tests/integration/test_score_provenance.py` | test not written |
-| `MATCH-03` | R1 | P4 | `AC-MATCH-03.4` | `T-MATCH-03.4` | `tests/unit/test_scorer_input_type.py` | test not written |
+| `MATCH-03` | R1 | P4 | `AC-MATCH-03.4` | `T-MATCH-03.4` | `tests/unit/test_scorer_input_type.py` | test present |
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.5` | `T-MATCH-03.5` | `tests/unit/test_freshness_component.py` | test not written |
 | `MATCH-03` | R1 | P4 | `AC-MATCH-03.6` | `T-MATCH-03.6` | `tests/unit/test_weights_loading.py` | test not written |
 | `MATCH-04` | R1 | P4 | `AC-MATCH-04.1` | `T-MATCH-04.1` | `tests/unit/test_embedding_similarity.py`, `tests/unit/test_skills_fallback.py` | test not written |
@@ -595,7 +595,7 @@ Requirement → track → acceptance criterion → test → status.
 | `MATCH-05` | R1 | P4 | `AC-MATCH-05.5` | `T-MATCH-05.5` | `tests/integration/test_inactive_user_scoring.py` | test not written |
 | `MATCH-05` | R1 | P4 | `AC-MATCH-05.6` | `T-MATCH-05.6` | `tests/integration/test_threshold_read_time.py` | test not written |
 | `MATCH-05` | R1 | P4 | `AC-MATCH-05.7` | `T-MATCH-05.7` | `tests/integration/test_feed_latency.py` | test not written |
-| `MATCH-05` | R1 | P4 | `AC-MATCH-05.8` | `T-MATCH-05.8` | `tests/unit/test_embedding_guard.py` | test not written |
+| `MATCH-05` | R1 | P4 | `AC-MATCH-05.8` | `T-MATCH-05.8` | `tests/unit/test_embedding_guard.py` | test present |
 | `MATCH-05` | R1 | P4 | `AC-MATCH-05.9` | `T-MATCH-05.9` | `tests/integration/test_hidden_exclusion.py` | test not written |
 | `MATCH-07` | R1 | P4 | `AC-MATCH-07.1` | `T-MATCH-07.1` | `tests/integration/test_threshold_read_time.py`, `tests/unit/test_threshold_bounds.py` | test not written |
 | `MATCH-07` | R1 | P4 | `AC-MATCH-07.2` | `T-MATCH-07.2` | `tests/integration/test_threshold_read_time.py`, `tests/unit/test_threshold_bounds.py` | test not written |
@@ -655,7 +655,7 @@ Requirement → track → acceptance criterion → test → status.
 | `APPLY-05` | R1 | P5 | `AC-APPLY-05.7` | `T-APPLY-05.7` | `tests/integration/test_merged_apply_sources.py` | test not written |
 | `APPLY-05` | R1 | P5 | `AC-APPLY-05.8` | `T-APPLY-05.8` | `apps/web/e2e/apply.spec.ts`, `apps/mobile/integration_test/apply_test.dart` | test not written |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.1` | `T-APPLY-07.1` | `tests/integration/test_audit_coverage.py` | test not written |
-| `APPLY-07` | R1 | P5 | `AC-APPLY-07.2` | `T-APPLY-07.2` | `tests/integration/test_audit_append_only.py` | test not written |
+| `APPLY-07` | R1 | P5 | `AC-APPLY-07.2` | `T-APPLY-07.2` | `tests/integration/test_audit_append_only.py` | test present |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.3` | `T-APPLY-07.3` | `tests/integration/test_audit_no_content.py` | test not written |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.4` | `T-APPLY-07.4` | `tests/integration/test_request_id_propagation.py` | test present |
 | `APPLY-07` | R1 | P5 | `AC-APPLY-07.5` | `T-APPLY-07.5` | `tests/unit/test_ip_prefix.py` | test not written |
@@ -669,7 +669,7 @@ Requirement → track → acceptance criterion → test → status.
 | `SEC-06` | R1 | P5 | `AC-SEC-06.4` | `T-SEC-06.4` | `tests/spec/test_no_submission_capability.py`, `tests/spec/test_no_autoapply_flag.py`, `tests/unit/test_fabrication_recall.py`, `tests/integration/test_pack_prompt_excludes_unconfirmed.py` | test not written |
 | `SEC-06` | R1 | P5 | `AC-SEC-06.5` | `T-SEC-06.5` | `tests/spec/test_ethics_doc.py` | test not written |
 | `SEC-06` | R1 | P5 | `AC-SEC-06.6` | `T-SEC-06.6` | `tests/spec/test_store_listing_claims.py` | test not written |
-| `TRACK-01` | R1 | P5 | `AC-TRACK-01.1` | `T-TRACK-01.1` | `tests/integration/test_application_job_xor.py` | test not written |
+| `TRACK-01` | R1 | P5 | `AC-TRACK-01.1` | `T-TRACK-01.1` | `tests/integration/test_application_job_xor.py` | test present |
 | `TRACK-01` | R1 | P5 | `AC-TRACK-01.2` | `T-TRACK-01.2` | `tests/integration/test_save_idempotence.py` | test not written |
 | `TRACK-01` | R1 | P5 | `AC-TRACK-01.3` | `T-TRACK-01.3` | `tests/integration/test_manual_entry.py` | test not written |
 | `TRACK-01` | R1 | P5 | `AC-TRACK-01.4` | `T-TRACK-01.4` | `tests/integration/test_manual_url_ssrf.py` | test not written |
@@ -735,7 +735,7 @@ Requirement → track → acceptance criterion → test → status.
 | `TRACK-04` | R1 | P6 | `AC-TRACK-04.2` | `T-TRACK-04.2` | `tests/integration/test_timeline_backing.py` | test not written |
 | `TRACK-04` | R1 | P6 | `AC-TRACK-04.3` | `T-TRACK-04.3` | `tests/unit/test_timeline_ordering.py` | test not written |
 | `TRACK-04` | R1 | P6 | `AC-TRACK-04.4` | `T-TRACK-04.4` | `tests/integration/test_timeline_tombstones.py` | test not written |
-| `TRACK-04` | R1 | P6 | `AC-TRACK-04.5` | `T-TRACK-04.5` | `tests/spec/test_collection_ownership.py` | test not written |
+| `TRACK-04` | R1 | P6 | `AC-TRACK-04.5` | `T-TRACK-04.5` | `tests/spec/test_collection_ownership.py` | test present |
 | `TRACK-05` | R1 | P6 | `AC-TRACK-05.1` | `T-TRACK-05.1` | `tests/integration/test_manual_entry.py`, `tests/integration/test_manual_pack_gate.py`, `tests/integration/test_manual_reminders.py` | test not written |
 | `TRACK-05` | R1 | P6 | `AC-TRACK-05.2` | `T-TRACK-05.2` | `tests/integration/test_manual_entry.py`, `tests/integration/test_manual_pack_gate.py`, `tests/integration/test_manual_reminders.py` | test not written |
 | `TRACK-05` | R1 | P6 | `AC-TRACK-05.3` | `T-TRACK-05.3` | `tests/integration/test_manual_entry.py`, `tests/integration/test_manual_pack_gate.py`, `tests/integration/test_manual_reminders.py` | test not written |

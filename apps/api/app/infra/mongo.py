@@ -19,12 +19,25 @@ Beanie 2.x uses PyMongo's native async driver; Motor is deprecated and
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from typing import Any
 
+from beanie import Document, init_beanie
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.database import AsyncDatabase
 
 CONNECT_TIMEOUT_MS = 20_000
+
+
+async def init_documents(database: AsyncDatabase[Any], documents: Sequence[type[Document]]) -> None:
+    """Bind Beanie to `documents`.
+
+    The list is passed in rather than imported, and that is contract 7
+    (`infra-is-dumb`) rather than style: this module may not import
+    `app.modules`, and it should not know what a résumé is. `app.documents`
+    knows, and the entrypoints hand the answer down.
+    """
+    await init_beanie(database=database, document_models=list(documents))
 
 
 def build_client(uri: str) -> AsyncMongoClient[Any]:

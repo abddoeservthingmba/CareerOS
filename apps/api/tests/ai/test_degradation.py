@@ -304,22 +304,53 @@ async def test_the_retry_recovers_when_the_budget_does():
 # -- the boundary between this file and the features -------------------------
 
 
-def test_none_of_the_ten_features_exists_yet():
+def test_no_feature_is_routable_yet():
     """Stated rather than assumed.
 
-    The ten features are P2-P6. When one lands, this fails - which is the prompt
-    to point the assertions above at the real implementation, rather than to
-    discover later that they only ever exercised a transcription.
+    The ten features are P2-P6. When one becomes reachable, this fails - which
+    is the prompt to point the assertions above at the real implementation,
+    rather than to discover later that they only ever exercised a
+    transcription.
+
+    **Keyed on a routable feature, not on a module directory.** It used to
+    check whether `app/modules/<name>/` existed, and `DATA-02` made all nine
+    exist in P0 - to hold their Beanie documents, with every other file still
+    the scaffold's docstring. That fired the sentinel with no feature built,
+    which is a false alarm, and a sentinel that cries wolf is one somebody
+    deletes. A feature is *reachable* when its `router.py` declares an
+    `APIRouter`; until then there is no code path a budget denial could
+    degrade.
     """
+    assert routable_modules() == [], (
+        f"{routable_modules()} now expose routes; wire test_degradation.py to them"
+    )
+
+
+def routable_modules() -> list[str]:
+    """Modules whose `router.py` declares an `APIRouter`.
+
+    By AST rather than by import, so a module that fails to import for an
+    unrelated reason does not silently count as un-routable - which would make
+    this sentinel pass for the wrong reason.
+    """
+    import ast
     from pathlib import Path
 
     modules = Path(__file__).resolve().parents[2] / "app" / "modules"
-    present = sorted(
-        path.name
-        for path in modules.iterdir()
-        if path.is_dir() and (path / "__init__.py").is_file()
-    )
-    assert present == [], f"{present} exist; wire test_degradation.py to them"
+    found: list[str] = []
+    for path in sorted(modules.iterdir()):
+        router = path / "router.py"
+        if not router.is_file():
+            continue
+        tree = ast.parse(router.read_text(encoding="utf-8"))
+        if any(
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Name | ast.Attribute)
+            and "APIRouter" in ast.unparse(node.func)
+            for node in ast.walk(tree)
+        ):
+            found.append(path.name)
+    return found
 
 
 def test_every_feature_in_the_enum_is_parametrized():

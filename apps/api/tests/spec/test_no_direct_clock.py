@@ -125,7 +125,7 @@ def test_a_string_on_the_same_line_does_not_exempt_the_call(tmp_path: Path):
     """
     mixed = tmp_path / "mixed.py"
     mixed.write_text(
-        'from datetime import UTC, datetime\n\n\ndef row():\n'
+        "from datetime import UTC, datetime\n\n\ndef row():\n"
         '    return {"first_seen": datetime.now(UTC).isoformat()}\n',
         encoding="utf-8",
     )

@@ -175,12 +175,18 @@ async def startup(ctx: dict[str, Any]) -> None:
     entrypoints (ADR-002) means the worker is not a second application with its
     own idea of how to reach Mongo.
     """
+    from app.documents import all_documents
     from app.infra import mongo
 
     settings: Settings = get_settings()
     ctx["settings"] = settings
     ctx["mongo"] = mongo.build_client(settings.MONGODB_URI.get_secret_value())
     ctx["database"] = ctx["mongo"][settings.MONGODB_DB]
+    # `DATA-02`, from the same registry `main.py` uses. A worker bound to a
+    # subset of the documents would fail on whichever task first touched a
+    # collection it had not registered - and a task failure is retried three
+    # times before anyone sees it.
+    await mongo.init_documents(ctx["database"], all_documents())
     logger.info("worker started", extra={"tasks": len(REGISTRY)})
 
 

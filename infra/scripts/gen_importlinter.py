@@ -53,8 +53,20 @@ include_external_packages = True
 # (ADR-002). Both compose what the layers below them provide, and neither is
 # imported by anything - a module that imported the worker would be a module
 # that knows how it is deployed.
+# `app.documents` sits between the entrypoints and the modules. It is the one
+# place that names every Beanie document in the product (`DATA-02`), which
+# `init_beanie` needs and both entrypoints need - so it cannot live in either of
+# them, and it cannot live in `app.infra` (contract 7 forbids
+# `app.infra -> app.modules`) or in `app/modules/__init__.py`, where importing
+# any module would transitively import all nine.
+#
+# Above `app.modules` rather than beside it, so a module cannot import the
+# registry back. That direction is what keeps the import graph acyclic: a
+# registry that models could see would be a way for one module to reach
+# another's documents without naming it.
 LAYERS = (
     "app.main | app.worker",
+    "app.documents",
     "app.modules",
     "app.connectors | app.ai | app.infra",
     "app.core",
