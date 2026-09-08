@@ -114,7 +114,28 @@ jobs:
           METRICS_TOKEN: ci
           AI_PROVIDER_DEFAULT: fake
           AI_EMBEDDING_PROVIDER: fake
-        run: uv run pytest
+        # The failure summary is written to the step summary and emitted as
+        # annotations, not left in the log. This repository is public and its
+        # Actions logs are not: `/logs` answers 403 to an anonymous request, so
+        # a red build said only "Process completed with exit code 1" to anyone
+        # without push access - including the tooling that has to fix it.
+        # Annotations and the step summary are readable; the log is not.
+        run: |
+          set -o pipefail
+          if uv run pytest --tb=short 2>&1 | tee "$RUNNER_TEMP/pytest.txt"; then
+            exit 0
+          fi
+          {
+            echo "### pytest failed"
+            echo ''
+            echo '```'
+            tail -c 20000 "$RUNNER_TEMP/pytest.txt"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          grep -E '^(FAILED|ERROR)' "$RUNNER_TEMP/pytest.txt" | head -40 | while read -r line; do
+            echo "::error title=pytest::${line}"
+          done
+          exit 1
 
       # T-AI-07.2 - `AC-AI-07.2`: editing a prompt whose version has already run
       # in production fails CI with a message to create the next version.
