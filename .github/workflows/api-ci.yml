@@ -19,8 +19,45 @@ concurrency:
   group: api-ci-${{ github.ref }}
   cancel-in-progress: true
 
+# Workflow-level, so no step can be missing them.
+#
+# Three steps build a `Settings` - `pytest`, and `generate`'s
+# `export_openapi.py`, which calls `create_app()`. Only `pytest` had an `env`
+# block, so `generated artifacts are current` failed on a `ValidationError` for
+# required settings that have no defaults (`AC-FOUND-02.1`, deliberately: a
+# missing required setting fails the boot rather than defaulting to something
+# insecure). `.env` is gitignored, so CI has to supply them.
+#
+# Every value is a throwaway and nothing reaches a real service:
+# `AI_PROVIDER_DEFAULT` is `fake`, mail is blocked at import by
+# `conftest._block_outbound_mail`, and `real_ai`/`real_source` are deselected
+# by `pytest.ini`.
 env:
   UV_SYSTEM_CERTS: "1"
+  APP_ENV: local
+  PRODUCT_NAME: JobPilot
+  API_BASE_URL: http://localhost:8000
+  WEB_ORIGIN: http://localhost:5173
+  SECRET_KEY: ci-secret-key-at-least-thirty-two-chars
+  REFRESH_PEPPER: ci-refresh-pepper-at-least-thirty-two-chars
+  JWT_PRIVATE_KEY_PEM: ci
+  JWT_PUBLIC_KEY_PEM: ci
+  JWT_ISSUER: jobpilot
+  JWT_AUDIENCE: jobpilot
+  MONGODB_URI: mongodb://localhost:27017
+  MONGODB_DB: jobpilot
+  REDIS_URL: redis://localhost:6379/0
+  R2_ACCOUNT_ID: ci
+  R2_ACCESS_KEY_ID: ci
+  R2_SECRET_ACCESS_KEY: ci
+  R2_BUCKET: ci
+  R2_PUBLIC_BASE_URL: http://localhost:9000
+  CONNECTOR_USER_AGENT: JobPilot/1.0 (+http://localhost/about)
+  EMAIL_FROM: no-reply@localhost
+  EMAIL_PROVIDER: mailpit
+  METRICS_TOKEN: ci
+  AI_PROVIDER_DEFAULT: fake
+  AI_EMBEDDING_PROVIDER: fake
 
 jobs:
   checks:
@@ -77,43 +114,8 @@ jobs:
         working-directory: apps/api
         run: uv run mypy
 
-      # The suite reads its settings from the environment. `tests/conftest.py`
-      # loads `.env` locally and `.env` is gitignored, so CI has to supply the
-      # required fields itself - `Settings` sets `extra="forbid"` and has no
-      # defaults for these, deliberately (`AC-FOUND-02.1`: a missing required
-      # setting fails the boot rather than defaulting to something insecure).
-      #
-      # Every value here is a throwaway. Nothing in this block reaches a real
-      # provider: `AI_PROVIDER_DEFAULT` is `fake`, mail is blocked at import by
-      # `conftest._block_outbound_mail`, and `real_ai`/`real_source` are
-      # deselected by `pytest.ini`.
       - name: pytest
         working-directory: apps/api
-        env:
-          APP_ENV: local
-          PRODUCT_NAME: JobPilot
-          API_BASE_URL: http://localhost:8000
-          WEB_ORIGIN: http://localhost:5173
-          SECRET_KEY: ci-secret-key-at-least-thirty-two-chars
-          REFRESH_PEPPER: ci-refresh-pepper-at-least-thirty-two-chars
-          JWT_PRIVATE_KEY_PEM: ci
-          JWT_PUBLIC_KEY_PEM: ci
-          JWT_ISSUER: jobpilot
-          JWT_AUDIENCE: jobpilot
-          MONGODB_URI: mongodb://localhost:27017
-          MONGODB_DB: jobpilot
-          REDIS_URL: redis://localhost:6379/0
-          R2_ACCOUNT_ID: ci
-          R2_ACCESS_KEY_ID: ci
-          R2_SECRET_ACCESS_KEY: ci
-          R2_BUCKET: ci
-          R2_PUBLIC_BASE_URL: http://localhost:9000
-          CONNECTOR_USER_AGENT: JobPilot/1.0 (+http://localhost/about)
-          EMAIL_FROM: no-reply@localhost
-          EMAIL_PROVIDER: mailpit
-          METRICS_TOKEN: ci
-          AI_PROVIDER_DEFAULT: fake
-          AI_EMBEDDING_PROVIDER: fake
         # The failure summary is written to the step summary and emitted as
         # annotations, not left in the log. This repository is public and its
         # Actions logs are not: `/logs` answers 403 to an anonymous request, so
@@ -161,7 +163,18 @@ jobs:
       - name: generated artifacts are current
         run: |
           uv run --project apps/api python infra/scripts/tasks.py generate
-          git diff --exit-code || {
-            echo "::error::a generated artifact is stale; run tasks.py generate"
-            exit 1
-          }
+          if git diff --exit-code; then
+            exit 0
+          fi
+          {
+            echo "### a generated artifact is stale"
+            echo ''
+            echo '```'
+            git diff --stat
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          git diff --name-only | while read -r file; do
+            echo "::error title=stale artifact::${file}"
+          done
+          echo "::error::run 'py infra/scripts/tasks.py generate' and commit the result"
+          exit 1

@@ -191,12 +191,41 @@ def test_the_workflow_supplies_what_the_test_suite_needs(repo: Path):
         "because DATA-03 and DATA-05 assert Mongo's own index, TTL and "
         "partial-filter behaviour and nothing in-memory shares it"
     )
-    environment: dict[str, str] = workflow_steps(repo)["pytest"].get("env", {})
+    # The *effective* environment: workflow-level merged with the step's own.
+    # It lives at workflow level now, because two steps build a `Settings` -
+    # `pytest`, and `generate`'s `export_openapi.py` via `create_app()` - and
+    # only `pytest` had a block, so the artifact step failed on a
+    # `ValidationError`. Asserted on the merge, so moving it does not need this
+    # test edited and dropping it still fails.
+    environment: dict[str, str] = {
+        **workflow.get("env", {}),
+        **workflow_steps(repo)["pytest"].get("env", {}),
+    }
     assert "MONGODB_URI" in environment
     assert "SECRET_KEY" in environment, (
         "Settings has required fields with no defaults and .env is gitignored, "
         "so CI has to supply them"
     )
+
+
+def test_every_step_that_builds_settings_has_the_environment(repo: Path):
+    """`create_app()` needs a valid `Settings`, and two steps reach it.
+
+    `pytest` obviously; `generated artifacts are current` less obviously, via
+    `tasks.py generate` -> `export_openapi.py` -> `create_app()`. That second
+    one is why the environment moved to workflow level: a per-step block is a
+    block somebody forgets on the step that needs it least visibly.
+    """
+    import yaml
+
+    workflow = yaml.safe_load((repo / WORKFLOW).read_text(encoding="utf-8"))
+    workflow_env = workflow.get("env", {})
+    steps = workflow_steps(repo)
+
+    for name in ("pytest", "generated artifacts are current"):
+        effective = {**workflow_env, **steps[name].get("env", {})}
+        missing = sorted({"SECRET_KEY", "MONGODB_URI", "APP_ENV"} - set(effective))
+        assert missing == [], f"the {name!r} step cannot build a Settings; missing {missing}"
 
 
 def test_the_contracts_workflow_uses_a_valid_app_env(repo: Path):
