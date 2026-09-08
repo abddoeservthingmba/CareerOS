@@ -33,14 +33,14 @@ Requirement → track → acceptance criterion → test → status.
 | `AI-04` | R1 | P0 | `AC-AI-04.3` | `T-AI-04.3` | `tests/ai/test_unpriced_model.py` | test present |
 | `AI-04` | R1 | P0 | `AC-AI-04.4` | `T-AI-04.4` | `tests/ai/test_usage_write_failure.py` | test present |
 | `AI-04` | R1 | P0 | `AC-AI-04.5` | `T-AI-04.5` | `tests/integration/test_admin_ai_dashboard.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.1` | `T-AI-05.1` | `tests/spec/test_compliance_docs.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.2` | `T-AI-05.2` | `tests/ai/test_gemini_startup_guards.py` | test not written |
+| `AI-05` | R1 | P0 | `AC-AI-05.1` | `T-AI-05.1` | `tests/spec/test_compliance_docs.py` | test present |
+| `AI-05` | R1 | P0 | `AC-AI-05.2` | `T-AI-05.2` | `tests/ai/test_gemini_startup_guards.py` | test present |
 | `AI-05` | R1 | P0 | `AC-AI-05.3` | `T-AI-05.3` | `tests/spec/test_import_linter_catches_violation.py` | test present |
-| `AI-05` | R1 | P0 | `AC-AI-05.4` | `T-AI-05.4` | `tests/ai/test_gemini_credential_surface.py` | test not written |
+| `AI-05` | R1 | P0 | `AC-AI-05.4` | `T-AI-05.4` | `tests/ai/test_gemini_credential_surface.py` | test present |
 | `AI-05` | R1 | P0 | `AC-AI-05.5` | `T-AI-05.5` | `.github/workflows/web-ci.yml`, `.github/workflows/mobile-ci.yml` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.6` | `T-AI-05.6` | `tests/ai/test_structured_repair.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.7` | `T-AI-05.7` | `tests/ai/test_base_url_allowlist.py` | test not written |
-| `AI-05` | R1 | P0 | `AC-AI-05.8` | `T-AI-05.8` | `tests/integration/test_consent_matches_tier.py` | test not written |
+| `AI-05` | R1 | P0 | `AC-AI-05.6` | `T-AI-05.6` | `tests/ai/test_structured_repair.py` | test present |
+| `AI-05` | R1 | P0 | `AC-AI-05.7` | `T-AI-05.7` | `tests/ai/test_base_url_allowlist.py` | test present |
+| `AI-05` | R1 | P0 | `AC-AI-05.8` | `T-AI-05.8` | `tests/integration/test_consent_matches_tier.py` | test present |
 | `AI-06` | R1 | P0 | `AC-AI-06.1` | `T-AI-06.1` | `tests/spec/test_untrusted_rendering.py` | test not written |
 | `AI-06` | R1 | P0 | `AC-AI-06.2` | `T-AI-06.2` | `tests/ai/test_injection_corpus.py` | test not written |
 | `AI-06` | R1 | P0 | `AC-AI-06.3` | `T-AI-06.3` | `tests/spec/test_no_output_driven_control_flow.py` | test not written |
@@ -239,7 +239,7 @@ Requirement → track → acceptance criterion → test → status.
 | `OPS-04` | R1 | P0 | `AC-OPS-04.5` | `T-OPS-04.5` | `tests/spec/test_runbooks_present.py` | test not written |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.1` | `T-OPS-05.1` | `tests/spec/test_env_example_parity.py` | test present |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.2` | `T-OPS-05.2` | `tests/spec/test_env_example_no_secrets.py` | test not written |
-| `OPS-05` | R1 | P0 | `AC-OPS-05.3` | `T-OPS-05.3` | `tests/ai/test_gemini_startup_guards.py` | test not written |
+| `OPS-05` | R1 | P0 | `AC-OPS-05.3` | `T-OPS-05.3` | `tests/ai/test_gemini_startup_guards.py` | test present |
 | `OPS-05` | R1 | P0 | `AC-OPS-05.4` | `T-OPS-05.4` | `.github/workflows/api-ci.yml` | test present |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.1` | `T-OPS-06.1` | `tests/integration/test_backup_restore.py` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.2` | `T-OPS-06.2` | `tests/integration/test_backup_verification.py` | test not written |
@@ -391,7 +391,7 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-02a` | R1 | P2 | `AC-RES-02.6` | `T-RES-02.6` | `tests/unit/test_text_guardrails.py` | test not written |
 | `RES-02a` | R1 | P2 | `AC-RES-02.7` | `T-RES-02.7` | `tests/integration/test_malformed_pdf.py` | test not written |
 | `RES-02a` | R1 | P2 | `AC-RES-02.8` | `T-RES-02.8` | `tests/integration/test_ocr_fallback.py` | test not written |
-| `RES-03` | R1 | P2 | `AC-RES-03.1` | `T-RES-03.1` | `tests/ai/test_structured_repair.py` | test not written |
+| `RES-03` | R1 | P2 | `AC-RES-03.1` | `T-RES-03.1` | `tests/ai/test_structured_repair.py` | test present |
 | `RES-03` | R1 | P2 | `AC-RES-03.2` | `T-RES-03.2` | `tests/unit/test_evidence_spans.py` | test not written |
 | `RES-03` | R1 | P2 | `AC-RES-03.3` | `T-RES-03.3` | `tests/ai/test_golden_fake.py`, `tests/ai/test_extraction_precision.py` | test not written |
 | `RES-03` | R1 | P2 | `AC-RES-03.4` | `T-RES-03.4` | `tests/ai/test_golden_fake.py`, `tests/ai/test_extraction_precision.py` | test not written |
@@ -413,7 +413,7 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-06` | R1 | P2 | `AC-RES-06.7` | `T-RES-06.7` | `tests/integration/test_poll_fallback.py` | test present |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.1` | `T-SEC-03.1` | `tests/integration/test_ai_data_boundary.py` | test not written |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.2` | `T-SEC-03.2` | `tests/spec/test_consent_data_parity.py` | test not written |
-| `SEC-03` | R1 | P2 | `AC-SEC-03.3` | `T-SEC-03.3` | `tests/spec/test_compliance_docs.py` | test not written |
+| `SEC-03` | R1 | P2 | `AC-SEC-03.3` | `T-SEC-03.3` | `tests/spec/test_compliance_docs.py` | test present |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.4` | `T-SEC-03.4` | `tests/integration/test_no_pii_in_prompts.py` | test not written |
 | `SEC-03` | R1 | P2 | `AC-SEC-03.5` | `T-SEC-03.5` | `tests/integration/test_sensitive_questions.py` | test not written |
 | `WEB-03` | R1 | P2 | `AC-WEB-03.1` | `T-WEB-03.1` | `apps/web/src/features/**/__tests__/*.states.test.tsx` | test not written |

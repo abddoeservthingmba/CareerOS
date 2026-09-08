@@ -96,6 +96,16 @@ class Settings(BaseSettings):
     GEMINI_MODEL_FAST: str = ""
     GEMINI_MODEL_QUALITY: str = ""
     GEMINI_EMBEDDING_MODEL: str = ""
+    # `AC-AI-05.7`: configurable for the record-and-replay tests, and validated
+    # against an allowlist at startup - a base URL is a host this product sends
+    # resume text to, so a proxy in the middle is an exfiltration target.
+    GEMINI_BASE_URL: str = "https://generativelanguage.googleapis.com"
+
+    # `ollama` is the local-development provider (ADR-011). No key: nothing to
+    # inject, nothing to leak, and no resume text leaves the machine.
+    OLLAMA_MODEL_FAST: str = ""
+    OLLAMA_MODEL_QUALITY: str = ""
+    OLLAMA_EMBEDDING_MODEL: str = ""
 
     AI_DAILY_COST_CAP_USD: float = 2.0
     AI_USER_DAILY_CALLS: int = 500
@@ -123,9 +133,16 @@ class Settings(BaseSettings):
     AI_CACHE_TTL_DAYS: int = 7
     AI_EMBEDDING_MIGRATION: Literal["", "allow"] = ""
 
+    # `05-ai-layer.md` §5.4 (D5). Which provider terms are in force, stated
+    # rather than inferred: a paid Gemini key and a free one are the same
+    # string, so nothing about the credential reveals which terms apply.
+    # `AC-AI-05.8` compares this against the consent copy, so getting it wrong
+    # fails the build rather than misleading a user.
+    AI_CONSENT_TIER: Literal["free", "paid"] = "free"
+
     OPENAI_API_KEY: SecretStr = SecretStr("")
     ANTHROPIC_API_KEY: SecretStr = SecretStr("")
-    OLLAMA_BASE_URL: str = ""
+    OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
 
     # -- connectors ---------------------------------------------------------
     ADZUNA_APP_ID: SecretStr = SecretStr("")

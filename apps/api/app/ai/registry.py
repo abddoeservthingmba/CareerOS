@@ -24,11 +24,16 @@ from __future__ import annotations
 
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 from app.ai.base import EmbeddingProvider, Feature, LLMProvider
 from app.ai.fake import FakeEmbedder, FakeLLM
-from app.ai.stubs import AnthropicProvider, OllamaProvider, OpenAIProvider
+from app.ai.stubs import AnthropicProvider, OpenAIProvider
 from app.core.config import Settings
+
+if TYPE_CHECKING:
+    from app.ai.gemini import GeminiProvider
+    from app.ai.ollama import OllamaProvider
 
 
 class RegistryError(RuntimeError):
@@ -59,20 +64,57 @@ def _fake_llm(_: Settings) -> LLMProvider:
     return FakeLLM()
 
 
+def _ollama(settings: Settings) -> OllamaProvider:
+    """The local-development provider (ADR-011).
+
+    Constructed here, once, at startup - like every other adapter. It takes no
+    credential, so there is nothing to inject beyond the model ids and the base
+    URL, both of which are configuration (`AC-AI-02.2`).
+
+    The HTTP transport is attached separately by `main.py`, which is the one
+    place allowed to own a client: an adapter that built its own would be an
+    adapter with a path to the network that startup validation never saw.
+    """
+    from app.ai.ollama import OllamaProvider
+
+    return OllamaProvider(
+        model_fast=settings.OLLAMA_MODEL_FAST,
+        model_quality=settings.OLLAMA_MODEL_QUALITY,
+        embedding_model=settings.OLLAMA_EMBEDDING_MODEL,
+        base_url=settings.OLLAMA_BASE_URL,
+        app_env=settings.APP_ENV.value,
+    )
+
+
+def _gemini(settings: Settings) -> GeminiProvider:
+    """`AI-05`'s adapter. One credential, injected, and no way to find another."""
+    from app.ai.gemini import GeminiProvider
+
+    return GeminiProvider(
+        settings.GEMINI_API_KEY.get_secret_value(),
+        model_fast=settings.GEMINI_MODEL_FAST,
+        model_quality=settings.GEMINI_MODEL_QUALITY,
+        embedding_model=settings.GEMINI_EMBEDDING_MODEL,
+        base_url=settings.GEMINI_BASE_URL,
+    )
+
+
 def _fake_embedder(_: Settings) -> EmbeddingProvider:
     return FakeEmbedder()
 
 
 LLM_FACTORIES: dict[str, LLMFactory] = {
     "fake": _fake_llm,
+    "gemini": _gemini,
+    "ollama": _ollama,
     "openai": lambda _: OpenAIProvider(),
     "anthropic": lambda _: AnthropicProvider(),
-    "ollama": lambda _: OllamaProvider(),
 }
 
 EMBEDDER_FACTORIES: dict[str, EmbedderFactory] = {
     "fake": _fake_embedder,
-    "ollama": lambda _: OllamaProvider(),
+    "gemini": _gemini,
+    "ollama": _ollama,
 }
 
 

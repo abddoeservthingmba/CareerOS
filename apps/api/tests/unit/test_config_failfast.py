@@ -88,7 +88,16 @@ def test_no_default_silently_disables_a_feature():
         "GEMINI_EMBEDDING_MODEL",
         "OPENAI_API_KEY",
         "ANTHROPIC_API_KEY",
+        # ADR-011's local adapter. Its model ids are configuration for the same
+        # reason Gemini's are (`AC-AI-02.2`); the base URL defaults to this
+        # machine and is host-validated, so an unset value is the correct one.
         "OLLAMA_BASE_URL",
+        "OLLAMA_MODEL_FAST",
+        "OLLAMA_MODEL_QUALITY",
+        "OLLAMA_EMBEDDING_MODEL",
+        # `AC-AI-05.7` - the allowlisted default is the value production wants,
+        # and anything else fails the boot rather than being silently accepted.
+        "GEMINI_BASE_URL",
         "ADZUNA_APP_ID",
         "ADZUNA_APP_KEY",
         "RESEND_API_KEY",
@@ -129,6 +138,11 @@ def test_no_default_silently_disables_a_feature():
         # `AC-FOUND-16.6`'s webhook fails **closed** without this, so a blank
         # value disables nothing silently: it returns 503 and says why.
         "EMAIL_WEBHOOK_SECRET",
+        # `05-ai-layer.md` §5.4 (D5). Optional but not silent: the default is
+        # `free`, which is the *more* disclosing of the two positions, and
+        # `AC-AI-05.8` fails the build if the copy and this value disagree. A
+        # required field here would break every local boot to state the default.
+        "AI_CONSENT_TIER",
         # Flags, which are switches on purpose.
         *(n for n in Settings.model_fields if n.startswith("FLAG_")),
     }

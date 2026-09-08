@@ -1,6 +1,6 @@
 """Adapters that exist to prove the protocol - `AI-02`.
 
-`05-ai-layer.md` §2: "`openai.py`, `anthropic.py`, and `ollama.py` are R1
+`05-ai-layer.md` §2, as amended by ADR-011: "`openai.py` and `anthropic.py` are R1
 **stubs** that exist only to prove the contract: each is a class that satisfies
 the protocol, raises `ProviderNotConfigured` when called, and is included in the
 adapter contract test suite so that the protocol cannot drift into being
@@ -62,13 +62,8 @@ class AnthropicProvider(_UnconfiguredProvider):
     name = "anthropic"
 
 
-class OllamaProvider(_UnconfiguredProvider):
-    name = "ollama"
-    # An embedding provider too, since a local Ollama is the obvious candidate
-    # for self-hosted embeddings and the protocol should not have to change to
-    # accommodate that later.
-    model = ""
-    dims = 0
-
-
-STUBS = (OpenAIProvider, AnthropicProvider, OllamaProvider)
+#: ADR-011 promoted `ollama` out of this module: it is a real adapter in
+#: `app/ai/ollama.py`, serving local development so that prompt iteration can
+#: run against a real model with no text leaving the machine. `AC-AI-02.3` now
+#: reads "the two stubs".
+STUBS = (OpenAIProvider, AnthropicProvider)

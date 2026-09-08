@@ -3111,7 +3111,7 @@
       "requirements": "`AI-01` \u2026 `AI-07`",
       "depends": "`01-foundations.md` \u00a72, \u00a74, \u00a710, \u00a714",
       "lines": 385,
-      "words": 4736,
+      "words": 4770,
       "ac": 47,
       "tests": 47,
       "sections": [

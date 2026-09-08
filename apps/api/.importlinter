@@ -38,6 +38,8 @@ source_modules =
     app.modules
     app.connectors
 forbidden_modules =
+    app.ai.gemini
+    app.ai.ollama
     app.ai.stubs
 
 ; --- 4. ai-is-leaf ---------------------------------------------------------

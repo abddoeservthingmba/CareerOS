@@ -67,3 +67,22 @@ UNDECLARED_STRADDLES = ["WEB-07"]
 # The count is asserted rather than the list, so that adding the lines
 # section-by-section moves one number.
 SECTIONS_WITHOUT_A_STATUS_LINE = 189
+
+# --- AC-AI-05.1 - the compliance statement is unsigned ----------------------
+# `docs/compliance/ai-providers.md` exists and has every required heading, but
+# the procurement facts in it are `UNFILLED`: the Cloud project name and id, the
+# billing account label, whether that account is used by this product only, the
+# other APIs enabled, the control owner, the alert threshold and recipients, the
+# date the alert was verified to fire, the D5 decision owner, and the signature
+# block's three fields.
+#
+# Every one of those is a fact only the owner can supply, and none of them is a
+# thing a developer should invent - `05-ai-layer.md` §5.2 says so directly:
+# "This is a manual control with a documented owner; the code cannot verify it,
+# so the gate item is a signed statement, not a test."
+#
+# Left open rather than skipped (`AC-FOUND-15.7` forbids a skipped test on an R1
+# path) and rather than weakened. The count ratchets down as fields are filled
+# in; at zero, `test_no_field_is_still_unfilled` becomes `== 0` and this entry
+# is deleted. Blocks the R1 gate, which is the point.
+UNSIGNED_COMPLIANCE_FIELDS = 14
