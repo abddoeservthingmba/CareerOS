@@ -157,9 +157,7 @@ def modules() -> list[str]:
     return sorted(
         path.name
         for path in MODULES_DIR.iterdir()
-        if path.is_dir()
-        and (path / "__init__.py").is_file()
-        and not path.name.startswith("_")
+        if path.is_dir() and (path / "__init__.py").is_file() and not path.name.startswith("_")
     )
 
 
@@ -173,11 +171,7 @@ def _block(title: str, comment: str, lines: list[str]) -> str:
 
 
 def _layers() -> str:
-    present = [
-        layer
-        for layer in LAYERS
-        if all(exists(part.strip()) for part in layer.split("|"))
-    ]
+    present = [layer for layer in LAYERS if all(exists(part.strip()) for part in layer.split("|"))]
     return _block(
         "1. layers",
         "; shared <- core <- infra <- {ai, connectors} <- modules <- {main, worker}",

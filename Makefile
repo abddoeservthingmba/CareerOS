@@ -7,6 +7,7 @@
 SHELL := /bin/bash
 PY := py -m uv run --project apps/api
 SPECGATE := PYTHONPATH=infra/scripts py -m specgate
+TASKS := py infra/scripts/tasks.py
 
 # The machine's certificate chain is intercepted, so uv needs the system trust
 # store to reach its download hosts.
@@ -95,22 +96,45 @@ api-diff:  ## Classify an API change: make api-diff ARGS="before.json after.json
 generate: build-order status spec-trace spec-metadata error-codes events-doc import-contracts openapi  ## Regenerate every committed artifact
 
 # --- the gate ---------------------------------------------------------------
+#
+# Every target below delegates to `infra/scripts/tasks.py`, and that is the
+# point rather than laziness.
+#
+# There used to be three definitions of "lint": this file ran
+# `ruff check apps/api/tests infra/scripts` from the repository root - which
+# covered the tests and **not `apps/api/app`** - `tasks.py` ran it over
+# `apps/api infra/scripts`, also from the root, and `api-ci.yml` ran it from
+# `apps/api` over `../../apps/api ../../infra/scripts`.
+#
+# The three disagreed in a way nobody could see. Ruff's configuration
+# discovery depends on the working directory and the only config in this
+# repository is `apps/api/pyproject.toml`, so the CI invocation applied
+# line-length 100 and `E,F,I,UP,B,SIM` to `infra/scripts` while both local ones
+# applied ruff's weaker built-in defaults. Six commits reported green locally
+# and failed CI on the first step.
+#
+# One definition, in `tasks.py`, called by both this file and the workflow. A
+# gate that is not the same command everywhere is not a gate.
 
 .PHONY: lint
-lint:  ## ruff
-	$(PY) ruff check apps/api/tests infra/scripts
+lint:  ## ruff check — the same invocation api-ci.yml runs
+	@$(TASKS) lint
 
 .PHONY: format
-format:  ## ruff format
-	$(PY) ruff format apps/api/tests infra/scripts
+format:  ## ruff format — rewrites files
+	@$(TASKS) format
+
+.PHONY: format-check
+format-check:  ## ruff format --check — what api-ci.yml runs
+	@$(TASKS) format-check
 
 .PHONY: types
 types:  ## mypy
-	cd apps/api && py -m uv run mypy
+	@$(TASKS) types
 
 .PHONY: test
 test:  ## pytest
-	cd apps/api && py -m uv run pytest
+	@$(TASKS) test
 
 .PHONY: check
 check: lint lint-imports types test  ## Everything that must be green before a commit

@@ -1,0 +1,36 @@
+# What reaches the Vercel build host, from the repository root.
+#
+# `apps/web/.vercelignore` only applies when the Vercel project's Root
+# Directory is set to `apps/web`. When it is the repository root - the default,
+# and what this project is on - that file is never read, so the exclusions have
+# to exist here too.
+#
+# `.env` is gitignored, so it cannot arrive through git. But `vercel deploy`
+# from a working copy uploads the *directory*, not the commit. This is the
+# second lock on the same door (`CLAUDE.md`: "Secrets never enter the repo").
+.env
+.env.*
+!.env.example
+
+# The API is not a client asset, and it is the half of the repository that
+# holds the résumé pipeline, the AI layer and the database models. None of it
+# belongs on a static-hosting build host.
+apps/api
+
+# The specification and the tooling are not client assets either. `docs/spec/`
+# in particular is 20 files of product decisions on a public host.
+docs
+infra
+packages
+
+node_modules
+apps/web/node_modules
+apps/web/dist
+.vite
+.venv
+
+# Build caches and local artifacts.
+__pycache__
+.pytest_cache
+.ruff_cache
+.mypy_cache

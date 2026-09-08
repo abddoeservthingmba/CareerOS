@@ -100,7 +100,12 @@ jobs:
       # `AC-FOUND-13.2` - the committed document equals the generated one.
       - name: export-openapi
         env:
-          APP_ENV: test
+          # `local`, not `test`. `Settings.APP_ENV` is
+          # `Literal["local", "staging", "prod"]` - there is no fourth
+          # environment, and `test` failed validation on every run this workflow
+          # has ever had. The value matters here only because `create_app` needs
+          # a valid `Settings`; the export itself is environment-independent.
+          APP_ENV: local
           PRODUCT_NAME: JobPilot
           API_BASE_URL: http://localhost:8000
           WEB_ORIGIN: http://localhost:5173

@@ -82,9 +82,7 @@ def prune(schema: dict[str, Any]) -> dict[str, Any]:
     """
     paths = schema.get("paths", {})
     schema["paths"] = {
-        path: operations
-        for path, operations in paths.items()
-        if path.startswith(PUBLIC_PREFIX)
+        path: operations for path, operations in paths.items() if path.startswith(PUBLIC_PREFIX)
     }
     return schema
 
@@ -128,9 +126,7 @@ def main(argv: list[str] | None = None) -> int:
         TARGET.parent.mkdir(parents=True, exist_ok=True)
         TARGET.write_text(rendered, encoding="utf-8", newline="")
         paths = len(json.loads(rendered).get("paths", {}))
-        print(
-            f"wrote {TARGET.relative_to(ROOT)} ({paths} path(s) under {PUBLIC_PREFIX})"
-        )
+        print(f"wrote {TARGET.relative_to(ROOT)} ({paths} path(s) under {PUBLIC_PREFIX})")
         return 0
 
     sys.stdout.write(rendered)

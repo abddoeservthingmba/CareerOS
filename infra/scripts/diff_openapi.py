@@ -194,15 +194,12 @@ def _compare_model(name: str, old: dict[str, Any], new: dict[str, Any]) -> list[
                 Change(
                     "field",
                     f"{name}.{field}",
-                    "added as required; every existing client's requests are now "
-                    "invalid",
+                    "added as required; every existing client's requests are now invalid",
                     breaking=True,
                 )
             )
         else:
-            changes.append(
-                Change("field", f"{name}.{field}", "added as optional", breaking=False)
-            )
+            changes.append(Change("field", f"{name}.{field}", "added as optional", breaking=False))
 
     for field in sorted(set(old_fields) & set(new_fields)):
         old_type = _type_of(old_fields[field])
@@ -239,9 +236,7 @@ def _compare_model(name: str, old: dict[str, Any], new: dict[str, Any]) -> list[
     old_values = set(old.get("enum") or [])
     new_values = set(new.get("enum") or [])
     for value in sorted(old_values - new_values):
-        changes.append(
-            Change("enum", f"{name}.{value}", "value removed", breaking=True)
-        )
+        changes.append(Change("enum", f"{name}.{value}", "value removed", breaking=True))
     for value in sorted(new_values - old_values):
         # Additive in a request, breaking in a response, and the document does
         # not say which this model is used for. Reported as additive with the
@@ -311,11 +306,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--comment", type=Path, help="write the PR comment here")
     args = parser.parse_args(argv)
 
-    before = (
-        json.loads(args.before.read_text(encoding="utf-8"))
-        if args.before.is_file()
-        else {}
-    )
+    before = json.loads(args.before.read_text(encoding="utf-8")) if args.before.is_file() else {}
     after = json.loads(args.after.read_text(encoding="utf-8"))
 
     changes = compare(before, after)

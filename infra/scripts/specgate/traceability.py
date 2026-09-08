@@ -54,9 +54,7 @@ class Finding:
 
     def __str__(self) -> str:
         where = f"{self.file}:{self.line}" if self.file else ""
-        return f"[{self.kind}] {self.subject} - {self.detail}" + (
-            f"  ({where})" if where else ""
-        )
+        return f"[{self.kind}] {self.subject} - {self.detail}" + (f"  ({where})" if where else "")
 
 
 @dataclass
@@ -168,9 +166,7 @@ def resolve_paths(spec: Spec) -> dict[str, tuple[str, ...]]:
     resolved: dict[str, tuple[str, ...]] = {}
     for tid, definition in tests.items():
         located = tuple(
-            dict.fromkeys(
-                p for p in (_normalise_path(raw) for raw in definition.paths) if p
-            )
+            dict.fromkeys(p for p in (_normalise_path(raw) for raw in definition.paths) if p)
         )
         if located:
             resolved[tid] = located
@@ -262,11 +258,7 @@ def run(
                 )
                 continue
             step = _named_step(definition.text)
-            if (
-                step
-                and path.startswith(".github/workflows/")
-                and not _has_step(root / path, step)
-            ):
+            if step and path.startswith(".github/workflows/") and not _has_step(root / path, step):
                 # A workflow file existing does not mean the step exists. Half
                 # a dozen `T-` entries point at a step inside `api-ci`, and
                 # counting them satisfied the moment the file appears would
@@ -328,9 +320,7 @@ Requirement → track → acceptance criterion → test → status.
 """
 
 
-def render(
-    spec: Spec | None = None, m: Manifest | None = None, root: Path | None = None
-) -> str:
+def render(spec: Spec | None = None, m: Manifest | None = None, root: Path | None = None) -> str:
     """`AC-FOUND-06.4` - the published `TRACEABILITY.md` artifact."""
     spec = spec or parse_spec()
     m = m or manifest()

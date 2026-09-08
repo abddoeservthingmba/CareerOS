@@ -178,9 +178,7 @@ class Manifest:
 def _parse_list(raw: str, key: str, entry_id: str, line: int) -> tuple[str, ...]:
     m = LIST_VALUE.fullmatch(raw)
     if not m:
-        raise ManifestError(
-            f"{entry_id}.{key} (line {line}): expected [a, b], got {raw!r}"
-        )
+        raise ManifestError(f"{entry_id}.{key} (line {line}): expected [a, b], got {raw!r}")
     inner = m.group(1).strip()
     if not inner:
         return ()
@@ -199,15 +197,11 @@ def load(path: Path | None = None) -> Manifest:
             return
         missing = {"track", "phase", "module"} - current.keys()
         if missing:
-            raise ManifestError(
-                f"{current_id}: missing required key(s) {sorted(missing)}"
-            )
+            raise ManifestError(f"{current_id}: missing required key(s) {sorted(missing)}")
         manifest.entries[current_id] = Entry(id=current_id, **current)
         current, current_id = None, None
 
-    for number, raw_line in enumerate(
-        target.read_text(encoding="utf-8").split("\n"), start=1
-    ):
+    for number, raw_line in enumerate(target.read_text(encoding="utf-8").split("\n"), start=1):
         line = raw_line.rstrip()
         if not line.strip() or line.lstrip().startswith("#"):
             continue

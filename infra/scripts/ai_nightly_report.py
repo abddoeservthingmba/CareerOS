@@ -145,9 +145,7 @@ def _now() -> datetime:
     return clock.now()
 
 
-async def load_spend(
-    uri: str, database: str, since: datetime
-) -> dict[str, FeatureResult]:
+async def load_spend(uri: str, database: str, since: datetime) -> dict[str, FeatureResult]:
     """Tokens and cost per feature, from the `:golden` rows this run wrote."""
     from pymongo import AsyncMongoClient
 
@@ -163,9 +161,7 @@ async def load_spend(
         priced: dict[str, float] = defaultdict(float)
         seen_price: set[str] = set()
         async for row in rows:
-            feature = (
-                str(row.get("feature", "")).removesuffix(GOLDEN_SUFFIX) or "general"
-            )
+            feature = str(row.get("feature", "")).removesuffix(GOLDEN_SUFFIX) or "general"
             result = totals.setdefault(feature, FeatureResult(feature=feature))
             result.input_tokens += int(row.get("input_tokens") or 0)
             result.output_tokens += int(row.get("output_tokens") or 0)
@@ -182,9 +178,7 @@ async def load_spend(
         await client.close()
 
 
-def merge(
-    tests: dict[str, FeatureResult], spend: dict[str, FeatureResult]
-) -> list[FeatureResult]:
+def merge(tests: dict[str, FeatureResult], spend: dict[str, FeatureResult]) -> list[FeatureResult]:
     for feature, totals in spend.items():
         result = tests.setdefault(feature, FeatureResult(feature=feature))
         result.input_tokens = totals.input_tokens
@@ -257,13 +251,9 @@ def render(results: list[FeatureResult], *, spend_available: bool, window: str) 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Render the nightly AI report")
-    parser.add_argument(
-        "--junit", type=Path, required=True, help="pytest --junitxml output"
-    )
+    parser.add_argument("--junit", type=Path, required=True, help="pytest --junitxml output")
     parser.add_argument("--out", type=Path, help="write here instead of stdout")
-    parser.add_argument(
-        "--hours", type=int, default=6, help="how far back to read :golden spend"
-    )
+    parser.add_argument("--hours", type=int, default=6, help="how far back to read :golden spend")
     args = parser.parse_args()
 
     if not args.junit.is_file():

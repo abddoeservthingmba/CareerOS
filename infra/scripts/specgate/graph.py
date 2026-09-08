@@ -42,9 +42,7 @@ MODULE_EDGES: dict[str, frozenset[str]] = {
     "profile": frozenset({"ai", "resume"}),
     "jobs": frozenset({"connectors", "ai", "profile"}),
     "matching": frozenset({"profile", "jobs", "ai"}),
-    "apply": frozenset(
-        {"profile", "matching", "ai", "tracker", "connectors", "resume"}
-    ),
+    "apply": frozenset({"profile", "matching", "ai", "tracker", "connectors", "resume"}),
     "tracker": frozenset({"jobs", "apply", "auth", "notifications"}),
     "notifications": frozenset({"tracker", "auth", "matching", "jobs"}),
     "admin": frozenset(
@@ -197,9 +195,7 @@ def read_write_conflicts(m: Manifest | None = None) -> list[str]:
     for module, written in writes.items():
         for collection in written:
             if owner.get(collection, module) != module:
-                out.append(
-                    f"{module} writes {collection}, owned by {owner[collection]}"
-                )
+                out.append(f"{module} writes {collection}, owned by {owner[collection]}")
     return sorted(out)
 
 
@@ -244,9 +240,7 @@ def track_closure_violations(m: Manifest | None = None) -> list[TrackViolation]:
         for dependency in sorted(m.closure(entry.id)):
             if m[dependency].track != "R1":
                 trail = m.path_to(entry.id, dependency) or [entry.id, dependency]
-                out.append(
-                    TrackViolation(entry.id, dependency, m[dependency].track, trail)
-                )
+                out.append(TrackViolation(entry.id, dependency, m[dependency].track, trail))
     return out
 
 
@@ -279,9 +273,7 @@ def phase_closure_violations(m: Manifest | None = None) -> list[PhaseViolation]:
             if other.phase is None:
                 continue
             if other.phase_index > entry.phase_index:
-                out.append(
-                    PhaseViolation(entry.id, entry.phase, dependency, other.phase)
-                )
+                out.append(PhaseViolation(entry.id, entry.phase, dependency, other.phase))
     return out
 
 
@@ -330,7 +322,5 @@ def render_build_order(m: Manifest | None = None) -> str:
     for position, requirement in enumerate(build_order(m), start=1):
         entry = m[requirement]
         phase = entry.phase or "unphased"
-        rows.append(
-            f"{position:3d}. `{entry.id}` — {phase} · {entry.track} · {entry.module}"
-        )
+        rows.append(f"{position:3d}. `{entry.id}` — {phase} · {entry.track} · {entry.module}")
     return BUILD_ORDER_HEADER + "\n".join(rows) + "\n"
