@@ -68,11 +68,11 @@ Requirement → track → acceptance criterion → test → status.
 | `DATA-03` | R1 | P0 | `AC-DATA-03.2` | `T-DATA-03.2` | `tests/integration/test_index_usage.py` | test present |
 | `DATA-03` | R1 | P0 | `AC-DATA-03.3` | `T-DATA-03.3` | `tests/integration/test_index_declarations.py` | test present |
 | `DATA-03` | R1 | P0 | `AC-DATA-03.4` | `T-DATA-03.4` | `tests/integration/test_index_size_budget.py` | test present |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.1` | `T-DATA-04.1` | `tests/unit/test_object_keys.py`, `tests/integration/test_key_audit.py` | test not written |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.2` | `T-DATA-04.2` | `tests/integration/test_presigned_urls.py` | test not written |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.3` | `T-DATA-04.3` | `tests/integration/test_upload_memory.py` | test not written |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.4` | `T-DATA-04.4` | `tests/unit/test_magic_bytes.py` | test not written |
-| `DATA-04` | R1 | P0 | `AC-DATA-04.5` | `T-DATA-04.5` | `tests/integration/test_deletion_sweep.py` | test not written |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.1` | `T-DATA-04.1` | `tests/unit/test_object_keys.py`, `tests/integration/test_key_audit.py` | test present |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.2` | `T-DATA-04.2` | `tests/integration/test_presigned_urls.py` | test present |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.3` | `T-DATA-04.3` | `tests/integration/test_upload_memory.py` | test present |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.4` | `T-DATA-04.4` | `tests/unit/test_magic_bytes.py` | test present |
+| `DATA-04` | R1 | P0 | `AC-DATA-04.5` | `T-DATA-04.5` | `tests/integration/test_deletion_sweep.py` | test present |
 | `DATA-05` | R1 | P0 | `AC-DATA-05.1` | `T-DATA-05.1` | `tests/integration/test_ttl_indexes.py` | test not written |
 | `DATA-05` | R1 | P0 | `AC-DATA-05.2` | `T-DATA-05.2` | `tests/integration/test_job_purge.py` | test not written |
 | `DATA-05` | R1 | P0 | `AC-DATA-05.3` | `T-DATA-05.3` | `tests/integration/test_account_purge.py` | test not written |
@@ -295,7 +295,7 @@ Requirement → track → acceptance criterion → test → status.
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.1` | `T-AUTH-07.1` | `tests/integration/test_deletion_request.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.2` | `T-AUTH-07.2` | `tests/integration/test_deletion_request.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.3` | `T-AUTH-07.3` | `tests/integration/test_account_purge.py` | test not written |
-| `AUTH-07` | R1 | P1 | `AC-AUTH-07.4` | `T-AUTH-07.4` | `tests/integration/test_deletion_sweep.py` | test not written |
+| `AUTH-07` | R1 | P1 | `AC-AUTH-07.4` | `T-AUTH-07.4` | `tests/integration/test_deletion_sweep.py` | test present |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.5` | `T-AUTH-07.5` | `tests/integration/test_deletion_audit.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.6` | `T-AUTH-07.6` | `tests/integration/test_purge_failure.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.7` | `T-AUTH-07.7` | `tests/integration/test_purge_isolation.py` | test not written |
@@ -402,7 +402,7 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-05` | R1 | P2 | `AC-RES-05.1` | `T-RES-05.1` | `tests/unit/test_llm_request.py` | test present |
 | `RES-05` | R1 | P2 | `AC-RES-05.2` | `T-RES-05.2` | `tests/integration/test_no_file_to_provider.py` | test not written |
 | `RES-05` | R1 | P2 | `AC-RES-05.3` | `T-RES-05.3` | `tests/integration/test_no_file_to_provider.py` | test not written |
-| `RES-05` | R1 | P2 | `AC-RES-05.4` | `T-RES-05.4` | `tests/integration/test_presigned_urls.py` | test not written |
+| `RES-05` | R1 | P2 | `AC-RES-05.4` | `T-RES-05.4` | `tests/integration/test_presigned_urls.py` | test present |
 | `RES-05` | R1 | P2 | `AC-RES-05.5` | `T-RES-05.5` | `tests/unit/test_content_disposition.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.1` | `T-RES-06.1` | `tests/integration/test_resume_stages.py` | test not written |
 | `RES-06` | R1 | P2 | `AC-RES-06.2` | `T-RES-06.2` | `tests/integration/test_worker_restart.py` | test present |
