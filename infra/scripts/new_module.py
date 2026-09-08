@@ -179,9 +179,7 @@ def create(name: str, force: bool = False) -> Path:
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description="Scaffold a module (FOUND-05).")
     parser.add_argument("name", help="lower_snake_case module name")
-    parser.add_argument(
-        "--force", action="store_true", help="overwrite an existing module"
-    )
+    parser.add_argument("--force", action="store_true", help="overwrite an existing module")
     args = parser.parse_args(argv)
 
     target = create(args.name, force=args.force)

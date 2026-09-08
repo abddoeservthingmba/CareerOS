@@ -58,7 +58,7 @@ def build(spec: Spec | None = None, m: Manifest | None = None) -> dict[str, Any]
             {
                 "file": name,
                 "title": next(
-                    (l[2:].strip() for l in sf.lines if l.startswith("# ")), name
+                    (line[2:].strip() for line in sf.lines if line.startswith("# ")), name
                 ),
                 "track": _field(sf.text, "Track"),
                 "module": _field(sf.text, "Module"),

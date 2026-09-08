@@ -79,20 +79,14 @@ def cmd_trace(args: argparse.Namespace) -> int:
         "every AC has a matching T in the same file",
         [str(f) for f in report.unmatched_criteria],
     )
-    ok &= _report(
-        "every T names a test location", [str(f) for f in report.unlocatable_tests]
-    )
+    ok &= _report("every T names a test location", [str(f) for f in report.unlocatable_tests])
     ok &= _report(
         "every R1 requirement has criteria",
         [str(f) for f in report.requirements_without_criteria],
     )
-    ok &= _report(
-        "no identifier defined twice", [str(f) for f in report.duplicate_definitions]
-    )
+    ok &= _report("no identifier defined twice", [str(f) for f in report.duplicate_definitions])
     if args.strict:
-        ok &= _report(
-            "every named test file exists", [str(f) for f in report.missing_paths]
-        )
+        ok &= _report("every named test file exists", [str(f) for f in report.missing_paths])
     return 0 if ok else 1
 
 
@@ -113,9 +107,7 @@ def cmd_check(args: argparse.Namespace) -> int:
         "edges project onto the module graph",
         [str(v) for v in graph.module_edge_violations(m)],
     )
-    ok &= _report(
-        "ai and connectors are leaves", [str(v) for v in graph.leaf_violations(m)]
-    )
+    ok &= _report("ai and connectors are leaves", [str(v) for v in graph.leaf_violations(m)])
     ok &= _report("no cross-module collection writes", graph.read_write_conflicts(m))
     ok &= _report("admin can be removed", graph.satisfied_without("admin", m))
 
@@ -130,14 +122,10 @@ def cmd_check(args: argparse.Namespace) -> int:
         "dependencies sit in an earlier or equal phase",
         [str(v) for v in graph.phase_closure_violations(m)],
     )
-    committed = (repo_root() / "docs" / "spec" / "BUILD-ORDER.md").read_text(
-        encoding="utf-8"
-    )
+    committed = (repo_root() / "docs" / "spec" / "BUILD-ORDER.md").read_text(encoding="utf-8")
     ok &= _report(
         "BUILD-ORDER.md matches the graph",
-        []
-        if graph.render_build_order(m) == committed
-        else ["regenerate with `make build-order`"],
+        [] if graph.render_build_order(m) == committed else ["regenerate with `make build-order`"],
     )
 
     print("DEP-06  handoff bundle")
@@ -163,9 +151,7 @@ def cmd_check(args: argparse.Namespace) -> int:
         )
     else:
         ok &= _report("every section declares a status", [])
-    ok &= _report(
-        "status follows default-by-track", status.default_by_track_violations(spec)
-    )
+    ok &= _report("status follows default-by-track", status.default_by_track_violations(spec))
     ok &= _report("no placeholder on an R1 path", status.placeholder_findings())
     ok &= _report("absent sections have no code", status.absent_findings(spec=spec))
     return 0 if ok else 1

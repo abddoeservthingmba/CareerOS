@@ -28,6 +28,26 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12  # AC-OPS-03.6: a full run completes in under 12 minutes
 
+    # `tests/conftest.py`: "The connection comes from `MONGODB_URI`: the
+    # repository's `.env` locally, **a service container in CI**." That sentence
+    # described an intention rather than this file - there was no container, so
+    # every integration test would have failed the moment `ruff` stopped failing
+    # first.
+    #
+    # A real MongoDB and not a substitute, because `DATA-03` and `DATA-05`
+    # assert Mongo's own index, TTL and partial-filter behaviour and nothing
+    # in-memory shares it. `mongo:8` matches Atlas's major version.
+    services:
+      mongo:
+        image: mongo:8
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
     steps:
       - uses: actions/checkout@v4
 
@@ -57,8 +77,43 @@ jobs:
         working-directory: apps/api
         run: uv run mypy
 
+      # The suite reads its settings from the environment. `tests/conftest.py`
+      # loads `.env` locally and `.env` is gitignored, so CI has to supply the
+      # required fields itself - `Settings` sets `extra="forbid"` and has no
+      # defaults for these, deliberately (`AC-FOUND-02.1`: a missing required
+      # setting fails the boot rather than defaulting to something insecure).
+      #
+      # Every value here is a throwaway. Nothing in this block reaches a real
+      # provider: `AI_PROVIDER_DEFAULT` is `fake`, mail is blocked at import by
+      # `conftest._block_outbound_mail`, and `real_ai`/`real_source` are
+      # deselected by `pytest.ini`.
       - name: pytest
         working-directory: apps/api
+        env:
+          APP_ENV: local
+          PRODUCT_NAME: JobPilot
+          API_BASE_URL: http://localhost:8000
+          WEB_ORIGIN: http://localhost:5173
+          SECRET_KEY: ci-secret-key-at-least-thirty-two-chars
+          REFRESH_PEPPER: ci-refresh-pepper-at-least-thirty-two-chars
+          JWT_PRIVATE_KEY_PEM: ci
+          JWT_PUBLIC_KEY_PEM: ci
+          JWT_ISSUER: jobpilot
+          JWT_AUDIENCE: jobpilot
+          MONGODB_URI: mongodb://localhost:27017
+          MONGODB_DB: jobpilot
+          REDIS_URL: redis://localhost:6379/0
+          R2_ACCOUNT_ID: ci
+          R2_ACCESS_KEY_ID: ci
+          R2_SECRET_ACCESS_KEY: ci
+          R2_BUCKET: ci
+          R2_PUBLIC_BASE_URL: http://localhost:9000
+          CONNECTOR_USER_AGENT: JobPilot/1.0 (+http://localhost/about)
+          EMAIL_FROM: no-reply@localhost
+          EMAIL_PROVIDER: mailpit
+          METRICS_TOKEN: ci
+          AI_PROVIDER_DEFAULT: fake
+          AI_EMBEDDING_PROVIDER: fake
         run: uv run pytest
 
       # T-AI-07.2 - `AC-AI-07.2`: editing a prompt whose version has already run

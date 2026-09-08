@@ -28,9 +28,7 @@ API = ROOT / "apps" / "api"
 def load_env() -> None:
     env_file = ROOT / ".env"
     if not env_file.is_file():
-        raise SystemExit(
-            f"{env_file} is missing. Copy .env.example to .env and fill it in."
-        )
+        raise SystemExit(f"{env_file} is missing. Copy .env.example to .env and fill it in.")
     for line in env_file.read_text(encoding="utf-8").split("\n"):
         stripped = line.strip()
         if not stripped or stripped.startswith("#") or "=" not in stripped:
