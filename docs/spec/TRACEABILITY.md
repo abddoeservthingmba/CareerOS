@@ -246,9 +246,9 @@ Requirement → track → acceptance criterion → test → status.
 | `OPS-06` | R1 | P0 | `AC-OPS-06.3` | `T-OPS-06.3` | `infra/scripts/check_backup_retention.sh` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.4` | `T-OPS-06.4` | `tests/integration/test_r2_versioning.py` | test not written |
 | `OPS-06` | R1 | P0 | `AC-OPS-06.5` | `T-OPS-06.5` | `tests/spec/test_runbooks_present.py` | test not written |
-| `SEC-01` | R1 | P0 | `AC-SEC-01.1` | `T-SEC-01.1` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
-| `SEC-01` | R1 | P0 | `AC-SEC-01.2` | `T-SEC-01.2` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
-| `SEC-01` | R1 | P0 | `AC-SEC-01.3` | `T-SEC-01.3` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test not written |
+| `SEC-01` | R1 | P0 | `AC-SEC-01.1` | `T-SEC-01.1` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test present |
+| `SEC-01` | R1 | P0 | `AC-SEC-01.2` | `T-SEC-01.2` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test present |
+| `SEC-01` | R1 | P0 | `AC-SEC-01.3` | `T-SEC-01.3` | `tests/spec/test_threat_model_doc.py`, `tests/spec/test_traceability.py` | test present |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.1` | `T-WEB-01.1` | `.github/workflows/web-ci.yml` | test not written |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.2` | `T-WEB-01.2` | `.github/workflows/web-ci.yml` | test not written |
 | `WEB-01` | R1 | P0 | `AC-WEB-01.3` | `T-WEB-01.3` | `.github/workflows/contracts.yml` | test present |
