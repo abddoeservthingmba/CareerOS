@@ -23,6 +23,14 @@ dependencies = [
     # A hand-rolled reader for a nested ten-feature matrix would be a second
     # YAML implementation to keep correct.
     "pyyaml>=6.0",
+    # Declared directly, though `beanie` also brings it. Ten modules import it
+    # by name - `IndexModel` and `ASCENDING` in every document's `Settings`,
+    # `AsyncMongoClient` in `infra/mongo.py`, `AsyncDatabase` in `purge.py` -
+    # and a direct import satisfied by somebody else's dependency is a build
+    # that breaks when they change theirs. Beanie 2.x uses PyMongo's native
+    # async driver, so the version that matters here is the one Beanie pins;
+    # this floor only says the API we call exists.
+    "pymongo>=4.9",
     "redis>=5.2",
     # `FOUND-14` §14: "Sentry for API, web, and mobile, with `before_send`
     # applying the same redaction list."
@@ -54,6 +62,17 @@ dev = [
     "ruff>=0.8",
     "mypy>=1.13",
     "import-linter>=2.0",
+    # Stubs for `pyyaml`, which is a runtime dependency: `ai/budget.py` loads
+    # `docs/spec/ai-budget.yaml`, `ai/pricing.py` loads `model-pricing.yaml`,
+    # and four spec tests parse the workflow files.
+    #
+    # Listed here because it was not. It had been installed into the local
+    # virtualenv by hand, so `mypy` passed on this machine and failed in CI
+    # with "Library stubs not installed for yaml" on every run - `uv sync
+    # --frozen` installs the lockfile and nothing else, which is the whole
+    # point of `--frozen`. A dependency that exists only in a working copy is
+    # a dependency CI does not have.
+    "types-pyyaml>=6.0",
 ]
 
 [tool.ruff]

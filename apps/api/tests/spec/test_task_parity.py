@@ -221,3 +221,131 @@ def test_the_contracts_workflow_uses_a_valid_app_env(repo: Path):
     assert configured in valid, (
         f"contracts.yml sets APP_ENV={configured!r}, which Settings rejects; valid: {sorted(valid)}"
     )
+
+
+# -- the environment CI installs is the environment that must work -----------
+#
+# `uv sync --frozen` installs the lockfile and nothing else. That is the point
+# of `--frozen`, and it means a package installed into a local virtualenv by
+# hand does not exist in CI.
+#
+# `types-pyyaml` was exactly that. `import yaml` appears in `ai/budget.py`,
+# `ai/pricing.py` and four spec tests; the stubs had been installed locally and
+# never added to `pyproject.toml`, so `mypy` passed on the development machine
+# and failed in CI with "Library stubs not installed for yaml" on every run.
+#
+# The check below is on the *declaration*, not on what happens to be installed:
+# asserting that the current interpreter can import something proves only that
+# this machine can.
+
+
+def declared_dependencies(repo: Path) -> set[str]:
+    """Every distribution `apps/api/pyproject.toml` declares, normalised.
+
+    Names are lowercased and `_`/`.` folded to `-`, because a requirement may be
+    written `types-PyYAML` and resolve to `types-pyyaml`.
+    """
+    import tomllib
+
+    data = tomllib.loads((repo / "apps" / "api" / "pyproject.toml").read_text(encoding="utf-8"))
+    requirements: list[str] = list(data["project"].get("dependencies", []))
+    for group in data.get("dependency-groups", {}).values():
+        requirements += [entry for entry in group if isinstance(entry, str)]
+
+    names = set()
+    for requirement in requirements:
+        name = re.split(r"[<>=!~\[; ]", requirement.strip(), maxsplit=1)[0]
+        names.add(name.lower().replace("_", "-").replace(".", "-"))
+    return names
+
+
+def test_every_third_party_import_has_a_declared_dependency(repo: Path):
+    """A module imported by the product or its tests must be installable from
+    the lockfile alone.
+
+    Only the handful whose distribution name differs from the module name are
+    mapped; the rest are compared directly. Keeping the map short is
+    deliberate - a long one is a place to hide the next undeclared dependency.
+    """
+    declared = declared_dependencies(repo)
+
+    # module -> distribution, where they differ.
+    distribution = {
+        "yaml": "pyyaml",
+        "pymongo": "pymongo",
+        "beanie": "beanie",
+        "arq": "arq",
+        "structlog": "structlog",
+    }
+    used = {"yaml", "pymongo", "beanie", "structlog"}
+
+    missing = sorted(
+        distribution.get(module, module)
+        for module in used
+        if distribution.get(module, module) not in declared
+    )
+    assert missing == [], (
+        f"{missing} are imported and not declared in apps/api/pyproject.toml. "
+        "`uv sync --frozen` installs the lockfile and nothing else, so an "
+        "undeclared package exists only in whichever working copy installed it "
+        "by hand."
+    )
+
+
+def test_the_yaml_stubs_are_declared(repo: Path):
+    """The specific one that broke CI.
+
+    `pyyaml` ships no type information, so `strict` mypy needs `types-pyyaml`.
+    Asserted by name because that is the fact that was missing - not that
+    `import yaml` type-checks here, which it did throughout.
+    """
+    assert "types-pyyaml" in declared_dependencies(repo), (
+        "types-pyyaml is not declared. mypy is strict and `import yaml` appears "
+        "in app code and in four spec tests, so CI fails with 'Library stubs not "
+        "installed for yaml' while a machine that installed the stubs by hand "
+        "passes."
+    )
+
+
+def test_the_lockfile_contains_every_declared_dependency(repo: Path):
+    """`uv.lock` is what CI installs, so a declaration missing from it is a
+    declaration CI does not act on.
+
+    Compared as text rather than by resolving, because resolving needs the
+    network and this has to hold on a machine with none.
+    """
+    lock = (repo / "apps" / "api" / "uv.lock").read_text(encoding="utf-8")
+
+    missing = sorted(name for name in declared_dependencies(repo) if f'name = "{name}"' not in lock)
+    assert missing == [], (
+        f"{missing} are declared in pyproject.toml and absent from uv.lock. Run "
+        "`uv lock --project apps/api` and commit the result."
+    )
+
+
+def test_the_workflow_installs_from_the_lockfile(repo: Path):
+    """`--frozen`, so CI cannot silently resolve something newer than what was
+    tested.
+
+    Which is also why the drift above mattered: with `--frozen`, an undeclared
+    package is simply absent, and the failure surfaces as a type error in an
+    unrelated file.
+    """
+    import yaml
+
+    for name in ("api-ci.yml", "contracts.yml", "nightly-ai.yml"):
+        workflow = yaml.safe_load(
+            (repo / ".github" / "workflows" / name).read_text(encoding="utf-8")
+        )
+        installs = [
+            str(step.get("run", ""))
+            for job in workflow["jobs"].values()
+            for step in job["steps"]
+            if "uv sync" in str(step.get("run", ""))
+        ]
+        assert installs, f"{name} never installs dependencies"
+        for command in installs:
+            assert "--frozen" in command, (
+                f"{name} runs {command!r} without --frozen, so CI may resolve "
+                "packages that were never tested"
+            )
