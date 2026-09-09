@@ -1,0 +1,182 @@
+# JobPilot — Render Blueprint for the API.
+#
+#     Render dashboard -> New -> Blueprint -> point at this repository.
+#
+# One web service running the `api` entrypoint, plus the free Key Value
+# instance that supplies `REDIS_URL`. That is the whole deployment.
+#
+# WHAT IS NOT HERE, AND WHY
+#
+# The `worker` entrypoint. Render bills a Background Worker on every plan, and
+# at P0 the worker's inventory is one row deep — `ops.heartbeat`, the signal
+# that says the worker is alive. Nothing a user touches goes through the queue
+# yet, so paying for a process to prove itself alive buys nothing. It becomes
+# necessary in P2, when the résumé and embedding tasks land. To add it then,
+# append:
+#
+#     - type: worker
+#       name: jobpilot-worker
+#       runtime: docker
+#       dockerfilePath: ./apps/api/Dockerfile
+#       dockerContext: .
+#       dockerCommand: worker
+#       envVars: [ ...the same list... ]
+#
+# Same image, same digest, one word of difference (ADR-002). That is the point
+# of the two entrypoints.
+#
+# CRITERIA THIS DEPLOYMENT DOES NOT MEET
+#
+#   * `AC-OPS-01.1` — the read-only root filesystem. Render does not expose it.
+#     The non-root half holds (the image runs as uid 10001); the read-only half
+#     does not, and stays verifiable only under Compose.
+#   * `AC-OPS-02.1` — "a request to the origin IP bypassing Cloudflare is
+#     refused". This serves a Render hostname directly: no Cloudflare, so no
+#     WAF and no coarse rate limit.
+#
+# Both are the cost of not being on the D3 path (`15-infra-and-ops.md` §2,
+# one VPS behind Cloudflare) and belong on `OPS-02` rather than being
+# rediscovered later.
+
+services:
+  - type: web
+    name: jobpilot-api
+    runtime: docker
+
+    # The build context is the repository root, not `apps/api`. This is
+    # required, not a preference: `app/ai/budget.py` resolves
+    # `docs/spec/ai-budget.yaml` from four directories above the package and
+    # loads it at module scope, so a context rooted at `apps/api` cannot supply
+    # it. See the header of the Dockerfile.
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+
+    plan: free
+    # The closest Render region to an Indian Atlas cluster. If the cluster is
+    # elsewhere, move this — a cross-region hop is the largest avoidable
+    # latency in the feed budget (`00-scope-and-phases.md` §3.1(6), feed p95
+    # under 800 ms).
+    region: singapore
+
+    # `/readyz`, not `/healthz`. `/readyz` reaches Mongo and verifies every
+    # declared index is present (`AC-DATA-01.3`, `AC-OPS-01.3`); a container
+    # that is up but missing an index is not ready. `/healthz` is liveness only
+    # and belongs to the image's HEALTHCHECK.
+    healthCheckPath: /readyz
+
+    envVars:
+      # --- non-secret ------------------------------------------------------
+      # Every value written here is one `.env.example` already commits, so
+      # nothing new becomes public by being in the repository.
+
+      # D1 is unsettled, and `00-scope-and-phases.md` §5 is explicit: ship
+      # `PRODUCT_NAME=JobPilot` in staging only, production blocked until the
+      # name is decided. This deployment is staging and `APP_ENV` says so.
+      - key: APP_ENV
+        value: staging
+      - key: PRODUCT_NAME
+        value: JobPilot
+      - key: MONGODB_DB
+        value: jobpilot
+      - key: JWT_ISSUER
+        value: jobpilot
+      - key: JWT_AUDIENCE
+        value: jobpilot-api
+
+      # REQUIRED, or the container does not boot.
+      #
+      # `EMAIL_PROVIDER` defaults to `resend` in `Settings`, and `resend` is in
+      # `PLANNED_ADAPTERS` rather than `ADAPTERS` — the HTTP adapters were never
+      # built. `main.py` line 106 resolves the provider during lifespan startup,
+      # deliberately ("an unresolvable provider that surfaces at the first
+      # password reset is a support ticket from a user who cannot get in"), so
+      # the default raises `EmailError` before the app serves anything.
+      #
+      # `mailpit` is the only value that boots: the `Literal` accepts
+      # `resend | ses | mailpit`, `resend` and `ses` raise, and `memory` — which
+      # would be the honest choice — is not in the `Literal`. It resolves to
+      # `SmtpSender` pointed at 127.0.0.1:1025, where nothing is listening on
+      # Render. That is survivable only because nothing sends mail yet;
+      # `build_sender` does not connect, so boot succeeds and the first real
+      # send would fail.
+      #
+      # This is a placeholder for a decision, not a configuration: D7 is still
+      # open and no HTTP email adapter exists. Revisit before anything that
+      # emails a user goes live.
+      - key: EMAIL_PROVIDER
+        value: mailpit
+
+      # R2 — required with no defaults, so the container will not boot without
+      # all five. Nothing reads them yet: `main.py` builds no storage client at
+      # startup, and the first real use is the résumé upload in P2.
+      #
+      # These are placeholders, and deliberately obvious ones. `unset` rather
+      # than a plausible-looking fake, so a value that reaches a real API call
+      # fails as an obvious misconfiguration instead of a mysterious 403.
+      # `jobpilot-stg` is the bucket name `15-infra-and-ops.md` §2 assigns to
+      # staging, so that one is already correct.
+      #
+      # When R2 is provisioned in P2, `R2_ACCESS_KEY_ID` and
+      # `R2_SECRET_ACCESS_KEY` must move to `sync: false` — they are
+      # `SecretStr` and real values do not belong in this file.
+      - key: R2_ACCOUNT_ID
+        value: unset
+      - key: R2_ACCESS_KEY_ID
+        value: unset
+      - key: R2_SECRET_ACCESS_KEY
+        value: unset
+      - key: R2_BUCKET
+        value: jobpilot-stg
+      - key: R2_PUBLIC_BASE_URL
+        value: https://r2.invalid
+
+      # --- wired to the Key Value instance below ---------------------------
+      - key: REDIS_URL
+        fromService:
+          name: jobpilot-kv
+          type: keyvalue
+          property: connectionString
+
+      # --- set in the dashboard, never in the repository -------------------
+      # `sync: false` means Render prompts for the value and keeps it out of
+      # this file. Secrets never enter the repo, and a required variable that
+      # is absent aborts the boot naming itself (`AC-FOUND-02.1`) — which is
+      # the behaviour to want here. A committed placeholder would fail
+      # silently instead.
+      - key: MONGODB_URI
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: REFRESH_PEPPER
+        sync: false
+      - key: METRICS_TOKEN
+        sync: false
+      - key: JWT_PRIVATE_KEY_PEM
+        sync: false
+      - key: JWT_PUBLIC_KEY_PEM
+        sync: false
+      # Not secret, but deployment-specific: the Render URL and the Vercel
+      # origin are not known until both exist. `WEB_ORIGIN` is the CORS
+      # allowlist and it is exactly one origin (`main.py` line 138), so it must
+      # be the production Vercel domain — preview deployments will be blocked.
+      - key: API_BASE_URL
+        sync: false
+      - key: WEB_ORIGIN
+        sync: false
+      - key: CONNECTOR_USER_AGENT
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+
+  # `REDIS_URL` is a required setting with no default, so it has to be a real
+  # URL for the API to boot. Nothing connects to it yet — `main.py` keeps
+  # `redis` in `PENDING_CHECKS`, and idempotency still uses `MemoryStore` — so
+  # this exists to make the variable honest today and to be ready for the
+  # worker in P2.
+  - type: keyvalue
+    name: jobpilot-kv
+    plan: free
+    region: singapore
+    # No external access: only the API service reaches it, over Render's
+    # private network.
+    ipAllowList: []
