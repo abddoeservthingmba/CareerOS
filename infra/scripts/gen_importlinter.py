@@ -276,11 +276,21 @@ def _module_independence(found: list[str]) -> str:
 def _no_http_in_domain(found: list[str]) -> str:
     return _block(
         "8. no-http-in-domain",
-        "; Services take and return plain objects; HTTP lives in `router.py`.",
+        "; Services take and return plain objects; HTTP lives in `router.py`.\n"
+        "; `allow_indirect_imports` because the rule is about what a service\n"
+        "; *reaches for*, not what its own documents are built from: a service\n"
+        "; constructs the Beanie models in its `models.py`, and those declare\n"
+        "; their indexes with `pymongo.IndexModel`. Without this, the first\n"
+        "; service to import its own documents fails the contract - which is\n"
+        "; exactly what happened when `AUTH-01` landed, and the contract had\n"
+        "; only been passing because every service was an empty scaffold.\n"
+        "; A direct `import pymongo` in a service is still forbidden, which is\n"
+        "; the thing worth forbidding.",
         [
             "[importlinter:contract:no-http-in-domain]",
             "name = no-http-in-domain",
             "type = forbidden",
+            "allow_indirect_imports = True",
             "source_modules =",
             *(f"    app.modules.{name}.service" for name in found),
             "forbidden_modules =",

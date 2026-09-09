@@ -70,6 +70,34 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_TTL_DAYS: int = 30
     REFRESH_PEPPER: SecretStr
 
+    #: `AUTH-01` §1's breach check, as configuration rather than a literal for
+    #: the same reasons `GEMINI_BASE_URL` is one: it is a third party's address,
+    #: it is what a test points elsewhere, and it is the knob that stops
+    #: outbound calls in an environment that must not make them.
+    #:
+    #: Blank means "do not call", and §1 already fixes what that does - the
+    #: registration is allowed and `breach_check_unavailable` is incremented. So
+    #: an unset value degrades to the documented outage behaviour rather than
+    #: silently accepting breached passwords with no trace.
+    PWNED_PASSWORDS_BASE_URL: str = "https://api.pwnedpasswords.com"
+
+    #: `AC-AUTH-01.4`'s timing clause, as a floor rather than as luck.
+    #:
+    #: The criterion requires a fresh registration and one against a known
+    #: address to answer within 50 ms of each other. Hashing on both paths is
+    #: not enough: the fresh branch also writes the user and its verification
+    #: token, and two round trips to a managed database are ~100 ms that the
+    #: collision branch never pays. Measured on this machine the gap was 59 ms
+    #: - a working oracle for "this address is *not* registered", which is the
+    #: direction an attacker enumerating a leaked list actually cares about.
+    #:
+    #: So `register` pads every 202 to this floor. It must exceed the slower
+    #: branch's real cost or the gap reappears above it, which is why it is
+    #: configuration: the right value depends on the distance to the database.
+    #: Registration is a once-per-user request, so the cost is a few hundred
+    #: milliseconds nobody is waiting on twice.
+    REGISTER_MIN_MILLIS: int = 400
+
     # -- data ---------------------------------------------------------------
     MONGODB_URI: SecretStr
     MONGODB_DB: str

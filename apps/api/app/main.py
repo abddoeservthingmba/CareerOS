@@ -17,27 +17,34 @@ verified.
 
 from __future__ import annotations
 
+import logging
 import time
 import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
 
+import httpx
 from fastapi import FastAPI, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 
 from app.ai import prompt
-from app.core import clock, metrics, sentry
+from app.core import clock, metrics, ratelimit, sentry
 from app.core import logging as app_logging
 from app.core.config import Settings, get_settings
 from app.core.errors import AppError, ErrorCode, InvalidCursor
+from app.core.events import EventBus, register_all
 from app.core.idempotency import Idempotency, MemoryStore
 from app.documents import all_documents
-from app.infra import indexes, mongo
+from app.infra import indexes, mongo, redis
+from app.infra.breaches import PwnedPasswords
 from app.infra.email import webhook as email_webhook
 from app.infra.email.bounces import MemoryBounceRegistry
 from app.infra.email.senders import SmtpSettings, build_sender
+from app.modules.auth import router as auth_router
+from app.modules.auth.repository import EmailTokenRepository, UserRepository
+from app.modules.auth.service import AuthService
 from app.shared.pagination import CursorError
 
 STARTED_AT = time.monotonic()
@@ -62,7 +69,15 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     try:
         yield
     finally:
-        await app.state.mongo.close()
+        # Closed in reverse order of use, and each independently: a failure
+        # closing one must not leave the others leaking sockets for the life of
+        # the process. Mongo last because it is the one whose absence makes the
+        # container unready, so it is the one worth the clearest failure.
+        for closer in (app.state.http.aclose, app.state.redis.aclose, app.state.mongo.close):
+            try:
+                await closer()
+            except Exception:  # noqa: BLE001 - shutdown is best-effort by nature
+                logging.getLogger("app.main").warning("shutdown close failed", exc_info=True)
 
 
 def valid_request_id(value: str) -> bool:
@@ -118,6 +133,44 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     # containers serve the same user, which is why `/readyz` still names
     # `redis` in `not_yet_checked` rather than reporting ready without it.
     app.state.idempotency = Idempotency(MemoryStore())
+
+    # `AUTH-09`. A real Redis client, because the limiter's guarantee is a
+    # `MULTI`/`EXEC` over a sorted set and an in-process substitute would make
+    # the limit per-container rather than per-deployment - which on two
+    # containers is twice the configured rate.
+    #
+    # Lazily connected: `Redis.from_url` opens nothing until a command runs, so
+    # an unreachable Redis does not stop the boot. It stops the *auth routes*,
+    # which is `AC-AUTH-09.5`'s fail-closed behaviour, and `redis` stays in
+    # `/readyz`'s `not_yet_checked` until `OPS-01` wires the check.
+    app.state.redis = redis.build_client(settings.REDIS_URL.get_secret_value())
+    app.state.limiter = ratelimit.RateLimiter(app.state.redis)
+
+    # `FOUND-09`. One bus, with the cross-module reaction graph registered in
+    # one place, so "what happens when X" is answered by reading
+    # `core/events.py::register_all` rather than by grepping for subscribers.
+    app.state.events = register_all(EventBus())
+
+    # `AUTH-01`. The breach client is `None` when no base URL is configured,
+    # and §1 already fixes what that means - allow the registration. One
+    # `AsyncClient` for the process rather than one per request: a new client
+    # per registration is a new TLS handshake in the sign-up path.
+    app.state.http = httpx.AsyncClient()
+    app.state.auth_service = AuthService(
+        users=UserRepository(),
+        email_tokens=EmailTokenRepository(),
+        email=app.state.email,
+        breaches=(
+            PwnedPasswords(app.state.http, base_url=settings.PWNED_PASSWORDS_BASE_URL)
+            if settings.PWNED_PASSWORDS_BASE_URL
+            else None
+        ),
+        events=app.state.events,
+        product_name=settings.PRODUCT_NAME,
+        web_origin=settings.WEB_ORIGIN,
+        min_register_millis=settings.REGISTER_MIN_MILLIS,
+    )
+    app.include_router(auth_router.router, prefix="/api/v1")
 
     # `AI-07` §7: "Prompts are loaded and validated at startup ... A malformed
     # prompt fails the boot." Here rather than inside `app.ai` because

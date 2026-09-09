@@ -336,6 +336,23 @@ modules/<name>/
 | `ApplicationStatusChanged{application_id, user_id, from, to}` | tracker | notifications | enqueue `notifications.reconcile_reminders` |
 | `PackApproved{user_id, application_id, pack_id, content_hash}` | apply | tracker | enqueue `tracker.append_timeline` |
 | `AppliedConfirmed{user_id, application_id, applied_at}` | apply | tracker, notifications | transition to `applied`; schedule follow-up |
+| `UserRegistered{user_id}` | auth | — | none in R1 |
+| `UserDeletionRequested{user_id, requested_at}` | auth | — | none in R1; `AUTH-07`'s cron scans `users` |
+
+The last two carry no consumer, and that is deliberate rather than an omission
+waiting to be filled. `02-auth-and-account.md` §8 already names auth as their
+publisher and `AUTH-01`'s Outputs require `UserRegistered`, so a registry
+without them made two sections of this specification unbuildable — `publish`
+rejects an unregistered name. They are declared here so the reaction graph stays
+readable in one file even where the graph is a leaf: a reader asking "what
+happens when someone registers" gets "nothing, in R1" as an answer rather than
+as a silence.
+
+`UserDeletionRequested` is listed with `AUTH-07` in view. Its handler action is
+**none** on purpose: a deletion that depended on an in-process handler firing
+would be lost on a restart between the request and the sweep, so the cron reads
+`users.status` and `deletion_requested_at` instead. The event is a notification,
+never the mechanism.
 
 **Inputs.** Event instances.
 
@@ -345,7 +362,7 @@ modules/<name>/
 - `AC-FOUND-09.1` Every handler registered in `register_all` does nothing but enqueue (asserted by inspecting that no handler imports a repository or an `infra` client).
 - `AC-FOUND-09.2` A handler that raises does not propagate to the publisher, and the error is logged with the event name and `request_id`.
 - `AC-FOUND-09.3` Publishing an event with a non-primitive field raises at construction.
-- `AC-FOUND-09.4` The eight R1 events above each have a test that publishes them and asserts the expected task was enqueued with the expected arguments.
+- `AC-FOUND-09.4` The ten R1 events above each have a test that publishes them and asserts the expected task was enqueued with the expected arguments. For the two that have no consumer (`UserRegistered`, `UserDeletionRequested`), the test asserts that publishing succeeds and enqueues **nothing** — an event with no subscriber must not be an error, and must not quietly acquire one.
 - `AC-FOUND-09.5` `docs/events.md` is generated from the registry and matches the table above.
 
 **Tests.**

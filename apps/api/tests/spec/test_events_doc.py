@@ -28,10 +28,20 @@ def test_the_document_is_current(repo: Path):
 
 
 def test_the_registry_matches_the_specification(repo: Path):
-    """The eight rows of §9's "R1 event set" table, by name and publisher.
+    """The ten rows of §9's "R1 event set" table, by name and publisher.
 
     Read out of the specification rather than restated here, so editing one
     without the other fails.
+
+    Eight until `AUTH-01`. §9's table listed neither `UserRegistered` nor
+    `UserDeletionRequested` while `02-auth-and-account.md` §8 named auth as
+    their publisher and `AUTH-01`'s Outputs required the first of them - so
+    `publish` rejected a name the specification demanded, and registration was
+    unbuildable. §9 gained both rows and `AC-FOUND-09.4` now says ten.
+
+    The count is asserted separately from the set comparison below, and both
+    are worth keeping: the comparison catches a rename, the count catches a row
+    silently dropped from the table while the code still has it.
     """
     section = (repo / "docs" / "spec" / "01-foundations.md").read_text(encoding="utf-8")
     table = section.split("**R1 event set.**", 1)[1].split("**Inputs.**", 1)[0]
@@ -41,7 +51,7 @@ def test_the_registry_matches_the_specification(repo: Path):
     declared = {name: publisher for name, publisher in rows}
 
     assert declared, "no event rows parsed out of §9 - has the table moved?"
-    assert len(declared) == 8, f"§9 declares {len(declared)} events, expected 8"
+    assert len(declared) == 10, f"§9 declares {len(declared)} events, expected 10"
 
     in_code = {spec.name: spec.published_by for spec in R1_EVENTS}
     assert in_code == declared, (

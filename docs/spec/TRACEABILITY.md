@@ -262,13 +262,13 @@ Requirement → track → acceptance criterion → test → status.
 | `ADMIN-06` | R1 | P1 | `AC-ADMIN-06.5` | `T-ADMIN-06.5` | `tests/integration/test_admin_audit.py` | test not written |
 | `ADMIN-06` | R1 | P1 | `AC-ADMIN-06.6` | `T-ADMIN-06.6` | `tests/spec/test_no_role_grant_endpoint.py` | test not written |
 | `ADMIN-06` | R1 | P1 | `AC-ADMIN-06.7` | `T-ADMIN-06.7` | `tests/integration/test_admin_ip_allowlist.py` | test not written |
-| `AUTH-01` | R1 | P1 | `AC-AUTH-01.1` | `T-AUTH-01.1` | `tests/unit/test_password_policy.py` | test not written |
-| `AUTH-01` | R1 | P1 | `AC-AUTH-01.2` | `T-AUTH-01.2` | `tests/integration/test_breach_check.py` | test not written |
-| `AUTH-01` | R1 | P1 | `AC-AUTH-01.3` | `T-AUTH-01.3` | `tests/integration/test_breach_check.py` | test not written |
-| `AUTH-01` | R1 | P1 | `AC-AUTH-01.4` | `T-AUTH-01.4` | `tests/integration/test_registration_enumeration.py` | test not written |
-| `AUTH-01` | R1 | P1 | `AC-AUTH-01.5` | `T-AUTH-01.5` | `tests/unit/test_email_normalization.py` | test not written |
-| `AUTH-01` | R1 | P1 | `AC-AUTH-01.6` | `T-AUTH-01.6` | `tests/unit/test_argon2_params.py` | test not written |
-| `AUTH-01` | R1 | P1 | `AC-AUTH-01.7` | `T-AUTH-01.7` | `tests/integration/test_consent_capture.py` | test not written |
+| `AUTH-01` | R1 | P1 | `AC-AUTH-01.1` | `T-AUTH-01.1` | `tests/unit/test_password_policy.py` | test present |
+| `AUTH-01` | R1 | P1 | `AC-AUTH-01.2` | `T-AUTH-01.2` | `tests/integration/test_breach_check.py` | test present |
+| `AUTH-01` | R1 | P1 | `AC-AUTH-01.3` | `T-AUTH-01.3` | `tests/integration/test_breach_check.py` | test present |
+| `AUTH-01` | R1 | P1 | `AC-AUTH-01.4` | `T-AUTH-01.4` | `tests/integration/test_registration_enumeration.py` | test present |
+| `AUTH-01` | R1 | P1 | `AC-AUTH-01.5` | `T-AUTH-01.5` | `tests/unit/test_email_normalization.py` | test present |
+| `AUTH-01` | R1 | P1 | `AC-AUTH-01.6` | `T-AUTH-01.6` | `tests/unit/test_argon2_params.py` | test present |
+| `AUTH-01` | R1 | P1 | `AC-AUTH-01.7` | `T-AUTH-01.7` | `tests/integration/test_consent_capture.py` | test present |
 | `AUTH-02` | R1 | P1 | `AC-AUTH-02.1` | `T-AUTH-02.1` | `tests/integration/test_google_oidc.py` | test not written |
 | `AUTH-02` | R1 | P1 | `AC-AUTH-02.2` | `T-AUTH-02.2` | `tests/integration/test_google_oidc.py` | test not written |
 | `AUTH-02` | R1 | P1 | `AC-AUTH-02.3` | `T-AUTH-02.3` | `tests/integration/test_google_oidc.py` | test not written |
@@ -320,7 +320,7 @@ Requirement → track → acceptance criterion → test → status.
 | `SEC-02` | R1 | P1 | `AC-SEC-02.3` | `T-SEC-02.3` | `tests/integration/test_clamav.py` | test not written |
 | `SEC-02` | R1 | P1 | `AC-SEC-02.4` | `T-SEC-02.4` | `tests/integration/test_field_encryption.py` | test not written |
 | `SEC-02` | R1 | P1 | `AC-SEC-02.5` | `T-SEC-02.5` | `tests/spec/test_asvs_checklist.py` | test not written |
-| `SEC-04` | R1 | P1 | `AC-SEC-04.1` | `T-SEC-04.1` | `tests/integration/test_consent_capture.py` | test not written |
+| `SEC-04` | R1 | P1 | `AC-SEC-04.1` | `T-SEC-04.1` | `tests/integration/test_consent_capture.py` | test present |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.2` | `T-SEC-04.2` | `tests/integration/test_consent_append_only.py` | test not written |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.3` | `T-SEC-04.3` | `tests/spec/test_notice_parity.py` | test not written |
 | `SEC-04` | R1 | P1 | `AC-SEC-04.4` | `T-SEC-04.4` | `tests/spec/test_consent_data_parity.py` | test not written |

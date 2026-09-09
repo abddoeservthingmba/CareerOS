@@ -146,6 +146,20 @@ rate_limited = Counter(
     registry=REGISTRY,
 )
 
+#: `AC-AUTH-01.3` names this one: with the breach service returning 503,
+#: "registration succeeds and `breach_check_unavailable` is incremented".
+#:
+#: Unlabelled, and that is on purpose. The only question it answers is "are we
+#: currently registering people without checking their passwords", which is a
+#: yes-or-no about one third party. A label would invite putting the prefix on
+#: it, and five hex characters of a SHA-1 next to a timestamp is a narrowing
+#: hint about a specific password.
+breach_check_unavailable = Counter(
+    "breach_check_unavailable",
+    "Registrations allowed without a breach check, because the service was down (AUTH-01)",
+    registry=REGISTRY,
+)
+
 #: The seven `OPS-04` §4.2 names, as families. `AC-FOUND-14.3` requires all of
 #: them to be exposed, so the list is here rather than in the test - a test that
 #: kept its own copy would be asserting against itself.

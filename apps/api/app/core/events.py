@@ -155,6 +155,33 @@ R1_EVENTS: tuple[EventSpec, ...] = (
         "transition to `applied`; schedule follow-up",
         ("user_id", "application_id", "applied_at"),
     ),
+    # The two auth events. `02-auth-and-account.md` §8 named auth as their
+    # publisher and `AUTH-01`'s Outputs required `UserRegistered` while §9's
+    # table listed neither, so `publish` rejected a name the specification
+    # demanded - `AUTH-01` was unbuildable until §9 gained these rows.
+    #
+    # No consumer in R1, and declared anyway: the point of this table is that
+    # the reaction graph is readable in one file, and "nothing happens when
+    # someone registers" is better read as an answer than inferred from an
+    # absence.
+    EventSpec(
+        "UserRegistered",
+        "auth",
+        (),
+        "none in R1",
+        ("user_id",),
+    ),
+    # Handler action is **none** deliberately. A deletion that relied on an
+    # in-process handler would be lost on a restart between the request and the
+    # sweep, so `AUTH-07`'s cron reads `users.status` and
+    # `deletion_requested_at`. This event notifies; it is never the mechanism.
+    EventSpec(
+        "UserDeletionRequested",
+        "auth",
+        (),
+        "none in R1; `AUTH-07`'s cron scans `users`",
+        ("user_id", "requested_at"),
+    ),
 )
 
 EVENTS_BY_NAME = {spec.name: spec for spec in R1_EVENTS}

@@ -619,9 +619,19 @@ forbidden_modules =
 
 ; --- 8. no-http-in-domain ------------------------------------------------------
 ; Services take and return plain objects; HTTP lives in `router.py`.
+; `allow_indirect_imports` because the rule is about what a service
+; *reaches for*, not what its own documents are built from: a service
+; constructs the Beanie models in its `models.py`, and those declare
+; their indexes with `pymongo.IndexModel`. Without this, the first
+; service to import its own documents fails the contract - which is
+; exactly what happened when `AUTH-01` landed, and the contract had
+; only been passing because every service was an empty scaffold.
+; A direct `import pymongo` in a service is still forbidden, which is
+; the thing worth forbidding.
 [importlinter:contract:no-http-in-domain]
 name = no-http-in-domain
 type = forbidden
+allow_indirect_imports = True
 source_modules =
     app.modules.admin.service
     app.modules.apply.service

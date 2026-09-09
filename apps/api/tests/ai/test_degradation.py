@@ -320,10 +320,37 @@ def test_no_feature_is_routable_yet():
     deletes. A feature is *reachable* when its `router.py` declares an
     `APIRouter`; until then there is no code path a budget denial could
     degrade.
+
+    **Narrowed to modules that own an AI feature.** `auth` became routable with
+    `AUTH-01` and hosts none of the ten - registration makes no model call, so
+    nothing in it has a budget to exceed or a degradation to exhibit. Firing on
+    it would be the same false alarm the paragraph above rejects, one level up:
+    a sentinel for AI degradation that trips on a signup form is one somebody
+    silences. The modules that *do* own a feature are named below, so the
+    sentinel still fires for `resume`, `matching`, `apply` and the rest.
     """
-    assert routable_modules() == [], (
-        f"{routable_modules()} now expose routes; wire test_degradation.py to them"
-    )
+    waiting = [name for name in routable_modules() if name in AI_FEATURE_MODULES]
+
+    assert waiting == [], f"{waiting} now expose routes; wire test_degradation.py to them"
+
+
+#: Modules that own at least one of §3.2's ten features, so a router appearing
+#: in one of them means a real AI code path now exists.
+#:
+#: Written out rather than derived from `Feature`: the enum names features
+#: (`resume_extract`, `match_rationale`), not the modules that will serve them,
+#: and inferring the mapping from a name prefix would quietly stop covering a
+#: feature whose module is not named after it.
+AI_FEATURE_MODULES = frozenset(
+    {
+        "resume",  # resume_extract, resume_quality
+        "jobs",  # job_enrich, embed_job
+        "matching",  # match_rationale, embed_profile
+        "apply",  # pack_generate, answer_suggest, embed_question
+        "notifications",  # followup_draft
+        "profile",  # embed_profile's trigger
+    }
+)
 
 
 def routable_modules() -> list[str]:

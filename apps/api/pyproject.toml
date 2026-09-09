@@ -4,12 +4,28 @@ version = "0.1.0"
 description = "JobPilot API and worker — one image, two entrypoints (ADR-002)."
 requires-python = "==3.12.*"
 dependencies = [
+    # `AUTH-01` §1: "Hashing: Argon2id via `argon2-cffi`, `time_cost=3`,
+    # `memory_cost=65536` (64 MiB), `parallelism=1`, 16-byte salt." Named by the
+    # requirement, so this is the library rather than a choice.
+    "argon2-cffi>=23.1",
     # `FOUND-10` §10: "ARQ on Redis. Worker settings and the cron table in
     # `app/worker.py`, in one place."
     "arq>=0.26",
     "beanie>=1.27",
     "fastapi>=0.115",
-    "pydantic>=2.9",
+    # A *runtime* dependency as of `AUTH-01`, not only a test one.
+    #
+    # It was in `dependency-groups.dev` for Starlette's `TestClient`, which is an
+    # httpx transport. `AUTH-01` §1's breach check is an outbound call to the
+    # Pwned Passwords range API from `infra/breaches.py`, so the client now ships
+    # in the image. Left in dev only, `uv sync --no-dev` would build an image
+    # that imports it and every registration would fail on the first request.
+    "httpx>=0.28",
+    # The `email` extra pulls `email-validator`, which is what `EmailStr`
+    # needs at *import* time - without it `RegisterRequest` raises on class
+    # construction, so the failure is a boot failure rather than a bad request.
+    # Added with `AUTH-01`, whose input is `RegisterRequest{email, ...}`.
+    "pydantic[email]>=2.9",
     "pydantic-settings>=2.6",
     # `FOUND-14` §14: "structlog to stdout, JSON in every environment except
     # local (where it is pretty-printed)."
@@ -49,12 +65,16 @@ dev = [
     "pytest>=8.3",
     "hypothesis>=6.112",
     "pytest-asyncio>=0.24",
-    # Starlette's TestClient is an httpx transport; without it every route test
-    # would have to drive ASGI by hand. Starlette now prefers `httpx2` and warns
-    # on `httpx`; `httpx` is the one FastAPI documents and the one with a long
-    # history, so the deprecation warning is the cheaper of the two risks until
-    # `httpx2` is the established name.
-    "httpx>=0.28",
+    # `httpx` moved to the runtime dependencies with `AUTH-01` - Starlette's
+    # `TestClient` still needs it, and so does `infra/breaches.py`, so declaring
+    # it in both places would be two floors to keep in step. See the note there.
+    #
+    # `T-AUTH-01.2` asserts on the *outbound* request: "the request to the
+    # breach service contains only a 5-character hash prefix". That needs the
+    # transport intercepted rather than the client mocked - a mocked client
+    # asserts what we told it to send, not what would go over the wire, and the
+    # criterion is specifically about not leaking the password's full hash.
+    "respx>=0.22",
     # A real Redis, in process. `RedisStore`'s claim is a single `SET ... NX`,
     # and asserting that it is atomic against a hand-written double would be
     # asserting against my own assumption rather than against Redis.

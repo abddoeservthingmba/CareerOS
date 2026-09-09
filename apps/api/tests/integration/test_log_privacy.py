@@ -17,11 +17,13 @@ from __future__ import annotations
 
 import logging
 import uuid
+from collections.abc import AsyncIterator
 from typing import Any
 
 import pytest
 import structlog
 
+from app.core import consent
 from app.core import logging as app_logging
 from app.core.redaction import REDACTED
 from app.infra.email.base import SendFailed
@@ -161,10 +163,10 @@ async def _no_sleep(seconds: float) -> None:
 # contains none of: the test email address, the test password, any JWT, any
 # OTP, any substring of the test resume, any substring of a job description."
 #
-# **Four of those five flows do not exist.** Registration and login are `AUTH-01`
-# and `AUTH-02` in P1; resume upload is `RES-01` in P2; pack generation is
-# `APPLY-02` in P4; the reminder send is `NOTIF-05` in P6. `app/modules/` is
-# empty.
+# **Registration exists as of `AUTH-01`** and is asserted end-to-end at the
+# bottom of this file. The other four do not: login is `AUTH-02` in P1, resume
+# upload `RES-01` in P2, pack generation `APPLY-02` in P4, the reminder send
+# `NOTIF-05` in P6.
 #
 # What is asserted below is the mechanism every one of those flows will pass
 # through: the processor chain that every line - ours and every library's -
@@ -186,7 +188,12 @@ FLOWS: dict[str, str] = {
 #: flow would realistically pass them under. The name matters: redaction is by
 #: key first, and the key a careless author reaches for is the field's own name.
 SECRETS = {
-    "email": "candidate.private@example.test",
+    # `example.com`, not `example.test`: the registration flow below validates
+    # this through `EmailStr`, and `email-validator` refuses reserved
+    # special-use TLDs. The address only has to be a real *shape* to be a
+    # useful secret, and being rejected before it reaches a log line would make
+    # every assertion here pass for the wrong reason.
+    "email": "candidate.private@example.com",
     "password": "correct-horse-battery-staple",
     "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMUowIn0.7mQ1kM3xVQ0bK9Zl2pR4sT6uW8yA1cE3gI5kM7oQ9sU",
     "otp": "483920",
@@ -268,9 +275,16 @@ def test_none_of_the_five_flows_is_reachable_yet(repo):
         ):
             present.append(path.name)
 
-    assert present == [], (
-        f"{present} now expose routes; add their flows to this file's end-to-end "
-        f"assertion. Owed: {FLOWS}"
+    # `auth` landed with `AUTH-01`, and its flow - registration - is asserted
+    # end-to-end by `test_registration_logs_no_secret` below. So it is expected
+    # here rather than a failure; every *other* module appearing is still the
+    # prompt this sentinel exists to give.
+    asserted = {"auth"}
+    unasserted = [name for name in present if name not in asserted]
+
+    assert unasserted == [], (
+        f"{unasserted} now expose routes; add their flows to this file's end-to-end "
+        f"assertion. Owed: {sorted(set(FLOWS) - {'registration'})}"
     )
 
 
@@ -343,3 +357,74 @@ def test_the_capture_would_have_seen_a_leak(pipeline):
     app_logging.get_logger("app.flow").info("a step", stage="gathering")
 
     assert "gathering" in rendered(pipeline)
+
+
+# --- the registration flow, end to end -------------------------------------
+#
+# `FLOWS["registration"] = "AUTH-01"`, and it is now reachable, so the sentinel
+# above no longer covers it - this does. The chain being right in the abstract
+# is not the same claim as one real flow passing a password and an email
+# through it and neither reaching a log line.
+
+
+@pytest.fixture
+async def registration_documents(database: Any) -> AsyncIterator[Any]:
+    from beanie import init_beanie
+
+    from app.modules.auth.models import EmailToken, User
+
+    await init_beanie(database=database, document_models=[User, EmailToken])
+    yield database
+
+
+async def test_registration_logs_no_secret(pipeline, registration_documents: Any) -> None:
+    """`AC-FOUND-14.1` for §14's first flow.
+
+    Registration handles two of the six: the submitted password and the
+    address. Both are refused a log line - the password because nothing should
+    ever write it, and the address because a log that pairs an address with
+    "registration attempted" is a list of who has an account here.
+
+    The email transport is made to fail on purpose. `service._send` catches and
+    logs, and that handler is the most likely place for an address to leak: it
+    is the one path with something to report and a `user` in scope.
+    """
+    from app.core.events import EventBus
+    from app.infra.email.senders import MemorySender
+    from app.infra.email.templates import build_registry
+    from app.modules.auth.repository import EmailTokenRepository, UserRepository
+    from app.modules.auth.schemas import RegisterRequest
+    from app.modules.auth.service import AuthService
+
+    email = MemorySender(build_registry(), sender_address="no-reply@test", product_name="JobPilot")
+    email.fail_with = SendFailed("memory", 503, "unavailable")
+    email.fail_times = -1
+
+    service = AuthService(
+        users=UserRepository(),
+        email_tokens=EmailTokenRepository(),
+        email=email,
+        breaches=None,
+        events=EventBus(),
+        product_name="JobPilot",
+        web_origin="http://localhost:5173",
+        min_register_millis=0,
+    )
+
+    await service.register(
+        RegisterRequest(
+            email=SECRETS["email"],
+            password=SECRETS["password"],
+            consent_version=consent.CONSENT_VERSION,
+            consent_items=list(consent.item_keys()),
+        ),
+        ip="203.0.113.9",
+    )
+
+    text = rendered(pipeline)
+    assert SECRETS["password"] not in text, "the submitted password reached a log line"
+    assert SECRETS["email"] not in text, "the registered address reached a log line"
+    # The failure itself must still be visible - a flow that logs nothing is
+    # private and unoperable, and this is the negative control for the two
+    # assertions above.
+    assert "registration email failed" in text

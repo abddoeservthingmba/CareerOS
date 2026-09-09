@@ -98,6 +98,16 @@ def test_no_default_silently_disables_a_feature():
         # `AC-AI-05.7` - the allowlisted default is the value production wants,
         # and anything else fails the boot rather than being silently accepted.
         "GEMINI_BASE_URL",
+        # `AUTH-01` §1's breach service. Optional and not silent: blank means
+        # the call is not made, and §1 fixes what that does - allow the
+        # registration and increment `breach_check_unavailable`. The metric is
+        # what stops an unset value from being an invisible bypass.
+        "PWNED_PASSWORDS_BASE_URL",
+        # `AC-AUTH-01.4`'s timing floor. A default is required rather than
+        # optional-in-spirit: unset, registration would be as fast as it
+        # happens to be, and the enumeration gap the criterion forbids would
+        # reappear silently. 400 ms is the shipped value.
+        "REGISTER_MIN_MILLIS",
         "ADZUNA_APP_ID",
         "ADZUNA_APP_KEY",
         "RESEND_API_KEY",
