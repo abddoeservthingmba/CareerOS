@@ -1,0 +1,59 @@
+# What reaches the Docker build daemon. The context is the repository root
+# (see the header of `apps/api/Dockerfile` for why), so this file is what keeps
+# that from meaning "upload everything".
+#
+# Secrets never enter the repo, and they never enter an image layer either
+# (`AC-OPS-02.6`). `.env` is gitignored, but a `docker build` uploads the
+# *directory*, not the commit — the same reason `.vercelignore` repeats the
+# exclusion. Third lock on the same door.
+.env
+.env.*
+!.env.example
+
+.git
+.github
+
+# Virtualenvs are platform-specific and enormous; the image builds its own from
+# `uv.lock`. `apps/api/.venv` in particular is a Windows venv on this machine
+# and would poison a Linux image.
+.venv
+apps/api/.venv
+
+# The web client is built and hosted separately (Vercel today, Cloudflare Pages
+# per `15-infra-and-ops.md` §2). None of it belongs in the API image.
+apps/web
+apps/mobile
+packages
+
+# `docs/spec/ai-budget.yaml` is the one exception: `app/ai/budget.py` reads it
+# at import time. Everything else under `docs/` is product decisions with no
+# runtime role, so it is excluded and the Dockerfile copies the single file
+# back in by name.
+docs/adr
+docs/compliance
+docs/runbooks
+docs/spec/*.md
+docs/spec/*.json
+docs/spec/*.py
+docs/*.md
+
+# The spec tooling and the operational scripts run in CI and on a workstation,
+# never in the runtime image.
+infra
+apps/api/tests
+
+# Build caches and local artifacts.
+**/__pycache__
+**/*.py[cod]
+.pytest_cache
+.ruff_cache
+.mypy_cache
+node_modules
+**/node_modules
+.vite
+**/dist
+
+# Editors and OS
+.DS_Store
+.idea
+*.swp
