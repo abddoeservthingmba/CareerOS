@@ -183,9 +183,44 @@ class Settings(BaseSettings):
     FLAG_INGESTION_ENABLED: bool = True
 
     # -- limits (config, not literals - `AC-AUTH-09.6`) ---------------------
+    #
+    # `02-auth-and-account.md` §9's R1 table, in full. Two dimensions on every
+    # auth route and both enforced: an attacker rotating IPs is caught by the
+    # account dimension, one hitting many accounts from a single IP by the IP
+    # dimension. Each dimension carries a short window and a long one, because
+    # a per-minute limit alone permits 600 attempts an hour.
     RATE_LOGIN_PER_MIN_IP: int = 10
+    RATE_LOGIN_PER_HOUR_IP: int = 60
     RATE_LOGIN_PER_MIN_EMAIL: int = 5
+    RATE_LOGIN_PER_HOUR_EMAIL: int = 20
+    RATE_REGISTER_PER_HOUR_IP: int = 5
+    RATE_RESET_PER_HOUR_IP: int = 10
+    RATE_RESET_PER_HOUR_EMAIL: int = 3
+    RATE_VERIFY_RESEND_PER_HOUR_ACCOUNT: int = 3
+    RATE_REFRESH_PER_MIN_IP: int = 30
     RATE_GENERAL_PER_MIN_USER: int = 300
+
+    #: Which peers may speak for the client's address.
+    #:
+    #: §9 says the client IP comes from `CF-Connecting-IP` "and only when the
+    #: request arrives from a Cloudflare address; otherwise from the socket",
+    #: and that `X-Forwarded-For` is never trusted. That is correct behind
+    #: Cloudflare and wrong everywhere else: on a managed container host every
+    #: request arrives from the platform's proxy, so the socket address is
+    #: identical for every user and the per-IP dimension becomes one shared
+    #: bucket that locks out the whole userbase at the first limit.
+    #:
+    #: So the trust boundary is configuration rather than a hardcoded vendor.
+    #: Empty - the default - means trust nothing and use the socket address,
+    #: which is the specified behaviour. Populated, it names the proxies whose
+    #: forwarding headers may be believed; `ratelimit.client_ip` then walks
+    #: `X-Forwarded-For` from the right and stops at the first hop outside the
+    #: list, so a client-supplied prefix cannot forge an address.
+    #:
+    #: NOTE: this extends §9 and needs the spec to catch up - the constraint
+    #: as written admits no configuration, and `15-infra-and-ops.md` §5's
+    #: variable list does not have this row. Recorded rather than improvised.
+    TRUSTED_PROXY_CIDRS: str = ""
 
     @field_validator("PRODUCT_NAME", "CONNECTOR_USER_AGENT", "EMAIL_FROM")
     @classmethod

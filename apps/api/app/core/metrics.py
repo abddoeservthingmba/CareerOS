@@ -43,6 +43,8 @@ from prometheus_client import (
     generate_latest,
 )
 
+from app.core.errors import ErrorCode
+
 #: Its own registry rather than the process-global default. Two apps in one test
 #: session would otherwise raise on duplicate registration, and - worse - a
 #: metric registered by an imported library would appear in ours.
@@ -123,6 +125,24 @@ email_sent = Counter(
     "email_sent",
     "Transactional email delivery, by template and outcome (FOUND-16)",
     labelnames=("template", "outcome"),
+    registry=REGISTRY,
+)
+
+#: `AUTH-09`'s named output: "a `rate_limited` metric by route".
+#:
+#: Labelled by dimension as well, because the operational question is never
+#: just "are we shedding requests" - it is whether the account dimension is
+#: firing (someone is being targeted) or the IP dimension (one source is
+#: sweeping), and those want different responses.
+#: The name comes from the enum member rather than a string literal, and not
+#: only to satisfy `AC-FOUND-12.4`'s no-bare-code rule: the metric and the error
+#: code are the same fact seen from two sides. A refused request increments this
+#: and answers `rate_limited`, so if one is ever renamed the other has to move
+#: with it, and this makes that automatic instead of a grep.
+rate_limited = Counter(
+    ErrorCode.RATE_LIMITED.value,
+    "Requests refused by the limiter, by route and dimension (AUTH-09)",
+    labelnames=("route", "dimension"),
     registry=REGISTRY,
 )
 

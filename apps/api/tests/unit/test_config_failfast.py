@@ -123,9 +123,20 @@ def test_no_default_silently_disables_a_feature():
         "AI_CACHE_TTL_DAYS",
         "INGEST_MAX_QUERIES_PER_RUN",
         "INGEST_DEFAULT_CRON",
-        "RATE_LOGIN_PER_MIN_IP",
-        "RATE_LOGIN_PER_MIN_EMAIL",
-        "RATE_GENERAL_PER_MIN_USER",
+        # `02-auth-and-account.md` §9's table, and the reason it is optional is
+        # the requirement's own: "Limits are config, not literals, so they can
+        # be tuned in R2 without a deploy." A required field per limit would
+        # make every deployment restate the defaults the spec already fixes.
+        # A comprehension rather than a list, so a limit added to `Settings`
+        # cannot be forgotten here - but `test_ratelimit_config.py` still
+        # asserts every one of them is *read* by the policy, which is what stops
+        # this from becoming a way to add a knob nobody wired up.
+        *(n for n in Settings.model_fields if n.startswith("RATE_")),
+        # `AUTH-09`'s trust boundary. Empty is not a disabled feature: it is
+        # §9's specified behaviour - believe no forwarding header, use the
+        # socket address - and it is the *safe* end, so a deployment that never
+        # sets it is correct rather than unprotected.
+        "TRUSTED_PROXY_CIDRS",
         "AI_PROVIDER_RPM",
         # `05-ai-layer.md` §3.1's optional per-feature caps. Zero means "no cap
         # of its own", not "no spending allowed": the feature is bound by the

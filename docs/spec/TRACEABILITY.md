@@ -299,12 +299,12 @@ Requirement → track → acceptance criterion → test → status.
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.5` | `T-AUTH-07.5` | `tests/integration/test_deletion_audit.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.6` | `T-AUTH-07.6` | `tests/integration/test_purge_failure.py` | test not written |
 | `AUTH-07` | R1 | P1 | `AC-AUTH-07.7` | `T-AUTH-07.7` | `tests/integration/test_purge_isolation.py` | test present |
-| `AUTH-09` | R1 | P1 | `AC-AUTH-09.1` | `T-AUTH-09.1` | `tests/integration/test_rate_limits.py` | test not written |
-| `AUTH-09` | R1 | P1 | `AC-AUTH-09.2` | `T-AUTH-09.2` | `tests/integration/test_rate_limits.py` | test not written |
-| `AUTH-09` | R1 | P1 | `AC-AUTH-09.3` | `T-AUTH-09.3` | `tests/integration/test_rate_limits.py` | test not written |
-| `AUTH-09` | R1 | P1 | `AC-AUTH-09.4` | `T-AUTH-09.4` | `tests/integration/test_client_ip_resolution.py` | test not written |
-| `AUTH-09` | R1 | P1 | `AC-AUTH-09.5` | `T-AUTH-09.5` | `tests/integration/test_ratelimit_redis_down.py` | test not written |
-| `AUTH-09` | R1 | P1 | `AC-AUTH-09.6` | `T-AUTH-09.6` | `tests/spec/test_ratelimit_config.py` | test not written |
+| `AUTH-09` | R1 | P1 | `AC-AUTH-09.1` | `T-AUTH-09.1` | `tests/integration/test_rate_limits.py` | test present |
+| `AUTH-09` | R1 | P1 | `AC-AUTH-09.2` | `T-AUTH-09.2` | `tests/integration/test_rate_limits.py` | test present |
+| `AUTH-09` | R1 | P1 | `AC-AUTH-09.3` | `T-AUTH-09.3` | `tests/integration/test_rate_limits.py` | test present |
+| `AUTH-09` | R1 | P1 | `AC-AUTH-09.4` | `T-AUTH-09.4` | `tests/integration/test_client_ip_resolution.py` | test present |
+| `AUTH-09` | R1 | P1 | `AC-AUTH-09.5` | `T-AUTH-09.5` | `tests/integration/test_ratelimit_redis_down.py` | test present |
+| `AUTH-09` | R1 | P1 | `AC-AUTH-09.6` | `T-AUTH-09.6` | `tests/spec/test_ratelimit_config.py` | test present |
 | `AUTH-10` | R1 | P1 | `AC-AUTH-10.1` | `T-AUTH-10.1` | `tests/integration/test_cross_tenant_sweep.py` | test not written |
 | `AUTH-10` | R1 | P1 | `AC-AUTH-10.2` | `T-AUTH-10.2` | `tests/integration/test_cross_tenant_sweep.py` | test not written |
 | `AUTH-10` | R1 | P1 | `AC-AUTH-10.3` | `T-AUTH-10.3` | `tests/integration/test_cross_tenant_sweep.py` | test not written |
@@ -382,7 +382,7 @@ Requirement → track → acceptance criterion → test → status.
 | `RES-01` | R1 | P2 | `AC-RES-01.4` | `T-RES-01.4` | `tests/integration/test_email_verification.py` | test not written |
 | `RES-01` | R1 | P2 | `AC-RES-01.5` | `T-RES-01.5` | `tests/integration/test_upload_idempotency.py` | test not written |
 | `RES-01` | R1 | P2 | `AC-RES-01.6` | `T-RES-01.6` | `tests/integration/test_resume_replacement.py` | test not written |
-| `RES-01` | R1 | P2 | `AC-RES-01.7` | `T-RES-01.7` | `tests/integration/test_rate_limits.py` | test not written |
+| `RES-01` | R1 | P2 | `AC-RES-01.7` | `T-RES-01.7` | `tests/integration/test_rate_limits.py` | test present |
 | `RES-02a` | R1 | P2 | `AC-RES-02.1` | `T-RES-02.1` | `tests/unit/test_text_extraction.py` | test not written |
 | `RES-02a` | R1 | P2 | `AC-RES-02.2` | `T-RES-02.2` | `tests/unit/test_text_extraction.py` | test not written |
 | `RES-02a` | R1 | P2 | `AC-RES-02.3` | `T-RES-02.3` | `tests/unit/test_text_extraction.py` | test not written |
